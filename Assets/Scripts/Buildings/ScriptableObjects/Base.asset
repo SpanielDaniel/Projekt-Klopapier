@@ -10,6 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ebd08c17ea8b4256b220648d24996397, type: 3}
-  m_Name: asd
+  m_Name: Base
   m_EditorClassIdentifier: 
+  Name: 
   Description: 
+  BuldingTexture: {fileID: 0}
+  MaxLife: 0
+  WoodCosts: 0
+  StoneCosts: 0
+  SteelCosts: 0
