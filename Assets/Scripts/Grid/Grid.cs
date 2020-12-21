@@ -4,22 +4,20 @@ using UnityEngine;
 
 public class Grid : MonoBehaviour
 {
-    [SerializeField]
-    private Transform startPosition;
-    [SerializeField]
-    private LayerMask mask;
-    [SerializeField]
-    private Vector2 gridWorldSize;
-    [SerializeField]
-    private float nodeRadius;
-    [SerializeField]
-    private float distance;
+    public LayerMask Wall;
 
-    Node[,] grid;
-    public List<Node> finalPath;
+    public Transform startPosition;
+    public Vector2 gridWorldSize;
+    public float nodeRadius;
+    public float distanceNodes;
 
-    private float nodeDiameter;
-    private int gridSizeX, gridSizeY;
+    Node[,] NodeArray;
+    public List<Node> FinalPath;
+
+
+    float nodeDiameter;
+    int gridSizeX, gridSizeY;
+
 
     private void Start()
     {
@@ -29,120 +27,110 @@ public class Grid : MonoBehaviour
         CreateGrid();
     }
 
-    private void CreateGrid()
+    void CreateGrid()
     {
-        grid = new Node[gridSizeX, gridSizeY];
+        NodeArray = new Node[gridSizeX, gridSizeY];
         Vector3 bottomLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - Vector3.forward * gridWorldSize.y / 2;
         for (int x = 0; x < gridSizeX; x++)
         {
             for (int y = 0; y < gridSizeY; y++)
             {
-                Vector3 worldPosition = bottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.forward * (y * nodeDiameter + nodeRadius);
-                bool Wall = false;
+                Vector3 worldPoint = bottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.forward * (y * nodeDiameter + nodeRadius);
+                bool Wall = true;
 
-                if (Physics.CheckSphere(worldPosition, nodeRadius, mask))
+                if (Physics.CheckSphere(worldPoint, nodeRadius, this.Wall))
                 {
-                    Wall = true;
+                    Wall = false;
                 }
 
-                grid[x,y] = new Node(Wall, worldPosition, x, y);
+                NodeArray[x, y] = new Node(Wall, worldPoint, x, y);
             }
         }
     }
 
-    public Node NodeFromWorldPosition(Vector3 a_WorldPosition)
+    public List<Node> GetNeighboringNodes(Node a_NeighborNode)
     {
-        float xpoint = ((a_WorldPosition.x + gridWorldSize.x / 2) / gridWorldSize.x);
-        float ypoint = ((a_WorldPosition.z + gridWorldSize.y / 2) / gridWorldSize.y);
+        List<Node> NeighborList = new List<Node>();
+        int Xcheck;
+        int Ycheck;
 
-        xpoint = Mathf.Clamp01(xpoint);
-        ypoint = Mathf.Clamp01(ypoint);
+        //Check the right side of the current node.
+        Xcheck = a_NeighborNode.iGridX + 1;
+        Ycheck = a_NeighborNode.iGridY;
+        if (Xcheck >= 0 && Xcheck < gridSizeX)
+        {
+            if (Ycheck >= 0 && Ycheck < gridSizeY)
+            {
+                NeighborList.Add(NodeArray[Xcheck, Ycheck]);
+            }
+        }
+        //Check the Left side of the current node.
+        Xcheck = a_NeighborNode.iGridX - 1;
+        Ycheck = a_NeighborNode.iGridY;
+        if (Xcheck >= 0 && Xcheck < gridSizeX)
+        {
+            if (Ycheck >= 0 && Ycheck < gridSizeY)
+            {
+                NeighborList.Add(NodeArray[Xcheck, Ycheck]);
+            }
+        }
+        //Check the Top side of the current node.
+        Xcheck = a_NeighborNode.iGridX;
+        Ycheck = a_NeighborNode.iGridY + 1;
+        if (Xcheck >= 0 && Xcheck < gridSizeX)
+        {
+            if (Ycheck >= 0 && Ycheck < gridSizeY)
+            {
+                NeighborList.Add(NodeArray[Xcheck, Ycheck]);
+            }
+        }
+        //Check the Bottom side of the current node.
+        Xcheck = a_NeighborNode.iGridX;
+        Ycheck = a_NeighborNode.iGridY - 1;
+        if (Xcheck >= 0 && Xcheck < gridSizeX)
+        {
+            if (Ycheck >= 0 && Ycheck < gridSizeY)
+            {
+                NeighborList.Add(NodeArray[Xcheck, Ycheck]);
+            }
+        }
 
-        int x = Mathf.RoundToInt((gridSizeX - 1) * xpoint);
-        int y = Mathf.RoundToInt((gridSizeY - 1) * ypoint);
-
-        return grid[x, y];
+        return NeighborList;
     }
 
-    public List<Node> GetNeighborNodes(Node a_Node)
+    //Gets the closest node to the given world position.
+    public Node NodeFromWorldPoint(Vector3 a_vWorldPos)
     {
-        List<Node> NeighborNodes = new List<Node>();
-        int xCheck;
-        int yCheck;
+        float ixPos = ((a_vWorldPos.x + gridWorldSize.x / 2) / gridWorldSize.x);
+        float iyPos = ((a_vWorldPos.z + gridWorldSize.y / 2) / gridWorldSize.y);
 
-        //RightSide
-        xCheck = a_Node.gridX + 1;
-        yCheck = a_Node.gridY;
-        if (xCheck >= 0 && xCheck < gridSizeX)
-        {
-            if (yCheck >= 0 && yCheck < gridSizeY)
-            {
-                NeighborNodes.Add(grid[xCheck, yCheck]);
-            }
-        }
+        ixPos = Mathf.Clamp01(ixPos);
+        iyPos = Mathf.Clamp01(iyPos);
 
-        //LeftSide
-        xCheck = a_Node.gridX - 1;
-        yCheck = a_Node.gridY;
-        if (xCheck >= 0 && xCheck < gridSizeX)
-        {
-            if (yCheck >= 0 && yCheck < gridSizeY)
-            {
-                NeighborNodes.Add(grid[xCheck, yCheck]);
-            }
-        }
+        int ix = Mathf.RoundToInt((gridSizeX - 1) * ixPos);
+        int iy = Mathf.RoundToInt((gridSizeY - 1) * iyPos);
 
-        //TopSide
-        xCheck = a_Node.gridX;
-        yCheck = a_Node.gridY + 1;
-        if (xCheck >= 0 && xCheck < gridSizeX)
-        {
-            if (yCheck >= 0 && yCheck < gridSizeY)
-            {
-                NeighborNodes.Add(grid[xCheck, yCheck]);
-            }
-        }
-
-        //BottomSide
-        xCheck = a_Node.gridX;
-        yCheck = a_Node.gridY - 1;
-        if (xCheck >= 0 && xCheck < gridSizeX)
-        {
-            if (yCheck >= 0 && yCheck < gridSizeY)
-            {
-                NeighborNodes.Add(grid[xCheck, yCheck]);
-            }
-        }
-
-        return NeighborNodes;
+        return NodeArray[ix, iy];
     }
 
+
+    //Function that draws the wireframe
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, 1, gridWorldSize.y));
 
-        if (grid != null)
+        if (NodeArray != null)
         {
-            foreach (Node node in grid)
+            foreach (Node n in NodeArray)
             {
-                if (node.IsWall)
-                {
-                    Gizmos.color = Color.white;
-                }
-                else
-                {
-                    Gizmos.color = Color.yellow;
-                }
+                if (n.bIsWall) Gizmos.color = Color.white;
+                else Gizmos.color = Color.yellow;
 
-                if (finalPath != null)
+                if (FinalPath != null)
                 {
-                    if (finalPath.Contains(node))
-                    {
-                        Gizmos.color = Color.red;
-                    }
+                    if (FinalPath.Contains(n)) Gizmos.color = Color.red;
                 }
-                
-                Gizmos.DrawCube(node.position, Vector3.one * (nodeDiameter - distance));
+                Gizmos.DrawCube(n.vPosition, Vector3.one * (nodeDiameter - distanceNodes));
             }
         }
     }
