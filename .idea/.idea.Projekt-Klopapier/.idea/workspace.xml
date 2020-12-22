@@ -10,17 +10,55 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Interfaces/IMouseEnter.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Assets/Scripts/Singleton.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/CameraController.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Player/CameraController.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Buildings/Base.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Buildings/Bulding.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Buildings/BuildingObject.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UI Scripts/Slots.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Player/MouseController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Buildings/BuildingStats.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UI Scripts/Slot.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Player/CameraController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Buildings/HealthBar.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Build/BuildSlot.cs" />
+        <option value="$PROJECT_DIR$/Assets/Shader/NewImageEffectShader.shader" />
+        <option value="$PROJECT_DIR$/../../../../GPR5300/WorkWithShader_Direct11/Assets/Shader/Silhouette.shader" />
+        <option value="$PROJECT_DIR$/Assets/Shader/Silhouette.shader" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UI Scripts/InGameUI.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Enums.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/HUD.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/HudBase.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/PointerHudHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UI Scripts/BuildingUIManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Build/Test.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/TestScripts/TestClass.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UIPointerStayAction.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/TestScripts/ITest.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/TestScripts/TestBase.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/IMouse.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UI Scripts/UIPointerHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/IMEnter.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/IMouseEnter.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/IMouseStay.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/IMouseExit.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/ImouseLeftClick.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/IMouseLeftClick.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Player/PlayerController.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Buildings/Building.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UI Scripts/UISlot.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UI Scripts/UIManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Build/BuildManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UI Scripts/UIBuildingManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UI Scripts/HudBase.cs" />
       </list>
     </option>
   </component>
@@ -33,7 +71,7 @@
     <property name="Discover.Launch.Via.Unity" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="RiderUnityFileTemplatesSettings" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
@@ -65,7 +103,14 @@
       <option name="presentableId" value="Default" />
       <updated>1607691484930</updated>
       <workItem from="1607691489626" duration="5291000" />
-      <workItem from="1607696808053" duration="1050000" />
+      <workItem from="1607696808053" duration="1658000" />
+      <workItem from="1607877512405" duration="3587000" />
+      <workItem from="1607946318319" duration="9460000" />
+      <workItem from="1608128728392" duration="10384000" />
+      <workItem from="1608213239337" duration="19782000" />
+      <workItem from="1608306149892" duration="4916000" />
+      <workItem from="1608493611998" duration="15777000" />
+      <workItem from="1608575046841" duration="8072000" />
     </task>
     <servers />
   </component>
@@ -78,9 +123,34 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1607695697819">
+    <state x="764" y="221" key="RiderGenerateDialog" timestamp="1608515433755">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="-1156" y="221" key="RiderGenerateDialog/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1608308129412" />
+    <state x="764" y="221" key="RiderGenerateDialog/1920.0.1920.1040/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608515433755" />
+    <state x="2381" y="164" key="SettingsEditor" timestamp="1608510451500">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2381" y="164" key="SettingsEditor/1920.0.1920.1040/3840.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1608510451500" />
+    <state x="337" y="0" width="1599" height="1000" key="dock-window-1" timestamp="1608590477119">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1222" y="391" width="1493" height="1000" key="dock-window-1/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1608223320643" />
+    <state x="337" y="0" width="1599" height="1000" key="dock-window-1/1920.0.1920.1040/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608590477119" />
+    <state x="60" y="19" width="1493" height="1000" key="dock-window-2" timestamp="1608226800466">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="60" y="19" width="1493" height="1000" key="dock-window-2/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1608226800466" />
+    <state x="2298" y="243" key="run.anything.popup" timestamp="1607955804944">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2298" y="243" key="run.anything.popup/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@1920.0.1920.1040" timestamp="1607955804944" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1608517057534">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1297" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1608308512461" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1607695697819" />
+    <state x="2543" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@1920.0.1920.1040" timestamp="1607957859243" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/1920.0.1920.1040/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608517057534" />
   </component>
 </project>

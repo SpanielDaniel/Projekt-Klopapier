@@ -19,16 +19,16 @@ public class CameraController : MonoBehaviour
         Vector3 pos = transform.position;
         
         // Movement forward, backward, right and left.
-        if (Input.GetKey(KeyCode.W)||  Input.mousePosition.y >= Screen.height - PanBorderThickness) 
+        if (Input.GetKey(KeyCode.W) ||  Input.mousePosition.y >= Screen.height - PanBorderThickness && Input.mousePosition.x <= Screen.height + PanBorderThickness) 
             pos += Vector3.forward * (Time.deltaTime * MovementSpeed);
         
-        if (Input.GetKey(KeyCode.S)||  Input.mousePosition.y <= PanBorderThickness) 
+        if (Input.GetKey(KeyCode.S) ||  Input.mousePosition.y <= PanBorderThickness && Input.mousePosition.y >= -PanBorderThickness) 
             pos += Vector3.back * (Time.deltaTime * MovementSpeed);
         
-        if (Input.GetKey(KeyCode.D)||  Input.mousePosition.x >= Screen.width - PanBorderThickness) 
+        if (Input.GetKey(KeyCode.D) ||  Input.mousePosition.x >= Screen.width - PanBorderThickness && Input.mousePosition.x <= Screen.width + PanBorderThickness) 
             pos += Vector3.right * (Time.deltaTime * MovementSpeed);
         
-        if (Input.GetKey(KeyCode.A)||  Input.mousePosition.x <= PanBorderThickness) 
+        if (Input.GetKey(KeyCode.A) ||  Input.mousePosition.x <= PanBorderThickness && Input.mousePosition.x >= -PanBorderThickness) 
             pos += Vector3.left * (Time.deltaTime * MovementSpeed);
         
         // Scrolling up and down dependence of the scroll speed
