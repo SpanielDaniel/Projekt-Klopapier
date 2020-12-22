@@ -15,6 +15,11 @@
           </e>
           <e p="Enums.cs" t="Include" />
           <e p="GameManager.cs" t="Include" />
+          <e p="Grid" t="Include">
+            <e p="Grid.cs" t="Include" />
+            <e p="Node.cs" t="Include" />
+            <e p="Pathfinding.cs" t="Include" />
+          </e>
           <e p="Interfaces" t="Include">
             <e p="IMouseEnter.cs" t="Include" />
             <e p="IMouseExit.cs" t="Include" />
@@ -38,6 +43,10 @@
             <e p="UIManager.cs" t="Include" />
             <e p="UIPointerHandler.cs" t="Include" />
             <e p="UISlot.cs" t="Include" />
+          </e>
+          <e p="Unit Scripts" t="Include">
+            <e p="Unit.cs" t="Include" />
+            <e p="UnitMovement.cs" t="Include" />
           </e>
         </e>
         <e p="Shader" t="Include">
