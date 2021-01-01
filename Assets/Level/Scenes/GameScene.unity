@@ -294,6 +294,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 343177143}
     m_Modifications:
     - target: {fileID: -5262328489597989246, guid: e7ca82842de85fc41a639a7a45893af9, type: 3}
+      propertyPath: buildingData
+      value: 
+      objectReference: {fileID: 11400000, guid: 454f3d97bfa497046b846fab33612a78, type: 2}
+    - target: {fileID: -5262328489597989246, guid: e7ca82842de85fc41a639a7a45893af9, type: 3}
       propertyPath: BuildingStats
       value: 
       objectReference: {fileID: 11400000, guid: 454f3d97bfa497046b846fab33612a78, type: 2}
@@ -2714,6 +2718,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 343177143}
     m_Modifications:
     - target: {fileID: -5262328489597989246, guid: e7ca82842de85fc41a639a7a45893af9, type: 3}
+      propertyPath: buildingData
+      value: 
+      objectReference: {fileID: 11400000, guid: 4a5e2ecb0d8afb143888fb072f1586d2, type: 2}
+    - target: {fileID: -5262328489597989246, guid: e7ca82842de85fc41a639a7a45893af9, type: 3}
       propertyPath: BuildingStats
       value: 
       objectReference: {fileID: 11400000, guid: 4a5e2ecb0d8afb143888fb072f1586d2, type: 2}
@@ -4085,6 +4093,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 343177143}
     m_Modifications:
     - target: {fileID: -5262328489597989246, guid: e7ca82842de85fc41a639a7a45893af9, type: 3}
+      propertyPath: buildingData
+      value: 
+      objectReference: {fileID: 11400000, guid: 05697f39a7bc5144ba6aad05bceb1b59, type: 2}
+    - target: {fileID: -5262328489597989246, guid: e7ca82842de85fc41a639a7a45893af9, type: 3}
       propertyPath: BuildingStats
       value: 
       objectReference: {fileID: 11400000, guid: 05697f39a7bc5144ba6aad05bceb1b59, type: 2}
@@ -5043,6 +5055,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 343177143}
     m_Modifications:
     - target: {fileID: -5262328489597989246, guid: e7ca82842de85fc41a639a7a45893af9, type: 3}
+      propertyPath: buildingData
+      value: 
+      objectReference: {fileID: 11400000, guid: 67322fef1e40c9f49ba5ac75386766f0, type: 2}
+    - target: {fileID: -5262328489597989246, guid: e7ca82842de85fc41a639a7a45893af9, type: 3}
       propertyPath: BuildingStats
       value: 
       objectReference: {fileID: 11400000, guid: 67322fef1e40c9f49ba5ac75386766f0, type: 2}
@@ -5481,6 +5497,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 343177143}
     m_Modifications:
+    - target: {fileID: -5262328489597989246, guid: e7ca82842de85fc41a639a7a45893af9, type: 3}
+      propertyPath: buildingData
+      value: 
+      objectReference: {fileID: 11400000, guid: 1cb64d3ec330a324fab0f0e63ceaa09b, type: 2}
     - target: {fileID: -5262328489597989246, guid: e7ca82842de85fc41a639a7a45893af9, type: 3}
       propertyPath: BuildingStats
       value: 
@@ -6185,7 +6205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1174e71169ffcd94c9e01a2e4c2a971d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DHuds:
+  UIManagersWithVisibility:
   - {fileID: 1037899817}
   - {fileID: 1657981363}
 --- !u!1 &2111499956

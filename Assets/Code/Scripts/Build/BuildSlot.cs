@@ -14,24 +14,24 @@ namespace Build
         , IPointerEnterHandler
         , IPointerExitHandler
     {
-        [SerializeField] private BuildingStats BuildingStats;
+        [SerializeField] private BuildingData buildingData;
         [SerializeField] private Image BorderImage;
         [SerializeField] private Image IconImage;
         [SerializeField] private Text BuildingName;
         [SerializeField] private Color NormalColor;
         [SerializeField] private Color MouseEnterColor;
 
-        public static event Action<BuildingStats> OnMouseClick;
+        public static event Action<BuildingData> OnMouseClick;
 
         private void Start()
         {
-            IconImage.sprite = BuildingStats.BuldingTexture;
-            BuildingName.text = BuildingStats.Name;
+            IconImage.sprite = buildingData.BuldingTexture;
+            BuildingName.text = buildingData.Name;
         }
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            OnMouseClick?.Invoke(BuildingStats);
+            OnMouseClick?.Invoke(buildingData);
         }
 
         public void OnPointerEnter(PointerEventData eventData)

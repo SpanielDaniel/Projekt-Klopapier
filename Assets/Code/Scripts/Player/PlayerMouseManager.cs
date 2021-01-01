@@ -2,17 +2,13 @@
 // Author   : Daniel Bäcker
 // Project  : Projekt-Klopapier
 
-using System;
-using UI_Scripts;
 using UnityEngine;
 using Build;
 using Interfaces;
-using NUnit.Framework.Internal;
-using TestScripts;
 
 namespace Player
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerMouseManager : MonoBehaviour
     {
         
         [SerializeField] private BuildManager BuildManager;
@@ -27,7 +23,7 @@ namespace Player
         {
             MousePos = Input.mousePosition;
             
-            if (UIPointerHandler.GetIsInHut) return;
+            if (UIPointerInHudManager.GetIsInHut) return;
 
             if (BuildManager.GetIsBuilding)
             {

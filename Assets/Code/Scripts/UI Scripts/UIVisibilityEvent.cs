@@ -2,27 +2,32 @@
 // Author   : Daniel Bäcker
 // Project  : Projekt-Klopapier
 
+
+
 using System;
 using UnityEngine;
 
 namespace UI_Scripts
 {
-    public class HudBase : MonoBehaviour
+    public class UIVisibilityEvent : MonoBehaviour
     {
-        public static event Action<HudBase,bool> OnHudVisableChanged;
+        public static event Action<UIVisibilityEvent,bool> OnHudVisibleChanged;
 
         private bool IsHudOpen = false;
-        
         protected bool IsHudOpenH
         {
             set
             {
                 IsHudOpen = value;
-                OnHudVisableChanged?.Invoke(this,IsHudOpen);
+                OnHudVisibleChanged?.Invoke(this,IsHudOpen);
             }
             get => IsHudOpen;
         }
         
+        /// <summary>
+        /// Deactivates specific UI elements.
+        /// </summary>
+        /// <param name="_isActive"></param>
         public virtual void SetUIActive (bool _isActive){}
     }
 }

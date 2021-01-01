@@ -19,9 +19,11 @@ namespace Buildings
         public static event Action<Building> OnClick;
         public static List<Building> Buildings = new List<Building>();
         public bool IsCollison;
+
+        private Camera MainCamera;
         
         
-        [SerializeField] private BuildingStats BuildingStats;
+        [SerializeField] private BuildingData buildingData;
         [SerializeField] private int CurrentLevel = 0;
         [SerializeField] private int CurrentHealth = 0;
         [SerializeField] private GameObject HealthBar;
@@ -32,17 +34,15 @@ namespace Buildings
         [SerializeField] private Material BuildMaterial;
         [SerializeField] private Material BuildingMaterial;
         [SerializeField] private Material CantBuildMaterial;
-        public BuildingStats GetBuildingStats => BuildingStats;
+        public BuildingData GetBuildingData => buildingData;
         
-        
-        
-        public int CurrenthealthH
+        public int CurrentHealthH
         {
             set
             {
-                CurrentHealth = Mathf.Clamp(value, 0, BuildingStats.Levels[CurrentLevel].MaxLife);
+                CurrentHealth = Mathf.Clamp(value, 0, buildingData.Levels[CurrentLevel].MaxLife);
                 ValueChanged?.Invoke();
-                LifeChanged?.Invoke(CurrentHealth,BuildingStats.Levels[CurrentLevel].MaxLife);
+                LifeChanged?.Invoke(CurrentHealth,buildingData.Levels[CurrentLevel].MaxLife);
             }
             get => CurrentHealth;
         }
@@ -51,35 +51,40 @@ namespace Buildings
         {
             set
             {
-                CurrentLevel = Mathf.Clamp(value, 0, BuildingStats.Levels.Length - 1);
+                CurrentLevel = Mathf.Clamp(value, 0, buildingData.Levels.Length - 1);
                 ValueChanged?.Invoke();
             }
             get => CurrentLevel;
         }
 
-        public void Init(BuildingStats _buildingStats)
+        public void Init(BuildingData buildingData)
         {
-            BuildingStats = _buildingStats;
-            CurrenthealthH = BuildingStats.Levels[CurrentLevel].MaxLife;
+            this.buildingData = buildingData;
+            CurrentHealthH = this.buildingData.Levels[CurrentLevel].MaxLife;
             AddBuilding();
         }
 
         #endregion
         
-        
-        
         private void Start()
         {
             HealthBar.SetActive(false);
+            MainCamera = Camera.main;
         }
 
         private void LateUpdate()
         {
-            Quaternion cameraRotation = Camera.main.transform.rotation; 
-            HealthBar.transform.localRotation = new Quaternion(cameraRotation.x,cameraRotation.y,cameraRotation.z,cameraRotation.w);
+            RotateHealthBarToCamera();
         }
 
+
         #region Functions
+
+        private void RotateHealthBarToCamera()
+        {
+            Quaternion cameraRotation = MainCamera.transform.rotation; 
+            HealthBar.transform.localRotation = new Quaternion(cameraRotation.x,cameraRotation.y,cameraRotation.z,cameraRotation.w);
+        }
 
         private void AddBuilding()
         {
@@ -92,12 +97,12 @@ namespace Buildings
         public void Upgrade()
         {
             int nextLevel = CurrentLevelH + 1;
-            int maxLevel = BuildingStats.Levels.Length - 1;
+            int maxLevel = buildingData.Levels.Length - 1;
 
             if (nextLevel > maxLevel) return;
             
             CurrentLevelH = nextLevel;
-            CurrenthealthH = BuildingStats.Levels[CurrentLevel].MaxLife;
+            CurrentHealthH = buildingData.Levels[CurrentLevel].MaxLife;
         }
 
         public void SetBuildMaterial()
@@ -141,12 +146,10 @@ namespace Buildings
         private void OnValidate()
         {
             CurrentLevelH = CurrentLevelH;
-            CurrenthealthH = CurrenthealthH;
+            CurrentHealthH = CurrentHealthH;
         }
 
         #endregion
-
-        
         
         public void OnMouseEnterAction()
         {
@@ -155,7 +158,7 @@ namespace Buildings
 
         public void OnMouseStayAction()
         {
-            HealthBarSlider.maxValue = BuildingStats.Levels[CurrentLevel].MaxLife;
+            HealthBarSlider.maxValue = buildingData.Levels[CurrentLevel].MaxLife;
             HealthBarSlider.value = CurrentHealth;
         }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class MenuUI : MonoBehaviour
+public class UIMenu : MonoBehaviour
 {
     [SerializeField]
     private GameObject menu;

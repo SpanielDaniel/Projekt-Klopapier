@@ -209,7 +209,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4058220414ec472e88d6d513b80f6e3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BuildingStats: {fileID: 11400000, guid: 454f3d97bfa497046b846fab33612a78, type: 2}
+  IsCollison: 0
+  buildingData: {fileID: 11400000, guid: 454f3d97bfa497046b846fab33612a78, type: 2}
   CurrentLevel: 0
   CurrentHealth: 0
   HealthBar: {fileID: 7814376644947084286}

@@ -10,24 +10,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Interfaces/IMouseEnter.cs" root0="FORCE_HIGHLIGHTING" />
-  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Assets/Scripts/Singleton.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/CameraController.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Buildings/Base.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Buildings/Bulding.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Buildings/BuildingObject.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/UI Scripts/Slots.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Player/MouseController.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Buildings/BuildingStats.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/UI Scripts/Slot.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Player/CameraController.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Buildings/HealthBar.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Build/BuildSlot.cs" />
         <option value="$PROJECT_DIR$/Assets/Shader/NewImageEffectShader.shader" />
         <option value="$PROJECT_DIR$/../../../../GPR5300/WorkWithShader_Direct11/Assets/Shader/Silhouette.shader" />
@@ -59,6 +44,26 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Build/BuildManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/UI Scripts/UIBuildingManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/UI Scripts/HudBase.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Player/CameraController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/GameManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/BuildingData.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/Building.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Enums.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Singleton.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/HudBase.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIPointerManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/HudVisability.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/HudVisibility.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIMenu.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Player/PlayerController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIVisibilityManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIVisibility.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UISlot.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIPointerInHudManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIBuildingManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIVisibilityEvent.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Player/PlayerMouseManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Player/CameraManager.cs" />
       </list>
     </option>
   </component>
@@ -112,6 +117,10 @@
       <workItem from="1608493611998" duration="15777000" />
       <workItem from="1608575046841" duration="8072000" />
       <workItem from="1608658230422" duration="95000" />
+      <workItem from="1608660410587" duration="619000" />
+      <workItem from="1608745378653" duration="5385000" />
+      <workItem from="1608816011389" duration="4957000" />
+      <workItem from="1609053085119" duration="4781000" />
     </task>
     <servers />
   </component>

@@ -5,10 +5,12 @@ using UnityEngine.UI;
 
 namespace UI_Scripts
 {
-    public class UIBuildingManager : HudBase
+    public class UIBuildingManager : UIVisibilityEvent
     {
-        
-        
+
+
+        #region ----- Init -----
+
         [SerializeField] private GameObject BuildingUI;
         [SerializeField] private Text BuildingNameText;
         [SerializeField] private Text BuildingLevelText;
@@ -29,34 +31,50 @@ namespace UI_Scripts
             CloseBuildingUI();
         }
 
-        private void OnBuildingClicked(Building _building)
-        {
-            IsHudOpenH = true;
-            CurrentSelectedBuilding = _building;
-            UpdateUI();
-        }
+        #endregion
 
+        #region ----- Functions -----
+        
+        /// <summary>
+        /// Update the whole user interface.
+        /// </summary>
         private void UpdateUI()
         {
+            // Don't update if the player didn't selected a building.
             if (CurrentSelectedBuilding == null) return;
-            BuildingNameText.text = CurrentSelectedBuilding.GetBuildingStats.Name;
-            BuildingImage.sprite = CurrentSelectedBuilding.GetBuildingStats.BuldingTexture;
+            
+            
+            BuildingNameText.text = CurrentSelectedBuilding.GetBuildingData.Name;
+            BuildingImage.sprite = CurrentSelectedBuilding.GetBuildingData.BuldingTexture;
             BuildingLevelText.text = "Level " + CurrentSelectedBuilding.CurrentLevelH;
+            
             UpdateLifeBar();
         }
         
+        /// <summary>
+        /// Updates the Life Bar with the values of the current selected building.
+        /// </summary>
         private void UpdateLifeBar()
-       {
-           LifeBar.maxValue = CurrentSelectedBuilding.GetBuildingStats.Levels[CurrentSelectedBuilding.CurrentLevelH].MaxLife;
-           LifeBar.value = CurrentSelectedBuilding.CurrenthealthH;
-       }
-    
+        {
+            int level = CurrentSelectedBuilding.CurrentLevelH;
+            
+            LifeBar.maxValue = CurrentSelectedBuilding.GetBuildingData.Levels[level].MaxLife;
+            LifeBar.value = CurrentSelectedBuilding.CurrentHealthH;
+        }
+        
+        /// <summary>
+        /// Close the Building UI
+        /// </summary>
         private void CloseBuildingUI()
         {
             CurrentSelectedBuilding = null;            
             IsHudOpenH = false;
         }
 
+        #endregion
+
+        #region ----- Events -----
+        
         public void OnButton_Exit()
         {
             CloseBuildingUI();
@@ -67,10 +85,20 @@ namespace UI_Scripts
             CurrentSelectedBuilding.Upgrade();
         }
 
+        private void OnBuildingClicked(Building _building)
+        {
+            // Triggers the UIActivity event.
+            IsHudOpenH = true;
+            CurrentSelectedBuilding = _building;
+            
+            UpdateUI();
+        }
+
         public override void SetUIActive(bool _isActive)
         {
             BuildingUI.SetActive(_isActive);
-
         }
+
+        #endregion
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 
-public class UIPointerHandler : MonoBehaviour
+public class UIPointerInHudManager : MonoBehaviour
 , IPointerEnterHandler
 , IPointerExitHandler
 {

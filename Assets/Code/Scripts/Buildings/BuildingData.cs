@@ -3,7 +3,7 @@ using UnityEngine;
 
 
     [CreateAssetMenu(fileName = "New Building", menuName = "Building")]
-    public class BuildingStats : ScriptableObject
+    public class BuildingData : ScriptableObject
     {
         public string Name;
         public string Description;

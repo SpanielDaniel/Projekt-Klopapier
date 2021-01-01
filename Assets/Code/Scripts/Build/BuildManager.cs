@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Build
 {
-    public class BuildManager : HudBase
+    public class BuildManager : UIVisibilityEvent
     {
        
         [SerializeField] private GameObject BuildingPrefab;
@@ -31,7 +31,7 @@ namespace Build
             IsHudOpenH = false;
         }
 
-        private void CreateBuilding(BuildingStats _buildingStats)
+        private void CreateBuilding(BuildingData buildingData)
         {
             if (IsBuilding)
             {
@@ -39,7 +39,7 @@ namespace Build
                 CurrentBuilding = null;
             }
             CurrentBuilding = Instantiate(BuildingPrefab);
-            CurrentBuilding.GetComponent<Building>().Init(_buildingStats);
+            CurrentBuilding.GetComponent<Building>().Init(buildingData);
             IsBuilding = true;
         }
 

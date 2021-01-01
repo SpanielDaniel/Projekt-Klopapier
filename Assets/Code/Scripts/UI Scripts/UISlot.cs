@@ -13,20 +13,30 @@ namespace UI_Scripts
         , IPointerEnterHandler
         , IPointerExitHandler
     {
+        #region Init
+
         [SerializeField] private Image CurrentImage;
         [SerializeField] private Sprite DefaultSprite;
         [SerializeField] private GameObject Button;
-        
 
         private void Awake()
         {
             if(Button != null) Button.SetActive(false);
         }
+        
+
+        #endregion
+        
+        #region Function
 
         private void SetImage(Sprite _sprite)
         {
             CurrentImage.sprite = _sprite;
         }
+
+        #endregion
+        
+        #region Events
 
         public void OnPointerEnter(PointerEventData eventData)
         {
@@ -37,5 +47,7 @@ namespace UI_Scripts
         {
             if(Button != null) Button.SetActive(false);
         }
+
+        #endregion
     }
 }

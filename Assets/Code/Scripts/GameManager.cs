@@ -10,8 +10,6 @@ using UnityEngine;
 
         private void Awake()
         {
-            
+
         }
-        
-        
     }
