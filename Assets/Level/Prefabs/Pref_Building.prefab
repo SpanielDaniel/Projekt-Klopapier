@@ -195,7 +195,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.9, y: 0.9, z: 0.9}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &7855990287252865358
 MonoBehaviour:
@@ -218,7 +218,7 @@ MonoBehaviour:
   MeshRenderer: {fileID: 7855990287252865356}
   BuildMaterial: {fileID: 2100000, guid: 34c975a1f63353341969102570d7fe1e, type: 2}
   BuildingMaterial: {fileID: 2100000, guid: d4276ab6563299248b519d76977b74b2, type: 2}
-  CantBuildMaterial: {fileID: 2100000, guid: 4b5739240bb93d4478cb0e07f1367070, type: 2}
+  CantBuildMaterial: {fileID: 2100000, guid: dd3d11cc0c398084cb852945e3065c12, type: 2}
 --- !u!54 &4547187270281459566
 Rigidbody:
   m_ObjectHideFlags: 0

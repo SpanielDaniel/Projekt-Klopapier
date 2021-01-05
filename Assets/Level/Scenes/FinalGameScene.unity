@@ -3751,7 +3751,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1106087119}
         m_TargetAssemblyTypeName: Build.BuildManager, Assembly-CSharp
-        m_MethodName: OnButton_Buildmenue
+        m_MethodName: OnButton_BuildMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
