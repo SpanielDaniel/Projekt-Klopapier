@@ -15,10 +15,13 @@ public class Pathfinding : MonoBehaviour
 
     private void Update()
     {
-        FindPath(StartPosition.position, TargetPosition.position);
+        if (TargetPosition != null)
+        {
+            FindPath(StartPosition.position, TargetPosition.position);
+        }
     }
 
-    void FindPath(Vector3 a_StartPos, Vector3 a_TargetPos)
+    public void FindPath(Vector3 a_StartPos, Vector3 a_TargetPos)
     {
         Node StartNode = GridReference.NodeFromWorldPoint(a_StartPos);
         Node TargetNode = GridReference.NodeFromWorldPoint(a_TargetPos);

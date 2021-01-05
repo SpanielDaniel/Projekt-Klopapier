@@ -4,26 +4,71 @@ using UnityEngine;
 
 public class UnitMovement : Unit
 {
-    private Pathfinding path;
+    [SerializeField]
     private Grid grid;
-    private Transform unitPosition;
+    [SerializeField]
+    private Pathfinding path;
+    private int currentPathIndex;
+    private Vector3 MousePos;
+    [SerializeField]
+    private LayerMask layerMask;
 
     private void Awake()
     {
-        unitPosition = GetComponent<Transform>();
+        moveSpeed = 10f;
     }
 
     public void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))//If the player has left clicked
         {
-            Vector3 mouse = Input.mousePosition;
-            Ray castPoint = Camera.main.ScreenPointToRay(mouse);
-            RaycastHit hit;
-            if (Physics.Raycast(castPoint, out hit, Mathf.Infinity))
+            Vector3 mouse = Input.mousePosition;//Get the mouse Position
+            Ray castPoint = Camera.main.ScreenPointToRay(mouse);//Cast a ray to get where the mouse is pointing at
+            RaycastHit hit;//Stores the position where the ray hit.
+            if (Physics.Raycast(castPoint, out hit, Mathf.Infinity, layerMask))//If the raycast doesnt hit a wall
             {
-                transform.position = Vector3.MoveTowards(unitPosition.position, path.TargetPosition.position, moveSpeed);
+                path.FindPath(this.transform.position, hit.point);//Move the target to the mouse position
             }
         }
+        if (grid.FinalPath != null)
+        {
+            HandleMovement();
+        }
+        else if(grid.FinalPath == null)
+        {
+            return;
+        }
+
     }
+
+    private void HandleMovement()
+    {
+        if (grid.FinalPath != null)
+        {
+                Vector3 targetPosition = grid.FinalPath[currentPathIndex].vPosition;
+                if (Vector3.Distance(transform.position, targetPosition) > 1f)
+                {
+                    Vector3 moveDir = (targetPosition - transform.position).normalized;
+
+                    float distanceBefore = Vector3.Distance(transform.position, targetPosition);
+                    transform.position = transform.position + moveDir * moveSpeed * Time.deltaTime;
+                }
+                else
+                {
+                    currentPathIndex++;
+                    if (currentPathIndex >= grid.FinalPath.Count)
+                    {
+                        StopMoving();
+                    }
+                }
+            }
+        
+    }
+
+    private void StopMoving()
+    {
+        grid.FinalPath = null;
+        currentPathIndex = 0;
+    }
+
 }
