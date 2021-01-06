@@ -1,4 +1,8 @@
-﻿using System.Collections;
+﻿// File     : Unit.cs
+// Author   : Daniel Pobijanski
+// Project  : Projekt-Klopapier
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +13,12 @@ public class Unit : MonoBehaviour
     protected float atk;
     protected float angSpeed;
     protected float moveSpeed;
+    protected bool selected;
+    public static List<Unit> units = new List<Unit>();
+    private void Start()
+    {
+        selected = false;
+    }
 
     public static Vector3 GetMouseWorldPositionWithZ(Vector3 screenPosition, Camera worldCamera)
     {
@@ -22,4 +32,5 @@ public class Unit : MonoBehaviour
         vec.z = 0f;
         return vec;
     }
+
 }

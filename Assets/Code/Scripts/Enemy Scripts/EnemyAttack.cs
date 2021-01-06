@@ -1,4 +1,8 @@
-﻿using System.Collections;
+﻿// File     : EnemyAttack.cs
+// Author   : Daniel Pobijanski
+// Project  : Projekt-Klopapier
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
