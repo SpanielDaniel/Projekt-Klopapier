@@ -14,6 +14,13 @@
               <e p="Building.cs" t="Include" />
               <e p="BuildingData.cs" t="Include" />
             </e>
+            <e p="Enemy Scripts" t="Include">
+              <e p="Enemy.cs" t="Include" />
+              <e p="EnemyAttack.cs" t="Include" />
+              <e p="EnemyMovement.cs" t="Include" />
+              <e p="EnemySpawnScript.cs" t="Include" />
+              <e p="Waypoints.cs" t="Include" />
+            </e>
             <e p="Enums.cs" t="Include" />
             <e p="GameManager.cs" t="Include" />
             <e p="Grid" t="Include">
@@ -52,6 +59,7 @@
             <e p="Unit Scripts" t="Include">
               <e p="Unit.cs" t="Include" />
               <e p="UnitMovement.cs" t="Include" />
+              <e p="UnitSelector.cs" t="Include" />
             </e>
           </e>
           <e p="Shader" t="Include">
