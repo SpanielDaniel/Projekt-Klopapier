@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebd08c17ea8b4256b220648d24996397, type: 3}
   m_Name: Base
   m_EditorClassIdentifier: 
+  Modell: {fileID: 6327789502137770140, guid: 5bb0774f8537f1e428c402526be7b6f4, type: 3}
+  ObjectSize:
+    X: 3
+    Y: 2
   Name: Base
   Description: Hauptquartie deiner Fraktion. Hier kannst du neue Einheiten ausbilden.
   BuldingTexture: {fileID: 21300000, guid: 949245c1b1d950a4791cbc98f82b8e14, type: 3}

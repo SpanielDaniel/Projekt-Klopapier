@@ -3,6 +3,7 @@
 // Project  : Projekt-Klopapier
 
 using System;
+using Buildings;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -14,24 +15,24 @@ namespace Build
         , IPointerEnterHandler
         , IPointerExitHandler
     {
-        [SerializeField] private BuildingData buildingData;
+        [SerializeField] private GameObject Building;
         [SerializeField] private Image BorderImage;
         [SerializeField] private Image IconImage;
         [SerializeField] private Text BuildingName;
         [SerializeField] private Color NormalColor;
         [SerializeField] private Color MouseEnterColor;
 
-        public static event Action<BuildingData> OnMouseClick;
+        public static event Action<GameObject> OnMouseClick;
 
         private void Start()
         {
-            IconImage.sprite = buildingData.BuldingTexture;
-            BuildingName.text = buildingData.Name;
+            IconImage.sprite = Building.GetComponent<Building>().GetBuildingData.BuldingTexture;
+            BuildingName.text = Building.GetComponent<Building>().GetBuildingData.Name;
         }
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            OnMouseClick?.Invoke(buildingData);
+            OnMouseClick?.Invoke(Building);
         }
 
         public void OnPointerEnter(PointerEventData eventData)

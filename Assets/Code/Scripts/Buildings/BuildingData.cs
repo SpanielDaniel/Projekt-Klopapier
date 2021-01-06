@@ -1,15 +1,29 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 
-    [CreateAssetMenu(fileName = "New Building", menuName = "Building")]
+[CreateAssetMenu(fileName = "New Building", menuName = "Building")]
     public class BuildingData : ScriptableObject
     {
+        public GameObject Modell;
+
+        public Size ObjectSize;
+        
+        [Serializable]
+        public struct Size
+        {
+            public int X;
+            public int Y;
+        }
+        
         public string Name;
         public string Description;
         public Sprite BuldingTexture;
         public bool IsUpgradable;
         public Level[] Levels;
+        
+        
         
         [Serializable]
         public struct Level

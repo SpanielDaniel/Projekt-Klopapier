@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebd08c17ea8b4256b220648d24996397, type: 3}
   m_Name: House
   m_EditorClassIdentifier: 
+  Modell: {fileID: 4540007174773194955, guid: 9bb0733ad8f7f0c488db1ffe256e2ed1, type: 3}
+  ObjectSize:
+    X: 1
+    Y: 2
   Name: Haus
   Description: "Erh\xF6t das Einwohnerlimit"
   BuldingTexture: {fileID: 21300000, guid: 4a09133be471fc943a4ad584e6b82ed5, type: 3}

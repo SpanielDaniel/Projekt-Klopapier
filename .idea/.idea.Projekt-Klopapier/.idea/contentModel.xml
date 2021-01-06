@@ -17,6 +17,11 @@
             <e p="Enums.cs" t="Include" />
             <e p="GameManager.cs" t="Include" />
             <e p="Grid" t="Include">
+              <e p="DanielB" t="Include">
+                <e p="BuildMap.cs" t="Include" />
+                <e p="MapManager.cs" t="Include" />
+                <e p="MyGrid.cs" t="Include" />
+              </e>
               <e p="Grid.cs" t="Include" />
               <e p="Node.cs" t="Include" />
               <e p="Pathfinding.cs" t="Include" />
@@ -30,6 +35,7 @@
             </e>
             <e p="Player" t="Include">
               <e p="CameraManager.cs" t="Include" />
+              <e p="PlayerData.cs" t="Include" />
               <e p="PlayerMouseManager.cs" t="Include" />
             </e>
             <e p="Singleton.cs" t="Include" />
@@ -38,6 +44,7 @@
               <e p="UIBuildingManager.cs" t="Include" />
               <e p="UIMenu.cs" t="Include" />
               <e p="UIPointerInHudManager.cs" t="Include" />
+              <e p="UIResourcesManager.cs" t="Include" />
               <e p="UISlot.cs" t="Include" />
               <e p="UIVisibilityEvent.cs" t="Include" />
               <e p="UIVisibilityManager.cs" t="Include" />
