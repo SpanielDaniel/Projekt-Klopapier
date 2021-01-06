@@ -18,6 +18,7 @@ namespace Buildings
         public static event Action<float,float> LifeChanged;
         public static event Action<Building> OnClick;
         public static List<Building> Buildings = new List<Building>();
+        
         public bool IsCollison;
 
         private Camera MainCamera;
@@ -29,6 +30,7 @@ namespace Buildings
         [SerializeField] private GameObject HealthBar;
         [SerializeField] private Slider HealthBarSlider;
 
+        [SerializeField] private BoxCollider BoxCollider;
 
         [SerializeField] private MeshRenderer MeshRenderer;
         [SerializeField] private Material BuildMaterial;
@@ -171,5 +173,11 @@ namespace Buildings
         {
             OnClick?.Invoke(this);
         }
+
+        public void SetColliderActive(bool _isActive)
+        {
+            BoxCollider.enabled = _isActive;
+        }
+        
     }
 }

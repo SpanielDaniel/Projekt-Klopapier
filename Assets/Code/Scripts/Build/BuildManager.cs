@@ -6,7 +6,10 @@
 using System;
 using Buildings;
 using Code.Scripts;
+using Code.Scripts.Grid.DanielB;
+using Player;
 using UI_Scripts;
+using UnityEditorInternal;
 using UnityEngine;
 
 namespace Build
@@ -16,8 +19,12 @@ namespace Build
        
         [SerializeField] private GameObject BuildingPrefab;
         [SerializeField] private GameObject BuildUI;
-       
-        
+        [SerializeField] private PlayerData PlayerData;
+        [SerializeField] private BuildMap Map;
+
+
+
+        private Ground GroundCurrent;
         private bool IsBuilding = false;
         private bool CanBuild;
         public bool GetIsBuilding => IsBuilding;
@@ -34,14 +41,14 @@ namespace Build
             IsHudOpenH = false;
         }
 
-        private void OnMouseClickedBuildSlot(BuildingData buildingData)
+        private void OnMouseClickedBuildSlot(GameObject _building)
         {
             if (IsBuilding)
             {
                 DestroyCurrentBuilding();
             }
             
-            CreateBuilding(buildingData);
+            CreateBuilding(_building);
             IsBuilding = true;
         }
 
@@ -51,19 +58,19 @@ namespace Build
             CurrentBuilding = null;
         }
 
-        private void CreateBuilding(BuildingData buildingData)
+        private void CreateBuilding(GameObject _building)
         {
-            CurrentBuilding = Instantiate(BuildingPrefab);
-            CurrentBuilding.GetComponent<Building>().Init(buildingData);
+            CurrentBuilding = Instantiate(_building);
+            CurrentBuilding.GetComponent<Building>().Init(_building.GetComponent<Building>().GetComponent<Building>().GetBuildingData);
         }
 
         public void BuildBuilding()
         {
             if (!IsBuilding) return;
-
-            foreach (Street street in Street.Streets)
+            
+            foreach (var building in Building.Buildings)
             {
-                street.SetAllArrowsActive(true);
+                building.SetColliderActive(false);
             }
             
             Vector3 mousePos = Input.mousePosition;
@@ -71,7 +78,14 @@ namespace Build
             if (mousePos.x > 0 && mousePos.x < Screen.width && mousePos.y > 0 && mousePos.y < Screen.height)
             {
                 SetBuildingToMousePos();
+                
                 HandleMouseInput();
+                
+                foreach (var building in Building.Buildings)
+                {
+                    building.SetColliderActive(true);
+                }
+                
             }
         }
 
@@ -93,103 +107,89 @@ namespace Build
             
             if (isHit)
             {
-                isGround = true;
                 ground = hit.transform.GetComponent<Ground>();
-                while (ground == null)
+
+                if (ground != null)
                 {
-                    isGround = false;
-                    RaycastHit nextHit;
-                    ray = new Ray(hit.point + cameraDirection * 0.01f,cameraDirection);
-                    isHit = Physics.Raycast(ray, out nextHit);
-                    if (!isHit) break;
+                    bool isBlocked = false;
                     
-                    hit = nextHit;
-                    
-                    ground = hit.transform.GetComponent<Ground>();
-                    if (ground != null)
+                    for (int i = 0; i < CurrentBuilding.GetComponent<Building>().GetBuildingData.ObjectSize.Y; i++)
                     {
-                        isGround = true;
+                        for (int j = 0; j < CurrentBuilding.GetComponent<Building>().GetBuildingData.ObjectSize.X; j++)
+                        {
+                            
+                            isBlocked = Map.IsGroundBlocked((j + ground.GetWidth) ,(i + ground.GetHeight));
+                            if (isBlocked == true) break;
+                        }
+                        if (isBlocked == true) break;
+                        
                     }
+                    
+                    if (isBlocked == true)
+                    {
+                        CanBuild = false;
+                    }
+                    else
+                    {
+                        CanBuild = true;
+                    }
+
+                    isGround = true;
+                    GroundCurrent = ground;
+
                 }
+                else isGround = false;
                 
+                
+                
+                
+                
+                
+                // while (ground == null)
+                // {
+                //     isGround = false;
+                //     RaycastHit nextHit;
+                //     ray = new Ray(hit.point + cameraDirection * 0.01f,cameraDirection);
+                //     isHit = Physics.Raycast(ray, out nextHit);
+                //     if (!isHit) break;
+                //     
+                //     hit = nextHit;
+                //     
+                //     ground = hit.transform.GetComponent<Ground>();
+                //     if (ground != null)
+                //     {
+                //         isGround = true;
+                //     }
+                // }
                 if (isGround)
                 {
+                    CurrentBuilding.transform.position = ground.transform.position;
+                }
+                if (isGround && CanBuild)
+                {
                     int index = hit.triangleIndex;
-                    CurrentBuilding.transform.position = hit.point;
+                    //CurrentBuilding.transform.position = hit.point;
 
                     EGround groundSignature = ground.GetGroundSignature;
 
                     switch (groundSignature)
                     {
 
-                        case EGround.Street:
-                            CurrentBuilding.GetComponent<Building>().SetBuildMaterial();
-                            Street street = ground as Street;
+                        case EGround.Gras:
                             
                             CanBuild = true;
-
-                            switch (index)
-                            {
-                                case 0:
-                                    if (street.GetIsTopStreet)
-                                    {
-                                        CanBuild = false;
-                                    }
-                                    else
-                                    {
-                                        CurrentBuilding.transform.position = street.GetPosTop;
-                                    }
-                                    break;
-                                case 1:
-                                    if (street.GetIsRightStreet)
-                                    {
-                                        CanBuild = false;
-                                    }
-                                    else
-                                    {
-                                        CurrentBuilding.transform.position = street.GetPosRight;
-                                    }
-
-                                    break;
-                                case 2:
-                                    if (street.GetIsLeftStreet)
-                                    {
-                                        CanBuild = false;
-                                    }
-                                    else
-                                    {
-                                        CurrentBuilding.transform.position = street.GetPosLeft;
-                                    }
-
-                                    break;
-                                case 3:
-                                    if (street.GetIsDownStreet)
-                                    {
-                                        CanBuild = false;
-                                    }
-                                    else
-                                    {
-                                        CurrentBuilding.transform.position = street.GetPosDown;
-                                    }
-
-                                    break;
-                                default:
-                                    break;
-                            }
-                            
-                            
-                            
+                            CurrentBuilding.GetComponent<Building>().SetBuildMaterial();
                             break;
                         default:
                             CurrentBuilding.GetComponent<Building>().SetCantBuildMaterial();
                             CanBuild = false;
                             break;
                     }
-
-                    if (!CanBuild)
-                    {
-                        CurrentBuilding.GetComponent<Building>().SetCantBuildMaterial();
-                    }
+                    
+                }
+                else if(!CanBuild)
+                {
+                    CurrentBuilding.GetComponent<Building>().SetCantBuildMaterial();
                 }
             }
         }
@@ -198,15 +198,49 @@ namespace Build
         {
             if (Input.GetMouseButtonDown(0) && !CurrentBuilding.GetComponent<Building>().IsCollison && CanBuild)
             {
+                BuildingData data = CurrentBuilding.GetComponent<Building>().GetBuildingData;
+
+                if (PlayerData.IsPlayerHavingEnoughResources(
+                    0,
+                    data.Levels[CurrentBuilding.GetComponent<Building>().CurrentLevelH].WoodCosts,
+                    data.Levels[CurrentBuilding.GetComponent<Building>().CurrentLevelH].StoneCosts,
+                    data.Levels[CurrentBuilding.GetComponent<Building>().CurrentLevelH].SteelCosts))
+                {
+                    PlayerData.ReduceResources(0,
+                        data.Levels[CurrentBuilding.GetComponent<Building>().CurrentLevelH].WoodCosts,
+                        data.Levels[CurrentBuilding.GetComponent<Building>().CurrentLevelH].StoneCosts,
+                        data.Levels[CurrentBuilding.GetComponent<Building>().CurrentLevelH].SteelCosts);
+                
+                    
+                    CurrentBuilding.GetComponent<Building>().SetBuildingMaterial();
+                    
+
+                    for (int i = 0; i < CurrentBuilding.GetComponent<Building>().GetBuildingData.ObjectSize.Y; i++)
+                    {
+                        for (int j = 0; j < CurrentBuilding.GetComponent<Building>().GetBuildingData.ObjectSize.X; j++)
+                        {
+                            Map.SetGroundBlocked(GroundCurrent.GetWidth + j,GroundCurrent.GetHeight + i,true);
+                        }
+                    }
+                    
+                    BuildUI.SetActive(false);
+                    IsBuilding = false;
+
+                }
+            }
+            
+            if (Input.GetMouseButtonDown(1))
+            {
                 IsBuilding = false;
-                CurrentBuilding.GetComponent<Building>().SetBuildingMaterial();
                 BuildUI.SetActive(false);
                 foreach (Street street in Street.Streets)
                 {
                     street.SetAllArrowsActive(false);
                 }
+                
+                Destroy(CurrentBuilding);
+                CurrentBuilding = null;
             }
-            
         }
 
         public void OnButton_BuildMenu()

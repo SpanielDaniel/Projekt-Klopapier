@@ -17,6 +17,18 @@ namespace Code.Scripts
     
     public class Ground : MonoBehaviour
     {
+        
+        
+        public bool IsBlocked;
+        [SerializeField] private EGround GroundSignature;
+        
+        private int Width;
+        private int Height;
+
+        public int GetWidth => Width;
+        public int GetHeight => Height;
+        
+
         public static Ground[,] Grounds;
 
         public static void SetGroundSize(int _width, int _height)
@@ -24,18 +36,15 @@ namespace Code.Scripts
             Grounds = new Ground[_width, _height];
         }
 
-        private int Width;
-        private int Height;
-
-        [SerializeField]
-        private EGround GroundSignature;
-
         public EGround GetGroundSignature => GroundSignature;
 
 
         public void Init(int _widthPos, int _heightPos)
         {
-            Grounds[_widthPos, _heightPos] = this;
+            //Grounds[_widthPos, _heightPos] = this;
+            Width = _widthPos;
+            Height = _heightPos;
+            gameObject.name = "Gras [" + Width + ":" + Height + "]";
         }
 
     }
