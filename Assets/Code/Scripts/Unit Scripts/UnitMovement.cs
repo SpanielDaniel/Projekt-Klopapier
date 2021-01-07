@@ -17,6 +17,9 @@ public class UnitMovement : Unit
     [SerializeField]
     private LayerMask layerMask;
     public bool fPath = false;
+    [SerializeField]
+    private GameObject selectedSphere;
+
 
     private void Awake()
     {
@@ -28,6 +31,8 @@ public class UnitMovement : Unit
     {
         if (fPath)
         {
+            selectedSphere.SetActive(true);
+
             if (Input.GetMouseButtonDown(1))//If the player has left clicked
             {
                 Vector3 mouse = Input.mousePosition;
@@ -76,5 +81,6 @@ public class UnitMovement : Unit
         grid.FinalPath = null;
         currentPathIndex = 0;
         fPath = false;
+        selectedSphere.SetActive(false);
     }
 }
