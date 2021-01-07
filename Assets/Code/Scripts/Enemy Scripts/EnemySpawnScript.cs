@@ -9,7 +9,7 @@ using UnityEngine;
 public class EnemySpawnScript : MonoBehaviour
 {
     private float timer;
-    private float resetTimer;
+    public float resetTimer;
 
     [SerializeField]
     private GameObject enemy;
@@ -17,7 +17,6 @@ public class EnemySpawnScript : MonoBehaviour
 
     private void Start()
     {
-        resetTimer = 15f;
         timer = resetTimer;
         wPoints = GameObject.FindGameObjectWithTag("Waypoints").GetComponent<Waypoints>();
     }
