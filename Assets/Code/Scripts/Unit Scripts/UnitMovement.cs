@@ -48,6 +48,10 @@ public class UnitMovement : Unit
                 HandleMovement();
             }
         }
+        else
+        {
+            selectedSphere.SetActive(false);
+        }
             
 
     }
@@ -80,7 +84,6 @@ public class UnitMovement : Unit
     {
         grid.FinalPath = null;
         currentPathIndex = 0;
-        fPath = false;
         selectedSphere.SetActive(false);
     }
 }

@@ -10,6 +10,8 @@ public class UnitSelector : MonoBehaviour
 {
     [SerializeField]
     private Camera cam;
+    [SerializeField]
+    private GameObject unitUI;
     private List<Unit> selectedUnits;
     public RectTransform selectionBox;
     private Vector2 startPos;
@@ -21,6 +23,15 @@ public class UnitSelector : MonoBehaviour
 
     private void Update()
     {
+        if (selectedUnits.Count >= 1)
+        {
+            unitUI.SetActive(true);
+        }
+        else
+        {
+            unitUI.SetActive(false);
+            
+        }
         if (Input.GetMouseButtonDown(0))
         {
             startPos = Input.mousePosition;
@@ -37,6 +48,7 @@ public class UnitSelector : MonoBehaviour
 
     void UpdateSelectionBox(Vector2 curMousePos)
     {
+        selectedUnits.Clear();
         if (!selectionBox.gameObject.activeInHierarchy)
             selectionBox.gameObject.SetActive(true);
 
@@ -61,7 +73,12 @@ public class UnitSelector : MonoBehaviour
 
             if (screenPos.x > min.x && screenPos.x < max.x && screenPos.y > min.y && screenPos.y < max.y)
             {
+                selectedUnits.Add(units);
                 units.fPath = true;
+            }
+            else
+            {
+                units.fPath = false;
             }
         }
     }
