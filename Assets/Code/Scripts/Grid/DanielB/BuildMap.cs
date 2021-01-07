@@ -13,7 +13,7 @@ namespace Code.Scripts.Grid.DanielB
         private MyGrid<GameObject> GroundMap;
         [SerializeField] private MapManager MapManager;
 
-        [SerializeField] private GameObject Ground;
+        [SerializeField] private GameObject GroundObj;
 
         private int MapMultiplicator = 2;
         
@@ -23,13 +23,13 @@ namespace Code.Scripts.Grid.DanielB
             int gridHeight = MapManager.GetHeight * MapMultiplicator;
             
             GroundMap = new MyGrid<GameObject>(gridWidth,gridHeight);
-
+            Ground.SetGroundSize(gridWidth,gridHeight);
             
             for (int h = 0; h < gridHeight; h++)
             {
                 for (int w = 0; w < gridWidth; w++)
                 {
-                    GroundMap.Grid[w, h] = Instantiate(Ground);
+                    GroundMap.Grid[w, h] = Instantiate(GroundObj);
                     GroundMap.Grid[w, h].transform.position = new Vector3((float)w/MapMultiplicator,0,(float)h/MapMultiplicator);
                     SetGroundBlocked(w,h ,false);
                     GroundMap.Grid[w, h].GetComponent<Ground>().Init(w,h);

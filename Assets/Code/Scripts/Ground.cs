@@ -21,6 +21,7 @@ namespace Code.Scripts
         
         public bool IsBlocked;
         [SerializeField] private EGround GroundSignature;
+        [SerializeField] private MeshRenderer Renderer;
         
         private int Width;
         private int Height;
@@ -41,11 +42,18 @@ namespace Code.Scripts
 
         public void Init(int _widthPos, int _heightPos)
         {
-            //Grounds[_widthPos, _heightPos] = this;
+            Grounds[_widthPos, _heightPos] = this;
             Width = _widthPos;
             Height = _heightPos;
             gameObject.name = "Gras [" + Width + ":" + Height + "]";
         }
+
+        public void SetMeshActive(bool _isActive)
+        {
+            Renderer.enabled = _isActive;
+        }
+        
+        
 
     }
 }
