@@ -9,7 +9,7 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private float ScrollSpeed;
     [SerializeField] private float RotationSpeed;
 
-    private const int SCROLL_VALUE = 100;
+    private const float SCROLL_VALUE = 0.1f;
     
 
     private void Update()
@@ -31,10 +31,21 @@ public class CameraManager : MonoBehaviour
         
         if (Input.GetKey(KeyCode.A) ||  Input.mousePosition.x <= PanBorderThickness && Input.mousePosition.x >= -PanBorderThickness) 
             currentCameraPosition += Vector3.left * (Time.deltaTime * MovementSpeed);
-        
-        // Scrolling up and down dependence of the scroll speed
-        if (Input.GetAxis("Mouse ScrollWheel") > 0f ) currentCameraPosition += new Vector3(0,-1,1) * (Time.deltaTime * ScrollSpeed * SCROLL_VALUE); // Scroll diagonal into the map.
-        if (Input.GetAxis("Mouse ScrollWheel") < 0f ) currentCameraPosition += new Vector3(0,1,-1) * (Time.deltaTime * ScrollSpeed * SCROLL_VALUE); // Scroll diagonal out of the map.
+
+        if (currentCameraPosition.y != 2)
+        {
+            // Scrolling up and down dependence of the scroll speed
+            if (Input.GetAxis("Mouse ScrollWheel") > 0f)
+                currentCameraPosition +=
+                    new Vector3(0, -1, 1) * (ScrollSpeed * SCROLL_VALUE); // Scroll diagonal into the map.
+        }
+
+            if (Input.GetAxis("Mouse ScrollWheel") < 0f)
+                currentCameraPosition +=
+                    new Vector3(0, 1, -1) * (ScrollSpeed * SCROLL_VALUE); // Scroll diagonal out of the map.
+
+            if (currentCameraPosition.y <= 2)
+                currentCameraPosition = new Vector3(currentCameraPosition.x, 2, currentCameraPosition.z);
 
         transform.position = currentCameraPosition;
         
