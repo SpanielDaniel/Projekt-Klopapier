@@ -72,6 +72,11 @@ namespace Build
             {
                 building.SetColliderActive(false);
             }
+
+            foreach (var ground in Ground.Grounds)
+            {
+                ground.SetMeshActive(true);
+            }
             
             Vector3 mousePos = Input.mousePosition;
             
@@ -80,12 +85,6 @@ namespace Build
                 SetBuildingToMousePos();
                 
                 HandleMouseInput();
-                
-                foreach (var building in Building.Buildings)
-                {
-                    building.SetColliderActive(true);
-                }
-                
             }
         }
 
@@ -225,6 +224,18 @@ namespace Build
                     
                     BuildUI.SetActive(false);
                     IsBuilding = false;
+                    
+                    
+                    foreach (var building in Building.Buildings)
+                    {
+                        building.SetColliderActive(true);
+                    }
+                
+                    foreach (var ground in Ground.Grounds)
+                    {
+                        ground.SetMeshActive(false);
+                    }
+                    
 
                 }
             }
@@ -233,13 +244,20 @@ namespace Build
             {
                 IsBuilding = false;
                 BuildUI.SetActive(false);
-                foreach (Street street in Street.Streets)
-                {
-                    street.SetAllArrowsActive(false);
-                }
-                
+
                 Destroy(CurrentBuilding);
                 CurrentBuilding = null;
+                
+                foreach (var building in Building.Buildings)
+                {
+                    building.SetColliderActive(true);
+                }
+                
+                foreach (var ground in Ground.Grounds)
+                {
+                    ground.SetMeshActive(false);
+                }
+                
             }
         }
 

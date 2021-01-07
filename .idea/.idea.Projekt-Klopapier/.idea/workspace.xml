@@ -58,12 +58,12 @@
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Grid/DanielB/MyGrid.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Build/BuildSlot.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/BuildingData.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/Building.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Grid/DanielB/MapManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Player/CameraManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/Building.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Grid/DanielB/BuildMap.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Ground.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Build/BuildManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Grid/DanielB/BuildMap.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Player/CameraManager.cs" />
       </list>
     </option>
   </component>
@@ -127,7 +127,7 @@
       <workItem from="1609861994284" duration="7714000" />
       <workItem from="1609948363612" duration="15936000" />
       <workItem from="1609974874492" duration="1769000" />
-      <workItem from="1610011072475" duration="1123000" />
+      <workItem from="1610011072475" duration="2430000" />
     </task>
     <servers />
   </component>
