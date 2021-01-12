@@ -46,6 +46,11 @@ namespace Code.Scripts.Grid.DanielB
         {
             return GroundMap.Grid[_x, _y].GetComponent<Ground>().IsBlocked;
         }
+
+        public EGround GetGroundSignature(int _x, int _y)
+        {
+            return GroundMap.Grid[_x, _y].GetComponent<Ground>().GetGroundSignature;
+        }
         
     }
 }

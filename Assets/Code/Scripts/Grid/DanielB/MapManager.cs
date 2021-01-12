@@ -13,10 +13,5 @@ namespace Code.Scripts.Grid.DanielB
 
         public int GetWidth => Width;
         public int GetHeight => Height;
-
-        // public void SetGroundMovable(int _x, int _y, bool _isMovable)
-        // {
-        //     
-        // }
     }
 }

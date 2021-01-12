@@ -21,15 +21,16 @@ namespace Build
         [SerializeField] private GameObject BuildUI;
         [SerializeField] private PlayerData PlayerData;
         [SerializeField] private BuildMap Map;
+        [SerializeField] private Camera MainCamera;
 
 
-
-        private Ground GroundCurrent;
+        private Ground CurrentGround;
         private bool IsBuilding = false;
         private bool CanBuild;
         public bool GetIsBuilding => IsBuilding;
         
-        private GameObject CurrentBuilding;
+        private GameObject CurrentBuildingObject;
+        private Building CurrentBuilding;
         
         private void Awake()
         {
@@ -38,48 +39,43 @@ namespace Build
 
         private void Start()
         {
+            if(MainCamera == null) MainCamera = Camera.main;
             IsHudOpenH = false;
         }
-
+        
         private void OnMouseClickedBuildSlot(GameObject _building)
         {
+            
             if (IsBuilding)
             {
-                DestroyCurrentBuilding();
+                DestroySelectedBuildingObject();
             }
             
             CreateBuilding(_building);
+            
             IsBuilding = true;
         }
 
-        private void DestroyCurrentBuilding()
+        private void DestroySelectedBuildingObject()
         {
-            Destroy(CurrentBuilding);
-            CurrentBuilding = null;
+            Destroy(CurrentBuildingObject);
+            CurrentBuildingObject = null;
         }
 
         private void CreateBuilding(GameObject _building)
         {
-            CurrentBuilding = Instantiate(_building);
-            CurrentBuilding.GetComponent<Building>().Init(_building.GetComponent<Building>().GetComponent<Building>().GetBuildingData);
+            CurrentBuildingObject = Instantiate(_building);
+            CurrentBuilding = CurrentBuildingObject.GetComponent<Building>();
         }
 
         public void BuildBuilding()
         {
             if (!IsBuilding) return;
             
-            foreach (var building in Building.Buildings)
-            {
-                building.SetColliderActive(false);
-            }
-
-            foreach (var ground in Ground.Grounds)
-            {
-                ground.SetMeshActive(true);
-            }
+            SetColliderActiveOfAllBuildings(false);
+            SetMeshActiveOfAllGrounds(true);
             
             Vector3 mousePos = Input.mousePosition;
-            
             if (mousePos.x > 0 && mousePos.x < Screen.width && mousePos.y > 0 && mousePos.y < Screen.height)
             {
                 SetBuildingToMousePos();
@@ -88,177 +84,155 @@ namespace Build
             }
         }
 
+        private void SetColliderActiveOfAllBuildings(bool _value)
+        {
+            foreach (var building in Building.Buildings)
+            {
+                building.SetColliderActive(_value);
+            }
+        }
+
+        private void SetMeshActiveOfAllGrounds(bool _value)
+        {
+            foreach (var ground in Ground.Grounds)
+            {
+                ground.SetMeshActive(_value);
+            }
+        }
+        
         private void SetBuildingToMousePos()
         {
             Vector3 mousePos;
             Vector3 cameraDirection;
             RaycastHit hit;
-           
-            Ray ray;
             Ground ground;
+            Ray ray;
             bool isHit;
-            bool isGround;
+           
 
-            cameraDirection = Camera.main.transform.forward;
+            cameraDirection = MainCamera.transform.forward;
             mousePos = Input.mousePosition;
-            ray = Camera.main.ScreenPointToRay(mousePos);
+            ray = MainCamera.ScreenPointToRay(mousePos);
             isHit = Physics.Raycast(ray, out hit);
             
-            if (isHit)
+            
+            if (isHit && IsMouseOnGround(hit, out ground))
             {
-                ground = hit.transform.GetComponent<Ground>();
+                CurrentGround = ground;
+                SetBuildingPositionToGroundPosition(ground);
 
-                if (ground != null)
-                {
-                    bool isBlocked = false;
-                    
-                    for (int i = 0; i < CurrentBuilding.GetComponent<Building>().GetBuildingData.ObjectSize.Y; i++)
-                    {
-                        for (int j = 0; j < CurrentBuilding.GetComponent<Building>().GetBuildingData.ObjectSize.X; j++)
-                        {
-                            
-                            isBlocked = Map.IsGroundBlocked((j + ground.GetWidth) ,(i + ground.GetHeight));
-                            if (isBlocked == true) break;
-                        }
-                        if (isBlocked == true) break;
-                        
-                    }
-                    
-                    if (isBlocked == true)
-                    {
-                        CanBuild = false;
-                    }
-                    else
-                    {
-                        CanBuild = true;
-                    }
+                CanBuild = CanBuildingBuildOnGround(ground);
+                
+                if (CanBuild) CurrentBuilding.SetBuildMaterial();
+                else CurrentBuilding.SetCantBuildMaterial();
+            }
+        }
 
-                    isGround = true;
-                    GroundCurrent = ground;
+        private void SetBuildingPositionToGroundPosition(Ground _ground)
+        {
+            CurrentBuildingObject.transform.position = _ground.transform.position;
+        }
 
-                }
-                else isGround = false;
-                
-                
-                
-                
-                
-                
-                // while (ground == null)
-                // {
-                //     isGround = false;
-                //     RaycastHit nextHit;
-                //     ray = new Ray(hit.point + cameraDirection * 0.01f,cameraDirection);
-                //     isHit = Physics.Raycast(ray, out nextHit);
-                //     if (!isHit) break;
-                //     
-                //     hit = nextHit;
-                //     
-                //     ground = hit.transform.GetComponent<Ground>();
-                //     if (ground != null)
-                //     {
-                //         isGround = true;
-                //     }
-                // }
-                if (isGround)
-                {
-                    CurrentBuilding.transform.position = ground.transform.position;
-                }
-                if (isGround && CanBuild)
-                {
-                    int index = hit.triangleIndex;
-                    //CurrentBuilding.transform.position = hit.point;
+        private bool IsMouseOnGround(RaycastHit _hit, out Ground _ground)
+        {
+            Ground ground = _hit.transform.GetComponent<Ground>();
 
-                    EGround groundSignature = ground.GetGroundSignature;
-
-                    switch (groundSignature)
-                    {
-
-                        case EGround.Gras:
-                            
-                            CanBuild = true;
-                            CurrentBuilding.GetComponent<Building>().SetBuildMaterial();
-                            break;
-                        default:
-                            CurrentBuilding.GetComponent<Building>().SetCantBuildMaterial();
-                            CanBuild = false;
-                            break;
-                    }
-                    
-                }
-                else if(!CanBuild)
-                {
-                    CurrentBuilding.GetComponent<Building>().SetCantBuildMaterial();
-                }
+            if (ground != null)
+            {
+                _ground = ground;
+                return true;
+            }
+            else
+            {
+                _ground = null;
+                return false;
             }
         }
         
+        private bool CanBuildingBuildOnGround(Ground _ground)
+        {
+            BuildingData data = CurrentBuilding.GetBuildingData;
+                    
+            for (int i = 0; i < data.ObjectSize.Y; i++)
+            {
+                for (int j = 0; j < data.ObjectSize.X; j++)
+                {
+                    int x = j + _ground.GetWidth;
+                    int y = i + _ground.GetHeight;
+                    
+                    bool isBlocked = Map.IsGroundBlocked(x ,y);
+                    if (isBlocked == true) return false;
+                    
+                    
+                    // TO_DO: Besser machen
+                    switch (Map.GetGroundSignature(x,y))
+                    {
+                        case EGround.None:
+                            return false;
+                        case EGround.Street:
+                            return false;
+                        case EGround.Gras:
+                            break;
+                        default:
+                            return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
         private void HandleMouseInput()
         {
-            if (Input.GetMouseButtonDown(0) && !CurrentBuilding.GetComponent<Building>().IsCollison && CanBuild)
-            {
-                BuildingData data = CurrentBuilding.GetComponent<Building>().GetBuildingData;
-
-                if (PlayerData.IsPlayerHavingEnoughResources(
-                    0,
-                    data.Levels[CurrentBuilding.GetComponent<Building>().CurrentLevelH].WoodCosts,
-                    data.Levels[CurrentBuilding.GetComponent<Building>().CurrentLevelH].StoneCosts,
-                    data.Levels[CurrentBuilding.GetComponent<Building>().CurrentLevelH].SteelCosts))
-                {
-                    PlayerData.ReduceResources(0,
-                        data.Levels[CurrentBuilding.GetComponent<Building>().CurrentLevelH].WoodCosts,
-                        data.Levels[CurrentBuilding.GetComponent<Building>().CurrentLevelH].StoneCosts,
-                        data.Levels[CurrentBuilding.GetComponent<Building>().CurrentLevelH].SteelCosts);
-                
-                    
-                    CurrentBuilding.GetComponent<Building>().SetBuildingMaterial();
-                    
-
-                    for (int i = 0; i < CurrentBuilding.GetComponent<Building>().GetBuildingData.ObjectSize.Y; i++)
-                    {
-                        for (int j = 0; j < CurrentBuilding.GetComponent<Building>().GetBuildingData.ObjectSize.X; j++)
-                        {
-                            Map.SetGroundBlocked(GroundCurrent.GetWidth + j,GroundCurrent.GetHeight + i,true);
-                        }
-                    }
-                    
-                    BuildUI.SetActive(false);
-                    IsBuilding = false;
-                    
-                    
-                    foreach (var building in Building.Buildings)
-                    {
-                        building.SetColliderActive(true);
-                    }
-                
-                    foreach (var ground in Ground.Grounds)
-                    {
-                        ground.SetMeshActive(false);
-                    }
-                    
-
-                }
-            }
+            // Left Mouse Button
+            if (Input.GetMouseButtonDown(0)) LeftMouseButtonClicked();
             
-            if (Input.GetMouseButtonDown(1))
-            {
-                IsBuilding = false;
-                BuildUI.SetActive(false);
+            // Right Mouse Button
+            if (Input.GetMouseButtonDown(1)) RightMouseButtonClicked();
+        }
 
-                Destroy(CurrentBuilding);
-                CurrentBuilding = null;
+        private void LeftMouseButtonClicked()
+        {
+            if (CurrentBuilding.IsCollison && !CanBuild) return;
+            BuildingData data = CurrentBuilding.GetBuildingData;
+            int currentBuildingLevel = CurrentBuilding.CurrentLevelH;
+
+            int woodCosts = data.Levels[currentBuildingLevel].WoodCosts;
+            int stoneCosts = data.Levels[currentBuildingLevel].StoneCosts;
+            int steelCosts = data.Levels[currentBuildingLevel].SteelCosts;
                 
-                foreach (var building in Building.Buildings)
+            if (PlayerData.IsPlayerHavingEnoughResources(0, woodCosts,stoneCosts, steelCosts))
+            {
+                PlayerData.ReduceResources(0, woodCosts, stoneCosts, steelCosts);
+                CurrentBuilding.SetBuildingMaterial();
+                    
+
+                for (int i = 0; i < data.ObjectSize.Y; i++)
                 {
-                    building.SetColliderActive(true);
+                    for (int j = 0; j < data.ObjectSize.X; j++)
+                    {
+                        Map.SetGroundBlocked(CurrentGround.GetWidth + j,CurrentGround.GetHeight + i,true);
+                    }
                 }
-                
-                foreach (var ground in Ground.Grounds)
-                {
-                    ground.SetMeshActive(false);
-                }
-                
+                    
+                BuildUI.SetActive(false);
+                IsBuilding = false;
+                    
+                SetColliderActiveOfAllBuildings(true);
+                SetMeshActiveOfAllGrounds(false);
             }
+        }
+
+        private void RightMouseButtonClicked()
+        {
+            IsBuilding = false;
+            BuildUI.SetActive(false);
+
+            Destroy(CurrentBuildingObject);
+            CurrentBuildingObject = null;
+                
+            SetColliderActiveOfAllBuildings(true);
+            SetMeshActiveOfAllGrounds(false);
         }
 
         public void OnButton_BuildMenu()

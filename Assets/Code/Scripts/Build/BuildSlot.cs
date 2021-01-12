@@ -26,8 +26,14 @@ namespace Build
 
         private void Start()
         {
-            IconImage.sprite = Building.GetComponent<Building>().GetBuildingData.BuldingTexture;
-            BuildingName.text = Building.GetComponent<Building>().GetBuildingData.Name;
+            Init();
+        }
+
+        private void Init()
+        {
+            BuildingData data = Building.GetComponent<Building>().GetBuildingData;
+            IconImage.sprite = data.BuldingTexture;
+            BuildingName.text = data.Name;
         }
 
         public void OnPointerClick(PointerEventData eventData)

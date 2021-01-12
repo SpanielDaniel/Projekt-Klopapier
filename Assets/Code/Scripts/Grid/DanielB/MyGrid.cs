@@ -8,8 +8,8 @@ namespace Code.Scripts.Grid.DanielB
 {
     public class MyGrid<T>
     {
-        [SerializeField] private int Width;
-        [SerializeField] private int Height;
+        private int Width;
+        private int Height;
 
         public T[,] Grid;
 

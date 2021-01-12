@@ -7,7 +7,6 @@ using UnityEngine.EventSystems;
     public class BuildingData : ScriptableObject
     {
         public GameObject Modell;
-
         public Size ObjectSize;
         
         [Serializable]
@@ -22,8 +21,6 @@ using UnityEngine.EventSystems;
         public Sprite BuldingTexture;
         public bool IsUpgradable;
         public Level[] Levels;
-        
-        
         
         [Serializable]
         public struct Level

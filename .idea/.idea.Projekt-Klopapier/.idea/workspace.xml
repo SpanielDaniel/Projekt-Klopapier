@@ -33,7 +33,6 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/UI Scripts/UIBuildingManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/UI Scripts/HudBase.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Player/CameraController.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/GameManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Enums.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Singleton.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/HudBase.cs" />
@@ -49,21 +48,22 @@
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIBuildingManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIVisibilityEvent.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Player/PlayerMouseManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Street.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Player/PlayerRessources.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Player/Player.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIResourcesManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Player/PlayerData.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Grid/DanielB/myBuildMap.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Grid/DanielB/MyGrid.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Player/CameraManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Ground.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Grid/DanielB/BuildMap.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Build/BuildManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Build/BuildSlot.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/BuildingData.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Grid/DanielB/MapManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Player/CameraManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/Building.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Grid/DanielB/BuildMap.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Ground.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Build/BuildManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Grid/DanielB/MyGrid.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Grid/DanielB/MapManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/GameManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Street.cs" />
       </list>
     </option>
   </component>
@@ -127,7 +127,8 @@
       <workItem from="1609861994284" duration="7714000" />
       <workItem from="1609948363612" duration="15936000" />
       <workItem from="1609974874492" duration="1769000" />
-      <workItem from="1610011072475" duration="2430000" />
+      <workItem from="1610011072475" duration="3715000" />
+      <workItem from="1610208677387" duration="12696000" />
     </task>
     <servers />
   </component>
@@ -213,15 +214,16 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2381" y="164" key="SettingsEditor/1920.0.1920.1040/3840.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1608510451500" />
-    <state x="-1565" y="52" width="1531" height="1000" key="dock-window-1" timestamp="1609973183159">
-      <screen x="-1920" y="0" width="1920" height="1040" />
-    </state>
-    <state x="-1565" y="52" width="1531" height="1000" key="dock-window-1/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1609973183159" />
-    <state x="337" y="0" width="1599" height="1000" key="dock-window-1/1920.0.1920.1040/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608590477119" />
-    <state x="60" y="19" width="1493" height="1000" key="dock-window-2" timestamp="1608226800466">
+    <state x="61" y="71" width="1507" height="1000" key="dock-window-1" timestamp="1610215772550">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="60" y="19" width="1493" height="1000" key="dock-window-2/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1608226800466" />
+    <state x="61" y="71" width="1507" height="1000" key="dock-window-1/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1610215772550" />
+    <state x="337" y="0" width="1599" height="1000" key="dock-window-1/1920.0.1920.1040/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608590477119" />
+    <state x="-1491" y="1" width="1507" height="999" key="dock-window-2" timestamp="1610222735580">
+      <screen x="-1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1491" y="0" width="1507" height="1000" key="dock-window-2/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1610219655337" />
+    <state x="-1491" y="1" width="1507" height="999" key="dock-window-2/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1610222735580" />
     <state x="2298" y="243" key="run.anything.popup" timestamp="1607955804944">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>

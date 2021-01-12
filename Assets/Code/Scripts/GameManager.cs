@@ -8,8 +8,4 @@ using UnityEngine;
         [SerializeField] private float GameSpeed = 1f;
         public float GetGameSpeed => GameSpeed;
 
-        private void Awake()
-        {
-
-        }
     }

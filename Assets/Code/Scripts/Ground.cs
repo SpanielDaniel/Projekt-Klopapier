@@ -37,6 +37,11 @@ namespace Code.Scripts
             Grounds = new Ground[_width, _height];
         }
 
+        private void Start()
+        {
+            SetMeshActive(false);
+        }
+
         public EGround GetGroundSignature => GroundSignature;
 
 

@@ -48,6 +48,7 @@ namespace Code.Scripts
         private void InitPositions()
         {
             Vector3 localPos = transform.position;
+            
             PosTop = localPos + Vector3.forward;
             PosDown = localPos + Vector3.back;
             PosLeft = localPos + Vector3.left;

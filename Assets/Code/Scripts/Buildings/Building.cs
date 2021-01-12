@@ -59,19 +59,19 @@ namespace Buildings
             get => CurrentLevel;
         }
 
-        public void Init(BuildingData buildingData)
-        {
-            this.buildingData = buildingData;
-            CurrentHealthH = this.buildingData.Levels[CurrentLevel].MaxLife;
-            AddBuilding();
-        }
-
         #endregion
         
         private void Start()
         {
+            Init();
             HealthBar.SetActive(false);
+        }
+        
+        private void Init()
+        {
             MainCamera = Camera.main;
+            SetHealthToCurrentLevelHealth();
+            AddBuilding();
         }
 
         private void LateUpdate()
@@ -92,31 +92,37 @@ namespace Buildings
         {
             Buildings.Add(this);
         }
+        
         private void RemoveBuilding()
         {
             Buildings.Remove(this);
         }
         public void Upgrade()
         {
-            int nextLevel = CurrentLevelH + 1;
-            int maxLevel = buildingData.Levels.Length - 1;
-
-            if (nextLevel > maxLevel) return;
+            if (IsNextLevelGreaterThanMaxLevel()) return;
             
-            CurrentLevelH = nextLevel;
+            CurrentLevelH++;
+            SetHealthToCurrentLevelHealth();
+        }
+
+        private bool IsNextLevelGreaterThanMaxLevel()
+        {
+            return CurrentLevelH + 1 > buildingData.Levels.Length;
+        }
+
+        private void SetHealthToCurrentLevelHealth()
+        {
             CurrentHealthH = buildingData.Levels[CurrentLevel].MaxLife;
         }
 
         public void SetBuildMaterial()
         {
             MeshRenderer.material = BuildMaterial;
-
         }
         
         public void SetCantBuildMaterial()
         {
             MeshRenderer.material = CantBuildMaterial;
-
         }
 
         public void SetBuildingMaterial()
@@ -124,6 +130,10 @@ namespace Buildings
             MeshRenderer.material = BuildingMaterial;
         }
 
+        #endregion
+
+        #region Events
+        
         private void OnCollisionStay(Collision other)
         {
             if (other.transform.GetComponent<Building>() == null) return;
@@ -135,10 +145,6 @@ namespace Buildings
             if (other.transform.GetComponent<Building>() == null) return;
             IsCollison = false;
         }
-
-        #endregion
-
-        #region Events
         
         private void OnDestroy()
         {
@@ -178,8 +184,5 @@ namespace Buildings
         {
             BoxCollider.enabled = _isActive;
         }
-        
-        
-        
     }
 }
