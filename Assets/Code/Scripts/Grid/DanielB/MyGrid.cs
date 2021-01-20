@@ -11,6 +11,9 @@ namespace Code.Scripts.Grid.DanielB
         private int Width;
         private int Height;
 
+        public int GetWidth => Width;
+        public int GetHeight => Height;
+
         public T[,] Grid;
 
         public MyGrid(int _width,int _height)

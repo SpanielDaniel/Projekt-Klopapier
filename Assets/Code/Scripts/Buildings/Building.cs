@@ -36,6 +36,22 @@ namespace Buildings
         [SerializeField] private Material BuildMaterial;
         [SerializeField] private Material BuildingMaterial;
         [SerializeField] private Material CantBuildMaterial;
+        [SerializeField] private GameObject BuildingObj;
+        [SerializeField] private int CurrentWidth;
+        [SerializeField] private int CurrentHeight;
+        
+
+       public int GetCurrentHeight
+       {
+           get => CurrentHeight;
+           set => CurrentHeight = value;
+       }
+       public int GetCurrentWidth
+       {
+           get => CurrentWidth;
+           set => CurrentWidth = value;
+       }
+        
         public BuildingData GetBuildingData => buildingData;
         
         public int CurrentHealthH
@@ -72,6 +88,9 @@ namespace Buildings
             MainCamera = Camera.main;
             SetHealthToCurrentLevelHealth();
             AddBuilding();
+
+            CurrentWidth = buildingData.ObjectSize.X;
+            CurrentHeight = buildingData.ObjectSize.Y;
         }
 
         private void LateUpdate()
@@ -86,6 +105,45 @@ namespace Buildings
         {
             Quaternion cameraRotation = MainCamera.transform.rotation; 
             HealthBar.transform.localRotation = new Quaternion(cameraRotation.x,cameraRotation.y,cameraRotation.z,cameraRotation.w);
+        }
+
+        private int i = 0;
+        public void Turn()
+        {
+            i += 1;
+            if (i > 3) i = 0;
+
+            transform.localRotation = Quaternion.Euler(0,90 * i,0);//RotateAround(transform.position,new Vector3(0,1,0), 90f );
+
+            //int buffer = GetCurrentWidth;
+            //GetCurrentWidth = Curr
+            
+            //BuildingObj.transform.localPosition = new Vector3(0.25f,0,0.25f);
+            //
+            int x = GetCurrentHeight;
+            int y = -GetCurrentWidth;
+            
+            if (x < 0)
+            {
+                x = -x;
+                BuildingObj.transform.position = new Vector3(
+                    BuildingObj.transform.position.x + 0.5f * (x - 1),
+                    BuildingObj.transform.position.y,
+                    BuildingObj.transform.position.z);
+            }
+            
+            if (y < 0)
+            {
+                y = -y;
+                BuildingObj.transform.position = new Vector3(
+                    BuildingObj.transform.position.x ,
+                    BuildingObj.transform.position.y,
+                    BuildingObj.transform.position.z+ 0.5f * (y - 1));
+            }
+
+            
+            GetCurrentWidth = x;
+            GetCurrentHeight = y;
         }
 
         private void AddBuilding()

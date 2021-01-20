@@ -30,5 +30,4 @@ using UnityEngine.EventSystems;
             public int StoneCosts;
             public int SteelCosts;
         }
-        
     }

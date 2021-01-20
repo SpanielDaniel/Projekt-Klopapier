@@ -7,6 +7,7 @@ using System;
 using Buildings;
 using Code.Scripts;
 using Code.Scripts.Grid.DanielB;
+using Code.Scripts.Map;
 using Player;
 using UI_Scripts;
 using UnityEditorInternal;
@@ -20,18 +21,20 @@ namespace Build
         [SerializeField] private GameObject BuildingPrefab;
         [SerializeField] private GameObject BuildUI;
         [SerializeField] private PlayerData PlayerData;
-        [SerializeField] private BuildMap Map;
+        [SerializeField] private MapGenerator mapGenerator;
         [SerializeField] private Camera MainCamera;
 
 
         private Ground CurrentGround;
         private bool IsBuilding = false;
         private bool CanBuild;
-        public bool GetIsBuilding => IsBuilding;
-        
         private GameObject CurrentBuildingObject;
         private Building CurrentBuilding;
         
+        
+        
+        public bool GetIsBuilding => IsBuilding;
+
         private void Awake()
         {
             BuildSlot.OnMouseClick += OnMouseClickedBuildSlot;
@@ -153,19 +156,21 @@ namespace Build
         {
             BuildingData data = CurrentBuilding.GetBuildingData;
                     
-            for (int i = 0; i < data.ObjectSize.Y; i++)
+            for (int i = 0; i < CurrentBuilding.GetCurrentHeight; i++)
             {
-                for (int j = 0; j < data.ObjectSize.X; j++)
+                for (int j = 0; j < CurrentBuilding.GetCurrentWidth; j++)
                 {
                     int x = j + _ground.GetWidth;
                     int y = i + _ground.GetHeight;
+
                     
-                    bool isBlocked = Map.IsGroundBlocked(x ,y);
+                    
+                    bool isBlocked = mapGenerator.IsGroundBlocked(x ,y);
                     if (isBlocked == true) return false;
                     
                     
                     // TO_DO: Besser machen
-                    switch (Map.GetGroundSignature(x,y))
+                    switch (mapGenerator.GetGroundSignature(x,y))
                     {
                         case EGround.None:
                             return false;
@@ -189,11 +194,16 @@ namespace Build
             
             // Right Mouse Button
             if (Input.GetMouseButtonDown(1)) RightMouseButtonClicked();
+
+            if (Input.GetMouseButtonDown(3)) MiddleMouseButtonClicked();
+
         }
 
         private void LeftMouseButtonClicked()
         {
-            if (CurrentBuilding.IsCollison && !CanBuild) return;
+            if (CurrentBuilding.IsCollison || CanBuild == false) return;
+            
+            
             BuildingData data = CurrentBuilding.GetBuildingData;
             int currentBuildingLevel = CurrentBuilding.CurrentLevelH;
 
@@ -207,11 +217,12 @@ namespace Build
                 CurrentBuilding.SetBuildingMaterial();
                     
 
-                for (int i = 0; i < data.ObjectSize.Y; i++)
+                for (int i = 0; i < CurrentBuilding.GetCurrentHeight; i++)
                 {
-                    for (int j = 0; j < data.ObjectSize.X; j++)
+                    for (int j = 0; j < CurrentBuilding.GetCurrentWidth; j++)
                     {
-                        Map.SetGroundBlocked(CurrentGround.GetWidth + j,CurrentGround.GetHeight + i,true);
+                        
+                        mapGenerator.SetGroundBlocked(CurrentGround.GetWidth + j,CurrentGround.GetHeight + i,true);
                     }
                 }
                     
@@ -233,6 +244,11 @@ namespace Build
                 
             SetColliderActiveOfAllBuildings(true);
             SetMeshActiveOfAllGrounds(false);
+        }
+        
+        private void MiddleMouseButtonClicked()
+        {
+            CurrentBuilding.Turn();
         }
 
         public void OnButton_BuildMenu()
