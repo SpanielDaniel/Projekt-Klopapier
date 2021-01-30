@@ -4,6 +4,9 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using Code.Scripts;
+using Code.Scripts.Grid.DanielB;
+using Code.Scripts.Map;
 using UnityEngine;
 
 public class UnitMovement : Unit

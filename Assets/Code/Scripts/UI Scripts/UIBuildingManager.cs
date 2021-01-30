@@ -1,5 +1,7 @@
 ﻿using System;
 using Buildings;
+using Code.Scripts;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,11 +14,21 @@ namespace UI_Scripts
         #region ----- Init -----
 
         [SerializeField] private GameObject BuildingUI;
+        [SerializeField] private GameObject BuildUI;
+        
+        
+        
         [SerializeField] private Text BuildingNameText;
         [SerializeField] private Text BuildingLevelText;
         [SerializeField] private Image BuildingImage;
         [SerializeField] private UISlot[] BuildingSlots;
         [SerializeField] private Slider LifeBar;
+        
+        [SerializeField] private Text BuildingNameText2;
+        [SerializeField] private Image BuildingImage2;
+        [SerializeField] private UISlot[] BuildingSlots2;
+        [SerializeField] private Slider LifeBar2;
+
 
         private Building CurrentSelectedBuilding;
 
@@ -24,8 +36,9 @@ namespace UI_Scripts
         {
             Building.OnClick += OnBuildingClicked;
             Building.ValueChanged += UpdateUI;
+            Building.IsFinished += OnFinisched;
         }
-        
+
         private void Start()
         {
             CloseBuildingUI();
@@ -48,6 +61,9 @@ namespace UI_Scripts
             BuildingImage.sprite = CurrentSelectedBuilding.GetBuildingData.BuldingTexture;
             BuildingLevelText.text = "Level " + CurrentSelectedBuilding.CurrentLevelH;
             
+            BuildingNameText2.text = CurrentSelectedBuilding.GetBuildingData.Name;
+            BuildingImage2.sprite = CurrentSelectedBuilding.GetBuildingData.BuldingTexture;
+            
             UpdateLifeBar();
         }
         
@@ -60,6 +76,9 @@ namespace UI_Scripts
             
             LifeBar.maxValue = CurrentSelectedBuilding.GetBuildingData.Levels[level].MaxLife;
             LifeBar.value = CurrentSelectedBuilding.CurrentHealthH;
+            
+            LifeBar2.maxValue = CurrentSelectedBuilding.GetBuildingData.Levels[level].MaxLife;
+            LifeBar2.value = CurrentSelectedBuilding.CurrentHealthH;
         }
         
         /// <summary>
@@ -67,8 +86,8 @@ namespace UI_Scripts
         /// </summary>
         private void CloseBuildingUI()
         {
-            CurrentSelectedBuilding = null;            
             IsHudOpenH = false;
+            CurrentSelectedBuilding = null;
         }
 
         #endregion
@@ -85,18 +104,59 @@ namespace UI_Scripts
             CurrentSelectedBuilding.Upgrade();
         }
 
+        public void OnButton_Destroy()
+        {
+            FindObjectOfType<AudioManager>().Play("BuildingDestroy");
+            
+            CurrentSelectedBuilding.DestroyEffect();
+            GameObject objBuffer = CurrentSelectedBuilding.gameObject;
+            SetUIActive(false);
+            Destroy(objBuffer);
+        }
+
         private void OnBuildingClicked(Building _building)
         {
-            // Triggers the UIActivity event.
-            IsHudOpenH = true;
+            if(CurrentSelectedBuilding != _building) FindObjectOfType<AudioManager>().Play("BuildingClicked");
+
             CurrentSelectedBuilding = _building;
-            
+            IsHudOpenH = true;
             UpdateUI();
         }
 
         public override void SetUIActive(bool _isActive)
         {
-            BuildingUI.SetActive(_isActive);
+
+            if (CurrentSelectedBuilding == null)
+            {
+                BuildUI.SetActive(false);
+                BuildingUI.SetActive(false);
+                return;
+            }
+            
+            if (CurrentSelectedBuilding.GetIsBuilding)
+            {
+                BuildUI.SetActive(_isActive);
+                if (BuildingUI.activeSelf == true)
+                {
+                    BuildingUI.SetActive(false);
+                }
+            }
+            else
+            {
+                BuildingUI.SetActive(_isActive);
+                if (BuildUI.activeSelf == true)
+                {
+                    BuildUI.SetActive(false);
+                }
+            }
+        }
+        
+        private void OnFinisched(Building obj)
+        {
+            if (CurrentSelectedBuilding != obj) return;
+            BuildUI.SetActive(false);
+            BuildingUI.SetActive(true);
+            UpdateUI();
         }
 
         #endregion

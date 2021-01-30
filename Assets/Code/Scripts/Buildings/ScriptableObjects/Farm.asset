@@ -19,7 +19,7 @@ MonoBehaviour:
   Name: Farm
   Description: Pflanzt Nahrung an.
   BuldingTexture: {fileID: 21300000, guid: 17fe7ac7b079a27439e27c2f095ec06c, type: 3}
-  IsUpgradable: 1
+  IsUpgradable: 0
   Levels:
   - MaxLife: 100
     WoodCosts: 5

@@ -3,6 +3,8 @@
 // Project  : Projekt-Klopapier
 
 using System;
+using Code.Scripts.Grid.DanielB;
+using Code.Scripts.Map;
 using UnityEngine;
 
 namespace Code.Scripts
@@ -17,9 +19,20 @@ namespace Code.Scripts
     
     public class Ground : MonoBehaviour
     {
-        
-        
         public bool IsBlocked;
+
+        public bool IsBlockedH
+        {
+            get => IsBlocked;
+            set
+            {
+                IsBlocked = value;
+
+                // MyGrid<Node> Nodes = new MyGrid<Node>(10,10);
+                // Nodes[GetWidth,Height].IsMovable = value;
+            }
+        }
+        
         [SerializeField] private EGround GroundSignature;
         [SerializeField] private MeshRenderer Renderer;
         

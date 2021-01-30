@@ -4,6 +4,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using Code.Scripts.Grid.DanielB;
 using UnityEngine;
 
 public class Pathfinding : MonoBehaviour

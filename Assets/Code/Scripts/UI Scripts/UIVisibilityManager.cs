@@ -27,6 +27,14 @@ public class UIVisibilityManager : MonoBehaviour
             else hud.SetUIActive(false);
         }
     }
+
+    public void SetAllHusNonVisable()
+    {
+        foreach (var hud in UIManagersWithVisibility)
+        {
+            hud.SetUIActive(false);
+        }
+    }
 }
 
     
