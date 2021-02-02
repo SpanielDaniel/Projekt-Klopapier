@@ -1,9 +1,8 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 
-[CreateAssetMenu(fileName = "New Building", menuName = "Building")]
+    [CreateAssetMenu(fileName = "New Building", menuName = "Building")]
     public class BuildingData : ScriptableObject
     {
         public GameObject Modell;

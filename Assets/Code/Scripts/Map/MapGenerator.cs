@@ -22,6 +22,7 @@ namespace Code.Scripts.Map
         [SerializeField] private GameObject GroundObj;
         [SerializeField] private GameObject PrefStreetStraight;
         [SerializeField] private GameObject PrefMapThings;
+        [SerializeField] private GameObject GrasGround;
 
         private GameObject MapThings;
         
@@ -39,6 +40,15 @@ namespace Code.Scripts.Map
             GenerateMap();
             GenerateWaveEntrances();
             GenerateRings();
+            
+            
+            float width = MapManager.GetWidth;
+            float height = MapManager.GetHeight;
+            
+            GrasGround.transform.localScale = new Vector3(width/10,1, height/10);
+            GrasGround.transform.position = new Vector3(0,0,0);
+            MapThings.transform.position = new Vector3(-width/2,0.001f,-height/2);
+            
         }
 
         public void DeleteMap()
@@ -67,6 +77,10 @@ namespace Code.Scripts.Map
                     GroundMap.Grid[w, h].transform.SetParent(MapThings.transform);
                 }
             }
+
+            
+            
+            
         }
 
         private void GenerateWaveEntrances()
@@ -113,7 +127,6 @@ namespace Code.Scripts.Map
 
         private void GenerateDownEntrances(int _entrancesAmount)
         {
-            
             for (int i = 0; i < MapManager.GetHeight / 2 - 1; i += 2)
             {
                 GenerateEntrances2(PrefStreetStraight, i + 1,MapManager.GetWidth - i  ,i,i ,_entrancesAmount);
@@ -206,8 +219,6 @@ namespace Code.Scripts.Map
                 x += 2;
             }
         }
-
-        
         private void GenerateEntrances2(GameObject _street, int _startPosX, int _endPosX, int _startPosY, int _endPosY, int _entrancesAmount)
         {
             int startPosX = _startPosX;
@@ -217,7 +228,6 @@ namespace Code.Scripts.Map
             int startPosY = _startPosY;
             int endPosY = _endPosY;
 
-            Debug.Log(startPosX + " " + endPosX);
             
             int entranceAmount = 1;
 
@@ -269,98 +279,9 @@ namespace Code.Scripts.Map
             }
         }
         
-        // TODO: sauber machen. Die Funktion ist viel zu lang.
-        // private void GenerateEntrances(GameObject _street, int _startPosX, int _endPosX, int _startPosY, int _endPosY, int _entrancesAmount)
-        // {
-        //     
-        //     int gridWidth  = MapManager.GetWidth;
-        //     int gridHeight = MapManager.GetHeight;
-        //
-        //     int startPosX = gridWidth  * _startPosX;
-        //     int endPosX   = gridWidth  * _endPosX;
-        //     
-        //     
-        //     int startPosY = gridHeight * _startPosY;
-        //     int endPosY   = gridHeight * _endPosY;
-        //     
-        //
-        //     int stageAmountX = 0;
-        //     int stageAmountY = 0;
-        //     
-        //     if ( startPosX !=  endPosX)
-        //     {
-        //         stageAmountX = gridWidth / _entrancesAmount - 1;
-        //     }
-        //
-        //     if (startPosY != endPosY)
-        //     {
-        //          stageAmountY = gridHeight / _entrancesAmount - 1;
-        //     }
-        //     
-        //     if (startPosX > 0 && startPosX == endPosX)
-        //     {
-        //         startPosX--;
-        //         endPosX--;
-        //     }
-        //     
-        //     if( endPosX > startPosX)
-        //     {
-        //         startPosX++;
-        //     }
-        //
-        //     if (startPosY > 0 && startPosY == endPosY)
-        //     {
-        //         startPosY--;
-        //         endPosY--;
-        //     }
-        //     
-        //     if(endPosY > startPosY)
-        //     {
-        //         startPosY++;
-        //     }
-        //
-        //
-        //     int ePosX = stageAmountX;
-        //     int ePosY = stageAmountY;
-        //
-        //
-        //     for (int i = 0; i < _entrancesAmount; i++)
-        //     {
-        //         
-        //         int randomValueX = endPosX ;
-        //         if (startPosX != endPosX)
-        //         {
-        //             
-        //             randomValueX = (int) GetRandomValue(startPosX, ePosX - 2);
-        //         }
-        //
-        //         int randomValueY = endPosY;
-        //         if (startPosY != endPosY)
-        //         {
-        //             
-        //             randomValueY= (int) GetRandomValue(startPosY, ePosY - 2);
-        //         }
-        //         
-        //         randomValueX *= 2;
-        //         randomValueY *= 2;
-        //         
-        //         PlaceStreetOnPos(_street,randomValueX,randomValueY);
-        //         
-        //         startPosX += stageAmountX;
-        //         startPosY += stageAmountY;
-        //         ePosX += stageAmountX;
-        //         ePosY += stageAmountY;
-        //     }
-        //
-        // }
-
         private float GetRandomValue(int _start, int _end)
         {
-            Debug.Log("------------");
-            Debug.Log("Start:" + _start + "| End:" + _end + " | Range:" + (_end- _start));
-            float value = Random.Range(_start,_end);
-            Debug.Log("Var:" + (value - _start +" | Position" + value));
-            return value; //value;
+            return Random.Range(_start,_end);
         }
         
         // TODO: Ins Bau Manager packen, wodrin auch die Gebäude gebaut werden
@@ -397,6 +318,11 @@ namespace Code.Scripts.Map
         public EGround GetGroundSignature(int _x, int _y)
         {
             return GroundMap.Grid[_x, _y].GetComponent<Ground>().GetGroundSignature;
+        }
+
+        public Ground GetGroundFromPosition(int _x, int _y)
+        {
+            return GroundMap.Grid[_x, _y].GetComponent<Ground>();
         }
     }
 }

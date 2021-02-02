@@ -17,6 +17,8 @@ namespace UI_Scripts
         [SerializeField] private TextMeshProUGUI Steel;
         [SerializeField] private TextMeshProUGUI Food;
 
+        private int StorageCapacity;
+
         private void Awake()
         {
             PlayerData.ToiletPaperAmountChanged += SetTextToToiletPaperAmount;
@@ -24,27 +26,45 @@ namespace UI_Scripts
             PlayerData.StoneAmountChanged += SetTextToStoneAmount;
             PlayerData.SteelAmountChanged += SetTextToSteelAmount;
             PlayerData.FoodAmountChanged += SetTextToFoodAmount;
+            PlayerData.StorageCapacityChanged += SetStorageCapacity;
+        }
+
+        private void SetStorageCapacity(int _storageCapacity)
+        {
+            StorageCapacity = _storageCapacity;
+            PlayerData data = PlayerData.GetInstance;
+            
+            SetTextToFoodAmount(data.FoodAmountH);
+            SetTextToSteelAmount(data.StoneAmountH);
+            SetTextToStoneAmount(data.StoneAmountH);
+            SetTextToWoodAmount(data.WoodAmountH);
+            SetTextToToiletPaperAmount(data.ToiletPaperAmountH);
         }
 
         private void SetTextToToiletPaperAmount(int _toiletAmount)
         {
-            ToiletPaper.text = _toiletAmount.ToString();
+            ToiletPaper.text = _toiletAmount.ToString() + AddStorageCapacity();
         }
         private void SetTextToWoodAmount(int _woodAmount)
         {
-            Wood.text = _woodAmount.ToString();
+            Wood.text = _woodAmount.ToString()+ AddStorageCapacity();
         }
         private void SetTextToStoneAmount(int _stoneAmount)
         {
-            Stone.text = _stoneAmount.ToString();
+            Stone.text = _stoneAmount.ToString()+ AddStorageCapacity();
         }
         private void SetTextToSteelAmount(int _steelAmount)
         {
-            Steel.text = _steelAmount.ToString();
+            Steel.text = _steelAmount.ToString()+ AddStorageCapacity();
         }
         private void SetTextToFoodAmount(int _foodAmount)
         {
-            Food.text = _foodAmount.ToString();
+            Food.text = _foodAmount.ToString() + AddStorageCapacity();
+        }
+
+        private string AddStorageCapacity()
+        {
+            return "|" + StorageCapacity;
         }
         
     }

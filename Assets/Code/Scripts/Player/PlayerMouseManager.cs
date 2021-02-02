@@ -12,6 +12,7 @@ namespace Player
     {
         
         [SerializeField] private BuildManager BuildManager;
+        [SerializeField] private UIVisibilityManager UIVisibilityManager;
 
         private Vector3 MousePos;
         private bool IsPointerEntered;
@@ -31,9 +32,9 @@ namespace Player
                 return;
             }
 
-            if (UnitSelector.SelectedUnits.Count > 0)
+            if (Input.GetMouseButtonDown(1))
             {
-                UnitSelector.MoveUnits();
+                UIVisibilityManager.SetAllHusNonVisable();
             }
             
             
@@ -64,7 +65,9 @@ namespace Player
                 if (Input.GetMouseButtonDown(0))
                 {
                     IMouseLeftClick mLeftclick = CurrentHit.GetComponent<IMouseLeftClick>();
-                    if(mLeftclick != null) mLeftclick.OnMouseLeftClickAction(); 
+                    
+                    if(mLeftclick != null) mLeftclick.OnMouseLeftClickAction();
+                    
                 }
                 
                 LastHit = CurrentHit;

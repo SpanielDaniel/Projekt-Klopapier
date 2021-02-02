@@ -17,35 +17,32 @@ namespace Build
 {
     public class BuildManager : UIVisibilityEvent
     {
-       
-        [SerializeField] private GameObject BuildingPrefab;
+        [SerializeField] private GameObject PrefScrapBuilding;
         [SerializeField] private GameObject BuildUI;
         [SerializeField] private PlayerData PlayerData;
         [SerializeField] private MapGenerator mapGenerator;
         [SerializeField] private Camera MainCamera;
-
-
+        
         private Ground CurrentGround;
         private bool IsBuilding = false;
         private bool CanBuild;
         private GameObject CurrentBuildingObject;
         private Building CurrentBuilding;
         
-        
-        
         public bool GetIsBuilding => IsBuilding;
 
         private void Awake()
         {
             BuildSlot.OnMouseClick += OnMouseClickedBuildSlot;
+            Building.IsDestroied += OnBuildingDestried;
         }
 
         private void Start()
         {
             if(MainCamera == null) MainCamera = Camera.main;
-            IsHudOpenH = false;
+            CloseHud();
         }
-        
+
         private void OnMouseClickedBuildSlot(GameObject _building)
         {
             
@@ -53,7 +50,10 @@ namespace Build
             {
                 DestroySelectedBuildingObject();
             }
+            FindObjectOfType<AudioManager>().Play("BuildSlotClicked");
             
+            
+            SetMeshActiveOfAllGrounds(true);
             CreateBuilding(_building);
             
             IsBuilding = true;
@@ -73,10 +73,11 @@ namespace Build
 
         public void BuildBuilding()
         {
+            
             if (!IsBuilding) return;
             
             SetColliderActiveOfAllBuildings(false);
-            SetMeshActiveOfAllGrounds(true);
+            
             
             Vector3 mousePos = Input.mousePosition;
             if (mousePos.x > 0 && mousePos.x < Screen.width && mousePos.y > 0 && mousePos.y < Screen.height)
@@ -156,9 +157,9 @@ namespace Build
         {
             BuildingData data = CurrentBuilding.GetBuildingData;
                     
-            for (int i = 0; i < CurrentBuilding.GetCurrentHeight; i++)
+            for (int i = 0; i < CurrentBuilding.CurrentHeightH; i++)
             {
-                for (int j = 0; j < CurrentBuilding.GetCurrentWidth; j++)
+                for (int j = 0; j < CurrentBuilding.CurrentWidthH; j++)
                 {
                     int x = j + _ground.GetWidth;
                     int y = i + _ground.GetHeight;
@@ -201,7 +202,11 @@ namespace Build
 
         private void LeftMouseButtonClicked()
         {
-            if (CurrentBuilding.IsCollison || CanBuild == false) return;
+            if (CurrentBuilding.IsCollison || CanBuild == false)
+            {
+                FindObjectOfType<AudioManager>().Play("CantBuild");
+                return;
+            }
             
             
             BuildingData data = CurrentBuilding.GetBuildingData;
@@ -213,15 +218,15 @@ namespace Build
                 
             if (PlayerData.IsPlayerHavingEnoughResources(0, woodCosts,stoneCosts, steelCosts))
             {
+                FindObjectOfType<AudioManager>().Play("Build");
                 PlayerData.ReduceResources(0, woodCosts, stoneCosts, steelCosts);
                 CurrentBuilding.SetBuildingMaterial();
-                    
+                CurrentBuilding.SetPos(CurrentGround.GetWidth,CurrentGround.GetHeight);
 
-                for (int i = 0; i < CurrentBuilding.GetCurrentHeight; i++)
+                for (int i = 0; i < CurrentBuilding.CurrentHeightH; i++)
                 {
-                    for (int j = 0; j < CurrentBuilding.GetCurrentWidth; j++)
+                    for (int j = 0; j < CurrentBuilding.CurrentWidthH; j++)
                     {
-                        
                         mapGenerator.SetGroundBlocked(CurrentGround.GetWidth + j,CurrentGround.GetHeight + i,true);
                     }
                 }
@@ -231,6 +236,10 @@ namespace Build
                     
                 SetColliderActiveOfAllBuildings(true);
                 SetMeshActiveOfAllGrounds(false);
+            }
+            else
+            {
+                FindObjectOfType<AudioManager>().Play("CantBuild");
             }
         }
 
@@ -253,12 +262,27 @@ namespace Build
 
         public void OnButton_BuildMenu()
         {
-            IsHudOpenH = true;
+            OpenHud();
         }
 
         public override void SetUIActive(bool _isActive)
         {
             BuildUI.SetActive(_isActive);
         }
+
+        public void OnBuildingDestried(Building _building,int _x, int _y)
+        {
+            Debug.Log("Destroy");
+            for (int i = 0; i < _building.CurrentHeightH; i++)
+            {
+                for (int j = 0; j < _building.CurrentWidthH; j++)
+                {
+                    GameObject scrap = Instantiate(PrefScrapBuilding);
+                    scrap.transform.position = mapGenerator.GetGroundFromPosition(_x + j, _y + i).transform.position;
+                }
+            }
+            
+        }
+        
     }
 }

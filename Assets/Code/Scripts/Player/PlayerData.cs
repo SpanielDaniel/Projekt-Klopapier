@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Player
 {
-    public class PlayerData : MonoBehaviour
+    public class PlayerData : Singleton<PlayerData>
     {
         #region Init
 
@@ -16,71 +16,90 @@ namespace Player
         public static event Action<int> StoneAmountChanged;
         public static event Action<int> SteelAmountChanged;
         public static event Action<int> FoodAmountChanged;
+        public static event Action<int> StorageCapacityChanged;
 
         [SerializeField] private int ToiletPaperStartAmount;
         [SerializeField] private int WoodStartAmount;
         [SerializeField] private int StoneStartAmount;
         [SerializeField] private int SteelStartAmount;
         [SerializeField] private int FoodStartAmount;
+        [SerializeField] private int StartStorageCapacity;
 
         private int ToiletPaperAmount;
         private int WoodAmount;
         private int StoneAmount;
         private int SteelAmount;
         private int FoodAmount;
+        private int StorageCapacity;
 
-        private int ToiletPaperAmountH
+
+        public int StorageCapacityH
+        {
+            get => StorageCapacity;
+            set
+            {
+                StorageCapacity = value;
+                StorageCapacityChanged?.Invoke(StorageCapacity);
+                WoodAmountH = WoodAmountH;
+                StoneAmountH = StoneAmountH;
+                SteelAmountH = SteelAmountH;
+                ToiletPaperAmountH = ToiletPaperAmountH;
+            }
+        }
+
+        public int ToiletPaperAmountH
         {
             get => ToiletPaperAmount;
             set
             {
-                ToiletPaperAmount = value;
+                ToiletPaperAmount = GetValue(value);
                 ToiletPaperAmountChanged?.Invoke(ToiletPaperAmount);
             }
         }
 
-        private int WoodAmountH
+        public int WoodAmountH
         {
             get => WoodAmount;
             set
             {
-                WoodAmount = value;
+                WoodAmount = GetValue(value);
                 WoodAmountChanged?.Invoke(WoodAmount);
             }
         }
         
-        private int StoneAmountH
+        public int StoneAmountH
         {
             get => StoneAmount;
             set
             {
-                StoneAmount = value;
+                StoneAmount = GetValue(value);
                 StoneAmountChanged?.Invoke(StoneAmount);
             }
         }
         
-        private int SteelAmountH
+        public int SteelAmountH
         {
             get => SteelAmount;
             set
             {
-                SteelAmount = value;
+                SteelAmount = GetValue(value);
                 SteelAmountChanged?.Invoke(SteelAmount);
             }
         }
 
-        private int FoodAmountH
+        public int FoodAmountH
         {
             get => FoodAmount;
             set
             {
-                FoodAmount = value;
+                FoodAmount = GetValue(value);
                 FoodAmountChanged?.Invoke(FoodAmount);
             }
         }
 
         private void Start()
         {
+            StorageCapacityH = StartStorageCapacity;
             ToiletPaperAmountH = ToiletPaperStartAmount;
             WoodAmountH = WoodStartAmount;
             StoneAmountH = StoneStartAmount;
@@ -88,6 +107,11 @@ namespace Player
             FoodAmountH = FoodStartAmount;
         }
 
+        private int GetValue(int _value)
+        {
+            if (_value >= StorageCapacity) return StorageCapacity;
+            return _value;
+        }
 
         public bool IsPlayerHavingEnoughResources(int _toiletPaper, int _wood, int _stone, int _steel)
         {
@@ -109,7 +133,32 @@ namespace Player
             StoneAmountH -= _stone;
             SteelAmountH -= _steel;
         }
+
+        public void IncreaseWood(int _amount)
+        {
+            WoodAmountH += _amount;
+        }
         
+        public void IncreaseStone(int _amount)
+        {
+            StoneAmountH += _amount;
+        } 
+        
+        public void IncreaseSteel(int _amount)
+        {
+            SteelAmountH += _amount;
+        } 
+        
+        public void IncreaseToiletPaper(int _amount)
+        {
+            ToiletPaperAmountH += _amount;
+        }
+        
+        public void IncreaseFood (int _amount)
+        {
+            FoodAmountH += _amount;
+        }
+
         #endregion
     }
 }

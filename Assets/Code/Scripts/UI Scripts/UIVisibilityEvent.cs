@@ -23,11 +23,22 @@ namespace UI_Scripts
             }
             get => IsHudOpen;
         }
-        
+
         /// <summary>
         /// Deactivates specific UI elements.
         /// </summary>
         /// <param name="_isActive"></param>
-        public virtual void SetUIActive (bool _isActive){}
+        public virtual void SetUIActive(bool _isActive) { }
+        
+        protected void CloseHud()
+        {
+            IsHudOpenH = false;   
+        }
+
+        protected void OpenHud()
+        {
+            IsHudOpenH = true;
+        }
+        
     }
 }
