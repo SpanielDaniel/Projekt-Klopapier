@@ -2,93 +2,211 @@
 // Author   : Daniel Pobijanski
 // Project  : Projekt-Klopapier
 
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pathfinding : MonoBehaviour
+public class Pathfinding
 {
-    Grid GridReference;
-    public Transform StartPosition;
-    public Transform TargetPosition;
+    private const int MoveStraightCost = 10;
+    private const int MoveDiagonalCost = 14;
 
-    private void Awake()
+    public static Pathfinding Instance { get; private set; }
+
+    private Grid<Node> Grid;
+    private List<Node> OpenList;
+    private List<Node> ClosedList;
+    private bool IsBlocked;
+    
+    public Pathfinding(int _widht, int _height)
     {
-        GridReference = GetComponent<Grid>();
+        Instance = this;
+        Grid = new Grid<Node>(_widht, _height,(Grid<Node> g, int x, int y)=> new Node(g,x,y));
     }
 
-    private void Update()
+    public List<Vector3> FindPath(Vector3 _startWorldPosition, Vector3 _endWorldPosition)
     {
-        if (TargetPosition != null)
+        Grid.GetXY(_startWorldPosition, out int _startX, out int _startY);
+        Grid.GetXY(_endWorldPosition, out int _endX, out int _endY);
+
+        List<Node> path = FindPath(_startX, _startY, _endX, _endY);
+
+        if (path == null)
         {
-            FindPath(StartPosition.position, TargetPosition.position);
+            return null;
+        }
+        else
+        {
+            List<Vector3> vectorList = new List<Vector3>();
+            foreach (Node pathNode in path)
+            {
+                vectorList.Add(new Vector3(pathNode.GridX, pathNode.GridY) + Vector3.one * 0.5f);
+            }
+            return vectorList;
         }
     }
 
-    public void FindPath(Vector3 a_StartPos, Vector3 a_TargetPos)
+    public List<Node> FindPath(int _startX, int _startY, int _endX, int _endY)
     {
-        Node StartNode = GridReference.NodeFromWorldPoint(a_StartPos);
-        Node TargetNode = GridReference.NodeFromWorldPoint(a_TargetPos);
+        Node startNode = Grid.GetGridObject(_startX, _startY);
+        Node endNode = Grid.GetGridObject(_endX, _endY);
 
-        List<Node> OpenList = new List<Node>();
-        HashSet<Node> ClosedList = new HashSet<Node>();
+        Debug.Log(endNode);
 
-        OpenList.Add(StartNode);
+        OpenList = new List<Node> { startNode };
+        ClosedList = new List<Node>();
+
+        for (int x = 0; x < Grid.GetWidth(); x++)
+        {
+            for (int y = 0; y < Grid.GetHeight(); y++)
+            {
+                Node pathNode = Grid.GetGridObject(x, y);
+                pathNode.GCost = 99999999;
+                pathNode.CalculateFCost();
+                pathNode.ParentNode = null;
+            }
+        }
+
+        startNode.GCost = 0;
+        startNode.HCost = CalculateDistanceCost(startNode, endNode);
+        startNode.CalculateFCost();
 
         while (OpenList.Count > 0)
         {
-            Node CurrentNode = OpenList[0];
-            for (int i = 1; i < OpenList.Count; i++)
+            Node currentNode = GetLowestFCostNode(OpenList);
+            if (currentNode == endNode)
             {
-                if (OpenList[i].FCost < CurrentNode.FCost || OpenList[i].FCost == CurrentNode.FCost && OpenList[i].ihCost < CurrentNode.ihCost) CurrentNode = OpenList[i];
+                //reached Final
+                return CalculatePath(endNode);
             }
-            OpenList.Remove(CurrentNode);
-            ClosedList.Add(CurrentNode);
 
-            if (CurrentNode == TargetNode) GetFinalPath(StartNode, TargetNode);
+            OpenList.Remove(currentNode);
+            ClosedList.Add(currentNode);
 
-            foreach (Node NeighborNode in GridReference.GetNeighboringNodes(CurrentNode))
+            foreach (Node neighbourNodes in GetNeighbourList(currentNode))
             {
-                if (!NeighborNode.bIsWall || ClosedList.Contains(NeighborNode)) continue;
-                int MoveCost = CurrentNode.igCost + GetManhattenDistance(CurrentNode, NeighborNode);
-
-                if (MoveCost < NeighborNode.igCost || !OpenList.Contains(NeighborNode))
+                if (ClosedList.Contains(neighbourNodes))
                 {
-                    NeighborNode.igCost = MoveCost;
-                    NeighborNode.ihCost = GetManhattenDistance(NeighborNode, TargetNode);
-                    NeighborNode.ParentNode = CurrentNode;
+                    continue;
+                }
 
-                    if (!OpenList.Contains(NeighborNode)) OpenList.Add(NeighborNode);
+                if (!neighbourNodes.IsWalkable)
+                {
+                    ClosedList.Add(neighbourNodes);
+                    continue;
+                }
+
+                int tentativeGCost = currentNode.GCost + CalculateDistanceCost(currentNode, neighbourNodes);
+                if (tentativeGCost < neighbourNodes.GCost)
+                {
+                    neighbourNodes.ParentNode = currentNode;
+                    neighbourNodes.GCost = tentativeGCost;
+                    neighbourNodes.HCost = CalculateDistanceCost(neighbourNodes, endNode);
+                    neighbourNodes.CalculateFCost();
+
+                    if (!OpenList.Contains(neighbourNodes))
+                    {
+                        OpenList.Add(neighbourNodes);
+                    }
                 }
             }
-
         }
+        return null;
     }
 
-
-
-    void GetFinalPath(Node a_StartingNode, Node a_EndNode)
+    private List<Node> GetNeighbourList(Node _currentNode)
     {
-        List<Node> FinalPath = new List<Node>();
-        Node CurrentNode = a_EndNode;
+        List<Node> neighbourList = new List<Node>();
 
-        while (CurrentNode != a_StartingNode)
+        if (_currentNode.GridX - 1 >= 0)
         {
-            FinalPath.Add(CurrentNode);
-            CurrentNode = CurrentNode.ParentNode;
+            //left
+            neighbourList.Add(GetNode(_currentNode.GridX - 1, _currentNode.GridY));
+            //left down
+            if (_currentNode.GridY - 1 >= 0)
+            {
+                neighbourList.Add(GetNode(_currentNode.GridX - 1, _currentNode.GridY - 1));
+            }
+            //left Up
+            if (_currentNode.GridY + 1< Grid.GetHeight())
+            {
+                neighbourList.Add(GetNode(_currentNode.GridX - 1, _currentNode.GridY + 1));
+            }
+        }
+        if (_currentNode.GridX + 1 < Grid.GetWidth())
+        {
+            //right
+            neighbourList.Add(GetNode(_currentNode.GridX + 1, _currentNode.GridY));
+            //right down
+            if (_currentNode.GridY - 1 >= 0)
+            {
+                neighbourList.Add(GetNode(_currentNode.GridX + 1, _currentNode.GridY - 1));
+            }
+            //right down
+            if (_currentNode.GridY +1 < Grid.GetHeight())
+            {
+                neighbourList.Add(GetNode(_currentNode.GridX + 1, _currentNode.GridY + 1));
+            }
+        }
+        //down
+        if (_currentNode.GridY - 1 >= 0)
+        {
+            neighbourList.Add(GetNode(_currentNode.GridX, _currentNode.GridX - 1));
+        }
+        //up
+        if (_currentNode.GridY + 1 < Grid.GetHeight())
+        {
+            neighbourList.Add(GetNode(_currentNode.GridX, _currentNode.GridY + 1));
         }
 
-        FinalPath.Reverse();
-
-        GridReference.FinalPath = FinalPath;
-
+        return neighbourList;
     }
 
-    int GetManhattenDistance(Node a_nodeA, Node a_nodeB)
+    private Node GetNode(int _x, int _y)
     {
-        int ix = Mathf.Abs(a_nodeA.iGridX - a_nodeB.iGridX);
-        int iy = Mathf.Abs(a_nodeA.iGridY - a_nodeB.iGridY);
+        return Grid.GetGridObject(_x, _y);
+    }
 
-        return ix + iy;
+    private List<Node> CalculatePath(Node _endNode)
+    {
+        List<Node> path = new List<Node>();
+        path.Add(_endNode);
+        Node currentNode = _endNode;
+        while (currentNode.ParentNode != null)
+        {
+            path.Add(currentNode.ParentNode);
+            currentNode = currentNode.ParentNode;
+        }
+
+        path.Reverse();
+        return path;
+    }
+
+    private int CalculateDistanceCost(Node _a, Node _b)
+    {
+        int xDistance = Mathf.Abs(_a.GridX - _b.GridX);
+        int yDistance = Mathf.Abs(_a.GridY - _b.GridY);
+        int remaining = Mathf.Abs(xDistance - yDistance);
+
+        Debug.Log(remaining);
+
+        return MoveDiagonalCost * Mathf.Min(xDistance, yDistance) + MoveStraightCost * remaining;
+    }
+
+    private Node GetLowestFCostNode(List<Node> _pathNodeList)
+    {
+        Node lowestFCostNode = _pathNodeList[0];
+        for (int i = 1; i < _pathNodeList.Count; i++)
+        {
+            if (_pathNodeList[i].FCost < lowestFCostNode.FCost)
+            {
+                lowestFCostNode = _pathNodeList[i];
+            }
+        }
+        return lowestFCostNode;
+    }
+
+    public Grid<Node> GetGrid()
+    {
+        return Grid;
     }
 }

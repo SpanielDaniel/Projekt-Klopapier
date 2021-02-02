@@ -30,6 +30,11 @@ namespace Player
                 BuildManager.BuildBuilding();
                 return;
             }
+
+            if (UnitSelector.SelectedUnits.Count > 0)
+            {
+                UnitSelector.MoveUnits();
+            }
             
             
             Ray ray = Camera.main.ScreenPointToRay(MousePos);

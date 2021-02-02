@@ -2,32 +2,35 @@
 // Author   : Daniel Pobijanski
 // Project  : Projekt-Klopapier
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Node
 {
+    private Grid<Node> NodeGrid;
+    public int GridX;
+    public int GridY;
 
-    public int iGridX;
-    public int iGridY;
-
-    public bool bIsWall;
-    public Vector3 vPosition;
+    public bool IsWalkable;
+    public Vector3 Position;
 
     public Node ParentNode;
 
-    public int igCost;
-    public int ihCost;
+    public int GCost;
+    public int HCost;
+    public int FCost;
 
-    public int FCost { get { return igCost + ihCost; } }
-
-    public Node(bool a_bIsWall, Vector3 a_vPos, int a_igridX, int a_igridY)
+    public Node(Grid<Node> grid, int _gridX, int _gridY)
     {
-        bIsWall = a_bIsWall;
-        vPosition = a_vPos;
-        iGridX = a_igridX;
-        iGridY = a_igridY;
+        this.NodeGrid = grid;
+        GridX = _gridX;
+        GridY = _gridY;
+
+        IsWalkable = true;
+    }
+
+    public void CalculateFCost()
+    {
+        FCost = GCost + HCost;
     }
 
 }

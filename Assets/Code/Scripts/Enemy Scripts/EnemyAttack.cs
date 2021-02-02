@@ -2,17 +2,15 @@
 // Author   : Daniel Pobijanski
 // Project  : Projekt-Klopapier
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
 {
-    public Transform target;
-    public float range = 2.5f;
+    private Transform target;
+    private float range = 2.5f;
 
-    public float fireRate;
-    public float countdownShoot;
+    private float fireRate;
+    private float countdownShoot;
 
     private void Start()
     {

@@ -2,140 +2,94 @@
 // Author   : Daniel Pobijanski
 // Project  : Projekt-Klopapier
 
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
-public class Grid : MonoBehaviour
+public class Grid<TGridObject>
 {
-    public LayerMask Wall;
-
-    public Transform startPosition;
-    public Vector2 gridWorldSize;
-    public float nodeRadius;
-    public float distanceNodes;
-
-    Node[,] NodeArray;
-    public List<Node> FinalPath;
-
-
-    float nodeDiameter;
-    int gridSizeX, gridSizeY;
-
-
-    private void Start()
+    public event EventHandler<OnGridObjectChangedEventArgs> OnGridObjectChanged;
+    public class OnGridObjectChangedEventArgs : EventArgs
     {
-        nodeDiameter = nodeRadius * 2;
-        gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
-        gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
-        CreateGrid();
+        public int X;
+        public int Y;
     }
+    private int Width;
+    private int Height;
 
-    void CreateGrid()
+    public TGridObject[,] GridArray;
+
+    public Grid(int _width, int _height, Func<Grid<TGridObject>,int,int,TGridObject> createGridObject)
     {
-        NodeArray = new Node[gridSizeX, gridSizeY];
-        Vector3 bottomLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - Vector3.forward * gridWorldSize.y / 2;
-        for (int x = 0; x < gridSizeX; x++)
+        Width = _width;
+        Height = _height;
+
+        GridArray = new TGridObject[_width, _height];
+
+        for (int x = 0; x < GridArray.GetLength(0); x++)
         {
-            for (int y = 0; y < gridSizeY; y++)
+            for (int y = 0; y < GridArray.GetLength(1); y++)
             {
-                Vector3 worldPoint = bottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.forward * (y * nodeDiameter + nodeRadius);
-                bool Wall = true;
-
-                if (Physics.CheckSphere(worldPoint, nodeRadius, this.Wall))
-                {
-                    Wall = false;
-                }
-
-                NodeArray[x, y] = new Node(Wall, worldPoint, x, y);
+                GridArray[x, y] = createGridObject(this,x,y);
             }
         }
     }
 
-    public List<Node> GetNeighboringNodes(Node a_NeighborNode)
+    public Vector3 GetWorldPosition(int _x, int _y)
     {
-        List<Node> NeighborList = new List<Node>();
-        int Xcheck;
-        int Ycheck;
-
-        //Check the right side of the current node.
-        Xcheck = a_NeighborNode.iGridX + 1;
-        Ycheck = a_NeighborNode.iGridY;
-        if (Xcheck >= 0 && Xcheck < gridSizeX)
-        {
-            if (Ycheck >= 0 && Ycheck < gridSizeY)
-            {
-                NeighborList.Add(NodeArray[Xcheck, Ycheck]);
-            }
-        }
-        //Check the Left side of the current node.
-        Xcheck = a_NeighborNode.iGridX - 1;
-        Ycheck = a_NeighborNode.iGridY;
-        if (Xcheck >= 0 && Xcheck < gridSizeX)
-        {
-            if (Ycheck >= 0 && Ycheck < gridSizeY)
-            {
-                NeighborList.Add(NodeArray[Xcheck, Ycheck]);
-            }
-        }
-        //Check the Top side of the current node.
-        Xcheck = a_NeighborNode.iGridX;
-        Ycheck = a_NeighborNode.iGridY + 1;
-        if (Xcheck >= 0 && Xcheck < gridSizeX)
-        {
-            if (Ycheck >= 0 && Ycheck < gridSizeY)
-            {
-                NeighborList.Add(NodeArray[Xcheck, Ycheck]);
-            }
-        }
-        //Check the Bottom side of the current node.
-        Xcheck = a_NeighborNode.iGridX;
-        Ycheck = a_NeighborNode.iGridY - 1;
-        if (Xcheck >= 0 && Xcheck < gridSizeX)
-        {
-            if (Ycheck >= 0 && Ycheck < gridSizeY)
-            {
-                NeighborList.Add(NodeArray[Xcheck, Ycheck]);
-            }
-        }
-
-        return NeighborList;
+        return new Vector3(_x, 0, _y);
     }
 
-    //Gets the closest node to the given world position.
-    public Node NodeFromWorldPoint(Vector3 a_vWorldPos)
+    public int GetWidth()
     {
-        float ixPos = ((a_vWorldPos.x + gridWorldSize.x / 2) / gridWorldSize.x);
-        float iyPos = ((a_vWorldPos.z + gridWorldSize.y / 2) / gridWorldSize.y);
-
-        ixPos = Mathf.Clamp01(ixPos);
-        iyPos = Mathf.Clamp01(iyPos);
-
-        int ix = Mathf.RoundToInt((gridSizeX - 1) * ixPos);
-        int iy = Mathf.RoundToInt((gridSizeY - 1) * iyPos);
-
-        return NodeArray[ix, iy];
+        return Width;
     }
 
-
-    //Function that draws the wireframe
-    private void OnDrawGizmos()
+    public int GetHeight()
     {
-        Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, 1, gridWorldSize.y));
+        return Height;
+    }
 
-        if (NodeArray != null)
+    public void GetXY(Vector3 _worldPosition, out int _x, out int _y)
+    {
+        _x = Mathf.FloorToInt(_worldPosition.x);
+        _y = Mathf.FloorToInt(_worldPosition.y);
+    }
+
+    public void SetGridObject(int _x, int _y, TGridObject value)
+    {
+        if (_x >= 0 && _y >= 0 && _x < Width && _y < Height)
         {
-            foreach (Node n in NodeArray)
+            GridArray[_x, _y] = value;
+            if (OnGridObjectChanged != null)
             {
-                if (n.bIsWall) Gizmos.color = Color.white;
-                else Gizmos.color = Color.yellow;
-
-                if (FinalPath != null)
-                {
-                    if (FinalPath.Contains(n)) Gizmos.color = Color.red;
-                }
-                Gizmos.DrawCube(n.vPosition, Vector3.one * (nodeDiameter - distanceNodes));
+                OnGridObjectChanged(this, new OnGridObjectChangedEventArgs { X = _x, Y = _y });
             }
         }
+    }
+
+    public void SetGridObject(Vector3 _worldPosition, TGridObject value)
+    {
+        int x, y;
+        GetXY(_worldPosition, out x, out y);
+        SetGridObject(x, y, value);
+    }
+
+    public TGridObject GetGridObject(int _x, int _y)
+    {
+        if (_x >= 0 && _y >= 0 && _x < Width && _y < Height)
+        {
+            return GridArray[_x, _y];
+        }
+        else
+        {
+            return default(TGridObject);
+        }
+    }
+
+    public TGridObject GetGridObject(Vector3 _worldPosition)
+    {
+        int x, y;
+        GetXY(_worldPosition ,out x ,out y);
+        return GetGridObject(x, y);
     }
 }
