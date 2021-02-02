@@ -10,7 +10,7 @@ namespace Buildings
         {
             Debug.Log("Effect");
             PlayerData.GetInstance.StorageCapacityH += StorageCapacityAdded;
-            //base.OnBuildEffect();
+            base.OnBuildEffect();
         }
 
         public override void DestroyEffect()

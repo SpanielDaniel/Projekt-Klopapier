@@ -36,6 +36,7 @@ namespace Buildings
         [SerializeField] private BuildingData BuildingData;
         [SerializeField] private GameObject HealthBar;
         [SerializeField] private GameObject BuildingObj;
+        [SerializeField] private GameObject Flag;
         [SerializeField] private Slider HealthBarSlider;
         [SerializeField] private BoxCollider BoxCollider;
         [SerializeField] private MeshRenderer MeshRenderer;
@@ -298,7 +299,11 @@ namespace Buildings
             Buildings.Remove(this);
         }
 
-        public virtual void OnBuildEffect(){}
+        public virtual void OnBuildEffect()
+        {
+            Debug.Log("OnBuildEffekt");
+            SetFlagActive(true);
+        }
 
         public void SetPos(int _x, int _y)
         {
@@ -310,6 +315,11 @@ namespace Buildings
         {
             IsDestroied?.Invoke(this,XPosition,YPosition);
             Buildings.Remove(this);
+        }
+
+        private void SetFlagActive(bool _isActive)
+        {
+            Flag.SetActive(_isActive);
         }
         
     }

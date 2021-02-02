@@ -5,6 +5,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using Random = System.Random;
 
 namespace Code.Scripts
 {
@@ -22,24 +23,44 @@ namespace Code.Scripts
         [SerializeField] private float Height;
         [SerializeField] private float XPerl;
         [SerializeField] private float ZPerl;
-        private void Start()
-        {
-            Mesh = new Mesh();
-            GetComponent<MeshFilter>().mesh = Mesh;
-            
-        }
-
-
+        private float[,] heightMap;
+        [SerializeField] private Texture2D Texture;
+        [SerializeField] private ColorHeight[] ColorHeights;
+        
         [SerializeField] private float OffsetXSpeed;
         [SerializeField] private float OffsetYSpeed;
-        private void Update()
+        
+        [Serializable]
+        struct ColorHeight
         {
-            CreateShape();
-            
-            UpdateMesh();
+             public float MaxHeight;
+             public Color Color;
         }
+        private void Start()
+        {
+            Random random = new Random();
+            float f = random.Next(0, 2000);
+            OffsetXSpeed = f;
+            f = random.Next(0, 2000);
+            OffsetYSpeed = f;
+            
+            Mesh = new Mesh();
+            GetComponent<MeshFilter>().mesh = Mesh;
+            CreateShape();
+            UpdateMesh();
+
+            Texture = TextureGenerator.TextureFromHeightMap(heightMap);
+            SetTexture();
+        }
+        
+        
+        
+
 
         
+      
+
+        private Vector2[] uvs;
 
         private void CreateShape()
         {
@@ -69,22 +90,36 @@ namespace Code.Scripts
 
                 vert++;
             }
-
+            
+            uvs = new Vector2[vertices.Length];
+            
+            for (int i =0,  z = 0; z <= ZSize; z++)
+            {
+                for (int x = 0; x <= XSize; x++)
+                {
+                    uvs[i] = new Vector2((float)x / XSize,(float)z / ZSize);
+                    i++;
+                }
+            }
         }
         
         
         private void CreateVertices()
         {
             vertices = new Vector3[(XSize + 1) * (ZSize + 1)];
-            
-            
-            
+            heightMap = new float[XSize + 1,ZSize + 1];
             for (int i =0,  z = 0; z <= ZSize; z++)
             {
                 for (int x = 0; x <= XSize; x++)
                 {
                     float time = Time.realtimeSinceStartup;
                     float y = Mathf.PerlinNoise(x * XPerl + OffsetXSpeed * time, z * ZPerl + OffsetYSpeed * time) * Height;
+
+                    if (y <= ColorHeights[3].MaxHeight)
+                    {
+                        y = ColorHeights[3].MaxHeight;
+                    }
+                    heightMap[x, z] = y;
                     vertices[i] = new Vector3(x,y,z);
                     i++;
                 }
@@ -96,18 +131,37 @@ namespace Code.Scripts
             Mesh.Clear();
             Mesh.vertices = vertices;
             Mesh.triangles = triangles;
-            
+            Mesh.uv = uvs;
             Mesh.RecalculateNormals();
         }
 
-        private void OnDrawGizmos()
+        
+        private void SetTexture()
         {
-            if (vertices == null) return;
-            
-            for (int i = 0; i < vertices.Length; i++)
+            Texture2D tex = new Texture2D(XSize,ZSize);
+
+            for (int i = 0; i < ZSize; i++)
             {
-                Gizmos.DrawSphere(vertices[i],0.1f);
+                for (int j = 0; j < XSize; j++)
+                {
+                    foreach (ColorHeight colorHeight in ColorHeights)
+                    {
+                        if (colorHeight.MaxHeight >= heightMap[j, i])
+                        {
+                            tex.SetPixel(j, i,colorHeight.Color);
+                        }
+                    }
+                }
             }
+            
+            
+            
+            
+            
+            
+            tex.Apply();
+            tex.filterMode = FilterMode.Point;
+            GetComponent<MeshRenderer>().material.mainTexture = tex;
         }
     }
 }
