@@ -8,7 +8,7 @@ public class Node
 {
     private Grid<Node> NodeGrid;
     public int GridX;
-    public int GridY;
+    public int GridZ;
 
     public bool IsWalkable;
     public Vector3 Position;
@@ -23,7 +23,7 @@ public class Node
     {
         this.NodeGrid = grid;
         GridX = _gridX;
-        GridY = _gridY;
+        GridZ = _gridY;
 
         IsWalkable = true;
     }

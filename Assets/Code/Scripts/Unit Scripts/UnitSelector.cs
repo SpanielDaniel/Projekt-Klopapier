@@ -14,6 +14,7 @@ public class UnitSelector : MonoBehaviour
     public static event Action<Unit> SelectUnit;
     public static event Action<List<Unit>> SelectedUnitGroup;
     public static List<Unit> SelectedUnits = new List<Unit>();
+    private Vector3 test = new Vector3(15, 0, 15);
     public static List<Unit> SelectedUnitsH
     {
         get => SelectedUnits;
@@ -45,6 +46,7 @@ public class UnitSelector : MonoBehaviour
         
         if (Input.GetMouseButtonDown(0))
         {
+            SelectedUnitsH.Clear();
             startPos = Input.mousePosition;
         }
         if (Input.GetMouseButtonUp(0))
@@ -55,29 +57,33 @@ public class UnitSelector : MonoBehaviour
         {
             UpdateSelectionBox(Input.mousePosition);
         }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            MoveUnits(test);
+        }
     }
 
-    public static void MoveUnits()
+    public static void MoveUnits(Vector3 _mousePosition)
     {
-        Ray ray;
-        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit))
-        {
-            foreach (Unit unit in SelectedUnits)
+        //Ray ray;
+        //ray = Camera.main.ScreenPointToRay(_mousePosition);
+        //RaycastHit hit;
+        //if (Physics.Raycast(ray, out hit))
+        //{
+            foreach (Unit unit in SelectedUnitsH)
             {
-                unit.MoveToPosition((int)ray.origin.x, (int)ray.origin.z);
-                unit.SetTarget(ray.origin);
+                unit.MoveToPosition(_mousePosition);
+                unit.SetTarget(_mousePosition);
                 // Unit.IsEnterBuilding = true;
                 // Unit.MoveTo(grid.Position)
                 //{geht zum Gebäude hin if Distance <= 1}
             }
-        }
+        //}
     }
 
     void UpdateSelectionBox(Vector2 curMousePos)
     {
-        SelectedUnitsH.Clear();
         if (!SelectionBox.gameObject.activeInHierarchy)
             SelectionBox.gameObject.SetActive(true);
 
@@ -95,18 +101,18 @@ public class UnitSelector : MonoBehaviour
         Vector2 min = SelectionBox.anchoredPosition - (SelectionBox.sizeDelta / 2);
         Vector2 max = SelectionBox.anchoredPosition + (SelectionBox.sizeDelta / 2);
 
-        SelectedUnits.Clear();
-        foreach (Unit units in SelectedUnitsH)
+        foreach (Unit units in Unit.Units)
         {
             Vector3 screenPos = CameraMain.WorldToScreenPoint(units.transform.position);
 
             if (screenPos.x > min.x && screenPos.x < max.x && screenPos.y > min.y && screenPos.y < max.y)
             {
                 SelectedUnitsH.Add(units);
+                units.IsSelected = true;
             }
             else
             {
-                //units.fPath = false;
+                units.IsSelected = false;
             }
         }
     }

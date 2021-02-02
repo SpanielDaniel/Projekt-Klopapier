@@ -19,7 +19,7 @@ public class Unit : MonoBehaviour
     private float AttackSpeed;
     private float MoveSpeed;
     private float Range;
-    private bool IsSelected;
+    public bool IsSelected;
     private int XPosition;
     private int YPosition;
     private int ID;
@@ -67,12 +67,9 @@ public class Unit : MonoBehaviour
     /// </summary>
     /// <param name="_x">X coordinate from world</param>
     /// <param name="_y">Y coordinate from world</param>
-    public void MoveToPosition(int _x, int _y)
+    public void MoveToPosition(Vector3 _target)
     {
-        if (IsSelected)
-        {
-            UnitManager.GetInstance.MoveUnitToPos(this, _x, _y);
-        }
+        UnitManager.GetInstance.MoveUnitToPos(this,_target);
     }
 
     public void SetTarget(Vector3 _targetPosition)

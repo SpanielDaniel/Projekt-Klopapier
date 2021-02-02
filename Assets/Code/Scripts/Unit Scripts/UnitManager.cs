@@ -11,7 +11,6 @@ public class UnitManager : Singleton<UnitManager>
 {
     [SerializeField] private GameObject Unit;
     //[SerializeField] private MapManager MapManager;
-    [SerializeField] private Transform Target;
     private Transform AttackTarget;
     private UnitData Data;
     private Pathfinding Pathfinding;
@@ -25,12 +24,14 @@ public class UnitManager : Singleton<UnitManager>
     private void Start()
     {
         //Nodes = new Node[MapManager.GetWidth * 2, MapManager.GetHeight * 2];
-        Pathfinding = new Pathfinding(50, 50);
+        Pathfinding = new Pathfinding(100, 100);
         CountDown = StartCountDown;
     }
 
     private void Update()
     {
+        Debug.Log(VectorPathList);
+        MoveHandler();
         if (AttackTarget == null)
             return;
 
@@ -53,11 +54,11 @@ public class UnitManager : Singleton<UnitManager>
         unit.GetComponent<Unit>().Initialize(_data ,_pos);
     }
 
-    public void MoveUnitToPos(Unit _unit, int _x, int _y)
+    public void MoveUnitToPos(Unit _unit, Vector3 _target)
     {
-        Pathfinding.GetGrid().GetXY(Target.position, out int x, out int y);
-        List<Node> NodePath = Pathfinding.FindPath(0, 0, x, y);
-        SetTargetPosition(Target.position);
+        Pathfinding.GetGrid().GetXZ(_target, out int x, out int z);
+        List<Node> NodePath = Pathfinding.FindPath(0, 0, x, z);
+        SetTargetPosition(_target);
     }
 
     public void SetTargetPosition(Vector3 _targetPosition)

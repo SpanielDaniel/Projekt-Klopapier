@@ -35,9 +35,10 @@ namespace Player
             if (Input.GetMouseButtonDown(1))
             {
                 UIVisibilityManager.SetAllHusNonVisable();
+                //UnitSelector.MoveUnits(MousePos);
             }
-            
-            
+
+
             Ray ray = Camera.main.ScreenPointToRay(MousePos);
             RaycastHit hit;
 
