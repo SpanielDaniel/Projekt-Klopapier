@@ -61,12 +61,12 @@
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/MeshGenerator.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Grid/Node.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/UnitManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Grid/Pathfinding.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/Unit.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIBuildingManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/Storage.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/Building.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/UnitSelector.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Grid/Pathfinding.cs" />
       </list>
     </option>
   </component>
@@ -148,7 +148,7 @@
       <workItem from="1611944661140" duration="11886000" />
       <workItem from="1612034616896" duration="4511000" />
       <workItem from="1612210401539" duration="29523000" />
-      <workItem from="1612373359244" duration="9724000" />
+      <workItem from="1612373359244" duration="11104000" />
     </task>
     <servers />
   </component>
