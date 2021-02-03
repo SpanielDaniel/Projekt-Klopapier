@@ -7,6 +7,7 @@ using Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Buildings;
 using Code.Scripts;
 using Code.Scripts.Map;
 using UnityEngine;
@@ -25,16 +26,21 @@ public class Unit : MonoBehaviour
 
     public bool IsSelected;
 
+    [SerializeField] private UnitData UnitData;
+    public UnitData GetUnitData => UnitData;
     [SerializeField] private int XPos;
     [SerializeField] private int ZPos;
+    [SerializeField] private float MoveSpeed;
+
     public int GetXPosition => XPos;
     public int GetZPosition => ZPos;
     
     private List<Node> Path;
     private int NextNode = 1;
     private Vector3 ViewDirection;
-    private bool isMoving = false;
-    [SerializeField] private float MoveSpeed;
+    private bool IsMoving = false;
+    private bool IsMovingIntoBuilding;
+
     private float distance = 0f;
 
     
@@ -66,14 +72,8 @@ public class Unit : MonoBehaviour
 
     private void Update()
     {
-        
-        
-        
-        
-        
-        if (isMoving)
+        if (IsMoving)
         {
-
             if (distance < 0.1f)
             {
                 XPos = Path[NextNode].GridX;
@@ -90,16 +90,20 @@ public class Unit : MonoBehaviour
             }
 
             transform.position += ViewDirection * (MoveSpeed * Time.deltaTime);
-            
-            //distance -= (ViewDirection * (MoveSpeed * Time.deltaTime)) * 
 
             if (NextNode >= Path.Count)
             {
                 XPos = Path[NextNode -1].GridX;
                 ZPos = Path[NextNode -1].GridZ;
                 transform.position = Path[NextNode - 1].Pos;
-                
-                isMoving = false;
+                Path = null;
+                IsMoving = false;
+                if (IsMovingIntoBuilding)
+                {
+                    IsMovingIntoBuilding = false;
+                    BuildingToEnter.AddUnit(ID);
+                    gameObject.SetActive(false);
+                }
             }
 
             
@@ -111,9 +115,10 @@ public class Unit : MonoBehaviour
     /// Add unit to List.
     /// </summary>
     /// <param name="_unit">Added Unit</param>
-    public static void AddUnit(Unit _unit)
+    public void AddUnit(Unit _unit)
     {
         Units.Add(_unit);
+        ID = Units.Count;
     }
 
     
@@ -131,8 +136,14 @@ public class Unit : MonoBehaviour
             return;
         }
         Path = _path;
-        isMoving = true;
-        
+        IsMoving = true;
+    }
+
+    private Building BuildingToEnter;
+    public void MoveIntoBuilding(Building _building)
+    {
+        BuildingToEnter = _building;
+        IsMovingIntoBuilding = true;
     }
 
     public void SetTarget(Vector3 _targetPosition)
@@ -150,8 +161,5 @@ public class Unit : MonoBehaviour
         
     }
 
-    // public void UpdateTarget()
-    // {
-    //     UnitManager.GetInstance.UpdateTarget(this);
-    // }
+    
 }

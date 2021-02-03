@@ -4,6 +4,20 @@
     <e p="C:\MyProgramming\SAE\CMN5201\Projects\Klopapier\Projekt-Klopapier" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="Art" t="Include">
+          <e p="Models" t="Include">
+            <e p="Unit" t="Include">
+              <e p="ToonSoldiers_WW2_demo" t="Include">
+                <e p="ToonSoldiers_WW2_demo_README.txt" t="Include" />
+              </e>
+              <e p="WW2 Armed Forces Demo" t="Include">
+                <e p="Scripts" t="Include">
+                  <e p="Scroll_Track.cs" t="Include" />
+                </e>
+              </e>
+            </e>
+          </e>
+        </e>
         <e p="Code" t="Include">
           <e p="Scripts" t="Include">
             <e p="AudioManager.cs" t="Include" />

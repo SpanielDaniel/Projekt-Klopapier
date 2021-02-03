@@ -31,7 +31,10 @@ namespace Buildings
         private bool IsBuilding;
         private float TimerCounter = 0;
         private int HealthPerSecond = 1;
-        public bool GetIsBuilding => IsBuilding; 
+        private List<int> UnitIDs = new List<int>();
+        
+        public bool GetIsBuilding => IsBuilding;
+        
         
         [SerializeField] private BuildingData BuildingData;
         [SerializeField] private GameObject HealthBar;
@@ -52,7 +55,9 @@ namespace Buildings
 
         private int XPosition;
         private int YPosition;
-        
+
+        public int GetXPos => XPosition;
+        public int GetYPOs => YPosition;
         
         
         
@@ -301,7 +306,6 @@ namespace Buildings
 
         public virtual void OnBuildEffect()
         {
-            Debug.Log("OnBuildEffekt");
             SetFlagActive(true);
         }
 
@@ -321,6 +325,16 @@ namespace Buildings
         {
             Flag.SetActive(_isActive);
         }
+
+        public void AddUnit(int _unitId)
+        {
+            UnitIDs.Add(_unitId);
+            UnitAmount++;
+
+            //Unit.Units[_unitId].GetUnitData;
+
+        }
+        
         
     }
 

@@ -38,7 +38,6 @@ public class UnitManager : Singleton<UnitManager>
         {
             for (int currentX = 0; currentX < x; currentX++)
             {
-                //Transform ground = MapGenerator.GetGroundFromPosition(x, z).transform;
                 Nodes[currentX,currentZ] = new Node(currentX,currentZ, MapGenerator.GetGroundFromPosition(currentX,currentZ).transform.position);
             }
         }

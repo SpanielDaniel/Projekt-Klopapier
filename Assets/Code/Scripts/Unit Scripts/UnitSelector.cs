@@ -72,13 +72,23 @@ public class UnitSelector : MonoBehaviour
                     Ground ground = hit.transform.GetComponent<Ground>();
                     if (ground != null)
                     {
-                        Debug.Log(ground.GetWidth + "::" + ground.GetHeight);
-
                         MoveUnits(ground.GetWidth, ground.GetHeight);
                     }
+
+                   Building building = hit.transform.GetComponent<Building>();
+                   if (building != null)
+                   {
+                       MoveUnitsIntoBuiling(building.GetXPos,building.GetYPOs,building);
+                   }
                 }
             }
         }
+    }
+
+    private void MoveUnitsIntoBuiling(int buildingGetXPos, int buildingGetYpOs,Building _building)
+    {
+        SelectedUnitsH[0].MoveIntoBuilding(_building);
+        MoveUnits(buildingGetXPos,buildingGetYpOs);
     }
 
     public void MoveUnits(int _endPosX,int _endPosZ)
@@ -86,20 +96,7 @@ public class UnitSelector : MonoBehaviour
         if (SelectedUnitsH[0].GetXPosition == _endPosX && SelectedUnitsH[0].GetZPosition == _endPosZ) return;
         UnitManager.FindPathForUnit(SelectedUnitsH[0],_endPosX,_endPosZ);
         
-        // //Ray ray;
-        // //ray = Camera.main.ScreenPointToRay(_mousePosition);
-        // //RaycastHit hit;
-        // //if (Physics.Raycast(ray, out hit))
-        // //{
-        //     foreach (Unit unit in SelectedUnitsH)
-        //     {
-        //         //unit.MoveToPosition(_mousePosition);
-        //         unit.SetTarget(_mousePosition);
-        //         // Unit.IsEnterBuilding = true;
-        //         // Unit.MoveTo(grid.Position)
-        //         //{geht zum Gebäude hin if Distance <= 1}
-        //     }
-        // //}
+        //TODO: mehrere einheiten und  gehen auf verschiedene pos.
     }
 
     void UpdateSelectionBox(Vector2 curMousePos)
