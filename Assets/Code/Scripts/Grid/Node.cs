@@ -6,12 +6,12 @@ using UnityEngine;
 
 public class Node
 {
-    private Grid<Node> NodeGrid;
+    public Vector3 Pos;
+    
     public int GridX;
     public int GridZ;
 
-    public bool IsWalkable;
-    public Vector3 Position;
+    public bool IsWalkable = true;
 
     public Node ParentNode;
 
@@ -19,13 +19,23 @@ public class Node
     public int HCost;
     public int FCost;
 
-    public Node(Grid<Node> grid, int _gridX, int _gridY)
+    public Node(int _gridX, int _gridY, Vector3 _pos)
     {
-        this.NodeGrid = grid;
+        Pos = _pos;
         GridX = _gridX;
         GridZ = _gridY;
-
         IsWalkable = true;
+        Init();
+
+    }
+
+    public void Init()
+    {
+        GCost = int.MaxValue;
+        ParentNode = null;
+        HCost = 0;
+        FCost = 0;
+        CalculateFCost();
     }
 
     public void CalculateFCost()

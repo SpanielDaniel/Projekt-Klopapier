@@ -7,6 +7,7 @@ using Buildings;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Code.Scripts;
 using UnityEngine;
 
 public class UnitSelector : MonoBehaviour
@@ -14,7 +15,7 @@ public class UnitSelector : MonoBehaviour
     public static event Action<Unit> SelectUnit;
     public static event Action<List<Unit>> SelectedUnitGroup;
     public static List<Unit> SelectedUnits = new List<Unit>();
-    private Vector3 test = new Vector3(15, 0, 15);
+    [SerializeField] private Vector2 testEndNode;
     public static List<Unit> SelectedUnitsH
     {
         get => SelectedUnits;
@@ -34,6 +35,7 @@ public class UnitSelector : MonoBehaviour
     [SerializeField] private Camera CameraMain;
     [SerializeField] private RectTransform SelectionBox;
     [SerializeField] private UIUnitManager UIUnitManager;
+    [SerializeField] private UnitManager UnitManager;
     private Vector2 startPos;
 
     private void Start()
@@ -57,29 +59,47 @@ public class UnitSelector : MonoBehaviour
         {
             UpdateSelectionBox(Input.mousePosition);
         }
-
+        
         if (Input.GetMouseButtonDown(1))
         {
-            MoveUnits(test);
+            if (SelectedUnits.Count > 0)
+            {
+                Ray ray;
+                ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit))
+                {
+                    Ground ground = hit.transform.GetComponent<Ground>();
+                    if (ground != null)
+                    {
+                        Debug.Log(ground.GetWidth + "::" + ground.GetHeight);
+
+                        MoveUnits(ground.GetWidth, ground.GetHeight);
+                    }
+                }
+            }
         }
     }
 
-    public static void MoveUnits(Vector3 _mousePosition)
+    public void MoveUnits(int _endPosX,int _endPosZ)
     {
-        //Ray ray;
-        //ray = Camera.main.ScreenPointToRay(_mousePosition);
-        //RaycastHit hit;
-        //if (Physics.Raycast(ray, out hit))
-        //{
-            foreach (Unit unit in SelectedUnitsH)
-            {
-                unit.MoveToPosition(_mousePosition);
-                unit.SetTarget(_mousePosition);
-                // Unit.IsEnterBuilding = true;
-                // Unit.MoveTo(grid.Position)
-                //{geht zum Gebäude hin if Distance <= 1}
-            }
-        //}
+        if (SelectedUnitsH[0].GetXPosition == _endPosX && SelectedUnitsH[0].GetZPosition == _endPosZ) return;
+        UnitManager.FindPathForUnit(SelectedUnitsH[0],_endPosX,_endPosZ);
+        
+        // //Ray ray;
+        // //ray = Camera.main.ScreenPointToRay(_mousePosition);
+        // //RaycastHit hit;
+        // //if (Physics.Raycast(ray, out hit))
+        // //{
+        //     foreach (Unit unit in SelectedUnitsH)
+        //     {
+        //         //unit.MoveToPosition(_mousePosition);
+        //         unit.SetTarget(_mousePosition);
+        //         // Unit.IsEnterBuilding = true;
+        //         // Unit.MoveTo(grid.Position)
+        //         //{geht zum Gebäude hin if Distance <= 1}
+        //     }
+        // //}
     }
 
     void UpdateSelectionBox(Vector2 curMousePos)

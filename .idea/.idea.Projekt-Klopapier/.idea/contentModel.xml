@@ -57,19 +57,26 @@
             <e p="Sound.cs" t="Include" />
             <e p="StreetOld.cs" t="Include" />
             <e p="TextureGenerator.cs" t="Include" />
+            <e p="Timer.cs" t="Include" />
             <e p="UI Scripts" t="Include">
               <e p="UIBuildingManager.cs" t="Include" />
               <e p="UIMenu.cs" t="Include" />
               <e p="UIPointerInHudManager.cs" t="Include" />
               <e p="UIResourcesManager.cs" t="Include" />
               <e p="UISlot.cs" t="Include" />
+              <e p="UIUnitManager.cs" t="Include" />
               <e p="UIVisibilityEvent.cs" t="Include" />
               <e p="UIVisibilityManager.cs" t="Include" />
             </e>
             <e p="Unit Scripts" t="Include">
               <e p="Unit.cs" t="Include" />
-              <e p="UnitMovement.cs" t="Include" />
+              <e p="UnitData.cs" t="Include" />
+              <e p="UnitManager.cs" t="Include" />
               <e p="UnitSelector.cs" t="Include" />
+            </e>
+            <e p="Wave Scripts" t="Include">
+              <e p="Wave.cs" t="Include" />
+              <e p="Wave_Spawner.cs" t="Include" />
             </e>
           </e>
           <e p="Shader" t="Include">
