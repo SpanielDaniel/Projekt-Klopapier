@@ -6,6 +6,9 @@ using Assets.Code.Scripts.Unit_Scripts;
 using Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using Code.Scripts;
+using Code.Scripts.Map;
 using UnityEngine;
 
 public class Unit : MonoBehaviour
@@ -17,12 +20,23 @@ public class Unit : MonoBehaviour
     private float Defence;
     private float AttackPoints;
     private float AttackSpeed;
-    private float MoveSpeed;
     private float Range;
-    public bool IsSelected;
-    private int XPosition;
-    private int YPosition;
     private int ID;
+
+    public bool IsSelected;
+
+    [SerializeField] private int XPos;
+    [SerializeField] private int ZPos;
+    public int GetXPosition => XPos;
+    public int GetZPosition => ZPos;
+    
+    private List<Node> Path;
+    private int NextNode = 1;
+    private Vector3 ViewDirection;
+    private bool isMoving = false;
+    [SerializeField] private float MoveSpeed;
+    private float distance = 0f;
+
     
     public static List<Unit> Units = new List<Unit>();
 
@@ -31,10 +45,8 @@ public class Unit : MonoBehaviour
     /// </summary>
     /// <param name="_data">The data from unit</param>
     /// <param name="_pos">Position where the unit spawns</param>
-    public void Initialize(UnitData _data, Vector3 _pos)
+    public void Initialize(UnitData _data)
     {
-        XPosition = (int)_pos.x;
-        YPosition = (int)_pos.y;
         MaxHealthPoints = _data.MaxHealthPoints;
         Defence = _data.Defence;
         AttackPoints = _data.AttackPoints;
@@ -42,15 +54,57 @@ public class Unit : MonoBehaviour
         MoveSpeed = _data.MoveSpeed;
     }
 
-    private void Start()
+    private void Awake()
     {
         AddUnit(this);
+    }
+
+    private void Start()
+    {
         IsSelected = false;
     }
 
     private void Update()
     {
-        UpdateTarget();
+        
+        
+        
+        
+        
+        if (isMoving)
+        {
+
+            if (distance < 0.1f)
+            {
+                XPos = Path[NextNode].GridX;
+                ZPos = Path[NextNode].GridZ;
+                NextNode++;
+            }
+            
+            if(NextNode  < Path.Count)
+            {
+                Vector3 direction = (Path[NextNode].Pos - transform.position);
+                
+                distance = direction.magnitude;
+                ViewDirection = direction.normalized;
+            }
+
+            transform.position += ViewDirection * (MoveSpeed * Time.deltaTime);
+            
+            //distance -= (ViewDirection * (MoveSpeed * Time.deltaTime)) * 
+
+            if (NextNode >= Path.Count)
+            {
+                XPos = Path[NextNode -1].GridX;
+                ZPos = Path[NextNode -1].GridZ;
+                transform.position = Path[NextNode - 1].Pos;
+                
+                isMoving = false;
+            }
+
+            
+        }
+        //UpdateTarget();
     }
 
     /// <summary>
@@ -62,28 +116,42 @@ public class Unit : MonoBehaviour
         Units.Add(_unit);
     }
 
+    
     /// <summary>
     /// Move unit to a position.
     /// </summary>
     /// <param name="_x">X coordinate from world</param>
     /// <param name="_y">Y coordinate from world</param>
-    public void MoveToPosition(Vector3 _target)
+    public void MoveToPosition(List<Node> _path)
     {
-        UnitManager.GetInstance.MoveUnitToPos(this,_target);
+        NextNode = 1;
+        distance = 0;
+        if (_path == null)
+        {
+            return;
+        }
+        Path = _path;
+        isMoving = true;
+        
     }
 
     public void SetTarget(Vector3 _targetPosition)
     {
-        UnitManager.GetInstance.SetTargetPosition(_targetPosition);
+       // UnitManager.GetInstance.SetTargetPosition(_targetPosition);
     }
 
     public void OnMouseLeftClickAction()
     {
         OnSelection?.Invoke(this);
     }
-
-    public void UpdateTarget()
+    
+    private void SetPos()
     {
-        UnitManager.GetInstance.UpdateTarget(this);
+        
     }
+
+    // public void UpdateTarget()
+    // {
+    //     UnitManager.GetInstance.UpdateTarget(this);
+    // }
 }
