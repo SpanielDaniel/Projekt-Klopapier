@@ -29,14 +29,19 @@ public class Unit : MonoBehaviour
     public bool IsSelected;
 
     [SerializeField] private UnitData UnitData;
-    public UnitData GetUnitData => UnitData;
     [SerializeField] private int XPos;
     [SerializeField] private int ZPos;
-    [SerializeField] private float MoveSpeed;
+    [SerializeField] private Animator Animator;
+    [SerializeField] private GameObject UnitObj;
+
+
+    public UnitData GetUnitData => UnitData;
+
+    private float MoveSpeed;
 
     public int GetXPosition => XPos;
     public int GetZPosition => ZPos;
-    
+
     private List<Node> Path;
     private int NextNode = 1;
     private Vector3 ViewDirection;
@@ -46,7 +51,6 @@ public class Unit : MonoBehaviour
     private bool isMoving = false;
     private float distance = 0f;
 
-    [SerializeField]private Animator Animator;
 
     public static List<Unit> Units = new List<Unit>();
 
@@ -83,7 +87,7 @@ public class Unit : MonoBehaviour
 
         if (IsMoving)
         {
-            if (distance < 0.1f)
+            if (distance < 0.01f)
             {
                 XPos = Path[NextNode].GridX;
                 ZPos = Path[NextNode].GridZ;
@@ -96,6 +100,11 @@ public class Unit : MonoBehaviour
                 
                 distance = direction.magnitude;
                 ViewDirection = direction.normalized;
+                
+                
+                float angle = Vector2.SignedAngle(Vector2.up, new Vector2(ViewDirection.x, ViewDirection.z));
+                Debug.Log(angle);
+                UnitObj.transform.eulerAngles = new Vector3(0,-angle,0); //new Quaternion(0,angle,0,0);   ;
             }
 
             transform.position += ViewDirection * (MoveSpeed * Time.deltaTime);

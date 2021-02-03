@@ -84,6 +84,11 @@ namespace UI_Scripts
                 HudElement.SetActive(false);
             }
             if(CurrentSelectedBuilding is Storage) UIBuildingElements[(int)EBuilding.Storage].SetActive(true);
+            if (CurrentSelectedBuilding is Farm)
+            {
+                Debug.Log("farm");
+                UIBuildingElements[(int)EBuilding.Farm].SetActive(true);
+            }
             
         }
         
@@ -117,16 +122,19 @@ namespace UI_Scripts
         
         public void OnButton_Exit()
         {
+            FindObjectOfType<AudioManager>().Play("BuildSlotClicked");
             CloseBuildingUI();
         }
 
         public void OnButton_Upgrade()
         {
+            FindObjectOfType<AudioManager>().Play("BuildSlotClicked");
             CurrentSelectedBuilding.Upgrade();
         }
 
         public void OnButton_Destroy()
         {
+            FindObjectOfType<AudioManager>().Play("BuildSlotClicked");
             FindObjectOfType<AudioManager>().Play("BuildingDestroy");
             
             CurrentSelectedBuilding.DestroyEffect();

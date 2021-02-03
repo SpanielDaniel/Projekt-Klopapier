@@ -272,7 +272,6 @@ namespace Build
 
         public void OnBuildingDestried(Building _building,int _x, int _y)
         {
-            Debug.Log("Destroy");
             for (int i = 0; i < _building.CurrentHeightH; i++)
             {
                 for (int j = 0; j < _building.CurrentWidthH; j++)
