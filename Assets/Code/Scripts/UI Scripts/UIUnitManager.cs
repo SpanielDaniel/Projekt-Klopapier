@@ -14,6 +14,7 @@ namespace Assets.Code.Scripts.UI_Scripts
     {
         private UnitData Data;
         [SerializeField] private GameObject UnitUI;
+        [SerializeField] private TMP_Text NameUI;
         [SerializeField] private Image UnitIcon; 
         [SerializeField] private TMP_Text AttackDamageUI;
         [SerializeField] private TMP_Text AttackSpeedUI;
@@ -33,20 +34,19 @@ namespace Assets.Code.Scripts.UI_Scripts
         public void UnitSelected(Unit _unit)
         {
             UnitUI.SetActive(true);
-            AttackDamageUI.SetText(Data.AttackPoints.ToString());
-            AttackSpeedUI.SetText(Data.AttackSpeed.ToString());
-            VerteidigungUI.SetText(Data.Defence.ToString());
-            SpeedUI.SetText(Data.MoveSpeed.ToString());
-            HealthPointsUI.SetText(Data.MaxHealthPoints.ToString());
+            UnitIcon.sprite = _unit.GetUnitData.Icon;
+            NameUI.text = _unit.GetUnitData.Name;
+            AttackDamageUI.text = _unit.GetUnitData.AttackPoints.ToString();
+            AttackSpeedUI.text = _unit.GetUnitData.AttackSpeed.ToString();
+            VerteidigungUI.text = _unit.GetUnitData.Defence.ToString();
+            SpeedUI.text = _unit.GetUnitData.MoveSpeed.ToString();
+            HealthPointsUI.text = _unit.GetUnitData.MaxHealthPoints.ToString();
         }
 
         public void UnitGroupSelected(List<Unit> _units)
         {
             UnitGroupUI.SetActive(true);
-            for (int i = 0; i < _units.Count; i++)
-            {
-                Image go = Instantiate(UnitIcon, UnitGroupRect.transform, false);
-            }
+            //ToDo
         }
 
     }

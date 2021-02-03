@@ -23,6 +23,8 @@ public class Unit : MonoBehaviour
     private float AttackSpeed;
     private float Range;
     private int ID;
+    private string Name;
+    private Sprite Icon;
 
     public bool IsSelected;
 
@@ -41,9 +43,11 @@ public class Unit : MonoBehaviour
     private bool IsMoving = false;
     private bool IsMovingIntoBuilding;
 
+    private bool isMoving = false;
     private float distance = 0f;
 
-    
+    [SerializeField]private Animator Animator;
+
     public static List<Unit> Units = new List<Unit>();
 
     /// <summary>
@@ -53,6 +57,8 @@ public class Unit : MonoBehaviour
     /// <param name="_pos">Position where the unit spawns</param>
     public void Initialize(UnitData _data)
     {
+        Name = _data.Name;
+        Icon = _data.Icon;
         MaxHealthPoints = _data.MaxHealthPoints;
         Defence = _data.Defence;
         AttackPoints = _data.AttackPoints;
@@ -62,6 +68,7 @@ public class Unit : MonoBehaviour
 
     private void Awake()
     {
+        Initialize(UnitData);
         AddUnit(this);
     }
 
@@ -72,6 +79,8 @@ public class Unit : MonoBehaviour
 
     private void Update()
     {
+        Animator.SetBool("IsMoving", true);
+
         if (IsMoving)
         {
             if (distance < 0.1f)
