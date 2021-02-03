@@ -207,7 +207,7 @@ MonoBehaviour:
   CurrentHeight: 0
   MaxUnitAmount: 5
   UnitAmount: 0
-  StorageCapacityAdded: 10
+  StorageCapacityAdded: 0a0000001900000032000000
 --- !u!1001 &3380599600984835372
 PrefabInstance:
   m_ObjectHideFlags: 0

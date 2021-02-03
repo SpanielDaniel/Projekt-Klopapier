@@ -2,11 +2,22 @@
 using Buildings;
 using Code.Scripts;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace UI_Scripts
 {
+    public enum EBuilding
+    {
+        Base,
+        House,
+        Hospital,
+        Storage,
+        Farm,
+        DestroyedHouse,
+        Scrap,
+    }
     public class UIBuildingManager : UIVisibilityEvent
     {
 
@@ -23,11 +34,13 @@ namespace UI_Scripts
         [SerializeField] private Image BuildingImage;
         [SerializeField] private UISlot[] BuildingSlots;
         [SerializeField] private Slider LifeBar;
-        
         [SerializeField] private Text BuildingNameText2;
         [SerializeField] private Image BuildingImage2;
         [SerializeField] private UISlot[] BuildingSlots2;
         [SerializeField] private Slider LifeBar2;
+
+
+        [SerializeField] private GameObject[] UIBuildingElements;
 
 
         private Building CurrentSelectedBuilding;
@@ -59,12 +72,19 @@ namespace UI_Scripts
             
             BuildingNameText.text = CurrentSelectedBuilding.GetBuildingData.Name;
             BuildingImage.sprite = CurrentSelectedBuilding.GetBuildingData.BuldingTexture;
-            BuildingLevelText.text = "Level " + CurrentSelectedBuilding.CurrentLevelH;
+            BuildingLevelText.text = "Level " + (CurrentSelectedBuilding.CurrentLevelH + 1);
             
             BuildingNameText2.text = CurrentSelectedBuilding.GetBuildingData.Name;
             BuildingImage2.sprite = CurrentSelectedBuilding.GetBuildingData.BuldingTexture;
             
             UpdateLifeBar();
+            
+            foreach (var HudElement in UIBuildingElements)
+            {
+                HudElement.SetActive(false);
+            }
+            if(CurrentSelectedBuilding is Storage) UIBuildingElements[(int)EBuilding.Storage].SetActive(true);
+            
         }
         
         /// <summary>
@@ -86,6 +106,7 @@ namespace UI_Scripts
         /// </summary>
         private void CloseBuildingUI()
         {
+            
             IsHudOpenH = false;
             CurrentSelectedBuilding = null;
         }

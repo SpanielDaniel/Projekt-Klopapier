@@ -78,7 +78,9 @@ public class UnitSelector : MonoBehaviour
                    Building building = hit.transform.GetComponent<Building>();
                    if (building != null)
                    {
-                       MoveUnitsIntoBuiling(building.GetXPos,building.GetYPOs,building);
+                       if(building.GetUnitCanEnter) MoveUnitsIntoBuiling(building.GetXPos,building.GetYPOs,building);
+                       else FindObjectOfType<AudioManager>().Play("CantBuild");                   
+
                    }
                 }
             }

@@ -9,14 +9,17 @@ using UnityEngine.UI;
 
 namespace Buildings
 {
+    
+    
     public class Building : MonoBehaviour
     , IMouseEnter
     , IMouseStay
     , IMouseExit
     , IMouseLeftClick
     {
-        #region Init
         
+        #region Init
+
         public static event Action ValueChanged;
         public static event Action<float,float> LifeChanged;
         public static event Action<Building> OnClick;
@@ -46,20 +49,25 @@ namespace Buildings
         [SerializeField] private Material BuildMaterial;
         [SerializeField] private Material BuildingMaterial;
         [SerializeField] private Material CantBuildMaterial;
-        [SerializeField] private int CurrentLevel = 0;
+        
+        
         [SerializeField] private int CurrentHealth = 0;
         [SerializeField] private int CurrentWidth;
         [SerializeField] private int CurrentHeight;
         [SerializeField] private int MaxUnitAmount = 5;
         [SerializeField] private int UnitAmount = 0;
 
+        
+        [SerializeField] protected int CurrentLevel = 0;
+        protected bool UnitCanEnter = true;
+
         private int XPosition;
         private int YPosition;
 
         public int GetXPos => XPosition;
         public int GetYPOs => YPosition;
-        
-        
+
+        public bool GetUnitCanEnter => UnitCanEnter;
         
         public BuildingData GetBuildingData => BuildingData;
 
@@ -213,7 +221,7 @@ namespace Buildings
             Buildings.Remove(this);
         }
         
-        public void Upgrade()
+        public virtual void Upgrade()
         {
             if (IsNextLevelGreaterThanMaxLevel()) return;
             
@@ -334,8 +342,6 @@ namespace Buildings
             //Unit.Units[_unitId].GetUnitData;
 
         }
-        
-        
     }
 
     
