@@ -221,6 +221,8 @@ namespace Build
                 FindObjectOfType<AudioManager>().Play("Build");
                 PlayerData.ReduceResources(0, woodCosts, stoneCosts, steelCosts);
                 CurrentBuilding.SetBuildingMaterial();
+                
+                
                 CurrentBuilding.SetPos(CurrentGround.GetWidth,CurrentGround.GetHeight);
 
                 for (int i = 0; i < CurrentBuilding.CurrentHeightH; i++)

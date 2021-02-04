@@ -16,6 +16,8 @@ public class Unit : MonoBehaviour
     ,IMouseLeftClick
 {
     public static event Action<Unit> OnSelection;
+    public static event Action<Unit> IsSpawned; 
+    
     private float MaxHealthPoints;
     private float CurrentHealthPoints;
     private float Defence;
@@ -33,6 +35,7 @@ public class Unit : MonoBehaviour
     [SerializeField] private int ZPos;
     [SerializeField] private Animator Animator;
     [SerializeField] private GameObject UnitObj;
+    [SerializeField] private GameObject SelectedGround;
 
 
     public UnitData GetUnitData => UnitData;
@@ -54,6 +57,15 @@ public class Unit : MonoBehaviour
 
     public static List<Unit> Units = new List<Unit>();
 
+    
+    
+
+    private void Awake()
+    {
+        Initialize(UnitData);
+        AddUnit(this);
+    }
+    
     /// <summary>
     /// Initialize unit
     /// </summary>
@@ -70,23 +82,21 @@ public class Unit : MonoBehaviour
         MoveSpeed = _data.MoveSpeed;
     }
 
-    private void Awake()
-    {
-        Initialize(UnitData);
-        AddUnit(this);
-    }
-
     private void Start()
     {
         IsSelected = false;
+        SetSelectedGround(false);
+        UpdatePos();
     }
 
     private void Update()
     {
-        Animator.SetBool("IsMoving", true);
+        
 
         if (IsMoving)
         {
+            Animator.SetBool("IsMoving", true);
+            Animator.SetBool("IsIdle", false);
             if (distance < 0.01f)
             {
                 XPos = Path[NextNode].GridX;
@@ -103,21 +113,22 @@ public class Unit : MonoBehaviour
                 
                 
                 float angle = Vector2.SignedAngle(Vector2.up, new Vector2(ViewDirection.x, ViewDirection.z));
-                Debug.Log(angle);
-                UnitObj.transform.eulerAngles = new Vector3(0,-angle,0); //new Quaternion(0,angle,0,0);   ;
+                UnitObj.transform.eulerAngles = new Vector3(0,-angle,0);
             }
 
             transform.position += ViewDirection * (MoveSpeed * Time.deltaTime);
 
             if (NextNode >= Path.Count)
             {
-                XPos = Path[NextNode -1].GridX;
-                ZPos = Path[NextNode -1].GridZ;
                 transform.position = Path[NextNode - 1].Pos;
                 Path = null;
                 IsMoving = false;
+                
+                Animator.SetBool("IsMoving", false);
+                Animator.SetBool("IsIdle", true);
                 if (IsMovingIntoBuilding)
                 {
+                    
                     IsMovingIntoBuilding = false;
                     BuildingToEnter.AddUnit(ID);
                     gameObject.SetActive(false);
@@ -147,12 +158,19 @@ public class Unit : MonoBehaviour
     /// <param name="_y">Y coordinate from world</param>
     public void MoveToPosition(List<Node> _path)
     {
+        
         NextNode = 1;
-        distance = 0;
+        distance = 1;
         if (_path == null)
         {
             return;
         }
+        
+        if(IsMovingIntoBuilding) FindObjectOfType<AudioManager>().Play("GetInside");
+        else if(!IsMoving)FindObjectOfType<AudioManager>().Play("MoveUnit");
+        else FindObjectOfType<AudioManager>().Play("KeepMovingUnit");
+        
+        
         Path = _path;
         IsMoving = true;
     }
@@ -171,13 +189,24 @@ public class Unit : MonoBehaviour
 
     public void OnMouseLeftClickAction()
     {
+        
         OnSelection?.Invoke(this);
     }
-    
-    private void SetPos()
+
+    public void SetSelectedGround(bool _value)
     {
-        
+        SelectedGround.SetActive(_value);
     }
 
+    public void UpdatePos()
+    {
+        IsSpawned?.Invoke(this);
+    }
+
+    public void SetPos(int _x,int _z)
+    {
+        XPos = _x;
+        ZPos = _z;
+    }
     
 }

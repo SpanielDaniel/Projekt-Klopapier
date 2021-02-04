@@ -23,13 +23,22 @@ namespace UI_Scripts
         {
             if(Button != null) Button.SetActive(false);
         }
-        
+
+        private void Start()
+        {
+            StartEffect();
+        }
+
+        protected virtual void StartEffect()
+        {
+            
+        }
 
         #endregion
         
         #region Function
 
-        private void SetImage(Sprite _sprite)
+        public void SetImage(Sprite _sprite)
         {
             CurrentImage.sprite = _sprite;
         }
@@ -46,6 +55,11 @@ namespace UI_Scripts
         public void OnPointerExit(PointerEventData eventData)
         {
             if(Button != null) Button.SetActive(false);
+        }
+
+        public virtual void ButtonAction()
+        {
+            
         }
 
         #endregion

@@ -5,7 +5,6 @@
 using Assets.Code.Scripts.UI_Scripts;
 using Buildings;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Code.Scripts;
 using UnityEngine;
@@ -14,7 +13,11 @@ public class UnitSelector : MonoBehaviour
 {
     public static event Action<Unit> SelectUnit;
     public static event Action<List<Unit>> SelectedUnitGroup;
+    public static event Action NoUnitSelected;
+    
     public static List<Unit> SelectedUnits = new List<Unit>();
+    
+    
     [SerializeField] private Vector2 testEndNode;
     public static List<Unit> SelectedUnitsH
     {
@@ -22,15 +25,8 @@ public class UnitSelector : MonoBehaviour
         set 
         {
             SelectedUnits = value;
-            if (SelectedUnits.Count == 1)
-            {
-                SelectUnit?.Invoke(SelectedUnits[0]);
-            }
-            else if (SelectedUnits.Count > 1)
-            {
-                SelectedUnitGroup?.Invoke(SelectedUnits);
-            }
-        } 
+            
+        }
     }
     [SerializeField] private Camera CameraMain;
     [SerializeField] private RectTransform SelectionBox;
@@ -41,6 +37,15 @@ public class UnitSelector : MonoBehaviour
     private void Start()
     {
         SelectedUnitsH = new List<Unit>();
+
+        Unit.OnSelection += AddUnit;
+    }
+
+    private void AddUnit(Unit obj)
+    {
+        ClearSelectedUnit();
+        SelectedUnitsH.Add(obj);
+        CheckUnitsCount();
     }
 
     private void Update()
@@ -48,7 +53,7 @@ public class UnitSelector : MonoBehaviour
         
         if (Input.GetMouseButtonDown(0))
         {
-            SelectedUnitsH.Clear();
+            ClearSelectedUnit();
             startPos = Input.mousePosition;
         }
         if (Input.GetMouseButtonUp(0))
@@ -62,7 +67,7 @@ public class UnitSelector : MonoBehaviour
         
         if (Input.GetMouseButtonDown(1))
         {
-            if (SelectedUnits.Count > 0)
+            if (SelectedUnitsH.Count > 0)
             {
                 Ray ray;
                 ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -80,7 +85,6 @@ public class UnitSelector : MonoBehaviour
                    {
                        if(building.GetUnitCanEnter) MoveUnitsIntoBuiling(building.GetXPos,building.GetYPOs,building);
                        else FindObjectOfType<AudioManager>().Play("CantBuild");                   
-
                    }
                 }
             }
@@ -116,7 +120,7 @@ public class UnitSelector : MonoBehaviour
     void ReleaseSelectionBox()
     {
         SelectionBox.gameObject.SetActive(false);
-
+        
         Vector2 min = SelectionBox.anchoredPosition - (SelectionBox.sizeDelta / 2);
         Vector2 max = SelectionBox.anchoredPosition + (SelectionBox.sizeDelta / 2);
 
@@ -134,5 +138,44 @@ public class UnitSelector : MonoBehaviour
                 units.IsSelected = false;
             }
         }
+        
+        CheckUnitsCount();
+    }
+
+
+    private void CheckUnitsCount()
+    {
+        if (SelectedUnitsH.Count == 1)
+        {
+            SelectUnit?.Invoke(SelectedUnitsH[0]);
+        }
+        else
+        {
+            NoUnitSelected?.Invoke();
+            if (SelectedUnitsH.Count > 1)
+            {
+                SelectedUnitGroup?.Invoke(SelectedUnitsH);
+            }
+        }
+
+
+        if (SelectedUnitsH.Count > 0)
+        {
+            FindObjectOfType<AudioManager>().Play("YesSir");
+
+            foreach (Unit unit in SelectedUnitsH)
+            {
+                unit.SetSelectedGround(true);
+            }
+        }
+    }
+
+    private void ClearSelectedUnit()
+    {
+        foreach (Unit _unit in SelectedUnitsH)
+        {
+            _unit.SetSelectedGround(false);
+        }
+        SelectedUnitsH.Clear();
     }
 }

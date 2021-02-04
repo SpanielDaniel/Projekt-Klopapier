@@ -2,14 +2,18 @@
 // Author   : Daniel Bäcker
 // Project  : Projekt-Klopapier
 
+using System;
 using Build;
 using Code.Scripts.Grid.DanielB;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Code.Scripts.Map
 {
     public class MapGenerator : MonoBehaviour
     {
+
+        public static event Action MapIsBuild; 
         private MyGrid<GameObject> GroundMap;
         private int MapMultiplicator = 2;
 
@@ -25,6 +29,8 @@ namespace Code.Scripts.Map
         [SerializeField] private GameObject GrasGround;
 
         private GameObject MapThings;
+
+        public bool MapIsReady = false; 
         
         
         private void Start()
@@ -48,7 +54,10 @@ namespace Code.Scripts.Map
             GrasGround.transform.localScale = new Vector3(width/10,1, height/10);
             GrasGround.transform.position = new Vector3(0,0,0);
             MapThings.transform.position = new Vector3(-width/2,0.001f,-height/2);
-            
+
+            MapIsReady = true;
+            MapIsBuild?.Invoke();
+
         }
 
         public void DeleteMap()

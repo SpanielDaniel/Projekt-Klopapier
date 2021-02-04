@@ -28,10 +28,13 @@
               <e p="StreetManager.cs" t="Include" />
             </e>
             <e p="Buildings" t="Include">
+              <e p="Base.cs" t="Include" />
               <e p="Building.cs" t="Include" />
               <e p="BuildingData.cs" t="Include" />
               <e p="Farm.cs" t="Include" />
+              <e p="RecruitSlot.cs" t="Include" />
               <e p="Storage.cs" t="Include" />
+              <e p="UIBase.cs" t="Include" />
             </e>
             <e p="Enemy Scripts" t="Include">
               <e p="Enemy.cs" t="Include" />

@@ -25,6 +25,7 @@ namespace Buildings
         public static event Action<Building> OnClick;
         public static event Action<Building> IsFinished;
         public static event Action<Building,int,int> IsDestroied;
+        //public static event Action<int> UnitEnterd; 
         
         public static List<Building> Buildings = new List<Building>();
         public bool IsCollison;
@@ -34,7 +35,10 @@ namespace Buildings
         private bool IsBuilding;
         private float TimerCounter = 0;
         private int HealthPerSecond = 1;
+        
         private List<int> UnitIDs = new List<int>();
+        
+        public List<int> GetUnitIDs => UnitIDs;
         
         public bool GetIsBuilding => IsBuilding;
         
@@ -59,6 +63,10 @@ namespace Buildings
 
         
         [SerializeField] protected int CurrentLevel = 0;
+        
+        protected Vector2 Entrance;
+        public Vector2 GetEntrance => Entrance;
+
         protected bool UnitCanEnter = true;
 
         private int XPosition;
@@ -338,6 +346,9 @@ namespace Buildings
         {
             UnitIDs.Add(_unitId);
             UnitAmount++;
+            if (UnitAmount == MaxUnitAmount) UnitCanEnter = false;
+            //UnitEnterd?.Invoke(_unitId);
+            
 
             //Unit.Units[_unitId].GetUnitData;
 

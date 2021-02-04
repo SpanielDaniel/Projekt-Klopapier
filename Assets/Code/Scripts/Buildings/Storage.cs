@@ -8,7 +8,6 @@ namespace Buildings
         [SerializeField] private int[] StorageCapacityAdded;
         public override void OnBuildEffect()
         {
-            Debug.Log("Effect");
             PlayerData.GetInstance.StorageCapacityH += StorageCapacityAdded[0];
             UnitCanEnter = false;
             base.OnBuildEffect();

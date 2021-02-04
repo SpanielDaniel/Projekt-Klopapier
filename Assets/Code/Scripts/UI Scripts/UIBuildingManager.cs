@@ -34,6 +34,8 @@ namespace UI_Scripts
         [SerializeField] private Image BuildingImage;
         [SerializeField] private UISlot[] BuildingSlots;
         [SerializeField] private Slider LifeBar;
+        
+        
         [SerializeField] private Text BuildingNameText2;
         [SerializeField] private Image BuildingImage2;
         [SerializeField] private UISlot[] BuildingSlots2;
@@ -41,7 +43,6 @@ namespace UI_Scripts
 
 
         [SerializeField] private GameObject[] UIBuildingElements;
-
 
         private Building CurrentSelectedBuilding;
 
@@ -77,17 +78,32 @@ namespace UI_Scripts
             BuildingNameText2.text = CurrentSelectedBuilding.GetBuildingData.Name;
             BuildingImage2.sprite = CurrentSelectedBuilding.GetBuildingData.BuldingTexture;
             
+            if (CurrentSelectedBuilding.GetIsBuilding)
+            {
+                Debug.Log("Anzeigen");
+                for (int i = 0; i < CurrentSelectedBuilding.GetUnitIDs.Count; i++)
+                {
+                    BuildingSlots2[i].SetImage(Unit.Units[CurrentSelectedBuilding.GetUnitIDs[i]].GetUnitData.Icon);
+                }
+                Debug.Log("Anzeigen2");
+
+            }
+
             UpdateLifeBar();
             
             foreach (var HudElement in UIBuildingElements)
             {
                 HudElement.SetActive(false);
             }
+
+            if (CurrentSelectedBuilding.GetIsBuilding) return;
+            
             if(CurrentSelectedBuilding is Storage) UIBuildingElements[(int)EBuilding.Storage].SetActive(true);
-            if (CurrentSelectedBuilding is Farm)
+            if(CurrentSelectedBuilding is Farm) UIBuildingElements[(int)EBuilding.Farm].SetActive(true);
+            if (CurrentSelectedBuilding is Base)
             {
-                Debug.Log("farm");
-                UIBuildingElements[(int)EBuilding.Farm].SetActive(true);
+                UIBuildingElements[(int)EBuilding.Base].SetActive(true);
+                UIBuildingElements[(int)EBuilding.Base].GetComponent<UIBase>().SetSlotEntrance(CurrentSelectedBuilding.GetEntrance);
             }
             
         }

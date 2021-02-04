@@ -2,6 +2,7 @@
 // Author   : Daniel Pobijanski
 // Project  : Projekt-Klopapier
 
+using System;
 using Assets.Code.Scripts.Unit_Scripts;
 using Code.Scripts.Grid.DanielB;
 using System.Collections.Generic;
@@ -21,12 +22,19 @@ public class UnitManager : Singleton<UnitManager>
     private List<Node> Path;
 
     private Pathfinding Pathfinding;
+    
+
+    protected override void AwakeFunction()
+    {
+        Unit.IsSpawned += SetUnitToPos;
+        MapGenerator.MapIsBuild += SetUnitPos;
+        base.AwakeFunction();
+    }
 
     private void Start()
     {
         CreateNodes();
         Pathfinding = new Pathfinding(Nodes);
-        SetUnitPos();        
     }
 
     private void CreateNodes()
@@ -53,13 +61,18 @@ public class UnitManager : Singleton<UnitManager>
         _unit.MoveToPosition(Path);
     }
 
-    private void SetUnitPos()
+   private void SetUnitPos()
+   {
+       foreach (Unit _unit in Unit.Units)
+       {
+           SetUnitToPos(_unit);
+       }
+   }
+
+    private void SetUnitToPos(Unit _unit)
     {
-        foreach (var _unit in Unit.Units)
-        {
-            _unit.transform.position =
-                MapGenerator.GetGroundFromPosition(_unit.GetXPosition, _unit.GetZPosition).transform.position;
-        }
+        if(!MapGenerator.MapIsReady) return;
+        _unit.transform.position = MapGenerator.GetGroundFromPosition(_unit.GetXPosition, _unit.GetZPosition).transform.position;
     }
     
     // [SerializeField] private  GameObject Unit;
