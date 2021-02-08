@@ -82,6 +82,7 @@
               <e p="UIMenu.cs" t="Include" />
               <e p="UIPointerInHudManager.cs" t="Include" />
               <e p="UIResourcesManager.cs" t="Include" />
+              <e p="UIScrap.cs" t="Include" />
               <e p="UISlot.cs" t="Include" />
               <e p="UIUnitManager.cs" t="Include" />
               <e p="UIVisibilityEvent.cs" t="Include" />

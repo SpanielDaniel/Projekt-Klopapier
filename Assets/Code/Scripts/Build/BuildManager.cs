@@ -279,6 +279,7 @@ namespace Build
                 {
                     GameObject scrap = Instantiate(PrefScrapBuilding);
                     scrap.transform.position = mapGenerator.GetGroundFromPosition(_building.GetXPos + j, _building.GetYPOs + i).transform.position;
+                    scrap.GetComponent<Scrap>().SetPosition(_building.GetXPos + j,_building.GetYPOs + i);
                 }
             }
         }

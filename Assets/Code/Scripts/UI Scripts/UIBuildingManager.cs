@@ -2,6 +2,7 @@
 using Build;
 using Buildings;
 using Code.Scripts;
+using Code.Scripts.UI_Scripts;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -47,8 +48,12 @@ namespace UI_Scripts
 
 
         [SerializeField] private GameObject[] UIBuildingElements;
-
+        
+        
         private Building CurrentSelectedBuilding;
+        
+        
+        
 
         private void Awake()
         {
@@ -81,9 +86,9 @@ namespace UI_Scripts
             BuildingNameText2.text = CurrentSelectedBuilding.GetData.Name;
             BuildingImage2.sprite = CurrentSelectedBuilding.GetData.BuldingTexture;
             UpdateLevel();
+            
             if (!CurrentSelectedBuilding.IsBuiltHandler)
             {
-
                 foreach (UISlot slot in BuildingSlots2)
                 {
                     slot.SetDefaultSprite();
@@ -91,9 +96,7 @@ namespace UI_Scripts
                 
                 for (int i = 0; i < CurrentSelectedBuilding.GetUnitIDs.Count; i++)
                 {
-                    
-                    
-                    BuildingSlots2[i].SetImage(Unit.Units[CurrentSelectedBuilding.GetUnitIDs[i]].GetUnitData.Icon);
+                    BuildingSlots2[i].Init(Unit.Units[CurrentSelectedBuilding.GetUnitIDs[i]].GetUnitData.Icon,CurrentSelectedBuilding.GetUnitIDs[i]);
                 }
             }
 
@@ -102,7 +105,6 @@ namespace UI_Scripts
             
             foreach (var HudElement in UIBuildingElements)
             {
-                
                 HudElement.SetActive(false);
             }
            
@@ -121,11 +123,11 @@ namespace UI_Scripts
             if (CurrentSelectedBuilding is Scrap)
             {
                 UIBuildingElements[(int)EBuilding.Scrap].SetActive(true);
+                UIBuildingElements[(int)EBuilding.Scrap].GetComponent<UIScrap>().UpdateUI(CurrentSelectedBuilding as Scrap);
             }
-            
-            
         }
 
+        
         private void UpdateLevel()
         {
             BuildingLevelText.text = "Level " + (CurrentSelectedBuilding.CurrentLevelH + 1);
@@ -224,8 +226,6 @@ namespace UI_Scripts
             {
                 RepairButton.SetActive(false);
             }
-            
-            
             
             UpdateUI();
         }

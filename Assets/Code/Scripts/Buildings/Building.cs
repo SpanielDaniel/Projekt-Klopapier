@@ -9,8 +9,6 @@ using UnityEngine.UI;
 
 namespace Buildings
 {
-    
-    
     public class Building : MonoBehaviour
     , IMouseEnter
     , IMouseStay
@@ -49,7 +47,7 @@ namespace Buildings
         [Space]
         
         [Header("Units in Building")]
-        [SerializeField] private int UnitAmount = 0;
+        [SerializeField] protected int UnitAmount = 0;
         
         [Space]
         
@@ -100,7 +98,7 @@ namespace Buildings
             private set
             {
                 IsBuilt = value;
-                if (value = true)
+                if (IsBuilt)
                 {
                     OnBuildEffect();
                     IsFinished?.Invoke(this);
@@ -134,6 +132,8 @@ namespace Buildings
         
         
         
+        
+        
         // TODO: umbenennen und an richtiger Stelle platzieren
         
         private int TurnIndex = 0;
@@ -162,10 +162,10 @@ namespace Buildings
         {
             SetHealthToOne();
             SetStartObjectSize();
+            UnitCanEnter = !Data.IsFinished;
             IsBuiltHandler = Data.IsFinished;
             HealthBar.SetActive(false);
-            UnitCanEnter = !Data.IsFinished;
-            
+
             AddBuilding();
         }
 
@@ -214,13 +214,14 @@ namespace Buildings
                 BuiltTimer--;
             }
         }
+
+        private void UpdateBuiltHealth() => CurrentHealthH += UnitAmount * HealthPerSecond;
         private void CheckThatBuildingIsFinished()
         {
-            if (IsBuildingFinished()) IsBuiltHandler = true;
+            if (IsHealthEqualMaxHealth()) IsBuiltHandler = true;
         }
-        private bool IsBuildingFinished() => CurrentHealthH == Data.Levels[Level].MaxLife;
-        private void UpdateBuiltHealth() => CurrentHealthH += UnitAmount * HealthPerSecond;
-        
+        private bool IsHealthEqualMaxHealth() => CurrentHealthH == Data.Levels[Level].MaxLife;
+
         // Late Update -------------------------------------------------------------------------------------------------
         private void RotateHealthBarToCamera()
         {
@@ -261,7 +262,6 @@ namespace Buildings
                 height = -height;
                 
                 BuildingObj.transform.position = new Vector3(position.x + 0.5f * (height), position.y, position.z);
-                CurrentWidth = height;
 
             }
             
@@ -270,9 +270,10 @@ namespace Buildings
             {
                 width = -width;
                 BuildingObj.transform.position = new Vector3(position.x,position.y,position.z+ 0.5f * (width));
-                CurrentHeight = width;
+                
             }
-
+            CurrentWidth = height;
+            CurrentHeight = width;
         }
         private void UpdateBoxColliderPosition()
         {
@@ -311,6 +312,7 @@ namespace Buildings
             if (!UnitCanEnter){ return false; }
             UnitIDs.Add(_unitId);
             UnitAmount++;
+            StartOnValueChanged();
             if (UnitAmount == MaxUnitAmount) UnitCanEnter = false;
             
             return true;
@@ -383,12 +385,10 @@ namespace Buildings
         // On Built ----------------------------------------------------------------------------------------------------
         protected virtual void OnBuildEffect()
         {
-            
+            EntrancePosition = new Vector2(GetXPos,GetYPOs - 1);
         }
-       
         
         // On Destroy --------------------------------------------------------------------------------------------------
-        
         private void OnDestroy()
         {
             RemoveBuildingFromList();
@@ -418,6 +418,10 @@ namespace Buildings
         
         // -------------------------------------------------------------------------------------------------------------
         
+        protected void StartOnValueChanged()
+        {
+            ValueChanged?.Invoke();
+        }
     }
 
     

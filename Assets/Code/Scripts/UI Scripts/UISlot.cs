@@ -19,6 +19,8 @@ namespace UI_Scripts
         [SerializeField] private Sprite DefaultSprite;
         [SerializeField] private GameObject Button;
 
+        private int UnitID;
+
         private void Awake()
         {
             if(Button != null) Button.SetActive(false);
@@ -31,16 +33,27 @@ namespace UI_Scripts
 
         protected virtual void StartEffect()
         {
-
+        
         }
 
         #endregion
         
         #region Function
 
-        public void SetImage(Sprite _sprite)
+
+        public void Init(Sprite _sprite, int _unitID)
+        {
+            SetImage(_sprite);
+            SetUnitId(_unitID);
+        }
+        protected void SetImage(Sprite _sprite)
         {
             CurrentImage.sprite = _sprite;
+        }
+
+        private void SetUnitId(int _id)
+        {
+            UnitID = _id;
         }
 
         public void SetDefaultSprite()
