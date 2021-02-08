@@ -8,22 +8,13 @@ namespace Buildings
     {
         protected override void OnBuildEffect()
         {
-            CreateSlots();
+           
             UnitCanEnter = false;
-            EntrancePosition = new Vector2(GetXPos,GetYPOs - 1);
+            
             base.OnBuildEffect();
             
         }
-
-        private void CreateSlots()
-        {
-            // foreach (UnitData data in Data)
-            // {
-            //     GameObject slot = Instantiate(Pref_UnitSlot);
-            //     slot.transform.SetParent(UISlot.transform);
-            // }
-        }
-
+        
         public override void DestroyEffect()
         {
             base.DestroyEffect();

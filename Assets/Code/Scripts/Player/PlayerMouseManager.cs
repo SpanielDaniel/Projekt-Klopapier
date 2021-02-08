@@ -19,7 +19,6 @@ namespace Player
         Transform LastHit;
         Transform CurrentHit;
         
-        
         private void Update()
         {
             MousePos = Input.mousePosition;
@@ -35,7 +34,6 @@ namespace Player
             if (Input.GetMouseButtonDown(1))
             {
                 UIVisibilityManager.SetAllHusNonVisable();
-                //UnitSelector.MoveUnits(MousePos);
             }
 
 
@@ -68,7 +66,6 @@ namespace Player
                     IMouseLeftClick mLeftclick = CurrentHit.GetComponent<IMouseLeftClick>();
                     
                     if(mLeftclick != null) mLeftclick.OnMouseLeftClickAction();
-                    
                 }
                 
                 LastHit = CurrentHit;
