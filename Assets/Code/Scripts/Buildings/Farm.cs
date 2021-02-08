@@ -6,7 +6,7 @@ namespace Buildings
     public class Farm : Building
     {
         
-        public override void OnBuildEffect()
+        protected override void OnBuildEffect()
         {
             Debug.Log("Effect");
             UnitCanEnter = false;

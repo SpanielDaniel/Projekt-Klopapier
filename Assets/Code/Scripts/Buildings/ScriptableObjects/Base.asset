@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebd08c17ea8b4256b220648d24996397, type: 3}
   m_Name: Base
   m_EditorClassIdentifier: 
-  Modell: {fileID: 6327789502137770140, guid: 5bb0774f8537f1e428c402526be7b6f4, type: 3}
   ObjectSize:
     X: 3
     Y: 2
@@ -25,11 +24,17 @@ MonoBehaviour:
     WoodCosts: 5
     StoneCosts: 5
     SteelCosts: 5
+    MaxUnits: 0
   - MaxLife: 200
     WoodCosts: 10
     StoneCosts: 10
     SteelCosts: 10
+    MaxUnits: 0
   - MaxLife: 300
     WoodCosts: 20
     StoneCosts: 20
     SteelCosts: 20
+    MaxUnits: 0
+  IsFinished: 0
+  CanBeDemolished: 1
+  CanBeRepaired: 1

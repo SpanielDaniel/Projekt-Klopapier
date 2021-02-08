@@ -97,6 +97,7 @@ public class Unit : MonoBehaviour
         {
             Animator.SetBool("IsMoving", true);
             Animator.SetBool("IsIdle", false);
+
             if (distance < 0.01f)
             {
                 XPos = Path[NextNode].GridX;
@@ -128,14 +129,13 @@ public class Unit : MonoBehaviour
                 Animator.SetBool("IsIdle", true);
                 if (IsMovingIntoBuilding)
                 {
-                    
+                    if (BuildingToEnter.AddUnit(ID))
+                    {
+                        gameObject.SetActive(false);
+                    }
                     IsMovingIntoBuilding = false;
-                    BuildingToEnter.AddUnit(ID);
-                    gameObject.SetActive(false);
                 }
             }
-
-            
         }
         //UpdateTarget();
     }
@@ -147,7 +147,7 @@ public class Unit : MonoBehaviour
     public void AddUnit(Unit _unit)
     {
         Units.Add(_unit);
-        ID = Units.Count;
+        ID = Units.Count - 1;
     }
 
     

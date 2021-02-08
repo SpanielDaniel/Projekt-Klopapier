@@ -33,6 +33,7 @@
               <e p="BuildingData.cs" t="Include" />
               <e p="Farm.cs" t="Include" />
               <e p="RecruitSlot.cs" t="Include" />
+              <e p="Scrap.cs" t="Include" />
               <e p="Storage.cs" t="Include" />
               <e p="UIBase.cs" t="Include" />
             </e>

@@ -6,11 +6,11 @@ namespace Buildings
 {
     public class Base : Building
     {
-        public override void OnBuildEffect()
+        protected override void OnBuildEffect()
         {
             CreateSlots();
             UnitCanEnter = false;
-            Entrance = new Vector2(GetXPos,GetYPOs - 1);
+            EntrancePosition = new Vector2(GetXPos,GetYPOs - 1);
             base.OnBuildEffect();
             
         }

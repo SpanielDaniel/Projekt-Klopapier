@@ -31,7 +31,7 @@ namespace UI_Scripts
 
         protected virtual void StartEffect()
         {
-            
+
         }
 
         #endregion
@@ -41,6 +41,11 @@ namespace UI_Scripts
         public void SetImage(Sprite _sprite)
         {
             CurrentImage.sprite = _sprite;
+        }
+
+        public void SetDefaultSprite()
+        {
+            CurrentImage.sprite = DefaultSprite;
         }
 
         #endregion

@@ -190,23 +190,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06446592d2fe40fba85ef20de699efcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsCollison: 0
-  BuildingData: {fileID: 11400000, guid: 454f3d97bfa497046b846fab33612a78, type: 2}
+  Data: {fileID: 11400000, guid: 454f3d97bfa497046b846fab33612a78, type: 2}
+  Level: 0
+  Health: 0
   HealthBar: {fileID: 162339632517069619}
+  HealthBarSlider: {fileID: 5522813356598945290}
+  UnitAmount: 0
+  Collider: {fileID: 4576719750695096249}
+  MeshRenderer: {fileID: 2897183468931073409}
+  BaseMaterial: {fileID: -3661639628750336703, guid: 9cd607b23d5f326479e1a5f85d76cb68, type: 3}
+  BuildMaterial: {fileID: 2100000, guid: 34c975a1f63353341969102570d7fe1e, type: 2}
+  CantBuildMaterial: {fileID: 2100000, guid: dd3d11cc0c398084cb852945e3065c12, type: 2}
   BuildingObj: {fileID: 3758455886590431850}
   Flag: {fileID: 6942179758205799662}
-  HealthBarSlider: {fileID: 5522813356598945290}
-  BoxCollider: {fileID: 4576719750695096249}
-  MeshRenderer: {fileID: 2897183468931073409}
-  BuildMaterial: {fileID: 2100000, guid: 34c975a1f63353341969102570d7fe1e, type: 2}
-  BuildingMaterial: {fileID: -3661639628750336703, guid: 9cd607b23d5f326479e1a5f85d76cb68, type: 3}
-  CantBuildMaterial: {fileID: 2100000, guid: dd3d11cc0c398084cb852945e3065c12, type: 2}
-  CurrentHealth: 0
-  CurrentWidth: 0
-  CurrentHeight: 0
-  MaxUnitAmount: 5
-  UnitAmount: 0
-  CurrentLevel: 0
 --- !u!1001 &3380599600984835372
 PrefabInstance:
   m_ObjectHideFlags: 0

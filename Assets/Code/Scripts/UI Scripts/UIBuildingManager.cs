@@ -1,4 +1,5 @@
 ﻿using System;
+using Build;
 using Buildings;
 using Code.Scripts;
 using TMPro;
@@ -15,8 +16,8 @@ namespace UI_Scripts
         Hospital,
         Storage,
         Farm,
-        DestroyedHouse,
         Scrap,
+        DestroyedHouse,
     }
     public class UIBuildingManager : UIVisibilityEvent
     {
@@ -25,8 +26,11 @@ namespace UI_Scripts
         #region ----- Init -----
 
         [SerializeField] private GameObject BuildingUI;
+        [SerializeField] private GameObject Level;
         [SerializeField] private GameObject BuildUI;
-        
+        [SerializeField] private GameObject UpgradeButton;
+        [SerializeField] private GameObject DemolishButton;
+        [SerializeField] private GameObject RepairButton;
         
         
         [SerializeField] private Text BuildingNameText;
@@ -50,7 +54,7 @@ namespace UI_Scripts
         {
             Building.OnClick += OnBuildingClicked;
             Building.ValueChanged += UpdateUI;
-            Building.IsFinished += OnFinisched;
+            Building.IsFinished += OnFinished;
         }
 
         private void Start()
@@ -71,41 +75,60 @@ namespace UI_Scripts
             if (CurrentSelectedBuilding == null) return;
             
             
-            BuildingNameText.text = CurrentSelectedBuilding.GetBuildingData.Name;
-            BuildingImage.sprite = CurrentSelectedBuilding.GetBuildingData.BuldingTexture;
-            BuildingLevelText.text = "Level " + (CurrentSelectedBuilding.CurrentLevelH + 1);
+            BuildingNameText.text = CurrentSelectedBuilding.GetData.Name;
+            BuildingImage.sprite = CurrentSelectedBuilding.GetData.BuldingTexture;
             
-            BuildingNameText2.text = CurrentSelectedBuilding.GetBuildingData.Name;
-            BuildingImage2.sprite = CurrentSelectedBuilding.GetBuildingData.BuldingTexture;
-            
-            if (CurrentSelectedBuilding.GetIsBuilding)
+            BuildingNameText2.text = CurrentSelectedBuilding.GetData.Name;
+            BuildingImage2.sprite = CurrentSelectedBuilding.GetData.BuldingTexture;
+            UpdateLevel();
+            if (!CurrentSelectedBuilding.IsBuiltHandler)
             {
-                Debug.Log("Anzeigen");
+
+                foreach (UISlot slot in BuildingSlots2)
+                {
+                    slot.SetDefaultSprite();
+                }
+                
                 for (int i = 0; i < CurrentSelectedBuilding.GetUnitIDs.Count; i++)
                 {
+                    
+                    
                     BuildingSlots2[i].SetImage(Unit.Units[CurrentSelectedBuilding.GetUnitIDs[i]].GetUnitData.Icon);
                 }
-                Debug.Log("Anzeigen2");
-
             }
 
             UpdateLifeBar();
             
+            
             foreach (var HudElement in UIBuildingElements)
             {
+                
                 HudElement.SetActive(false);
             }
+           
 
-            if (CurrentSelectedBuilding.GetIsBuilding) return;
+            if (!CurrentSelectedBuilding.IsBuiltHandler) return;
             
             if(CurrentSelectedBuilding is Storage) UIBuildingElements[(int)EBuilding.Storage].SetActive(true);
             if(CurrentSelectedBuilding is Farm) UIBuildingElements[(int)EBuilding.Farm].SetActive(true);
-            if (CurrentSelectedBuilding is Base)
+            if(CurrentSelectedBuilding is Base)
             {
+                
                 UIBuildingElements[(int)EBuilding.Base].SetActive(true);
-                UIBuildingElements[(int)EBuilding.Base].GetComponent<UIBase>().SetSlotEntrance(CurrentSelectedBuilding.GetEntrance);
+                UIBuildingElements[(int)EBuilding.Base].GetComponent<UIBase>().SetSlotEntrance(CurrentSelectedBuilding.GetEntrancePosition);
+            }
+
+            if (CurrentSelectedBuilding is Scrap)
+            {
+                UIBuildingElements[(int)EBuilding.Scrap].SetActive(true);
             }
             
+            
+        }
+
+        private void UpdateLevel()
+        {
+            BuildingLevelText.text = "Level " + (CurrentSelectedBuilding.CurrentLevelH + 1);
         }
         
         /// <summary>
@@ -115,10 +138,10 @@ namespace UI_Scripts
         {
             int level = CurrentSelectedBuilding.CurrentLevelH;
             
-            LifeBar.maxValue = CurrentSelectedBuilding.GetBuildingData.Levels[level].MaxLife;
+            LifeBar.maxValue = CurrentSelectedBuilding.GetData.Levels[level].MaxLife;
             LifeBar.value = CurrentSelectedBuilding.CurrentHealthH;
             
-            LifeBar2.maxValue = CurrentSelectedBuilding.GetBuildingData.Levels[level].MaxLife;
+            LifeBar2.maxValue = CurrentSelectedBuilding.GetData.Levels[level].MaxLife;
             LifeBar2.value = CurrentSelectedBuilding.CurrentHealthH;
         }
         
@@ -148,23 +171,62 @@ namespace UI_Scripts
             CurrentSelectedBuilding.Upgrade();
         }
 
+
+        [SerializeField] private BuildManager BuildManager;
         public void OnButton_Destroy()
         {
-            FindObjectOfType<AudioManager>().Play("BuildSlotClicked");
-            FindObjectOfType<AudioManager>().Play("BuildingDestroy");
-            
+            PlayDestroySound();
+            BuildManager.OnBuildingDestried(CurrentSelectedBuilding);
             CurrentSelectedBuilding.DestroyEffect();
-            GameObject objBuffer = CurrentSelectedBuilding.gameObject;
+            Destroy(CurrentSelectedBuilding.gameObject);
             SetUIActive(false);
-            Destroy(objBuffer);
         }
 
+        private void PlayDestroySound()
+        {
+            FindObjectOfType<AudioManager>().Play("BuildingDestroy");
+
+        }
+        
         private void OnBuildingClicked(Building _building)
         {
             if(CurrentSelectedBuilding != _building) FindObjectOfType<AudioManager>().Play("BuildingClicked");
-
             CurrentSelectedBuilding = _building;
+            
+            
             IsHudOpenH = true;
+            
+            if (CurrentSelectedBuilding.GetData.IsUpgradable)
+            {
+                Level.SetActive(true);
+                UpgradeButton.SetActive(true);
+            }
+            else
+            {
+                UpgradeButton.SetActive(false);
+                Level.SetActive(false);
+            }
+
+            if (CurrentSelectedBuilding.GetData.CanBeDemolished)
+            {
+                DemolishButton.SetActive(true);
+            }
+            else
+            {
+                DemolishButton.SetActive(false);
+            }
+            
+            if (CurrentSelectedBuilding.GetData.CanBeRepaired)
+            {
+                RepairButton.SetActive(true);
+            }
+            else
+            {
+                RepairButton.SetActive(false);
+            }
+            
+            
+            
             UpdateUI();
         }
 
@@ -178,7 +240,7 @@ namespace UI_Scripts
                 return;
             }
             
-            if (CurrentSelectedBuilding.GetIsBuilding)
+            if (!CurrentSelectedBuilding.IsBuiltHandler)
             {
                 BuildUI.SetActive(_isActive);
                 if (BuildingUI.activeSelf == true)
@@ -196,7 +258,7 @@ namespace UI_Scripts
             }
         }
         
-        private void OnFinisched(Building obj)
+        private void OnFinished(Building obj)
         {
             if (CurrentSelectedBuilding != obj) return;
             BuildUI.SetActive(false);

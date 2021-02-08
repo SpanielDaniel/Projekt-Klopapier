@@ -34,7 +34,6 @@ namespace Build
         private void Awake()
         {
             BuildSlot.OnMouseClick += OnMouseClickedBuildSlot;
-            Building.IsDestroied += OnBuildingDestried;
         }
 
         private void Start()
@@ -155,7 +154,7 @@ namespace Build
         
         private bool CanBuildingBuildOnGround(Ground _ground)
         {
-            BuildingData data = CurrentBuilding.GetBuildingData;
+            BuildingData data = CurrentBuilding.GetData;
                     
             for (int i = 0; i < CurrentBuilding.CurrentHeightH; i++)
             {
@@ -202,14 +201,14 @@ namespace Build
 
         private void LeftMouseButtonClicked()
         {
-            if (CurrentBuilding.IsCollison || CanBuild == false)
+            if (CurrentBuilding.GetIsCollision || CanBuild == false)
             {
                 FindObjectOfType<AudioManager>().Play("CantBuild");
                 return;
             }
             
             
-            BuildingData data = CurrentBuilding.GetBuildingData;
+            BuildingData data = CurrentBuilding.GetData;
             int currentBuildingLevel = CurrentBuilding.CurrentLevelH;
 
             int woodCosts = data.Levels[currentBuildingLevel].WoodCosts;
@@ -220,10 +219,10 @@ namespace Build
             {
                 FindObjectOfType<AudioManager>().Play("Build");
                 PlayerData.ReduceResources(0, woodCosts, stoneCosts, steelCosts);
-                CurrentBuilding.SetBuildingMaterial();
+                CurrentBuilding.SetBaseMaterial();
                 
                 
-                CurrentBuilding.SetPos(CurrentGround.GetWidth,CurrentGround.GetHeight);
+                CurrentBuilding.SetPosition(CurrentGround.GetWidth,CurrentGround.GetHeight);
 
                 for (int i = 0; i < CurrentBuilding.CurrentHeightH; i++)
                 {
@@ -259,7 +258,7 @@ namespace Build
         
         private void MiddleMouseButtonClicked()
         {
-            CurrentBuilding.Turn();
+            CurrentBuilding.TurnRight();
         }
 
         public void OnButton_BuildMenu()
@@ -272,17 +271,16 @@ namespace Build
             BuildUI.SetActive(_isActive);
         }
 
-        public void OnBuildingDestried(Building _building,int _x, int _y)
+        public void OnBuildingDestried(Building _building)
         {
             for (int i = 0; i < _building.CurrentHeightH; i++)
             {
                 for (int j = 0; j < _building.CurrentWidthH; j++)
                 {
                     GameObject scrap = Instantiate(PrefScrapBuilding);
-                    scrap.transform.position = mapGenerator.GetGroundFromPosition(_x + j, _y + i).transform.position;
+                    scrap.transform.position = mapGenerator.GetGroundFromPosition(_building.GetXPos + j, _building.GetYPOs + i).transform.position;
                 }
             }
-            
         }
         
     }

@@ -31,7 +31,7 @@ namespace Build
 
         private void Init()
         {
-            BuildingData data = Building.GetComponent<Building>().GetBuildingData;
+            BuildingData data = Building.GetComponent<Building>().GetData;
             IconImage.sprite = data.BuldingTexture;
             BuildingName.text = data.Name;
         }

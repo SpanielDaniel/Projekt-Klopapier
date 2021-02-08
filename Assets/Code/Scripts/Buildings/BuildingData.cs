@@ -5,7 +5,6 @@ using UnityEngine;
     [CreateAssetMenu(fileName = "New Building", menuName = "Building")]
     public class BuildingData : ScriptableObject
     {
-        public GameObject Modell;
         public Size ObjectSize;
         
         [Serializable]
@@ -20,6 +19,11 @@ using UnityEngine;
         public Sprite BuldingTexture;
         public bool IsUpgradable;
         public Level[] Levels;
+
+        public bool IsFinished;
+        public bool CanBeDemolished;
+        public bool CanBeRepaired;
+        
         
         [Serializable]
         public struct Level
@@ -28,5 +32,6 @@ using UnityEngine;
             public int WoodCosts;
             public int StoneCosts;
             public int SteelCosts;
+            public int MaxUnits;
         }
     }

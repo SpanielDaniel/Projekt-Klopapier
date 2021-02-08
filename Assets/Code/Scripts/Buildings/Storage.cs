@@ -6,7 +6,7 @@ namespace Buildings
     public class Storage : Building
     {
         [SerializeField] private int[] StorageCapacityAdded;
-        public override void OnBuildEffect()
+        protected override void OnBuildEffect()
         {
             PlayerData.GetInstance.StorageCapacityH += StorageCapacityAdded[0];
             UnitCanEnter = false;
@@ -15,14 +15,14 @@ namespace Buildings
 
         public override void DestroyEffect()
         {
-            PlayerData.GetInstance.StorageCapacityH -= StorageCapacityAdded[CurrentLevel];
+            PlayerData.GetInstance.StorageCapacityH -= StorageCapacityAdded[Level];
             base.DestroyEffect();
         }
 
         public override void Upgrade()
         {
             base.Upgrade();
-            PlayerData.GetInstance.StorageCapacityH += StorageCapacityAdded[CurrentLevel] - StorageCapacityAdded[CurrentLevel - 1];
+            PlayerData.GetInstance.StorageCapacityH += StorageCapacityAdded[Level] - StorageCapacityAdded[Level - 1];
         }
     }
 }

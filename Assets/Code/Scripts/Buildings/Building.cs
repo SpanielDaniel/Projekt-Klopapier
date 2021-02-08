@@ -17,139 +17,166 @@ namespace Buildings
     , IMouseExit
     , IMouseLeftClick
     {
-        
-        #region Init
+        // -------------------------------------------------------------------------------------------------------------
 
+        #region Init
+        
+        // Events ------------------------------------------------------------------------------------------------------
         public static event Action ValueChanged;
-        public static event Action<float,float> LifeChanged;
         public static event Action<Building> OnClick;
         public static event Action<Building> IsFinished;
-        public static event Action<Building,int,int> IsDestroied;
-        //public static event Action<int> UnitEnterd; 
         
+        // Static Variables --------------------------------------------------------------------------------------------
         public static List<Building> Buildings = new List<Building>();
-        public bool IsCollison;
-
-        private Camera MainCamera;
-        private int i = 0;
-        private bool IsBuilding;
-        private float TimerCounter = 0;
-        private int HealthPerSecond = 1;
         
-        private List<int> UnitIDs = new List<int>();
+        // Serialize Field ---------------------------------------------------------------------------------------------
         
-        public List<int> GetUnitIDs => UnitIDs;
+        [SerializeField] private BuildingData Data;
         
-        public bool GetIsBuilding => IsBuilding;
+        [Space]
         
+        [Header("Level")]
+        [SerializeField] protected int Level;
         
-        [SerializeField] private BuildingData BuildingData;
+        [Space]
+        
+        [Header("Health")]
+        [SerializeField] private int Health;
+        [Space]
         [SerializeField] private GameObject HealthBar;
-        [SerializeField] private GameObject BuildingObj;
-        [SerializeField] private GameObject Flag;
         [SerializeField] private Slider HealthBarSlider;
-        [SerializeField] private BoxCollider BoxCollider;
+        
+        [Space]
+        
+        [Header("Units in Building")]
+        [SerializeField] private int UnitAmount = 0;
+        
+        [Space]
+        
+        [Header("Collider")]
+        [SerializeField] private BoxCollider Collider;
+        
+        [Space]
+        
+        [Header("Model")]
         [SerializeField] private MeshRenderer MeshRenderer;
+        [Space]
+        [SerializeField] private Material BaseMaterial;
         [SerializeField] private Material BuildMaterial;
-        [SerializeField] private Material BuildingMaterial;
         [SerializeField] private Material CantBuildMaterial;
         
+        [Space]
         
-        [SerializeField] private int CurrentHealth = 0;
-        [SerializeField] private int CurrentWidth;
-        [SerializeField] private int CurrentHeight;
-        [SerializeField] private int MaxUnitAmount = 5;
-        [SerializeField] private int UnitAmount = 0;
+        [Header("Building Objects")]
+        [SerializeField] private GameObject BuildingObj;
+        // private -----------------------------------------------------------------------------------------------------
 
-        
-        [SerializeField] protected int CurrentLevel = 0;
-        
-        protected Vector2 Entrance;
-        public Vector2 GetEntrance => Entrance;
-
-        protected bool UnitCanEnter = true;
-
+        private bool IsBuilt;
         private int XPosition;
-        private int YPosition;
-
+        private int ZPosition;
+        private int CurrentWidth;
+        private int CurrentHeight;
+        protected Vector2 EntrancePosition;
+        
+        protected bool UnitCanEnter = true;
+        private int MaxUnitAmount => Data.Levels[Level].MaxUnits;
+        private List<int> UnitIDs = new List<int>();
+        
+        // Get properties ----------------------------------------------------------------------------------------------
+        public BuildingData GetData => Data;
         public int GetXPos => XPosition;
-        public int GetYPOs => YPosition;
-
+        public int GetYPOs => ZPosition;
+        public int CurrentHeightH => CurrentHeight;
+        public int CurrentWidthH => CurrentWidth;
+        public Vector2 GetEntrancePosition => EntrancePosition;
         public bool GetUnitCanEnter => UnitCanEnter;
-        
-        public BuildingData GetBuildingData => BuildingData;
+        public List<int> GetUnitIDs => UnitIDs;
 
-        public int CurrentHeightH
+        // Handler properties ------------------------------------------------------------------------------------------
+
+        public bool IsBuiltHandler
         {
-            get => CurrentHeight;
-            set => CurrentHeight = value;
+            get => IsBuilt;
+            private set
+            {
+                IsBuilt = value;
+                if (value = true)
+                {
+                    OnBuildEffect();
+                    IsFinished?.Invoke(this);
+                }
+            }
         }
-        
-        public int CurrentWidthH
-        {
-            get => CurrentWidth;
-            set => CurrentWidth = value;
-        }
-        
+
         public int CurrentHealthH
         {
-            set
+            get => Health;
+            private set
             {
-                CurrentHealth = Mathf.Clamp(value, 0, BuildingData.Levels[CurrentLevel].MaxLife);
+                if (Data == null) return;
+                Health = Mathf.Clamp(value, 0, Data.Levels[Level].MaxLife);
                 ValueChanged?.Invoke();
-                LifeChanged?.Invoke(CurrentHealth,BuildingData.Levels[CurrentLevel].MaxLife);
-                if(CurrentHealth <= 0) DestroyEffect();
+                if(Health <= 0) DestroyEffect();
             }
-            get => CurrentHealth;
         }
 
         public int CurrentLevelH
         {
-            set
+            get => Level;
+            private set
             {
-                CurrentLevel = Mathf.Clamp(value, 0, BuildingData.Levels.Length - 1);
+                Level = Mathf.Clamp(value, 0, Data.Levels.Length - 1);
                 ValueChanged?.Invoke();
             }
-            get => CurrentLevel;
         }
+        
+        
+        
+        
+        
+        // TODO: umbenennen und an richtiger Stelle platzieren
+        
+        private int TurnIndex = 0;
+
+        private int TurnIndexHandler
+        {
+            get => TurnIndex;
+            set
+            {
+                TurnIndex = value;
+                if (TurnIndex > 3) TurnIndex = 0;
+                if (TurnIndex < 0) TurnIndex = 3;
+            }
+        }
+        private float BuiltTimer = 0;
+        private int HealthPerSecond = 1;
+
+        private bool IsCollison;
+        public bool GetIsCollision => IsCollison;
 
         #endregion
+        
+        // -------------------------------------------------------------------------------------------------------------
+        
+        private void Init()
+        {
+            SetHealthToOne();
+            SetStartObjectSize();
+            IsBuiltHandler = Data.IsFinished;
+            HealthBar.SetActive(false);
+            UnitCanEnter = !Data.IsFinished;
+            
+            AddBuilding();
+        }
 
         private void Start()
         {
             Init();
-            HealthBar.SetActive(false);
         }
         
         private void Update()
         {
-            if (IsBuilding)
-            {
-                TimerCounter += Time.deltaTime;
-                if (TimerCounter >= 1)
-                {
-                    TimerCounter--;
-                    CurrentHealthH += UnitAmount * HealthPerSecond;
-                    if (CurrentHealthH == BuildingData.Levels[CurrentLevel].MaxLife)
-                    {
-                        IsFinished?.Invoke(this);
-                        OnBuildEffect();
-                        IsBuilding = false;
-                    }
-                }
-            }
-        }
-        
-        private void Init()
-        {
-            MainCamera = Camera.main;
-            CurrentHealthH = 1;
-            AddBuilding();
-
-            CurrentWidth = BuildingData.ObjectSize.X;
-            CurrentHeight = BuildingData.ObjectSize.Y;
-            
-            IsBuilding = true;
+            if (!IsBuiltHandler) UpdateBuildProgress();
         }
 
         private void LateUpdate()
@@ -157,78 +184,111 @@ namespace Buildings
             RotateHealthBarToCamera();
         }
         
+        // -------------------------------------------------------------------------------------------------------------
+        
         #region Functions
-
-        private void RotateHealthBarToCamera()
+        
+        // Init --------------------------------------------------------------------------------------------------------
+        private void SetHealthToOne()
         {
-            Quaternion cameraRotation = MainCamera.transform.rotation; 
-            HealthBar.transform.rotation = new Quaternion(cameraRotation.x,cameraRotation.y,cameraRotation.z,cameraRotation.w);
+            CurrentHealthH = 1;
         }
-
-        public void Turn()
+        private void SetStartObjectSize()
         {
-            i += 1;
-            if (i > 3) i = 0;
-
-            transform.localRotation = Quaternion.Euler(0,90 * i,0);//RotateAround(transform.position,new Vector3(0,1,0), 90f );
-
-            
-            int x = CurrentHeightH;
-            int y = -CurrentWidthH;
-            
-            if (x < 0)
-            {
-                
-
-                x = -x;
-                BuildingObj.transform.position = new Vector3(
-                    BuildingObj.transform.position.x + 0.5f * (x),
-                    BuildingObj.transform.position.y,
-                    BuildingObj.transform.position.z);
-               
-                
-            }
-            
-            if (y < 0)
-            {
-                y = -y;
-                BuildingObj.transform.position = new Vector3(
-                    BuildingObj.transform.position.x ,
-                    BuildingObj.transform.position.y,
-                    BuildingObj.transform.position.z+ 0.5f * (y));
-            }
-
-            CurrentWidthH = x;
-            CurrentHeightH = y;
-            
-            
-            UpdateBoxCollider();
+            CurrentWidth = Data.ObjectSize.X;
+            CurrentHeight = Data.ObjectSize.Y;
         }
-
-        private void UpdateBoxCollider()
-        {
-            if (i % 2 != 0)
-            {
-                Vector3 boxCenter = BoxCollider.center;
-                BoxCollider.center = new Vector3(-boxCenter.x  ,boxCenter.y,boxCenter.z);
-            }
-            else
-            {
-                Vector3 boxCenter = BoxCollider.center;
-                BoxCollider.center = new Vector3(boxCenter.x  ,boxCenter.y,-boxCenter.z);
-            }
-        }
-
         private void AddBuilding()
         {
             Buildings.Add(this);
         }
         
-        private void RemoveBuilding()
+        // Update ------------------------------------------------------------------------------------------------------
+        private void UpdateBuildProgress()
         {
-            Buildings.Remove(this);
+            BuiltTimer += Time.deltaTime;
+            if (BuiltTimer >= 1)
+            {
+                UpdateBuiltHealth();
+                CheckThatBuildingIsFinished();
+                BuiltTimer--;
+            }
+        }
+        private void CheckThatBuildingIsFinished()
+        {
+            if (IsBuildingFinished()) IsBuiltHandler = true;
+        }
+        private bool IsBuildingFinished() => CurrentHealthH == Data.Levels[Level].MaxLife;
+        private void UpdateBuiltHealth() => CurrentHealthH += UnitAmount * HealthPerSecond;
+        
+        // Late Update -------------------------------------------------------------------------------------------------
+        private void RotateHealthBarToCamera()
+        {
+            Quaternion cameraRotation = Camera.main.transform.rotation; 
+            HealthBar.transform.rotation = new Quaternion(cameraRotation.x,cameraRotation.y,cameraRotation.z,cameraRotation.w);
         }
         
+        // Public Functions --------------------------------------------------------------------------------------------
+        
+        // Position ----------------------------------------------------------------------------------------------------
+        public void SetPosition(int _x, int _y)
+        {
+            XPosition = _x;
+            ZPosition = _y;
+        }
+        
+        // Rotation ----------------------------------------------------------------------------------------------------
+        public void TurnRight()
+        {
+            RotateBuildingRight();
+            
+            UpdateBuildingPosition();
+            
+            UpdateBoxColliderPosition();
+        }
+        private void RotateBuildingRight()
+        {
+            TurnIndexHandler += 1;
+            transform.localRotation = Quaternion.Euler(0,90 * TurnIndex,0);
+        }
+        private void UpdateBuildingPosition()
+        {
+            Vector3 position = BuildingObj.transform.position;
+
+            int height = CurrentHeightH;
+            if (height < 0)
+            {
+                height = -height;
+                
+                BuildingObj.transform.position = new Vector3(position.x + 0.5f * (height), position.y, position.z);
+                CurrentWidth = height;
+
+            }
+            
+            int width = -CurrentWidthH;
+            if (width < 0)
+            {
+                width = -width;
+                BuildingObj.transform.position = new Vector3(position.x,position.y,position.z+ 0.5f * (width));
+                CurrentHeight = width;
+            }
+
+        }
+        private void UpdateBoxColliderPosition()
+        {
+            if (TurnIndex % 2 != 0)
+            {
+                Vector3 boxCenter = Collider.center;
+                Collider.center = new Vector3(-boxCenter.x  ,boxCenter.y,boxCenter.z);
+            }
+            else
+            {
+                Vector3 boxCenter = Collider.center;
+                Collider.center = new Vector3(boxCenter.x  ,boxCenter.y,-boxCenter.z);
+            }
+        }
+
+        // Upgrade -----------------------------------------------------------------------------------------------------
         public virtual void Upgrade()
         {
             if (IsNextLevelGreaterThanMaxLevel()) return;
@@ -236,36 +296,54 @@ namespace Buildings
             CurrentLevelH++;
             SetHealthToCurrentLevelHealth();
         }
-
         private bool IsNextLevelGreaterThanMaxLevel()
         {
-            return CurrentLevelH + 1 > BuildingData.Levels.Length;
+            return CurrentLevelH + 1 > Data.Levels.Length;
         }
-
         private void SetHealthToCurrentLevelHealth()
         {
-            CurrentHealthH = BuildingData.Levels[CurrentLevel].MaxLife;
+            CurrentHealthH = Data.Levels[Level].MaxLife;
+        }
+        
+        // Units -------------------------------------------------------------------------------------------------------
+        public bool AddUnit(int _unitId)
+        {
+            if (!UnitCanEnter){ return false; }
+            UnitIDs.Add(_unitId);
+            UnitAmount++;
+            if (UnitAmount == MaxUnitAmount) UnitCanEnter = false;
+            
+            return true;
         }
 
+        // Material Setter ---------------------------------------------------------------------------------------------
+        public void SetBaseMaterial()
+        {
+            MeshRenderer.material = BaseMaterial;
+        }
         public void SetBuildMaterial()
         {
             MeshRenderer.material = BuildMaterial;
         }
-        
         public void SetCantBuildMaterial()
         {
             MeshRenderer.material = CantBuildMaterial;
         }
-
-        public void SetBuildingMaterial()
+        
+        // Collider Setter ---------------------------------------------------------------------------------------------
+        public void SetColliderActive(bool _isActive)
         {
-            MeshRenderer.material = BuildingMaterial;
+            Collider.enabled = _isActive;
         }
 
+
         #endregion
+        
+        // -------------------------------------------------------------------------------------------------------------
 
         #region Events
         
+        // Collision ---------------------------------------------------------------------------------------------------
         private void OnCollisionStay(Collision other)
         {
             Debug.Log("Stay");
@@ -280,15 +358,7 @@ namespace Buildings
             IsCollison = false;
         }
         
-       
-        private void OnValidate()
-        {
-            CurrentLevelH = CurrentLevelH;
-            CurrentHealthH = CurrentHealthH;
-        }
-
-        #endregion
-        
+        // Mouse -------------------------------------------------------------------------------------------------------
         public void OnMouseEnterAction()
         {
             HealthBar.SetActive(true);
@@ -296,8 +366,8 @@ namespace Buildings
 
         public void OnMouseStayAction()
         {
-            HealthBarSlider.maxValue = BuildingData.Levels[CurrentLevel].MaxLife;
-            HealthBarSlider.value = CurrentHealth;
+            HealthBarSlider.maxValue = Data.Levels[Level].MaxLife;
+            HealthBarSlider.value = Health;
         }
 
         public void OnMouseExitAction()
@@ -309,50 +379,45 @@ namespace Buildings
         {
             OnClick?.Invoke(this);
         }
-
-        public void SetColliderActive(bool _isActive)
+        
+        // On Built ----------------------------------------------------------------------------------------------------
+        protected virtual void OnBuildEffect()
         {
-            BoxCollider.enabled = _isActive;
+            
         }
-
+       
+        
+        // On Destroy --------------------------------------------------------------------------------------------------
+        
         private void OnDestroy()
         {
+            RemoveBuildingFromList();
+        }
+        private void RemoveBuildingFromList()
+        {
             Buildings.Remove(this);
-        }
-
-        public virtual void OnBuildEffect()
-        {
-            SetFlagActive(true);
-        }
-
-        public void SetPos(int _x, int _y)
-        {
-            XPosition = _x;
-            YPosition = _y;
         }
 
         public virtual void DestroyEffect()
         {
-            IsDestroied?.Invoke(this,XPosition,YPosition);
-            Buildings.Remove(this);
-        }
-
-        private void SetFlagActive(bool _isActive)
-        {
-            Flag.SetActive(_isActive);
-        }
-
-        public void AddUnit(int _unitId)
-        {
-            UnitIDs.Add(_unitId);
-            UnitAmount++;
-            if (UnitAmount == MaxUnitAmount) UnitCanEnter = false;
-            //UnitEnterd?.Invoke(_unitId);
             
-
-            //Unit.Units[_unitId].GetUnitData;
-
         }
+
+        // Inspector ---------------------------------------------------------------------------------------------------
+        private void OnValidate()
+        {
+            if(Data != null) UpdateHealth();
+        }
+        private void UpdateHealth()
+        {
+            CurrentLevelH = CurrentLevelH;
+            CurrentHealthH = CurrentHealthH;
+        }
+
+        #endregion
+        
+        // -------------------------------------------------------------------------------------------------------------
+        
     }
 
     
