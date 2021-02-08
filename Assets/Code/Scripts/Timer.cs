@@ -8,22 +8,46 @@ using UnityEngine.UI;
 public class Timer : MonoBehaviour
 {
     [SerializeField] private Text TimeText;
-    private float StartTimer = 0;
+    [SerializeField] private Text DayText;
+    [SerializeField] private bool BoolTimer = false;
+    public float StartTimer = 0;
+    public float CurrentTimer;
+    public float Tage = 0;
+    public float Stunden = 0;
+    public float Minuten = 0;
+
+    private void Start()
+    {
+        StartTimer = CurrentTimer;
+    }
 
     void Update()
     {
-        StartTimer += Time.deltaTime;
-
         DisplayTime(StartTimer);
+        TimeText.text = string.Format("{0:00}:{1:00}", Stunden, Minuten);
+        DayText.text = "Day: " + Tage;
     }
 
     void DisplayTime(float timeToDisplay)
     {
-        timeToDisplay += 1;
+        if (BoolTimer)
+        {
+            CurrentTimer += 1.5f * Time.deltaTime;
+            Minuten = (int)CurrentTimer;
 
-        float minutes = Mathf.FloorToInt(timeToDisplay / 60);
-        float seconds = Mathf.FloorToInt(timeToDisplay % 60);
+            if (CurrentTimer >= 60)
+            {
+                Stunden++;
 
-        TimeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+                Minuten = 0;
+                CurrentTimer = StartTimer;
+            }
+
+            if (Stunden == 24)
+            {
+                Tage++;
+                Stunden = 0;
+            }
+        }
     }
 }
