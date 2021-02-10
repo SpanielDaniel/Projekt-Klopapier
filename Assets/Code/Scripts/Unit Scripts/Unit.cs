@@ -98,7 +98,7 @@ public class Unit : MonoBehaviour
             Animator.SetBool("IsMoving", true);
             Animator.SetBool("IsIdle", false);
 
-            if (distance < 0.01f)
+            if (distance < 0.1f)
             {
                 XPos = Path[NextNode].GridX;
                 ZPos = Path[NextNode].GridZ;

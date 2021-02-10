@@ -5,17 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class UIInGameMenu : MonoBehaviour
 {
-    [SerializeField] private GameObject MenuButton;
+    [SerializeField] private GameObject InGameMenuUI;
 
     public void InGameMenu()
     {
-        MenuButton.SetActive(true);
+        InGameMenuUI.SetActive(true);
         //ToDo: GameSpeed = 0;
     }
 
     public void Resume()
     {
-        MenuButton.SetActive(false);
+        InGameMenuUI.SetActive(false);
         //ToDo: GameSpeed = 1;
     }
 
