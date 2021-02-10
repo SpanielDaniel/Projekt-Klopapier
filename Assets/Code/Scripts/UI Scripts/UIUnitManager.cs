@@ -15,14 +15,15 @@ namespace Assets.Code.Scripts.UI_Scripts
         private UnitData Data;
         [SerializeField] private GameObject UnitUI;
         [SerializeField] private TMP_Text NameUI;
-        [SerializeField] private Image UnitIcon; 
+        [SerializeField] private TMP_Text NumberOfUnitsUI;
+        [SerializeField] private Image UnitIcon;
+        [SerializeField] private Image GroupUnitIcon;
         [SerializeField] private TMP_Text AttackDamageUI;
         [SerializeField] private TMP_Text AttackSpeedUI;
         [SerializeField] private TMP_Text VerteidigungUI;
         [SerializeField] private TMP_Text SpeedUI;
         [SerializeField] private TMP_Text HealthPointsUI;
         [SerializeField] private GameObject UnitGroupUI;
-        [SerializeField] private ScrollRect UnitGroupRect;
 
         private void Awake()
         {
@@ -49,12 +50,20 @@ namespace Assets.Code.Scripts.UI_Scripts
         private void CloseHud()
         {
             UnitUI.SetActive(false);
-
+            UnitGroupUI.SetActive(false);
         }
 
         public void UnitGroupSelected(List<Unit> _units)
         {
             UnitGroupUI.SetActive(true);
+            UnitUI.SetActive(false);
+            int numberOfUnits = 0;
+
+            foreach (Unit unit in _units)
+            {
+                numberOfUnits++;
+            }
+            NumberOfUnitsUI.text = numberOfUnits.ToString();
         }
 
     }

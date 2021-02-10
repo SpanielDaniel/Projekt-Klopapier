@@ -100,9 +100,16 @@ public class UnitSelector : MonoBehaviour
     public void MoveUnits(int _endPosX,int _endPosZ)
     {
         if (SelectedUnitsH[0].GetXPosition == _endPosX && SelectedUnitsH[0].GetZPosition == _endPosZ) return;
-        UnitManager.FindPathForUnit(SelectedUnitsH[0],_endPosX,_endPosZ);
-        
-        //TODO: mehrere einheiten und  gehen auf verschiedene pos.
+        //UnitManager.FindPathForUnit(SelectedUnitsH[0],_endPosX,_endPosZ);
+
+        //ToDo: Einheiten am Ende verteilen
+        //Idee: die endPos am anfang für jede Unit nochmal addieren 
+        //Problem: Wenn man zu der neuen Pos nicht hin kann wird sich die Unit nicht bewegen
+
+        for (int i = 0; i < SelectedUnitsH.Count; i++)
+        {
+            UnitManager.FindPathForUnit(SelectedUnitsH[i], _endPosX, _endPosZ);
+        }
     }
 
     void UpdateSelectionBox(Vector2 curMousePos)
