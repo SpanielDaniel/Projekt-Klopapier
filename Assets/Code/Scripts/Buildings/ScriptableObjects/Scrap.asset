@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebd08c17ea8b4256b220648d24996397, type: 3}
   m_Name: Scrap
   m_EditorClassIdentifier: 
-  Modell: {fileID: 0}
   ObjectSize:
     X: 1
     Y: 1
@@ -25,5 +24,7 @@ MonoBehaviour:
     WoodCosts: 0
     StoneCosts: 0
     SteelCosts: 0
-    MaxUnits: 0
+    MaxUnits: 5
   IsFinished: 1
+  CanBeDemolished: 0
+  CanBeRepaired: 0
