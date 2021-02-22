@@ -12,6 +12,7 @@ public class Node
     public int GridZ;
 
     public bool IsWalkable = true;
+    public bool IsUnit = false;
 
     public Node ParentNode;
 
@@ -25,6 +26,7 @@ public class Node
         GridX = _gridX;
         GridZ = _gridY;
         IsWalkable = true;
+        IsUnit = false;
         Init();
 
     }

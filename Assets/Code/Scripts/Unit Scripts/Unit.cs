@@ -27,6 +27,7 @@ public class Unit : MonoBehaviour
     private int ID;
     private string Name;
     private Sprite Icon;
+    private float CountDownShoot;
 
     public bool IsSelected;
 
@@ -36,7 +37,8 @@ public class Unit : MonoBehaviour
     [SerializeField] private Animator Animator;
     [SerializeField] private GameObject UnitObj;
     [SerializeField] private GameObject SelectedGround;
-
+    [SerializeField] private GameObject BulletPrefab;
+    [SerializeField] private Transform FirePoint;
 
     public UnitData GetUnitData => UnitData;
 
@@ -50,14 +52,13 @@ public class Unit : MonoBehaviour
     private Vector3 ViewDirection;
     private bool IsMoving = false;
     private bool IsMovingIntoBuilding;
+    private static GameObject Target;
 
     private bool isMoving = false;
     private float distance = 0f;
 
-
-    public static List<Unit> Units = new List<Unit>();
-
     
+    public static List<Unit> Units = new List<Unit>();
     
 
     private void Awake()
@@ -91,7 +92,10 @@ public class Unit : MonoBehaviour
 
     private void Update()
     {
-        
+        if (UnitData.MaxHealthPoints <= 0)
+        {
+            Destroy(gameObject);
+        }
 
         if (IsMoving)
         {
@@ -137,7 +141,22 @@ public class Unit : MonoBehaviour
                 }
             }
         }
-        //UpdateTarget();
+        UpdateTarget();
+
+        if (Target == null)
+        {
+            return;
+        }
+
+        LockOnTarget();
+
+        if (CountDownShoot <= 0f)
+        {
+            Attack(Target);
+            CountDownShoot = GetUnitData.AttackSpeed;
+        }
+
+        CountDownShoot -= Time.deltaTime;
     }
 
     /// <summary>
@@ -150,7 +169,52 @@ public class Unit : MonoBehaviour
         ID = Units.Count - 1;
     }
 
-    
+    public void UpdateTarget()
+    {
+        GameObject[] enemys = GameObject.FindGameObjectsWithTag("Enemy");
+        float shortDis = Mathf.Infinity;
+        GameObject nearEnemy = null;
+
+        foreach (GameObject enemy in enemys)
+        {
+            float dis = Vector3.Distance(transform.position, enemy.transform.position);
+            if (dis < shortDis)
+            {
+                shortDis = dis;
+                nearEnemy = enemy;
+            }
+        }
+
+        if (nearEnemy != null && shortDis <= GetUnitData.Range)
+        {
+            Target = nearEnemy;
+        }
+    }
+
+    public void LockOnTarget()
+    {
+        Vector3 direction = (Target.transform.position - transform.position);
+
+        distance = direction.magnitude;
+        ViewDirection = direction.normalized;
+
+
+        float angle = Vector2.SignedAngle(Vector2.up, new Vector2(ViewDirection.x, ViewDirection.z));
+        UnitObj.transform.eulerAngles = new Vector3(0, -angle, 0);
+    }
+
+    public void Attack(GameObject _enemy)
+    {
+        GameObject bulletGO = (GameObject)Instantiate(BulletPrefab, FirePoint.position, FirePoint.rotation);
+        Bullet bullet = bulletGO.GetComponent<Bullet>();
+        
+        if (bullet != null)
+        {
+            bullet.Seek(Target);
+            bullet.SetDMGValue(AttackPoints);
+        }
+    }
+
     /// <summary>
     /// Move unit to a position.
     /// </summary>
@@ -180,11 +244,6 @@ public class Unit : MonoBehaviour
     {
         BuildingToEnter = _building;
         IsMovingIntoBuilding = true;
-    }
-
-    public void SetTarget(Vector3 _targetPosition)
-    {
-       // UnitManager.GetInstance.SetTargetPosition(_targetPosition);
     }
 
     public void OnMouseLeftClickAction()

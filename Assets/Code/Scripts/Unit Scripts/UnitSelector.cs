@@ -106,6 +106,9 @@ public class UnitSelector : MonoBehaviour
         //Idee: die endPos am anfang für jede Unit nochmal addieren 
         //Problem: Wenn man zu der neuen Pos nicht hin kann wird sich die Unit nicht bewegen
 
+        //List<Vector3> endPositionList = GroupUnitPositionList(new Vector3(_endPosX,0.1f, _endPosZ), 0.5f, SelectedUnitsH.Count);
+
+
         for (int i = 0; i < SelectedUnitsH.Count; i++)
         {
             UnitManager.FindPathForUnit(SelectedUnitsH[i], _endPosX, _endPosZ);
@@ -185,4 +188,22 @@ public class UnitSelector : MonoBehaviour
         }
         SelectedUnitsH.Clear();
     }
+
+    //private List<Vector3> GroupUnitPositionList(Vector3 startPosition, float distance, int positionCount)
+    //{
+    //    List<Vector3> positionList = new List<Vector3>();
+    //    for (int i = 0; i < positionCount; i++)
+    //    {
+    //        float angle = i * (360f / positionCount);
+    //        Vector3 dir = Rotation(new Vector3(1, 0, 1), angle);
+    //        Vector3 position = startPosition + dir * distance;
+    //        positionList.Add(position);
+    //    }
+    //    return positionList;
+    //}
+
+    //private Vector3 Rotation(Vector3 vec, float angle)
+    //{
+    //    return Quaternion.Euler(0, angle, 0) * vec;
+    //}
 }

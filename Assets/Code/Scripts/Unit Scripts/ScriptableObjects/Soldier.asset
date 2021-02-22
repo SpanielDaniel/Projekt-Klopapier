@@ -19,4 +19,4 @@ MonoBehaviour:
   AttackPoints: 25
   AttackSpeed: 2
   MoveSpeed: 1
-  Range: 5
+  Range: 2

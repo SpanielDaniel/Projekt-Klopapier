@@ -8,53 +8,69 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    private int SchadensPunkte;
-    private int LebensPunkte;
-    private int VerteidigungsPunkte;
-    private int BewegungsGeschwindigkeit = 2;
+    public float SchadensPunkte = 10;
+    public float LebensPunkte = 100;
+    public float VerteidigungsPunkte = 10;
+    public float BewegungsGeschwindigkeit = 2;
 
-    private Transform target;
-    private float range = 2.5f;
+    private GameObject Target;
+    private float Range = 2.5f;
 
-    private float fireRate;
-    private float countdownShoot;
+    private float FireRate;
+    private float CountdownShoot;
 
-    private int wayPointIndex;
+    private int WayPointIndex;
     private Waypoints wPoints;
+
+    [SerializeField] private GameObject BulletPrefab;
+    [SerializeField] private Transform FirePoint;
 
     private void Start()
     {
-        InvokeRepeating("UpdateTarget", 0f, 0.25f);
-        wPoints = GameObject.FindGameObjectWithTag("Waypoints").GetComponent<Waypoints>();
+        //wPoints = GameObject.FindGameObjectWithTag("Waypoints").GetComponent<Waypoints>();
     }
 
     private void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, wPoints.waypoints[wayPointIndex].position, BewegungsGeschwindigkeit * Time.deltaTime);
+        //transform.position = Vector3.MoveTowards(transform.position, wPoints.waypoints[WayPointIndex].position, BewegungsGeschwindigkeit * Time.deltaTime);
 
-        if (Vector3.Distance(transform.position, wPoints.waypoints[wayPointIndex].position) < 0.1f)
+        //if (Vector3.Distance(transform.position, wPoints.waypoints[WayPointIndex].position) < 0.1f)
+        //{
+        //    if (WayPointIndex < wPoints.waypoints.Length - 1)
+        //        WayPointIndex++;
+        //}
+
+        if (LebensPunkte <= 0)
         {
-            if (wayPointIndex < wPoints.waypoints.Length - 1)
-                wayPointIndex++;
-            else
-                Destroy(gameObject);
+            Destroy(gameObject);
+            Die();
         }
+        UpdateTarget();
 
-        if (target == null)
+        if (Target == null)
             return;
 
-        if (countdownShoot <= 0f)
+        StopMoving();
+
+        if (CountdownShoot <= 0f)
         {
-            Shoot();
-            countdownShoot = 1f / fireRate;
+            Shoot(Target);
+            CountdownShoot = FireRate;
         }
 
-        countdownShoot -= Time.deltaTime;
+        CountdownShoot -= Time.deltaTime;
     }
 
-    void Shoot()
+    void Shoot(GameObject Target)
     {
-        Debug.Log("Dmg");
+        GameObject bulletGO = (GameObject)Instantiate(BulletPrefab, FirePoint.position, Quaternion.identity);
+        Bullet bullet = bulletGO.GetComponent<Bullet>();
+
+        if (bullet != null)
+        {
+            bullet.Seek(Target);
+            bullet.SetDMGValue(SchadensPunkte);
+        }
     }
 
     private void UpdateTarget()
@@ -73,15 +89,31 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        if (nearestEnemy != null && shortestDistance <= range)
-            target = nearestEnemy.transform;
+        if (nearestEnemy != null && shortestDistance <= Range)
+            Target = nearestEnemy;
         else
-            target = null;
+            Target = null;
     }
 
     public void Die()
     {
-        //ToDo: Enemys bearbeiten
         Wave_Spawner.EnemiesAlive--;
+    }
+
+    public void StopMoving()
+    {
+        if (Target != null)
+        {
+            BewegungsGeschwindigkeit = 0;
+        }
+        else
+        {
+            BewegungsGeschwindigkeit = 20;
+        }
+    }
+
+    public void GetDMG(float _dmg)
+    {
+        LebensPunkte -= (_dmg - VerteidigungsPunkte);
     }
 }
