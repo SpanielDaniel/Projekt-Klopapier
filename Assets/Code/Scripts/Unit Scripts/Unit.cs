@@ -53,9 +53,10 @@ public class Unit : MonoBehaviour
     private Vector3 ViewDirection;
     private bool IsMoving = false;
     private bool IsMovingIntoBuilding;
-    private static GameObject Target;
+    private GameObject Target;
 
     private bool isMoving = false;
+    private bool isIlde = true;
     private float distance = 0f;
 
     
@@ -100,6 +101,13 @@ public class Unit : MonoBehaviour
             Destroy(gameObject);
         }
 
+        if (isIlde)
+        {
+            Animator.SetBool("IsMoving", false);
+            Animator.SetBool("IsIdle", true);
+            Animator.SetBool("IsCombat", false);
+        }
+
         if (IsMoving)
         {
             Animator.SetBool("IsMoving", true);
@@ -132,10 +140,8 @@ public class Unit : MonoBehaviour
                 transform.position = Path[NextNode - 1].Pos;
                 Path = null;
                 IsMoving = false;
-                
-                Animator.SetBool("IsMoving", false);
-                Animator.SetBool("IsIdle", true);
-                Animator.SetBool("IsCombat", false);
+                isIlde = true;
+
                 if (IsMovingIntoBuilding)
                 {
                     if (BuildingToEnter.AddUnit(ID))
@@ -148,24 +154,29 @@ public class Unit : MonoBehaviour
         }
         UpdateTarget();
 
-        if (Target == null)
+
+        if (Target != null)
         {
-            return;
+            LockOnTarget();
+
+            if (CountDownShoot <= 0f)
+            {
+                IsMoving = false;
+                isIlde = false;
+                Animator.SetBool("IsMoving", false);
+                Animator.SetBool("IsCombat", true);
+                Animator.SetBool("IsIdle", false);
+                Attack(Target);
+                CountDownShoot = GetUnitData.AttackSpeed;
+
+            }
+
+            CountDownShoot -= Time.deltaTime;
         }
-
-        LockOnTarget();
-
-        if (CountDownShoot <= 0f)
+        else
         {
-            IsMoving = false;
-            Animator.SetBool("IsMoving", false);
-            Animator.SetBool("IsCombat", true);
-            Animator.SetBool("IsIdle", false);
-            Attack(Target);
-            CountDownShoot = GetUnitData.AttackSpeed;
+            isIlde = true;
         }
-
-        CountDownShoot -= Time.deltaTime;
     }
 
     /// <summary>
@@ -186,7 +197,7 @@ public class Unit : MonoBehaviour
 
         foreach (GameObject enemy in enemys)
         {
-            float dis = Vector3.Distance(transform.position, enemy.transform.position);
+            float dis = Vector3.Distance(this.transform.position, enemy.transform.position);
             if (dis < shortDis)
             {
                 shortDis = dis;
