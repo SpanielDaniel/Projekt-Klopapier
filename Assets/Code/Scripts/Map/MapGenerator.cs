@@ -4,6 +4,7 @@
 
 using System;
 using Build;
+using Buildings;
 using Code.Scripts.Grid.DanielB;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -28,10 +29,11 @@ namespace Code.Scripts.Map
         [SerializeField] private GameObject PrefMapThings;
         [SerializeField] private GameObject GrasGround;
 
+        [SerializeField] private BuildManager BuildManager;
+
         private GameObject MapThings;
 
         public bool MapIsReady = false; 
-        
         
         private void Start()
         {
@@ -55,9 +57,11 @@ namespace Code.Scripts.Map
             GrasGround.transform.position = new Vector3(0,0,0);
             MapThings.transform.position = new Vector3(-width/2,0.001f,-height/2);
 
+            GenerateBuildings();
+            
+            
             MapIsReady = true;
             MapIsBuild?.Invoke();
-
         }
 
         public void DeleteMap()
@@ -65,7 +69,6 @@ namespace Code.Scripts.Map
             Destroy(MapThings);
             MapThings = null;
         }
-        
 
         private void GenerateMap()
         {
@@ -296,7 +299,7 @@ namespace Code.Scripts.Map
         // TODO: Ins Bau Manager packen, wodrin auch die Gebäude gebaut werden
         private void PlaceStreetOnPos(GameObject _street,int _posX,int _posY)
         {
-            //Debug.Log(_posX+ " " + _posY);
+            
             GameObject street = Instantiate(_street);
             street.transform.position = GroundMap.Grid[_posX, _posY].transform.position;
 
@@ -308,7 +311,49 @@ namespace Code.Scripts.Map
             street.GetComponent<Street>().Init(_posX,_posY);
             street.transform.SetParent(MapThings.transform);
         }
-                
+
+        private void GenerateBuildings()
+        {
+
+            foreach (GameObject groundObj in GroundMap.Grid)
+            {
+                if (!groundObj.GetComponent<Ground>().IsBlockedH)
+                {
+                    float randomNumber = Random.Range(0, 100);
+                    if (randomNumber < 5)
+                    {
+                        BuildManager.SetScrapOnPos(groundObj.GetComponent<Ground>().GetWidth,groundObj.GetComponent<Ground>().GetHeight);
+                    }
+                }
+            }
+            
+            foreach (GameObject groundObj in GroundMap.Grid)
+            {
+                if (!groundObj.GetComponent<Ground>().IsBlockedH)
+                {
+                    float randomNumber = Random.Range(0, 100);
+                    if (randomNumber < 5)
+                    {
+                        BuildManager.SetDestroyedHouseOnPos(groundObj.GetComponent<Ground>().GetWidth,groundObj.GetComponent<Ground>().GetHeight);
+                    }
+                }
+            }
+            
+            foreach (GameObject groundObj in GroundMap.Grid)
+            {
+                if (!groundObj.GetComponent<Ground>().IsBlockedH)
+                {
+                    float randomNumber = Random.Range(0, 100);
+                    if (randomNumber < 5)
+                    {
+                        BuildManager.SetHouseOnPos(groundObj.GetComponent<Ground>().GetWidth,groundObj.GetComponent<Ground>().GetHeight);
+                    }
+                }
+            }
+            
+            
+            
+        }   
 
         public void SetGroundBlocked(int _x, int _y, bool _isActive)
         {

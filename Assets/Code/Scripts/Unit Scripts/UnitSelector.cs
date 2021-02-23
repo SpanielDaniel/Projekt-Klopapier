@@ -171,7 +171,7 @@ public class UnitSelector : MonoBehaviour
 
         if (SelectedUnitsH.Count > 0)
         {
-            FindObjectOfType<AudioManager>().Play("YesSir");
+            AudioManager.GetInstance.Play("YesSir");
 
             foreach (Unit unit in SelectedUnitsH)
             {

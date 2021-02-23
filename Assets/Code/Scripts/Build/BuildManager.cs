@@ -10,8 +10,8 @@ using Code.Scripts.Grid.DanielB;
 using Code.Scripts.Map;
 using Player;
 using UI_Scripts;
-using UnityEditorInternal;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Build
 {
@@ -20,8 +20,12 @@ namespace Build
         [SerializeField] private GameObject PrefScrapBuilding;
         [SerializeField] private GameObject BuildUI;
         [SerializeField] private PlayerData PlayerData;
-        [SerializeField] private MapGenerator mapGenerator;
+        [SerializeField] private MapGenerator MapGenerator;
         [SerializeField] private Camera MainCamera;
+
+        [SerializeField] private GameObject[] BuildSlots;
+        [SerializeField] private GameObject PrefDestroyedHouse;
+        [SerializeField] private GameObject PrefHouse;
         
         private Ground CurrentGround;
         private bool IsBuilding = false;
@@ -34,11 +38,33 @@ namespace Build
         private void Awake()
         {
             BuildSlot.OnMouseClick += OnMouseClickedBuildSlot;
+            Base.OnBaseCreated += EnableSlots;
+            Building.OnBaseIsUNderConstruction += DisableBaseSlot;
+        }
+
+        private void DisableBaseSlot()
+        {
+            BuildSlots[0].SetActive(false);
+        }
+
+        private void EnableSlots()
+        {
+            foreach (var slot in BuildSlots)
+            {
+                slot.SetActive(true);
+            }
+            BuildSlots[0].SetActive(false);
         }
 
         private void Start()
         {
             if(MainCamera == null) MainCamera = Camera.main;
+            foreach (GameObject slot in BuildSlots)
+            {
+                slot.SetActive(false);
+            }
+            BuildSlots[0].SetActive(true);
+            
             CloseHud();
         }
 
@@ -49,8 +75,7 @@ namespace Build
             {
                 DestroySelectedBuildingObject();
             }
-            FindObjectOfType<AudioManager>().Play("BuildSlotClicked");
-            
+            AudioManager.GetInstance.Play("BuildSlotClicked");
             
             SetMeshActiveOfAllGrounds(true);
             CreateBuilding(_building);
@@ -124,7 +149,7 @@ namespace Build
                 CurrentGround = ground;
                 SetBuildingPositionToGroundPosition(ground);
 
-                CanBuild = CanBuildingBuildOnGround(ground);
+                CanBuild = CanBuildingBuildOnGround(CurrentBuilding,ground);
                 
                 if (CanBuild) CurrentBuilding.SetBuildMaterial();
                 else CurrentBuilding.SetCantBuildMaterial();
@@ -152,25 +177,25 @@ namespace Build
             }
         }
         
-        private bool CanBuildingBuildOnGround(Ground _ground)
+        public bool CanBuildingBuildOnGround(Building _building,Ground _ground)
         {
-            BuildingData data = CurrentBuilding.GetData;
+            BuildingData data = _building.GetData;
                     
-            for (int i = 0; i < CurrentBuilding.CurrentHeightH; i++)
+            for (int i = 0; i < _building.CurrentHeightH; i++)
             {
-                for (int j = 0; j < CurrentBuilding.CurrentWidthH; j++)
+                for (int j = 0; j < _building.CurrentWidthH; j++)
                 {
                     int x = j + _ground.GetWidth;
                     int y = i + _ground.GetHeight;
 
                     
                     
-                    bool isBlocked = mapGenerator.IsGroundBlocked(x ,y);
+                    bool isBlocked = MapGenerator.IsGroundBlocked(x ,y);
                     if (isBlocked == true) return false;
                     
                     
                     // TO_DO: Besser machen
-                    switch (mapGenerator.GetGroundSignature(x,y))
+                    switch (MapGenerator.GetGroundSignature(x,y))
                     {
                         case EGround.None:
                             return false;
@@ -183,7 +208,6 @@ namespace Build
                     }
                 }
             }
-
             return true;
         }
 
@@ -203,7 +227,7 @@ namespace Build
         {
             if (CurrentBuilding.GetIsCollision || CanBuild == false)
             {
-                FindObjectOfType<AudioManager>().Play("CantBuild");
+                AudioManager.GetInstance.Play("CantBuild");
                 return;
             }
             
@@ -217,7 +241,7 @@ namespace Build
                 
             if (PlayerData.IsPlayerHavingEnoughResources(0, woodCosts,stoneCosts, steelCosts))
             {
-                FindObjectOfType<AudioManager>().Play("Build");
+                AudioManager.GetInstance.Play("Build");
                 PlayerData.ReduceResources(0, woodCosts, stoneCosts, steelCosts);
                 CurrentBuilding.SetBaseMaterial();
                 
@@ -228,7 +252,7 @@ namespace Build
                 {
                     for (int j = 0; j < CurrentBuilding.CurrentWidthH; j++)
                     {
-                        mapGenerator.SetGroundBlocked(CurrentGround.GetWidth + j,CurrentGround.GetHeight + i,true);
+                        MapGenerator.SetGroundBlocked(CurrentGround.GetWidth + j,CurrentGround.GetHeight + i,true);
                     }
                 }
                     
@@ -240,7 +264,7 @@ namespace Build
             }
             else
             {
-                FindObjectOfType<AudioManager>().Play("CantBuild");
+                AudioManager.GetInstance.Play("CantBuild");
             }
         }
 
@@ -277,11 +301,82 @@ namespace Build
             {
                 for (int j = 0; j < _building.CurrentWidthH; j++)
                 {
-                    GameObject scrap = Instantiate(PrefScrapBuilding);
-                    scrap.transform.position = mapGenerator.GetGroundFromPosition(_building.GetXPos + j, _building.GetYPOs + i).transform.position;
-                    scrap.GetComponent<Scrap>().SetPosition(_building.GetXPos + j,_building.GetYPOs + i);
+                    SetScrapOnPos(_building.GetXPos + j,_building.GetYPOs + i);
                 }
             }
+        }
+
+        public void SetScrapOnPos(int _x, int _y)
+        {
+            GameObject scrap = Instantiate(PrefScrapBuilding);
+            scrap.transform.position = MapGenerator.GetGroundFromPosition(_x, _y).transform.position;
+            scrap.GetComponent<Scrap>().SetPosition(_x,_y);
+            
+            MapGenerator.SetGroundBlocked(_x,_y,true);
+        }
+
+        public void SetDestroyedHouseOnPos(int _x, int _y)
+        {
+            GameObject DestroyedHouse = Instantiate(PrefDestroyedHouse);
+
+            int rand = Random.Range(0, 2);
+
+            
+            if(rand >= 1) DestroyedHouse.GetComponent<Building>().TurnRight();
+            
+            
+            if(CanBuildingBuildOnGround(DestroyedHouse.GetComponent<Building>() ,MapGenerator.GetGroundFromPosition(_x, _y)))
+            {
+                
+                DestroyedHouse.transform.position = MapGenerator.GetGroundFromPosition(_x, _y).transform.position;
+                DestroyedHouse.GetComponent<Building>().SetPosition(_x,_y);
+                
+                for (int i = 0; i < DestroyedHouse.GetComponent<Building>().CurrentHeightH; i++)
+                {
+                    for (int j = 0; j < DestroyedHouse.GetComponent<Building>().CurrentWidthH; j++)
+                    {
+                        MapGenerator.SetGroundBlocked(_x + j,_y + i,true);
+                    }
+                }
+                
+                return;
+            }
+            Destroy(DestroyedHouse.gameObject);
+            
+        }
+
+        public void SetHouseOnPos(int _x, int _y)
+        {
+            GameObject house = Instantiate(PrefHouse);
+
+            int rand = Random.Range(0, 2);
+
+            if(rand >= 1) house.GetComponent<Building>().TurnRight();
+            
+            
+            if(CanBuildingBuildOnGround(house.GetComponent<Building>() ,MapGenerator.GetGroundFromPosition(_x, _y)))
+            {
+                
+                house.transform.position = MapGenerator.GetGroundFromPosition(_x, _y).transform.position;
+                house.GetComponent<Building>().SetPosition(_x,_y);
+                
+                for (int i = 0; i < house.GetComponent<Building>().CurrentHeightH; i++)
+                {
+                    for (int j = 0; j < house.GetComponent<Building>().CurrentWidthH; j++)
+                    {
+                        MapGenerator.SetGroundBlocked(_x + j,_y + i,true);
+                    }
+                }
+                    
+                house.GetComponent<Building>().CurrentHealthH = house.GetComponent<Building>().GetData
+                    .Levels[house.GetComponent<Building>().CurrentLevelH].MaxLife;
+                
+                Debug.Log("L1:" + house.GetComponent<Building>().CurrentHealthH );
+
+                
+                return;
+            }
+            Destroy(house.gameObject);
         }
         
     }

@@ -20,7 +20,6 @@
         </e>
         <e p="Code" t="Include">
           <e p="Scripts" t="Include">
-            <e p="AudioManager.cs" t="Include" />
             <e p="Build" t="Include">
               <e p="BuildManager.cs" t="Include" />
               <e p="BuildSlot.cs" t="Include" />
@@ -36,6 +35,7 @@
               <e p="Scrap.cs" t="Include" />
               <e p="Storage.cs" t="Include" />
               <e p="UIBase.cs" t="Include" />
+              <e p="UIBuildingManager.cs" t="Include" />
             </e>
             <e p="Enemy Scripts" t="Include">
               <e p="Enemy.cs" t="Include" />
@@ -45,6 +45,10 @@
               <e p="Waypoints.cs" t="Include" />
             </e>
             <e p="Enums.cs" t="Include" />
+            <e p="Events" t="Include">
+              <e p="EventManager.cs" t="Include" />
+              <e p="EventWindow.cs" t="Include" />
+            </e>
             <e p="GameManager.cs" t="Include" />
             <e p="Grid" t="Include">
               <e p="DanielB" t="Include">
@@ -61,25 +65,36 @@
               <e p="ImouseLeftClick.cs" t="Include" />
               <e p="IMouseStay.cs" t="Include" />
             </e>
+            <e p="MainMenu" t="Include">
+              <e p="UIMenu.cs" t="Include" />
+            </e>
             <e p="Map" t="Include">
               <e p="MapGenerator.cs" t="Include" />
               <e p="MapGeneratorEditor.cs" t="Include" />
               <e p="MapManager.cs" t="Include" />
             </e>
-            <e p="MeshGenerator.cs" t="Include" />
             <e p="Player" t="Include">
               <e p="CameraManager.cs" t="Include" />
               <e p="PlayerData.cs" t="Include" />
               <e p="PlayerMouseManager.cs" t="Include" />
             </e>
+            <e p="RecourceMap" t="Include">
+              <e p="MapResource.cs" t="Include" />
+              <e p="MeshCameraHandler.cs" t="Include" />
+              <e p="MeshGenerator.cs" t="Include" />
+              <e p="ResourceGenerator.cs" t="Include" />
+              <e p="ResourceMapmanager.cs" t="Include" />
+            </e>
             <e p="Singleton.cs" t="Include" />
-            <e p="Sound.cs" t="Include" />
+            <e p="Sound" t="Include">
+              <e p="AudioManager.cs" t="Include" />
+              <e p="Sound.cs" t="Include" />
+            </e>
             <e p="StreetOld.cs" t="Include" />
             <e p="TextureGenerator.cs" t="Include" />
             <e p="Timer.cs" t="Include" />
             <e p="UI Scripts" t="Include">
-              <e p="UIBuildingManager.cs" t="Include" />
-              <e p="UIMenu.cs" t="Include" />
+              <e p="UIInGameMenu.cs" t="Include" />
               <e p="UIPointerInHudManager.cs" t="Include" />
               <e p="UIResourcesManager.cs" t="Include" />
               <e p="UIScrap.cs" t="Include" />

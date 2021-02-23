@@ -25,15 +25,22 @@ namespace Player
             
             if (UIPointerInHudManager.GetIsInHut) return;
 
-            if (BuildManager.GetIsBuilding)
+            if(BuildManager != null)
             {
-                BuildManager.BuildBuilding();
-                return;
+                if (BuildManager.GetIsBuilding)
+                {
+                    BuildManager.BuildBuilding();
+                    return;
+                }
+                
             }
 
-            if (Input.GetMouseButtonDown(1))
+            if (UIVisibilityManager != null)
             {
-                UIVisibilityManager.SetAllHusNonVisable();
+                if (Input.GetMouseButtonDown(1))
+                {
+                    UIVisibilityManager.SetAllHusNonVisable();
+                }
             }
 
 
