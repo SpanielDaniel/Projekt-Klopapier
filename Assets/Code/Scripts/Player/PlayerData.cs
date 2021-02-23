@@ -25,6 +25,12 @@ namespace Player
         [SerializeField] private int FoodStartAmount;
         [SerializeField] private int StartStorageCapacity;
 
+
+        public static event Action OnBaseIsUnderConstruction;
+ 
+        public bool BaseIsUnderConstruction;
+        public bool BaseIsBuild;
+        
         private int ToiletPaperAmount;
         private int WoodAmount;
         private int StoneAmount;

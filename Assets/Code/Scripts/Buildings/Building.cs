@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using Code.Scripts.Map;
 using Interfaces;
+using Player;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,6 +22,7 @@ namespace Buildings
         
         // Events ------------------------------------------------------------------------------------------------------
         public static event Action ValueChanged;
+        public static event Action OnBaseIsUNderConstruction;
         public static event Action<Building> OnClick;
         public static event Action<Building> IsFinished;
         
@@ -95,7 +97,7 @@ namespace Buildings
         public bool IsBuiltHandler
         {
             get => IsBuilt;
-            private set
+            set
             {
                 IsBuilt = value;
                 if (IsBuilt)
@@ -109,7 +111,7 @@ namespace Buildings
         public int CurrentHealthH
         {
             get => Health;
-            private set
+            set
             {
                 if (Data == null) return;
                 Health = Mathf.Clamp(value, 0, Data.Levels[Level].MaxLife);
@@ -127,11 +129,6 @@ namespace Buildings
                 ValueChanged?.Invoke();
             }
         }
-        
-        
-        
-        
-        
         
         
         // TODO: umbenennen und an richtiger Stelle platzieren
@@ -160,13 +157,18 @@ namespace Buildings
         
         private void Init()
         {
+            
+            HealthBar.SetActive(false);
+            AddBuilding();
+        }
+
+        private void Awake()
+        {
             SetHealthToOne();
-            SetStartObjectSize();
+            
             UnitCanEnter = !Data.IsFinished;
             IsBuiltHandler = Data.IsFinished;
-            HealthBar.SetActive(false);
-
-            AddBuilding();
+            SetStartObjectSize();
         }
 
         private void Start()
@@ -191,10 +193,12 @@ namespace Buildings
         // Init --------------------------------------------------------------------------------------------------------
         private void SetHealthToOne()
         {
+            Debug.Log("L2:" + 1 );
             CurrentHealthH = 1;
         }
         private void SetStartObjectSize()
         {
+            
             CurrentWidth = Data.ObjectSize.X;
             CurrentHeight = Data.ObjectSize.Y;
         }
@@ -322,10 +326,15 @@ namespace Buildings
         public void SetBaseMaterial()
         {
             MeshRenderer.material = BaseMaterial;
+            if (Buildings.Count == 1)
+            {
+                OnBaseIsUNderConstruction?.Invoke();
+            }
         }
         public void SetBuildMaterial()
         {
             MeshRenderer.material = BuildMaterial;
+            
         }
         public void SetCantBuildMaterial()
         {
@@ -337,7 +346,6 @@ namespace Buildings
         {
             Collider.enabled = _isActive;
         }
-
 
         #endregion
         

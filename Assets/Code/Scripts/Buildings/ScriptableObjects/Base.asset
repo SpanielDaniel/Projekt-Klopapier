@@ -36,5 +36,5 @@ MonoBehaviour:
     SteelCosts: 20
     MaxUnits: 0
   IsFinished: 0
-  CanBeDemolished: 1
+  CanBeDemolished: 0
   CanBeRepaired: 1

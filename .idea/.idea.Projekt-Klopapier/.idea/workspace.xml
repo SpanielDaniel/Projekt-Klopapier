@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:main" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="c272ea42-4ecd-4da7-89e9-4730a7cb26a5" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -11,43 +35,19 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Code/Scripts/AudioManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Code/Scripts/Sound/AudioManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/Scripts/Buildings/Farm.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Build/BuildSlot.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Grid/DanielB/MapManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Street.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Map/BuildMap.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Grid/DanielB/MyGrid.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/StreetOld.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Build/Street.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Map/MapGeneratorEditor.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Build/StreetManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/GameManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Shader/Toon.shader" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIVisibilityEvent.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Ground.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/UnitMovement.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIVisibilityManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIResourcesManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Player/PlayerData.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Sound.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/AudioManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Player/CameraManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/TextureGenerator.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/MeshGenerator.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Grid/Node.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Grid/Pathfinding.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIUnitManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/UIUnitSlotManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/BaseUnitSlot.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Singleton.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/RecruitSlot.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/UIBase.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Map/MapGenerator.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/UnitManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/BuildingClickEvent.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/MyHealth.cs" />
@@ -58,16 +58,40 @@
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/Unit.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/Farm.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/Storage.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/UnitSelector.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/BuildingData.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UISlot.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Player/PlayerMouseManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIBuildingManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/Base.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Build/BuildManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIScrap.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/Scrap.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/MeshGenerator.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/MeshCameraHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/MeshGenerator.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/Wood.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/Stone.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/Steel.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/ToilettePaper.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/Food.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/MapMarker.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/ResourceMapmanager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/ResourceMapManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Player/PlayerMouseManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/MapResource.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/ResourceGenerator.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIMenu.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/AudioManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/MainMenu/UIMenu.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/UnitSelector.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Singleton.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Sound/AudioManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/Base.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Player/PlayerData.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/GameManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/UIBuildingManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Events/EventWindow.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Events/EventManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Map/MapGenerator.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/Building.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Build/BuildManager.cs" />
       </list>
     </option>
   </component>
@@ -153,6 +177,15 @@
       <workItem from="1612415143382" duration="17288000" />
       <workItem from="1612636587692" duration="22857000" />
       <workItem from="1612785226005" duration="9823000" />
+      <workItem from="1612953092872" duration="1284000" />
+      <workItem from="1612954571772" duration="7127000" />
+      <workItem from="1613042620527" duration="4069000" />
+      <workItem from="1613122967816" duration="8998000" />
+      <workItem from="1613386505592" duration="9716000" />
+      <workItem from="1613565890347" duration="2712000" />
+      <workItem from="1613645735203" duration="2355000" />
+      <workItem from="1613648299540" duration="17270000" />
+      <workItem from="1614005171181" duration="15148000" />
     </task>
     <servers />
   </component>
@@ -161,6 +194,30 @@
   </component>
   <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
@@ -254,18 +311,18 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2381" y="164" key="SettingsEditor/1920.0.1920.1040/3840.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1608510451500" />
-    <state x="274" y="145" width="1458" height="1000" key="dock-window-1" timestamp="1612799503395">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="274" y="145" width="1458" height="1000" key="dock-window-1/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1612799503395" />
-    <state x="-1436" y="73" width="1494" height="1000" key="dock-window-1/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1612301474264" />
-    <state x="-1660" y="79" width="1511" height="1000" key="dock-window-1/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@1920.0.1920.1040" timestamp="1611945629066" />
-    <state x="337" y="0" width="1599" height="1000" key="dock-window-1/1920.0.1920.1040/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608590477119" />
-    <state x="-1740" y="400" width="1467" height="1000" key="dock-window-2" timestamp="1612655102958">
+    <state x="-1530" y="69" width="1474" height="1000" key="dock-window-1" timestamp="1614019872766">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
+    <state x="-1530" y="69" width="1474" height="1000" key="dock-window-1/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1614019872766" />
+    <state x="271" y="-18" width="1474" height="1000" maximized="true" key="dock-window-1/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1614015091189" />
+    <state x="-1660" y="79" width="1511" height="1000" key="dock-window-1/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@1920.0.1920.1040" timestamp="1611945629066" />
+    <state x="337" y="0" width="1599" height="1000" key="dock-window-1/1920.0.1920.1040/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608590477119" />
+    <state x="209" y="0" width="1474" height="1000" key="dock-window-2" timestamp="1614022191820">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
     <state x="-1048" y="143" width="1467" height="1000" key="dock-window-2/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1612653866987" />
-    <state x="-1740" y="400" width="1467" height="1000" key="dock-window-2/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1612655102958" />
+    <state x="209" y="0" width="1474" height="1000" key="dock-window-2/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1614022191820" />
     <state x="2026" y="50" width="1271" height="1000" key="dock-window-2/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@1920.0.1920.1040" timestamp="1611081797431" />
     <state x="953" y="0" width="974" height="1047" key="dock-window-3" timestamp="1611589455583">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -278,11 +335,11 @@
     <state x="-1542" y="243" key="run.anything.popup/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1612647802514" />
     <state x="378" y="243" key="run.anything.popup/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1610548142329" />
     <state x="2298" y="243" key="run.anything.popup/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@1920.0.1920.1040" timestamp="1607955804944" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1612427497734">
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1613654040335">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="-1297" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1610612135160" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1612427497734" />
+    <state x="-1297" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1613390326695" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1613654040335" />
     <state x="2543" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@1920.0.1920.1040" timestamp="1607957859243" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/1920.0.1920.1040/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608517057534" />
   </component>

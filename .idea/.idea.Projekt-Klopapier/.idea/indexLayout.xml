@@ -20,6 +20,7 @@
       <Path>Library</Path>
       <Path>Logs</Path>
       <Path>Temp</Path>
+      <Path>Test2000</Path>
       <Path>UserSettings</Path>
       <Path>obj</Path>
     </explicitExcludes>
