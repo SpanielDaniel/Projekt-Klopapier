@@ -3,7 +3,7 @@
 namespace Assets.Code.Scripts.Enemy_Scripts
 {
     [CreateAssetMenu(fileName = "New Enemy", menuName = "Enemy")]
-    public class UnitData : ScriptableObject
+    public class EnemyData : ScriptableObject
     {
         public int MaxHealthPoints;
         public int Defence;

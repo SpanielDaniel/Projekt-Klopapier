@@ -43,6 +43,7 @@ public class Unit : MonoBehaviour
     public UnitData GetUnitData => UnitData;
 
     private float MoveSpeed;
+    private float NormalMoveSpeed;
 
     public int GetXPosition => XPos;
     public int GetZPosition => ZPos;
@@ -81,6 +82,8 @@ public class Unit : MonoBehaviour
         AttackPoints = _data.AttackPoints;
         AttackSpeed = _data.AttackSpeed;
         MoveSpeed = _data.MoveSpeed;
+        NormalMoveSpeed = MoveSpeed;
+        CurrentHealthPoints = MaxHealthPoints;
     }
 
     private void Start()
@@ -92,7 +95,7 @@ public class Unit : MonoBehaviour
 
     private void Update()
     {
-        if (UnitData.MaxHealthPoints <= 0)
+        if (CurrentHealthPoints <= 0)
         {
             Destroy(gameObject);
         }
@@ -101,6 +104,7 @@ public class Unit : MonoBehaviour
         {
             Animator.SetBool("IsMoving", true);
             Animator.SetBool("IsIdle", false);
+            Animator.SetBool("IsCombat", false);
 
             if (distance < 0.1f)
             {
@@ -131,6 +135,7 @@ public class Unit : MonoBehaviour
                 
                 Animator.SetBool("IsMoving", false);
                 Animator.SetBool("IsIdle", true);
+                Animator.SetBool("IsCombat", false);
                 if (IsMovingIntoBuilding)
                 {
                     if (BuildingToEnter.AddUnit(ID))
@@ -152,6 +157,10 @@ public class Unit : MonoBehaviour
 
         if (CountDownShoot <= 0f)
         {
+            IsMoving = false;
+            Animator.SetBool("IsMoving", false);
+            Animator.SetBool("IsCombat", true);
+            Animator.SetBool("IsIdle", false);
             Attack(Target);
             CountDownShoot = GetUnitData.AttackSpeed;
         }
@@ -213,6 +222,11 @@ public class Unit : MonoBehaviour
             bullet.Seek(Target);
             bullet.SetDMGValue(AttackPoints);
         }
+    }
+
+    public void GetDMG(float _dmg)
+    {
+        CurrentHealthPoints -= (_dmg - Defence);
     }
 
     /// <summary>

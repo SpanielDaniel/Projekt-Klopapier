@@ -37,14 +37,14 @@ public class Bullet : MonoBehaviour
             {
                 Target.GetComponent<Enemy>().GetDMG(Damage);
             }
-            //if (Target.CompareTag("PlayerUnit"))
-            //{
-
-            //}
-            //if (Target.CompareTag("Building"))
-            //{
-
-            //}
+            if (Target.CompareTag("PlayerUnit"))
+            {
+                Target.GetComponent<Unit>().GetDMG(Damage);
+            }
+            if (Target.CompareTag("Building"))
+            {
+                //ToDo Building nimmt Schaden
+            }
             Destroy(gameObject);
             return;
         }
