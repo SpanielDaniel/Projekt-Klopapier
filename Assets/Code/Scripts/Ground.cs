@@ -70,6 +70,11 @@ namespace Code.Scripts
         {
             Renderer.enabled = _isActive;
         }
+
+        public void SetGroundSignature(EGround _groundSignature)
+        {
+            GroundSignature = _groundSignature;
+        }
         
         
 

@@ -261,3 +261,8 @@ MonoBehaviour:
     Volume: 0.2
     Pitch: 1
     Source: {fileID: 0}
+  - Name: Recruit
+    Clip: {fileID: 8300000, guid: f2fcf1f6689105345a5356d60505e6ea, type: 3}
+    Volume: 0.2
+    Pitch: 1
+    Source: {fileID: 0}

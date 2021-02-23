@@ -35,31 +35,25 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.1/Scripts/Editor/TMPro_CreateObjectMenu.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/Scripts/Sound/AudioManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/Scripts/Buildings/Farm.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Grid/Node.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Grid/Pathfinding.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIUnitManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/UIUnitSlotManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/BaseUnitSlot.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/RecruitSlot.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/UIBase.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/UnitManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/BuildingClickEvent.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/MyHealth.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/BuildingLevel.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/MyBuildingLevel.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/MyBuildingHealth.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/MyBuilding.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/Unit.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/Farm.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/Storage.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/BuildingData.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UISlot.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIBuildingManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIScrap.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/Scrap.cs" />
@@ -79,17 +73,24 @@
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/ResourceGenerator.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIMenu.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/AudioManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/MainMenu/UIMenu.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/UnitSelector.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Singleton.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Sound/AudioManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/Base.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Player/PlayerData.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/GameManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/UIBuildingManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/MainMenu/UIMenu.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Events/EventWindow.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/Unit.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Events/EventManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/Recrute.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/Recruit.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UISlot.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/RecruitSlot.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/UnitManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/UnitSelector.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Ground.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Map/MapGenerator.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/UIBuildingManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/Building.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Build/BuildManager.cs" />
       </list>
@@ -186,6 +187,8 @@
       <workItem from="1613645735203" duration="2355000" />
       <workItem from="1613648299540" duration="17270000" />
       <workItem from="1614005171181" duration="15148000" />
+      <workItem from="1614089955049" duration="7172000" />
+      <workItem from="1614099530469" duration="7998000" />
     </task>
     <servers />
   </component>
@@ -311,18 +314,18 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2381" y="164" key="SettingsEditor/1920.0.1920.1040/3840.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1608510451500" />
-    <state x="-1530" y="69" width="1474" height="1000" key="dock-window-1" timestamp="1614019872766">
-      <screen x="-1920" y="0" width="1920" height="1040" />
-    </state>
-    <state x="-1530" y="69" width="1474" height="1000" key="dock-window-1/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1614019872766" />
-    <state x="271" y="-18" width="1474" height="1000" maximized="true" key="dock-window-1/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1614015091189" />
-    <state x="-1660" y="79" width="1511" height="1000" key="dock-window-1/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@1920.0.1920.1040" timestamp="1611945629066" />
-    <state x="337" y="0" width="1599" height="1000" key="dock-window-1/1920.0.1920.1040/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608590477119" />
-    <state x="209" y="0" width="1474" height="1000" key="dock-window-2" timestamp="1614022191820">
+    <state x="420" y="91" width="1049" height="809" key="dock-window-1" timestamp="1614101363674">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="-1048" y="143" width="1467" height="1000" key="dock-window-2/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1612653866987" />
-    <state x="209" y="0" width="1474" height="1000" key="dock-window-2/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1614022191820" />
+    <state x="-91" y="140" width="1049" height="809" key="dock-window-1/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1614099872611" />
+    <state x="420" y="91" width="1049" height="809" key="dock-window-1/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1614101363674" />
+    <state x="277" y="141" width="1049" height="809" key="dock-window-1/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@1920.0.1920.1040" timestamp="1614100555603" />
+    <state x="337" y="0" width="1599" height="1000" key="dock-window-1/1920.0.1920.1040/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608590477119" />
+    <state x="-1144" y="58" width="1157" height="751" key="dock-window-2" timestamp="1614099872611">
+      <screen x="-1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1144" y="58" width="1157" height="751" key="dock-window-2/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1614099872611" />
+    <state x="-1144" y="0" width="1157" height="809" key="dock-window-2/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1614099447499" />
     <state x="2026" y="50" width="1271" height="1000" key="dock-window-2/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@1920.0.1920.1040" timestamp="1611081797431" />
     <state x="953" y="0" width="974" height="1047" key="dock-window-3" timestamp="1611589455583">
       <screen x="0" y="0" width="1920" height="1040" />

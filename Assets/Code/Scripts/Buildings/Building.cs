@@ -76,7 +76,7 @@ namespace Buildings
         private int ZPosition;
         private int CurrentWidth;
         private int CurrentHeight;
-        protected Vector2 EntrancePosition;
+        [SerializeField] protected Vector2[] EntrancePosition;
         
         protected bool UnitCanEnter = true;
         private int MaxUnitAmount => Data.Levels[Level].MaxUnits;
@@ -88,12 +88,12 @@ namespace Buildings
         public int GetYPOs => ZPosition;
         public int CurrentHeightH => CurrentHeight;
         public int CurrentWidthH => CurrentWidth;
-        public Vector2 GetEntrancePosition => EntrancePosition;
+        //public Vector2[] GetEntrancePosition => EntrancePosition;
         public bool GetUnitCanEnter => UnitCanEnter;
         public List<int> GetUnitIDs => UnitIDs;
 
         // Handler properties ------------------------------------------------------------------------------------------
-
+        
         public bool IsBuiltHandler
         {
             get => IsBuilt;
@@ -164,6 +164,10 @@ namespace Buildings
 
         private void Awake()
         {
+            EntrancePosition = new Vector2[1];
+            //EntrancePosition[0] = new Vector2((int)(EntrancePos.transform.localPosition.x * 4f),(int)(EntrancePos.transform.localPosition.z * 4f) );
+            
+
             SetHealthToOne();
             
             UnitCanEnter = !Data.IsFinished;
@@ -171,9 +175,15 @@ namespace Buildings
             SetStartObjectSize();
         }
 
+        public Vector2 GetEntrancePoss()
+        {
+            return new Vector2((int)(EntrancePos.transform.localPosition.x * 4f),(int)(EntrancePos.transform.localPosition.z * 4f) );
+        }
+
         private void Start()
         {
             Init();
+            
         }
         
         private void Update()
@@ -193,7 +203,6 @@ namespace Buildings
         // Init --------------------------------------------------------------------------------------------------------
         private void SetHealthToOne()
         {
-            Debug.Log("L2:" + 1 );
             CurrentHealthH = 1;
         }
         private void SetStartObjectSize()
@@ -240,7 +249,15 @@ namespace Buildings
         {
             XPosition = _x;
             ZPosition = _y;
+            
+            EntrancePosition[0] = new Vector2((EntrancePos.transform.localPosition.x * 4f),(EntrancePos.transform.localPosition.z * 4f));
         }
+
+        public Vector2 GetEntryPos()
+        {
+            return new Vector2(GetXPos + (int) EntrancePosition[0].x, GetYPOs + (int) EntrancePosition[0].y);
+        }
+        
         
         // Rotation ----------------------------------------------------------------------------------------------------
         public void TurnRight()
@@ -391,9 +408,11 @@ namespace Buildings
         }
         
         // On Built ----------------------------------------------------------------------------------------------------
+        [SerializeField] private GameObject EntrancePos;
         protected virtual void OnBuildEffect()
         {
-            EntrancePosition = new Vector2(GetXPos,GetYPOs - 1);
+            
+            
         }
         
         // On Destroy --------------------------------------------------------------------------------------------------

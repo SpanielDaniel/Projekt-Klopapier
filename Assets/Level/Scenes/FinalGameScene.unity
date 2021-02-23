@@ -789,8 +789,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a16553b2d80948d5812ca599456f778d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Width: 31
-  Height: 31
+  Width: 22
+  Height: 22
 --- !u!4 &19634438
 Transform:
   m_ObjectHideFlags: 0
@@ -1271,11 +1271,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7012564712145658810, guid: e6c4421bccd3ccb41becbd5f1c28e9ce, type: 3}
       propertyPath: XPos
-      value: 32
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 7012564712145658810, guid: e6c4421bccd3ccb41becbd5f1c28e9ce, type: 3}
       propertyPath: ZPos
-      value: 30
+      value: 19
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e6c4421bccd3ccb41becbd5f1c28e9ce, type: 3}
@@ -3934,11 +3934,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7012564712145658810, guid: e6c4421bccd3ccb41becbd5f1c28e9ce, type: 3}
       propertyPath: XPos
-      value: 33
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 7012564712145658810, guid: e6c4421bccd3ccb41becbd5f1c28e9ce, type: 3}
       propertyPath: ZPos
-      value: 30
+      value: 19
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e6c4421bccd3ccb41becbd5f1c28e9ce, type: 3}
@@ -5195,6 +5195,7 @@ MonoBehaviour:
   - {fileID: 152341109}
   PrefDestroyedHouse: {fileID: 6327789502137770140, guid: 20516046dcaf7534f9764c5df9f0dc84, type: 3}
   PrefHouse: {fileID: 6327789502137770140, guid: db0b77832d4387741898be72ff0de1e3, type: 3}
+  UnitManager: {fileID: 1510486170}
 --- !u!4 &510762075
 Transform:
   m_ObjectHideFlags: 0
@@ -5871,11 +5872,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7012564712145658810, guid: e6c4421bccd3ccb41becbd5f1c28e9ce, type: 3}
       propertyPath: XPos
-      value: 34
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 7012564712145658810, guid: e6c4421bccd3ccb41becbd5f1c28e9ce, type: 3}
       propertyPath: ZPos
-      value: 30
+      value: 19
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e6c4421bccd3ccb41becbd5f1c28e9ce, type: 3}
@@ -8854,7 +8855,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TimeText: {fileID: 2026219472}
   DayText: {fileID: 1235173206}
-  BoolTimer: 0
+  BoolTimer: 1
   StartTimer: 0
   CurrentTimer: 0
   Tage: 0
@@ -9306,12 +9307,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77b21f52672b450b9b13cd6bf2d23247, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ToiletPaperStartAmount: 100
-  WoodStartAmount: 100
-  StoneStartAmount: 100
-  SteelStartAmount: 100
-  FoodStartAmount: 100
-  StartStorageCapacity: 100
+  ToiletPaperStartAmount: 10
+  WoodStartAmount: 10
+  StoneStartAmount: 10
+  SteelStartAmount: 10
+  FoodStartAmount: 10
+  StartStorageCapacity: 20
   BaseIsUnderConstruction: 0
   BaseIsBuild: 0
 --- !u!4 &1076116401
@@ -11633,11 +11634,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7012564712145658810, guid: e6c4421bccd3ccb41becbd5f1c28e9ce, type: 3}
       propertyPath: XPos
-      value: 30
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7012564712145658810, guid: e6c4421bccd3ccb41becbd5f1c28e9ce, type: 3}
       propertyPath: ZPos
-      value: 30
+      value: 19
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e6c4421bccd3ccb41becbd5f1c28e9ce, type: 3}
@@ -13814,11 +13815,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7012564712145658810, guid: e6c4421bccd3ccb41becbd5f1c28e9ce, type: 3}
       propertyPath: XPos
-      value: 31
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7012564712145658810, guid: e6c4421bccd3ccb41becbd5f1c28e9ce, type: 3}
       propertyPath: ZPos
-      value: 30
+      value: 19
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e6c4421bccd3ccb41becbd5f1c28e9ce, type: 3}

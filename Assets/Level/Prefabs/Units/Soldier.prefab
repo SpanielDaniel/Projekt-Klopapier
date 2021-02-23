@@ -140,6 +140,7 @@ GameObject:
   - component: {fileID: 9517976}
   - component: {fileID: 7012564712145658810}
   - component: {fileID: 2588218401606594781}
+  - component: {fileID: -5647973545069881738}
   m_Layer: 0
   m_Name: Soldier
   m_TagString: PlayerUnit
@@ -218,6 +219,20 @@ CapsuleCollider:
   m_Height: 3.5
   m_Direction: 1
   m_Center: {x: 2, y: 1, z: 2}
+--- !u!114 &-5647973545069881738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82d4262eacad4e86ba881d655c19c071, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RecruitTimeInSeconds: 0
+  ToilettePaperCosts: 5
 --- !u!1 &120650
 GameObject:
   m_ObjectHideFlags: 0
@@ -1042,7 +1057,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7775344085199273434, guid: 1357b7f2787da7d43a1b508005d73108, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.002
       objectReference: {fileID: 0}
     - target: {fileID: 8714681873315088103, guid: 1357b7f2787da7d43a1b508005d73108, type: 3}
       propertyPath: m_RootOrder
@@ -1102,13 +1117,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1357b7f2787da7d43a1b508005d73108, type: 3}
---- !u!1 &8407209148834917840 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3186297317325993456, guid: 1357b7f2787da7d43a1b508005d73108, type: 3}
-  m_PrefabInstance: {fileID: 6382841652171954208}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2334180000745234119 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8714681873315088103, guid: 1357b7f2787da7d43a1b508005d73108, type: 3}
+  m_PrefabInstance: {fileID: 6382841652171954208}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8407209148834917840 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3186297317325993456, guid: 1357b7f2787da7d43a1b508005d73108, type: 3}
   m_PrefabInstance: {fileID: 6382841652171954208}
   m_PrefabAsset: {fileID: 0}

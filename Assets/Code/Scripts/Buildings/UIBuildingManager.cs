@@ -116,9 +116,8 @@ namespace UI_Scripts
             if(CurrentSelectedBuilding is Farm) UIBuildingElements[(int)EBuilding.Farm].SetActive(true);
             if(CurrentSelectedBuilding is Base)
             {
-                
                 UIBuildingElements[(int)EBuilding.Base].SetActive(true);
-                UIBuildingElements[(int)EBuilding.Base].GetComponent<UIBase>().SetSlotEntrance(CurrentSelectedBuilding.GetEntrancePosition);
+                UIBuildingElements[(int)EBuilding.Base].GetComponent<UIBase>().SetSlotEntrance(CurrentSelectedBuilding.GetEntryPos());
             }
 
             if (CurrentSelectedBuilding is Scrap)
@@ -179,7 +178,7 @@ namespace UI_Scripts
         public void OnButton_Destroy()
         {
             PlayDestroySound();
-            BuildManager.OnBuildingDestried(CurrentSelectedBuilding);
+            BuildManager.OnBuildingDestroyed(CurrentSelectedBuilding);
             CurrentSelectedBuilding.DestroyEffect();
             Destroy(CurrentSelectedBuilding.gameObject);
             SetUIActive(false);

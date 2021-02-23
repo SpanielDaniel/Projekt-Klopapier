@@ -1,0 +1,34 @@
+ID: "1"
+N: "StartEvent"
+H: "Willkommen"
+D: "Verteidige deine Stadt vor einfallenden Wellen.
+Behalte dabei deine Nahrung und dein Geld (Klopapier) im ueberblick.";
+E: ""
+NID: "2"
+NFN: "Events"
+
+ID: "2"
+N: "StartEvent"
+H: "Willkommen"
+D: "Bau mit deinen Einheiten eine Basis um mit der Produktion von neuen einheiten zu beginnen.";
+E: ""
+NID: "3"
+NFN: "Events"
+
+ID: "3"
+N: "Info"
+H: "Basis Info"
+D: "Wenn deine Basis zerstört wird, verlierst du das Spiel.";
+E: ""
+NID: "4"
+NFN: "Events"
+
+
+ID: "4"
+N: "Steuerung"
+H: "Steuerung der Einheiten"
+D: "Mit einem Linksklick kannst du Einheiten auswählen und mit dem Rechtsklick kannst du diese dann auf eine gewünschte Position schicken.";
+E: ""
+NID: ""
+NFN: ""
+

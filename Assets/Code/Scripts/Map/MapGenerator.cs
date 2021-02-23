@@ -42,10 +42,11 @@ namespace Code.Scripts.Map
 
         public void Init()
         {
+            
             MapThings = Instantiate(PrefMapThings, Vector3.zero, Quaternion.identity, transform);
             
-            
             GenerateMap();
+            
             GenerateWaveEntrances();
             GenerateRings();
             
@@ -57,11 +58,12 @@ namespace Code.Scripts.Map
             GrasGround.transform.position = new Vector3(0,0,0);
             MapThings.transform.position = new Vector3(-width/2,0.001f,-height/2);
 
-            GenerateBuildings();
             
             
             MapIsReady = true;
             MapIsBuild?.Invoke();
+            
+            GenerateBuildings();
         }
 
         public void DeleteMap()
@@ -302,14 +304,21 @@ namespace Code.Scripts.Map
             
             GameObject street = Instantiate(_street);
             street.transform.position = GroundMap.Grid[_posX, _posY].transform.position;
-
+            
             SetGroundBlocked(_posX,_posY,true);
             SetGroundBlocked(_posX+1,_posY+1,true);
             SetGroundBlocked(_posX+1,_posY,true);
             SetGroundBlocked(_posX,_posY+1,true);
             
+            GroundMap.Grid[_posX,_posY].GetComponent<Ground>().SetGroundSignature(EGround.Street);
+            GroundMap.Grid[_posX + 1,_posY + 1].GetComponent<Ground>().SetGroundSignature(EGround.Street);
+            GroundMap.Grid[_posX + 1,_posY].GetComponent<Ground>().SetGroundSignature(EGround.Street);
+            GroundMap.Grid[_posX,_posY + 1].GetComponent<Ground>().SetGroundSignature(EGround.Street);
+
+            
             street.GetComponent<Street>().Init(_posX,_posY);
             street.transform.SetParent(MapThings.transform);
+            
         }
 
         private void GenerateBuildings()
@@ -350,9 +359,6 @@ namespace Code.Scripts.Map
                     }
                 }
             }
-            
-            
-            
         }   
 
         public void SetGroundBlocked(int _x, int _y, bool _isActive)
@@ -362,10 +368,12 @@ namespace Code.Scripts.Map
 
         public bool IsGroundBlocked(int _x, int _y)
         {
+            if (_x < 0 || _y < 0) return true;
             if (GetGroundHeight < _y +1 || GetGroundWidth < _x + 1)
             {
                 return true;
             }
+            
             return GroundMap.Grid[_x, _y].GetComponent<Ground>().IsBlocked;
         }
 
@@ -376,6 +384,7 @@ namespace Code.Scripts.Map
 
         public Ground GetGroundFromPosition(int _x, int _y)
         {
+            if (_x < 0 || _y < 0  || _x >=  GroundMap.GetWidth || _y >= GroundMap.GetHeight) return null;
             return GroundMap.Grid[_x, _y].GetComponent<Ground>();
         }
     }

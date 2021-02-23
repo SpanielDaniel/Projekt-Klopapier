@@ -26,6 +26,8 @@ namespace Build
         [SerializeField] private GameObject[] BuildSlots;
         [SerializeField] private GameObject PrefDestroyedHouse;
         [SerializeField] private GameObject PrefHouse;
+        [SerializeField] private UnitManager UnitManager;
+        
         
         private Ground CurrentGround;
         private bool IsBuilding = false;
@@ -194,6 +196,8 @@ namespace Build
                     if (isBlocked == true) return false;
                     
                     
+                    
+                    
                     // TO_DO: Besser machen
                     switch (MapGenerator.GetGroundSignature(x,y))
                     {
@@ -208,6 +212,29 @@ namespace Build
                     }
                 }
             }
+            
+            if (MapGenerator.IsGroundBlocked(
+                _ground.GetWidth + (int) (_building.GetEntrancePoss().x ),
+                _ground.GetHeight + (int) (_building.GetEntrancePoss().y )))
+            {
+                Ground ground = MapGenerator.GetGroundFromPosition(
+                    _ground.GetWidth + (int) (_building.GetEntrancePoss().x),
+                    _ground.GetHeight + (int) (_building.GetEntrancePoss().y));
+
+                if (ground != null)
+                {
+                    Debug.Log(ground.GetGroundSignature);
+                    if (ground.GetGroundSignature == EGround.Street)
+                    {
+                        return true;
+                    }
+                }
+                Debug.Log("ground is nul");
+                
+                
+                return false;
+            }
+            
             return true;
         }
 
@@ -295,7 +322,7 @@ namespace Build
             BuildUI.SetActive(_isActive);
         }
 
-        public void OnBuildingDestried(Building _building)
+        public void OnBuildingDestroyed(Building _building)
         {
             for (int i = 0; i < _building.CurrentHeightH; i++)
             {
@@ -311,8 +338,8 @@ namespace Build
             GameObject scrap = Instantiate(PrefScrapBuilding);
             scrap.transform.position = MapGenerator.GetGroundFromPosition(_x, _y).transform.position;
             scrap.GetComponent<Scrap>().SetPosition(_x,_y);
-            
             MapGenerator.SetGroundBlocked(_x,_y,true);
+            UnitManager.GetNodes[_x, _y].IsWalkable = false;
         }
 
         public void SetDestroyedHouseOnPos(int _x, int _y)
@@ -336,15 +363,16 @@ namespace Build
                     for (int j = 0; j < DestroyedHouse.GetComponent<Building>().CurrentWidthH; j++)
                     {
                         MapGenerator.SetGroundBlocked(_x + j,_y + i,true);
+                        UnitManager.GetNodes[_x + j, _y + i].IsWalkable = false;
                     }
                 }
-                
                 return;
             }
             Destroy(DestroyedHouse.gameObject);
             
         }
 
+        
         public void SetHouseOnPos(int _x, int _y)
         {
             GameObject house = Instantiate(PrefHouse);
@@ -365,19 +393,15 @@ namespace Build
                     for (int j = 0; j < house.GetComponent<Building>().CurrentWidthH; j++)
                     {
                         MapGenerator.SetGroundBlocked(_x + j,_y + i,true);
+                        UnitManager.GetNodes[_x + j, _y + i].IsWalkable = false;
+
                     }
                 }
                     
-                house.GetComponent<Building>().CurrentHealthH = house.GetComponent<Building>().GetData
-                    .Levels[house.GetComponent<Building>().CurrentLevelH].MaxLife;
-                
-                Debug.Log("L1:" + house.GetComponent<Building>().CurrentHealthH );
-
-                
+                house.GetComponent<Building>().CurrentHealthH = house.GetComponent<Building>().GetData.Levels[house.GetComponent<Building>().CurrentLevelH].MaxLife;
                 return;
             }
             Destroy(house.gameObject);
         }
-        
     }
 }

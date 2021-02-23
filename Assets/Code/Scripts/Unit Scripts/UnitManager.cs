@@ -28,10 +28,11 @@ public class UnitManager : Singleton<UnitManager>
     {
         Unit.IsSpawned += SetUnitToPos;
         MapGenerator.MapIsBuild += SetUnitPos;
+        MapGenerator.MapIsBuild += GenerateNodes;
         base.AwakeFunction();
     }
 
-    private void Start()
+    private void GenerateNodes()
     {
         CreateNodes();
         Pathfinding = new Pathfinding(Nodes);

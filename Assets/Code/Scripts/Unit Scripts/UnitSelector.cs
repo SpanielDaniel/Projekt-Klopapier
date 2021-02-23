@@ -81,6 +81,7 @@ public class UnitSelector : MonoBehaviour
                     }
 
                    Building building = hit.transform.GetComponent<Building>();
+                   
                    if (building != null)
                    {
                        if(building.GetUnitCanEnter) MoveUnitsIntoBuiling(building.GetXPos,building.GetYPOs,building);
@@ -91,10 +92,11 @@ public class UnitSelector : MonoBehaviour
         }
     }
 
-    private void MoveUnitsIntoBuiling(int buildingGetXPos, int buildingGetYpOs,Building _building)
+    private void MoveUnitsIntoBuiling(int buildingGetXPos, int buildingGetYpOs, Building _building)
     {
         SelectedUnitsH[0].MoveIntoBuilding(_building);
-        MoveUnits(buildingGetXPos,buildingGetYpOs);
+        Vector2 entryPos = _building.GetEntryPos();
+        MoveUnits((int)entryPos.x,(int)entryPos.y);
     }
 
     public void MoveUnits(int _endPosX,int _endPosZ)

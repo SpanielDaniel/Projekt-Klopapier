@@ -37,10 +37,10 @@
               <e p="UIBase.cs" t="Include" />
               <e p="UIBuildingManager.cs" t="Include" />
             </e>
+            <e p="Bullet.cs" t="Include" />
             <e p="Enemy Scripts" t="Include">
               <e p="Enemy.cs" t="Include" />
-              <e p="EnemyAttack.cs" t="Include" />
-              <e p="EnemyMovement.cs" t="Include" />
+              <e p="EnemyData.cs" t="Include" />
               <e p="EnemySpawnScript.cs" t="Include" />
               <e p="Waypoints.cs" t="Include" />
             </e>
@@ -104,6 +104,7 @@
               <e p="UIVisibilityManager.cs" t="Include" />
             </e>
             <e p="Unit Scripts" t="Include">
+              <e p="Recruit.cs" t="Include" />
               <e p="Unit.cs" t="Include" />
               <e p="UnitData.cs" t="Include" />
               <e p="UnitManager.cs" t="Include" />
@@ -117,6 +118,11 @@
           <e p="Shader" t="Include">
             <e p="Silhouette.shader" t="Include" />
             <e p="Toon.shader" t="Include" />
+          </e>
+        </e>
+        <e p="FreeAssets(Imports)" t="Include">
+          <e p="ToonSoldiers_demo" t="Include">
+            <e p="ToonSoldiers_demo.txt" t="Include" />
           </e>
         </e>
         <e p="TextMesh Pro" t="Include">

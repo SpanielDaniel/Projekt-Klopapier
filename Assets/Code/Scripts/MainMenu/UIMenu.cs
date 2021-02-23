@@ -42,22 +42,26 @@ public class UIMenu : MonoBehaviour
 
     public void ButtonClicked_Start()
     {
+        AudioManager.GetInstance.Play("BuildSlotClicked");
         GameManager.GetInstance.LoadScene(2);
     }
 
     public void ButtonClicked_Settings()
     {
+        AudioManager.GetInstance.Play("BuildSlotClicked");
         MainMenu.SetActive(false);
         OptionsMenu.SetActive(true);
     }
 
     public void ButtonClicked_Quit()
     {
+        AudioManager.GetInstance.Play("BuildSlotClicked");
         GameManager.GetInstance.QuitGame();
     }
 
     public void ButtonClicked_BackToMainMenu()
     {
+        AudioManager.GetInstance.Play("BuildSlotClicked");
         OptionsMenu.SetActive(false);
         MainMenu.SetActive(true);
     }
