@@ -22,7 +22,7 @@ namespace Buildings
         
         // Events ------------------------------------------------------------------------------------------------------
         public static event Action ValueChanged;
-        public static event Action OnBaseIsUNderConstruction;
+        public static event Action OnBaseIsUnderConstruction;
         public static event Action<Building> OnClick;
         public static event Action<Building> IsFinished;
         
@@ -76,7 +76,7 @@ namespace Buildings
         private int ZPosition;
         private int CurrentWidth;
         private int CurrentHeight;
-        [SerializeField] protected Vector2[] EntrancePosition;
+        
         
         protected bool UnitCanEnter = true;
         private int MaxUnitAmount => Data.Levels[Level].MaxUnits;
@@ -88,7 +88,6 @@ namespace Buildings
         public int GetYPOs => ZPosition;
         public int CurrentHeightH => CurrentHeight;
         public int CurrentWidthH => CurrentWidth;
-        //public Vector2[] GetEntrancePosition => EntrancePosition;
         public bool GetUnitCanEnter => UnitCanEnter;
         public List<int> GetUnitIDs => UnitIDs;
 
@@ -164,8 +163,6 @@ namespace Buildings
 
         private void Awake()
         {
-            EntrancePosition = new Vector2[1];
-            //EntrancePosition[0] = new Vector2((int)(EntrancePos.transform.localPosition.x * 4f),(int)(EntrancePos.transform.localPosition.z * 4f) );
             
 
             SetHealthToOne();
@@ -177,13 +174,12 @@ namespace Buildings
 
         public Vector2 GetEntrancePoss()
         {
-            return new Vector2((int)(EntrancePos.transform.localPosition.x * 4f),(int)(EntrancePos.transform.localPosition.z * 4f) );
+            return new Vector2((EntrancePos.transform.position.x - 0.25f),(EntrancePos.transform.position.z - 0.25f) );
         }
 
         private void Start()
         {
             Init();
-            
         }
         
         private void Update()
@@ -250,13 +246,9 @@ namespace Buildings
             XPosition = _x;
             ZPosition = _y;
             
-            EntrancePosition[0] = new Vector2((EntrancePos.transform.localPosition.x * 4f),(EntrancePos.transform.localPosition.z * 4f));
+            //EntrancePosition[0] = new Vector2((EntrancePos.transform.localPosition.x * 4f),(EntrancePos.transform.localPosition.z * 4f));
         }
 
-        public Vector2 GetEntryPos()
-        {
-            return new Vector2(GetXPos + (int) EntrancePosition[0].x, GetYPOs + (int) EntrancePosition[0].y);
-        }
         
         
         // Rotation ----------------------------------------------------------------------------------------------------
@@ -267,6 +259,8 @@ namespace Buildings
             UpdateBuildingPosition();
             
             UpdateBoxColliderPosition();
+            
+            
         }
         private void RotateBuildingRight()
         {
@@ -295,6 +289,7 @@ namespace Buildings
             }
             CurrentWidth = height;
             CurrentHeight = width;
+
         }
         private void UpdateBoxColliderPosition()
         {
@@ -345,7 +340,7 @@ namespace Buildings
             MeshRenderer.material = BaseMaterial;
             if (Buildings.Count == 1)
             {
-                OnBaseIsUNderConstruction?.Invoke();
+                OnBaseIsUnderConstruction?.Invoke();
             }
         }
         public void SetBuildMaterial()

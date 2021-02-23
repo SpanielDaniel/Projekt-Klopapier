@@ -387,5 +387,25 @@ namespace Code.Scripts.Map
             if (_x < 0 || _y < 0  || _x >=  GroundMap.GetWidth || _y >= GroundMap.GetHeight) return null;
             return GroundMap.Grid[_x, _y].GetComponent<Ground>();
         }
+
+        public Ground GetGroundFromGlobalPosition(Vector2 _pos)
+        {
+            foreach (GameObject groundObj in GroundMap.Grid)
+            {
+                double x = groundObj.GetComponent<Ground>().transform.position.x - _pos.x;
+                double y = groundObj.GetComponent<Ground>().transform.position.z - _pos.y;
+
+                x = Math.Round(x,1);
+                y = Math.Round(y,1);
+                if (x == 0 && y == 0)
+                {
+                    return groundObj.GetComponent<Ground>();
+                }
+                
+            }
+
+            return null;
+        }
+        
     }
 }

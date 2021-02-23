@@ -44,7 +44,6 @@
       <list>
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/UIUnitSlotManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/BaseUnitSlot.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/UIBase.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/BuildingClickEvent.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/MyHealth.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/BuildingLevel.cs" />
@@ -85,13 +84,14 @@
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/Recrute.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/Recruit.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UISlot.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/RecruitSlot.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/UnitManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/UnitSelector.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Ground.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Map/MapGenerator.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/UIBuildingManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/UnitSelector.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/Building.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/RecruitSlot.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/UIBase.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/UIBuildingManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Map/MapGenerator.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Build/BuildManager.cs" />
       </list>
     </option>
@@ -188,7 +188,7 @@
       <workItem from="1613648299540" duration="17270000" />
       <workItem from="1614005171181" duration="15148000" />
       <workItem from="1614089955049" duration="7172000" />
-      <workItem from="1614099530469" duration="7998000" />
+      <workItem from="1614099530469" duration="16736000" />
     </task>
     <servers />
   </component>

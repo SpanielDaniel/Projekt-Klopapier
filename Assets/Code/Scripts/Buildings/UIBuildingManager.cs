@@ -2,6 +2,7 @@
 using Build;
 using Buildings;
 using Code.Scripts;
+using Code.Scripts.Map;
 using Code.Scripts.UI_Scripts;
 using TMPro;
 using UnityEditor;
@@ -48,6 +49,8 @@ namespace UI_Scripts
 
 
         [SerializeField] private GameObject[] UIBuildingElements;
+
+        [SerializeField] private MapGenerator MapGenerator;
         
         
         private Building CurrentSelectedBuilding;
@@ -117,7 +120,7 @@ namespace UI_Scripts
             if(CurrentSelectedBuilding is Base)
             {
                 UIBuildingElements[(int)EBuilding.Base].SetActive(true);
-                UIBuildingElements[(int)EBuilding.Base].GetComponent<UIBase>().SetSlotEntrance(CurrentSelectedBuilding.GetEntryPos());
+                UIBuildingElements[(int)EBuilding.Base].GetComponent<UIBase>().SetSlotEntrance( MapGenerator.GetGroundFromGlobalPosition(CurrentSelectedBuilding.GetEntrancePoss()));
             }
 
             if (CurrentSelectedBuilding is Scrap)
@@ -126,8 +129,6 @@ namespace UI_Scripts
                 UIBuildingElements[(int)EBuilding.Scrap].GetComponent<UIScrap>().UpdateUI(CurrentSelectedBuilding as Scrap);
             }
         }
-
-        
         private void UpdateLevel()
         {
             BuildingLevelText.text = "Level " + (CurrentSelectedBuilding.CurrentLevelH + 1);

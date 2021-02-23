@@ -159,7 +159,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4201320437852777564}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.25, y: 0.002, z: 0}
+  m_LocalPosition: {x: 0, y: 0.002, z: 0}
   m_LocalScale: {x: 0.049999997, y: 0.099999994, z: 0.049999997}
   m_Children: []
   m_Father: {fileID: 982546314022268163}
@@ -298,7 +298,6 @@ MonoBehaviour:
   BuildMaterial: {fileID: 2100000, guid: 34c975a1f63353341969102570d7fe1e, type: 2}
   CantBuildMaterial: {fileID: 2100000, guid: dd3d11cc0c398084cb852945e3065c12, type: 2}
   BuildingObj: {fileID: 3758455886590431850}
-  EntrancePosition: []
   EntrancePos: {fileID: 7423845827493054624}
   AmountOfScrap: 100
 --- !u!1 &7423845827493054624
@@ -325,7 +324,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7423845827493054624}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.25}
+  m_LocalPosition: {x: 0.25, y: 0, z: 0.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4648107260167691502}

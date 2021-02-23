@@ -41,7 +41,7 @@ namespace Build
         {
             BuildSlot.OnMouseClick += OnMouseClickedBuildSlot;
             Base.OnBaseCreated += EnableSlots;
-            Building.OnBaseIsUNderConstruction += DisableBaseSlot;
+            Building.OnBaseIsUnderConstruction += DisableBaseSlot;
         }
 
         private void DisableBaseSlot()
@@ -197,7 +197,6 @@ namespace Build
                     
                     
                     
-                    
                     // TO_DO: Besser machen
                     switch (MapGenerator.GetGroundSignature(x,y))
                     {
@@ -210,32 +209,35 @@ namespace Build
                         default:
                             return false;
                     }
+                    
                 }
             }
-            
-            if (MapGenerator.IsGroundBlocked(
-                _ground.GetWidth + (int) (_building.GetEntrancePoss().x ),
-                _ground.GetHeight + (int) (_building.GetEntrancePoss().y )))
-            {
-                Ground ground = MapGenerator.GetGroundFromPosition(
-                    _ground.GetWidth + (int) (_building.GetEntrancePoss().x),
-                    _ground.GetHeight + (int) (_building.GetEntrancePoss().y));
 
-                if (ground != null)
-                {
-                    Debug.Log(ground.GetGroundSignature);
-                    if (ground.GetGroundSignature == EGround.Street)
-                    {
-                        return true;
-                    }
-                }
-                Debug.Log("ground is nul");
-                
-                
-                return false;
+
+
+            if (IsEntranceOnStreet(_building))
+            {
+                return true;
             }
+             
             
-            return true;
+            return false;
+        }
+
+        private bool IsEntranceOnStreet(Building _building)
+        {
+            Ground g = MapGenerator.GetGroundFromGlobalPosition(_building.GetEntrancePoss());
+            
+            if(g != null)
+            {
+                Debug.Log(g.GetGroundSignature);
+                if (g.GetGroundSignature == EGround.Street)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private void HandleMouseInput()
@@ -336,26 +338,41 @@ namespace Build
         public void SetScrapOnPos(int _x, int _y)
         {
             GameObject scrap = Instantiate(PrefScrapBuilding);
+            
             scrap.transform.position = MapGenerator.GetGroundFromPosition(_x, _y).transform.position;
             scrap.GetComponent<Scrap>().SetPosition(_x,_y);
-            MapGenerator.SetGroundBlocked(_x,_y,true);
-            UnitManager.GetNodes[_x, _y].IsWalkable = false;
+            
+            MapGenerator.SetGroundBlocked(_x,_y,false);
+            UnitManager.GetNodes[_x, _y].IsWalkable = true;
         }
 
         public void SetDestroyedHouseOnPos(int _x, int _y)
         {
             GameObject DestroyedHouse = Instantiate(PrefDestroyedHouse);
 
-            int rand = Random.Range(0, 2);
+             int rand = Random.Range(0, 4);
+             
+             for (int i = 0; i < rand; i++)
+             {
+                 DestroyedHouse.GetComponent<Building>().TurnRight();
+             }
+
+            DestroyedHouse.transform.position = MapGenerator.GetGroundFromPosition(_x, _y).transform.position;
+            bool canBuild = CanBuildingBuildOnGround(DestroyedHouse.GetComponent<Building>(), MapGenerator.GetGroundFromPosition(_x, _y));
 
             
-            if(rand >= 1) DestroyedHouse.GetComponent<Building>().TurnRight();
+            for (int i = 0; i < 3; i++)
+            {
+                if(canBuild) break;
+                
+                DestroyedHouse.GetComponent<Building>().TurnRight();
+                canBuild = CanBuildingBuildOnGround(DestroyedHouse.GetComponent<Building>(), MapGenerator.GetGroundFromPosition(_x, _y));
+            }
             
-            
-            if(CanBuildingBuildOnGround(DestroyedHouse.GetComponent<Building>() ,MapGenerator.GetGroundFromPosition(_x, _y)))
+
+            if(canBuild)
             {
                 
-                DestroyedHouse.transform.position = MapGenerator.GetGroundFromPosition(_x, _y).transform.position;
                 DestroyedHouse.GetComponent<Building>().SetPosition(_x,_y);
                 
                 for (int i = 0; i < DestroyedHouse.GetComponent<Building>().CurrentHeightH; i++)
@@ -369,23 +386,36 @@ namespace Build
                 return;
             }
             Destroy(DestroyedHouse.gameObject);
-            
         }
-
         
         public void SetHouseOnPos(int _x, int _y)
         {
             GameObject house = Instantiate(PrefHouse);
 
-            int rand = Random.Range(0, 2);
+            int rand = Random.Range(0, 4);
+             
+            for (int i = 0; i < rand; i++)
+            {
+                house.GetComponent<Building>().TurnRight();
+            }
 
-            if(rand >= 1) house.GetComponent<Building>().TurnRight();
+            house.transform.position = MapGenerator.GetGroundFromPosition(_x, _y).transform.position;
+            bool canBuild = CanBuildingBuildOnGround(house.GetComponent<Building>(), MapGenerator.GetGroundFromPosition(_x, _y));
+
             
-            
-            if(CanBuildingBuildOnGround(house.GetComponent<Building>() ,MapGenerator.GetGroundFromPosition(_x, _y)))
+            for (int i = 0; i < 3; i++)
+            {
+                if(canBuild) break;
+                
+                house.GetComponent<Building>().TurnRight();
+                canBuild = CanBuildingBuildOnGround(house.GetComponent<Building>(), MapGenerator.GetGroundFromPosition(_x, _y));
+            }
+
+           //bool canBuld = CanBuildingBuildOnGround(house.GetComponent<Building>(), MapGenerator.GetGroundFromPosition(_x, _y));
+            if(canBuild)
             {
                 
-                house.transform.position = MapGenerator.GetGroundFromPosition(_x, _y).transform.position;
+                //house.transform.position = MapGenerator.GetGroundFromPosition(_x, _y).transform.position;
                 house.GetComponent<Building>().SetPosition(_x,_y);
                 
                 for (int i = 0; i < house.GetComponent<Building>().CurrentHeightH; i++)

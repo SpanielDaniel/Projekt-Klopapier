@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Code.Scripts;
+using UnityEngine;
 
 namespace Buildings
 {
@@ -8,7 +9,7 @@ namespace Buildings
         
         [SerializeField] private RecruitSlot[] Slots;
 
-        public void SetSlotEntrance(Vector2 _entrancePos)
+        public void SetSlotEntrance(Ground _entrancePos)
         {
             foreach (RecruitSlot recruitSlot in Slots)
             {

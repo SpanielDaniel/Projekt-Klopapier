@@ -7,6 +7,8 @@ using Buildings;
 using System;
 using System.Collections.Generic;
 using Code.Scripts;
+using Code.Scripts.Grid.DanielB;
+using Code.Scripts.Map;
 using UnityEngine;
 
 public class UnitSelector : MonoBehaviour
@@ -92,11 +94,15 @@ public class UnitSelector : MonoBehaviour
         }
     }
 
+    [SerializeField] private MapGenerator MapGenerator;
     private void MoveUnitsIntoBuiling(int buildingGetXPos, int buildingGetYpOs, Building _building)
     {
         SelectedUnitsH[0].MoveIntoBuilding(_building);
-        Vector2 entryPos = _building.GetEntryPos();
-        MoveUnits((int)entryPos.x,(int)entryPos.y);
+        Ground ground = MapGenerator.GetGroundFromGlobalPosition(_building.GetEntrancePoss());
+        if (ground != null)
+        {
+            MoveUnits(ground.GetWidth,ground.GetHeight);
+        }
     }
 
     public void MoveUnits(int _endPosX,int _endPosZ)

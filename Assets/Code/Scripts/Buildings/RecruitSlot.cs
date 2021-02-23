@@ -10,10 +10,10 @@ namespace Buildings
     public class RecruitSlot  : UISlot
     {
         [SerializeField] private GameObject PrefUnit;
-        [SerializeField] private Vector2 SpawnPos;
+        [SerializeField] private Ground SpawnPos;
         [SerializeField] private TextMeshProUGUI ToiletteAmount;
 
-        public void SetSpawnPos(Vector2 _spawnPos)
+        public void SetSpawnPos(Ground _spawnPos)
         {
             SpawnPos = _spawnPos;
         }
@@ -40,11 +40,11 @@ namespace Buildings
             }
         }
 
-        private static void SpawnUnitOnPos(GameObject _unitPref, Vector2 _pos)
+        private static void SpawnUnitOnPos(GameObject _unitPref, Ground _pos)
         {
             GameObject unitObj = Instantiate(_unitPref);
             Unit unit = unitObj.GetComponent<Unit>();
-            unit.SetPos((int)_pos.x, (int)_pos.y);
+            unit.SetPos((int)_pos.transform.position.x, (int)_pos.transform.position.y);
             unit.UpdatePos();
         }
     }
