@@ -31,6 +31,8 @@ namespace Code.Scripts
         [Header("Manager")]
         [SerializeField] private UnitManager UnitManager;
         [SerializeField] private MapGenerator MapGenerator;
+        [SerializeField] private UnitSelector UnitSelector;
+
         [Space]
         [Header("Prefabs")]
         [SerializeField] private GameObject PrefScrapBuilding;
@@ -394,9 +396,13 @@ namespace Code.Scripts
                     for (int j = 0; j < CurrentBuilding.CurrentWidthH; j++)
                     {
                         MapGenerator.SetGroundBlocked(CurrentGround.GetWidth + j,CurrentGround.GetHeight + i,true);
+                        
+                        UnitManager.GetNodes[CurrentGround.GetWidth + j, CurrentGround.GetHeight + i].IsWalkable = false;
                     }
                 }
-                Debug.Log("unit Move");                  
+                
+                 UnitSelector.MoveUnitsIntoBuilding(Unit,CurrentBuilding);
+
                 Unit.MoveIntoBuilding(CurrentBuilding);
 
                 BuildUI.SetActive(false);
