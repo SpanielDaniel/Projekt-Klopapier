@@ -7,6 +7,7 @@
  */
 
 
+using Assets.Code.Scripts.Unit_Scripts;
 using Buildings;
 using Code.Scripts.Map;
 using Player;
@@ -386,6 +387,7 @@ namespace Code.Scripts
                 CurrentBuilding.SetEntranceActive(false);
                 
                 CurrentBuilding.SetPosition(CurrentGround.GetWidth,CurrentGround.GetHeight);
+                
 
                 for (int i = 0; i < CurrentBuilding.CurrentHeightH; i++)
                 {
@@ -394,7 +396,9 @@ namespace Code.Scripts
                         MapGenerator.SetGroundBlocked(CurrentGround.GetWidth + j,CurrentGround.GetHeight + i,true);
                     }
                 }
-                    
+                Debug.Log("unit Move");                  
+                Unit.MoveIntoBuilding(CurrentBuilding);
+
                 BuildUI.SetActive(false);
                 IsBuilding = false;
                     
@@ -426,6 +430,13 @@ namespace Code.Scripts
 
         public void OnButton_BuildMenu()
         {
+            OpenHud();
+        }
+
+        private Unit Unit;
+        public void OpenHudFromUnit(Unit _unit)
+        {
+            Unit = _unit;
             OpenHud();
         }
 

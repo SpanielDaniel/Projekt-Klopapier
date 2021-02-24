@@ -4,6 +4,7 @@
 
 using Assets.Code.Scripts.Unit_Scripts;
 using System.Collections.Generic;
+using Code.Scripts;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -25,6 +26,8 @@ namespace Assets.Code.Scripts.UI_Scripts
         [SerializeField] private TMP_Text HealthPointsUI;
         [SerializeField] private GameObject UnitGroupUI;
 
+        [SerializeField] private BuildManager BuildManager;
+
         private void Awake()
         {
             Unit.OnSelection += UnitSelected;
@@ -33,8 +36,11 @@ namespace Assets.Code.Scripts.UI_Scripts
             UnitSelector.NoUnitSelected += CloseHud;
         }
 
+        private Unit Unit;
+        
         public void UnitSelected(Unit _unit)
         {
+            Unit = _unit;
             UnitUI.SetActive(true);
             UnitGroupUI.SetActive(false);
             
@@ -65,6 +71,12 @@ namespace Assets.Code.Scripts.UI_Scripts
             }
             NumberOfUnitsUI.text = numberOfUnits.ToString();
         }
+
+        public void OnButtonClick_Build()
+        {
+            BuildManager.OpenHudFromUnit(Unit);
+        }
+        
 
     }
 }

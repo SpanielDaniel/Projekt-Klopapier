@@ -45,7 +45,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/BaseUnitSlot.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/BuildingClickEvent.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/MyHealth.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/BuildingLevel.cs" />
@@ -94,8 +93,9 @@
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Build/BuildManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/Building.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Map/MapGenerator.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Build-System/BuildManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Player/PlayerData.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIUnitManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Build-System/BuildManager.cs" />
       </list>
     </option>
   </component>
@@ -192,7 +192,7 @@
       <workItem from="1614005171181" duration="15148000" />
       <workItem from="1614089955049" duration="7172000" />
       <workItem from="1614099530469" duration="30806000" />
-      <workItem from="1614176484912" duration="1996000" />
+      <workItem from="1614176484912" duration="3084000" />
     </task>
     <servers />
   </component>
@@ -325,10 +325,10 @@
     <state x="420" y="91" width="1049" height="809" key="dock-window-1/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1614101363674" />
     <state x="277" y="141" width="1049" height="809" key="dock-window-1/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@1920.0.1920.1040" timestamp="1614100555603" />
     <state x="337" y="0" width="1599" height="1000" key="dock-window-1/1920.0.1920.1040/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608590477119" />
-    <state x="-1144" y="58" width="1157" height="751" key="dock-window-2" timestamp="1614176902215">
+    <state x="-1376" y="126" width="1157" height="751" key="dock-window-2" timestamp="1614179668725">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="-1144" y="58" width="1157" height="751" key="dock-window-2/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1614099872611" />
+    <state x="-1376" y="126" width="1157" height="751" key="dock-window-2/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1614179668725" />
     <state x="-1144" y="58" width="1157" height="751" key="dock-window-2/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1614176902215" />
     <state x="300" y="0" width="1167" height="796" key="dock-window-2/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@1920.0.1920.1040" timestamp="1614124945469" />
     <state x="953" y="0" width="974" height="1047" key="dock-window-3" timestamp="1611589455583">
