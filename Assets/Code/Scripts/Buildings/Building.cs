@@ -490,6 +490,11 @@ namespace Buildings
         {
             ValueChanged?.Invoke();
         }
+
+        public void TakeDamage(int _damage)
+        {
+            CurrentHealthH -= _damage;
+        }
     }
 
     
