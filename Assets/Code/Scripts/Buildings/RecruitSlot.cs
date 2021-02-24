@@ -32,7 +32,6 @@ namespace Buildings
                 PlayerData.GetInstance.ToiletPaperAmountH -= recruit.GetToilettePaperCosts; 
                 SpawnUnitOnPos(PrefUnit,SpawnPos);
                 AudioManager.GetInstance.Play("Recruit");
-                base.ButtonAction();
             }
             else
             {

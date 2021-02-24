@@ -31,11 +31,16 @@
               <e p="Building.cs" t="Include" />
               <e p="BuildingData.cs" t="Include" />
               <e p="Farm.cs" t="Include" />
+              <e p="House.cs" t="Include" />
               <e p="RecruitSlot.cs" t="Include" />
               <e p="Scrap.cs" t="Include" />
               <e p="Storage.cs" t="Include" />
-              <e p="UIBase.cs" t="Include" />
-              <e p="UIBuildingManager.cs" t="Include" />
+              <e p="UIElements" t="Include">
+                <e p="UIBase.cs" t="Include" />
+                <e p="UIBuildingManager.cs" t="Include" />
+                <e p="UIHouse.cs" t="Include" />
+                <e p="UIScrap.cs" t="Include" />
+              </e>
             </e>
             <e p="Bullet.cs" t="Include" />
             <e p="Enemy Scripts" t="Include">
@@ -97,7 +102,6 @@
               <e p="UIInGameMenu.cs" t="Include" />
               <e p="UIPointerInHudManager.cs" t="Include" />
               <e p="UIResourcesManager.cs" t="Include" />
-              <e p="UIScrap.cs" t="Include" />
               <e p="UISlot.cs" t="Include" />
               <e p="UIUnitManager.cs" t="Include" />
               <e p="UIVisibilityEvent.cs" t="Include" />

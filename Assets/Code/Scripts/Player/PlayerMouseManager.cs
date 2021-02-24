@@ -39,7 +39,7 @@ namespace Player
             {
                 if (Input.GetMouseButtonDown(1))
                 {
-                    UIVisibilityManager.SetAllHusNonVisable();
+                    UIVisibilityManager.SetAllHudsNonVisable();
                 }
             }
 

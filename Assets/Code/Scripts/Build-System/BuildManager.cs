@@ -389,7 +389,7 @@ namespace Code.Scripts
                 CurrentBuilding.SetEntranceActive(false);
                 
                 CurrentBuilding.SetPosition(CurrentGround.GetWidth,CurrentGround.GetHeight);
-                
+                CurrentBuilding.SetEntranceGround(MapGenerator.GetGroundFromGlobalPosition(CurrentBuilding.GetEntrancePoss()));
 
                 for (int i = 0; i < CurrentBuilding.CurrentHeightH; i++)
                 {

@@ -1,6 +1,7 @@
 ﻿using System;
 using Buildings;
 using Code.Scripts;
+using Code.Scripts.Buildings.UIElements;
 using Code.Scripts.Map;
 using Code.Scripts.UI_Scripts;
 using TMPro;
@@ -62,7 +63,16 @@ namespace UI_Scripts
             Building.OnClick += OnBuildingClicked;
             Building.ValueChanged += UpdateUI;
             Building.IsFinished += OnFinished;
+            UISlot.OnUnitRelease += ReleaseUnit;
+        }
+
+        private void ReleaseUnit(Unit _unit)
+        {
             
+            Ground pos = MapGenerator.GetGroundFromGlobalPosition(CurrentSelectedBuilding.GetEntrancePoss());
+            
+            
+            CurrentSelectedBuilding.RemoveUnit(_unit,pos);
         }
 
         private void Start()
@@ -127,6 +137,12 @@ namespace UI_Scripts
                 UIBuildingElements[(int)EBuilding.Scrap].SetActive(true);
                 UIBuildingElements[(int)EBuilding.Scrap].GetComponent<UIScrap>().UpdateUI(CurrentSelectedBuilding as Scrap);
             }
+
+            if (CurrentSelectedBuilding is House)
+            {
+                UIBuildingElements[(int)EBuilding.House].SetActive(true);
+                UIBuildingElements[(int)EBuilding.House].GetComponent<UIHouse>().UpdateUI(CurrentSelectedBuilding as House);
+            }
         }
         private void UpdateLevel()
         {
@@ -164,7 +180,8 @@ namespace UI_Scripts
         public void OnButton_Exit()
         {
             AudioManager.GetInstance.Play("BuildSlotClicked");
-            CloseBuildingUI();
+            SetUIActive(false);
+            UIPointerInHudManager.SetPointerInHud(false);
         }
 
         public void OnButton_Upgrade()
@@ -175,6 +192,7 @@ namespace UI_Scripts
 
 
         [SerializeField] private BuildManager BuildManager;
+        
         public void OnButton_Destroy()
         {
             PlayDestroySound();
@@ -182,6 +200,8 @@ namespace UI_Scripts
             CurrentSelectedBuilding.DestroyEffect();
             Destroy(CurrentSelectedBuilding.gameObject);
             SetUIActive(false);
+            UIPointerInHudManager.SetPointerInHud(false);
+
         }
 
         private void PlayDestroySound()
@@ -265,6 +285,8 @@ namespace UI_Scripts
             BuildingUI.SetActive(true);
             UpdateUI();
         }
+        
+        
 
         #endregion
     }

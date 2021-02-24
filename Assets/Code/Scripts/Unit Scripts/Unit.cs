@@ -62,6 +62,7 @@ public class Unit : MonoBehaviour
 
     
     public static List<Unit> Units = new List<Unit>();
+    public int GetID => ID;
     
 
     private void Awake()
@@ -297,7 +298,7 @@ public class Unit : MonoBehaviour
     }
 
     public void SetPos(int _x,int _z)
-    {
+    {   
         XPos = _x;
         ZPos = _z;
     }

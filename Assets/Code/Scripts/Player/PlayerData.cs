@@ -37,7 +37,7 @@ namespace Player
         private int FoodAmount;
         private int StorageCapacity;
         private int Population;
-        private int MaxPopulation;
+        private int MaxPopulation = 0;
 
 
         public int PopulationH
@@ -49,6 +49,7 @@ namespace Player
             }
         }
 
+        public int PopulationCapacityH { get; set; }
         public int StorageCapacityH
         {
             get => StorageCapacity;

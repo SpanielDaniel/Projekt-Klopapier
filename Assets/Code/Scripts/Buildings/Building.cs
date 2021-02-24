@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using Code.Scripts;
 using Code.Scripts.Map;
 using Interfaces;
 using Player;
@@ -62,6 +63,7 @@ namespace Buildings
         [SerializeField] private GameObject EntranceObjPos;
         [SerializeField] private GameObject EntranceObj;
         
+        
         // private -----------------------------------------------------------------------------------------------------
 
         private bool IsBuilt;
@@ -69,6 +71,7 @@ namespace Buildings
         private int ZPosition;
         private int CurrentWidth;
         private int CurrentHeight;
+        private Ground EntranceGround;
         
         
         protected bool UnitCanEnter = true;
@@ -146,6 +149,11 @@ namespace Buildings
         #endregion
         
         // -------------------------------------------------------------------------------------------------------------
+
+        public void SetEntranceGround(Ground _ground)
+        {
+            EntranceGround = _ground;
+        }
         
         private void Init()
         {
@@ -323,8 +331,47 @@ namespace Buildings
             UnitAmount++;
             StartOnValueChanged();
             if (UnitAmount == MaxUnitAmount) UnitCanEnter = false;
+            AddUnitEffect();
             
             return true;
+        }
+        
+        protected virtual void AddUnitEffect(){}
+
+        public void RemoveUnit(Unit _unit, Ground _ground)
+        {
+            _unit.gameObject.SetActive(true);
+
+            _unit.SetPos(_ground.GetWidth,_ground.GetHeight);
+            _unit.UpdatePos();
+            UnitIDs.Remove(_unit.GetID);
+            UnitAmount--;
+            StartOnValueChanged();
+            RemoveUnitEffect( _unit.GetID);
+            if (UnitAmount < MaxUnitAmount) UnitCanEnter = true;
+        }
+
+        protected virtual void RemoveUnitEffect(int _unitID)
+        {
+            
+        }
+
+        private void RemoveAllUnits()
+        {
+            for (int j = 0; j < UnitIDs.Count; j++)
+            {
+                Unit unit =   Unit.Units[UnitIDs[j]];
+                unit.gameObject.SetActive(true);
+
+                unit.SetPos(EntranceGround.GetWidth,EntranceGround.GetHeight);
+                unit.UpdatePos();
+            }
+            StartOnValueChanged();
+            UnitAmount = 0;
+            UnitIDs.Clear();
+            
+            if (UnitAmount < MaxUnitAmount) UnitCanEnter = true;
+
         }
 
         // Material Setter ---------------------------------------------------------------------------------------------
@@ -406,8 +453,7 @@ namespace Buildings
         // On Built ----------------------------------------------------------------------------------------------------
         protected virtual void OnBuildEffect()
         {
-            
-            
+            RemoveAllUnits();
         }
         
         // On Destroy --------------------------------------------------------------------------------------------------
@@ -422,7 +468,7 @@ namespace Buildings
 
         public virtual void DestroyEffect()
         {
-            
+            RemoveAllUnits();
         }
 
         // Inspector ---------------------------------------------------------------------------------------------------

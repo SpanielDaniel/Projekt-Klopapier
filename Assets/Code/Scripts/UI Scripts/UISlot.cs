@@ -16,6 +16,8 @@ namespace UI_Scripts
     {
         #region Init
 
+        public static Action<Unit> OnUnitRelease;
+
         [SerializeField] private Image CurrentImage;
         [SerializeField] private Sprite DefaultSprite;
         [SerializeField] private GameObject Button;
@@ -78,7 +80,9 @@ namespace UI_Scripts
 
         public virtual void ButtonAction()
         {
-            
+            if (UnitID == null) return;
+            Unit unit = Unit.Units[UnitID];
+            OnUnitRelease?.Invoke(unit);
         }
 
         #endregion

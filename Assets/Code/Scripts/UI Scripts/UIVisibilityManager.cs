@@ -28,7 +28,7 @@ public class UIVisibilityManager : MonoBehaviour
         }
     }
 
-    public void SetAllHusNonVisable()
+    public void SetAllHudsNonVisable()
     {
         foreach (var hud in UIManagersWithVisibility)
         {

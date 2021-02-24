@@ -12,6 +12,11 @@ public class UIPointerInHudManager : MonoBehaviour
 {
      private static bool IsInHud;
      public static bool GetIsInHut => IsInHud;
+
+     public static void SetPointerInHud(bool _value)
+     {
+         IsInHud = _value;
+     }
      
      public void OnPointerEnter(PointerEventData eventData)
      {
