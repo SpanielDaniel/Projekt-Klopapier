@@ -10,6 +10,7 @@ using System.IO;
 using Buildings;
 using Code.Scripts;
 using Code.Scripts.Map;
+using Player;
 using UnityEngine;
 
 public class Unit : MonoBehaviour
@@ -69,8 +70,15 @@ public class Unit : MonoBehaviour
     {
         Initialize(UnitData);
         AddUnit(this);
+        MapGenerator.MapIsBuild += AddPopulation;
+
     }
-    
+
+    private void AddPopulation()
+    {
+        //PlayerData.GetInstance.PopulationH += 1;
+    }
+
     /// <summary>
     /// Initialize unit
     /// </summary>
@@ -94,6 +102,7 @@ public class Unit : MonoBehaviour
         IsSelected = false;
         SetSelectedGround(false);
         UpdatePos();
+        PlayerData.GetInstance.PopulationH += 1;
     }
 
     private void Update()
@@ -242,6 +251,7 @@ public class Unit : MonoBehaviour
     public void GetDMG(float _dmg)
     {
         CurrentHealthPoints -= (_dmg - Defence);
+        if(CurrentHealthPoints <= 0) PlayerData.GetInstance.PopulationH -= 1;
     }
 
     /// <summary>

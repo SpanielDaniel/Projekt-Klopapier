@@ -1,4 +1,5 @@
 ﻿using System;
+using Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,6 +11,7 @@ using UnityEngine.SceneManagement;
         #region Init
 
         [SerializeField] private float GameSpeed = 1f;
+        [SerializeField] private float ReduceFoodPerUnitEveryDay;
         public float GetGameSpeed => GameSpeed;
 
         #endregion
@@ -21,10 +23,15 @@ using UnityEngine.SceneManagement;
             base.AwakeFunction();
             
             DontDestroyOnLoad(this);
-            
+            Timer.OnDayChanged += ReduceFood;
             LoadScene(1);
         }
-        
+
+        private void ReduceFood(int obj)
+        {
+            PlayerData.GetInstance.FoodAmountH -= (int) ((float) Unit.Units.Count * ReduceFoodPerUnitEveryDay);
+        }
+
         // -------------------------------------------------------------------------------------------------------------
 
         #region Functions

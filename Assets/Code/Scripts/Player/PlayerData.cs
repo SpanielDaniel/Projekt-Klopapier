@@ -15,14 +15,15 @@ namespace Player
         public static event Action<int> WoodAmountChanged;
         public static event Action<int> StoneAmountChanged;
         public static event Action<int> SteelAmountChanged;
-        public static event Action<int> FoodAmountChanged;
+        public static event Action<float> FoodAmountChanged;
         public static event Action<int> StorageCapacityChanged;
+        public static event Action<int,int> PopulationChanged;
 
         [SerializeField] private int ToiletPaperStartAmount;
         [SerializeField] private int WoodStartAmount;
         [SerializeField] private int StoneStartAmount;
         [SerializeField] private int SteelStartAmount;
-        [SerializeField] private int FoodStartAmount;
+        [SerializeField] private float FoodStartAmount;
         [SerializeField] private int StartStorageCapacity;
 
         public static event Action OnBaseIsUnderConstruction;
@@ -34,7 +35,7 @@ namespace Player
         private int WoodAmount;
         private int StoneAmount;
         private int SteelAmount;
-        private int FoodAmount;
+        private float FoodAmount;
         private int StorageCapacity;
         private int Population;
         private int MaxPopulation = 0;
@@ -46,10 +47,19 @@ namespace Player
             set
             {
                 Population = value;
+                PopulationChanged?.Invoke(Population,MaxPopulation);
             }
         }
 
-        public int PopulationCapacityH { get; set; }
+        public int PopulationCapacityH
+        {
+            get => MaxPopulation;
+            set
+            {
+                MaxPopulation = value;
+                PopulationChanged?.Invoke(Population,MaxPopulation);
+            } 
+        }
         public int StorageCapacityH
         {
             get => StorageCapacity;
@@ -104,12 +114,13 @@ namespace Player
             }
         }
 
-        public int FoodAmountH
+        public float FoodAmountH
         {
             get => FoodAmount;
             set
             {
                 FoodAmount = GetValue(value);
+                if (FoodAmount < 0) FoodAmount = 0;
                 FoodAmountChanged?.Invoke(FoodAmount);
             }
         }
@@ -125,6 +136,12 @@ namespace Player
         }
 
         private int GetValue(int _value)
+        {
+            if (_value >= StorageCapacity) return StorageCapacity;
+            return _value;
+        }
+        
+        private float GetValue(float _value)
         {
             if (_value >= StorageCapacity) return StorageCapacity;
             return _value;

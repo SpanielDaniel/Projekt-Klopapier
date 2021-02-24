@@ -332,6 +332,7 @@ MonoBehaviour:
   BuildingObj: {fileID: 5896057486541428632}
   EntranceObjPos: {fileID: 27601710059804320}
   EntranceObj: {fileID: 5194661686611442805}
+  FoodPerDayPerUnit: 2
 --- !u!1001 &271117063991249585
 PrefabInstance:
   m_ObjectHideFlags: 0
