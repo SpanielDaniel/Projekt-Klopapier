@@ -9,11 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d83b34b44fce87429dc72a957d8bb05, type: 3}
-  m_Name: Warrior
+  m_Script: {fileID: 11500000, guid: c73c6bfb52d098d47a73a3ac3d8728bf, type: 3}
+  m_Name: EnemyTank
   m_EditorClassIdentifier: 
-  MaxHealthPoints: 100
-  Defence: 10
-  AttackPoints: 10
-  AttackSpeed: 10
-  MoveSpeed: 10
+  MaxHealthPoints: 0
+  Defence: 0
+  AttackPoints: 0
+  AttackSpeed: 0
+  MoveSpeed: 0
+  Range: 0

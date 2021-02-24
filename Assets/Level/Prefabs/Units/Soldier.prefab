@@ -202,6 +202,7 @@ MonoBehaviour:
   ZPos: 0
   Animator: {fileID: 9517976}
   UnitObj: {fileID: 8952171768828624392}
+  RotateObject: {fileID: 8952171768828624392}
   SelectedGround: {fileID: 8407209148834917840}
   BulletPrefab: {fileID: 1751729499408640468, guid: b44b2bb692eb6ab4c81365a4bee3068c, type: 3}
   FirePoint: {fileID: 6870942333114378010}

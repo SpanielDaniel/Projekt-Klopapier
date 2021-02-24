@@ -36,6 +36,7 @@ public class Unit : MonoBehaviour
     [SerializeField] private int ZPos;
     [SerializeField] private Animator Animator;
     [SerializeField] private GameObject UnitObj;
+    [SerializeField] private GameObject RotateObject;
     [SerializeField] private GameObject SelectedGround;
     [SerializeField] private GameObject BulletPrefab;
     [SerializeField] private Transform FirePoint;
@@ -131,6 +132,8 @@ public class Unit : MonoBehaviour
                 
                 float angle = Vector2.SignedAngle(Vector2.up, new Vector2(ViewDirection.x, ViewDirection.z));
                 UnitObj.transform.eulerAngles = new Vector3(0,-angle,0);
+                RotateObject.transform.eulerAngles = new Vector3(0,-angle, 0);
+
             }
 
             transform.position += ViewDirection * (MoveSpeed * Time.deltaTime);
@@ -213,14 +216,14 @@ public class Unit : MonoBehaviour
 
     public void LockOnTarget()
     {
-        Vector3 direction = (Target.transform.position - transform.position);
+        Vector3 direction = (Target.transform.position - RotateObject.transform.position);
 
         distance = direction.magnitude;
         ViewDirection = direction.normalized;
 
 
         float angle = Vector2.SignedAngle(Vector2.up, new Vector2(ViewDirection.x, ViewDirection.z));
-        UnitObj.transform.eulerAngles = new Vector3(0, -angle, 0);
+        RotateObject.transform.eulerAngles = new Vector3(0, -angle, 0);
     }
 
     public void Attack(GameObject _enemy)
