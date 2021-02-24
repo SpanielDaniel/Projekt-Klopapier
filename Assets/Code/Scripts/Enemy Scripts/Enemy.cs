@@ -161,7 +161,7 @@ public class Enemy : MonoBehaviour
         Wave_Spawner.EnemiesAlive--;
     }
 
-    public void GetDMG(float _dmg)
+    public void TakeDamage(int _dmg)
     {
         CurrentHealthPoints -= (_dmg - Defence);
     }

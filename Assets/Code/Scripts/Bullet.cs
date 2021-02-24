@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     private GameObject Target;
-    private float Damage;
+    private int Damage;
     private Unit PlayerUnit;
     private float speed = 3f;
 
@@ -16,7 +16,7 @@ public class Bullet : MonoBehaviour
 
     public void SetDMGValue(float _dmg)
     {
-        Damage = _dmg;
+        Damage = (int)_dmg;
     }
 
     void Update()
@@ -35,15 +35,15 @@ public class Bullet : MonoBehaviour
         {
             if (Target.CompareTag("Enemy"))
             {
-                Target.GetComponent<Enemy>().GetDMG(Damage);
+                Target.GetComponent<Enemy>().TakeDamage(Damage);
             }
             if (Target.CompareTag("PlayerUnit"))
             {
-                Target.GetComponent<Unit>().GetDMG(Damage);
+                Target.GetComponent<Unit>().TakeDamage(Damage);
             }
             if (Target.CompareTag("Building"))
             {
-                //ToDo Building nimmt Schaden
+                Target.GetComponent<Buildings.Building>().TakeDamage(Damage);
             }
             Destroy(gameObject);
             return;

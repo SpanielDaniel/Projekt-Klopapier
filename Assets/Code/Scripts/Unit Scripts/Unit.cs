@@ -239,7 +239,7 @@ public class Unit : MonoBehaviour
         }
     }
 
-    public void GetDMG(float _dmg)
+    public void TakeDamage(int _dmg)
     {
         CurrentHealthPoints -= (_dmg - Defence);
     }
