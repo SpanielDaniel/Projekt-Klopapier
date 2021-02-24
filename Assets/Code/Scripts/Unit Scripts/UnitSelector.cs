@@ -79,6 +79,7 @@ public class UnitSelector : MonoBehaviour
                     Ground ground = hit.transform.GetComponent<Ground>();
                     if (ground != null)
                     {
+                        SelectedUnits[0].CancelMovingIntoBuilding();
                         MoveUnits(ground.GetWidth, ground.GetHeight);
                     }
 

@@ -78,7 +78,6 @@
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/GameManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/MainMenu/UIMenu.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Events/EventWindow.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/Unit.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Events/EventManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/Recrute.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/Recruit.cs" />
@@ -96,6 +95,7 @@
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIUnitManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/UnitSelector.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Build-System/BuildManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/Unit.cs" />
       </list>
     </option>
   </component>
@@ -192,7 +192,7 @@
       <workItem from="1614005171181" duration="15148000" />
       <workItem from="1614089955049" duration="7172000" />
       <workItem from="1614099530469" duration="30806000" />
-      <workItem from="1614176484912" duration="5272000" />
+      <workItem from="1614176484912" duration="5813000" />
     </task>
     <servers />
   </component>

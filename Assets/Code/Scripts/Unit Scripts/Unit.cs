@@ -274,6 +274,12 @@ public class Unit : MonoBehaviour
         IsMovingIntoBuilding = true;
     }
 
+    public void CancelMovingIntoBuilding()
+    {
+        IsMovingIntoBuilding = false;
+        BuildingToEnter = null;
+    }
+
     public void OnMouseLeftClickAction()
     {
         
