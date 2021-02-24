@@ -3,11 +3,9 @@
 // Project  : Projekt-Klopapier
 
 using System;
-using Code.Scripts.Grid.DanielB;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
-namespace Build
+namespace Code.Scripts
 {
     public class Street : MonoBehaviour
     {

@@ -298,7 +298,8 @@ MonoBehaviour:
   BuildMaterial: {fileID: 2100000, guid: 34c975a1f63353341969102570d7fe1e, type: 2}
   CantBuildMaterial: {fileID: 2100000, guid: dd3d11cc0c398084cb852945e3065c12, type: 2}
   BuildingObj: {fileID: 3758455886590431850}
-  EntrancePos: {fileID: 7423845827493054624}
+  EntranceObjPos: {fileID: 7423845827493054624}
+  EntranceObj: {fileID: 0}
   AmountOfScrap: 100
 --- !u!1 &7423845827493054624
 GameObject:

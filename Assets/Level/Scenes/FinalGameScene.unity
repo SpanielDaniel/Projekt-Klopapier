@@ -2017,6 +2017,7 @@ MonoBehaviour:
   - {fileID: 1757504677}
   - {fileID: 920631550}
   - {fileID: 1503757451}
+  MapGenerator: {fileID: 19634436}
   BuildManager: {fileID: 510762074}
 --- !u!1001 &219128426
 PrefabInstance:
@@ -12604,6 +12605,7 @@ MonoBehaviour:
   SelectionBox: {fileID: 0}
   UIUnitManager: {fileID: 0}
   UnitManager: {fileID: 0}
+  MapGenerator: {fileID: 0}
 --- !u!4 &1439436101
 Transform:
   m_ObjectHideFlags: 0
@@ -13559,6 +13561,7 @@ MonoBehaviour:
   SelectionBox: {fileID: 1874212694}
   UIUnitManager: {fileID: 897445853}
   UnitManager: {fileID: 1510486170}
+  MapGenerator: {fileID: 19634436}
 --- !u!114 &1510486170
 MonoBehaviour:
   m_ObjectHideFlags: 0

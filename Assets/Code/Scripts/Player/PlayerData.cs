@@ -25,7 +25,6 @@ namespace Player
         [SerializeField] private int FoodStartAmount;
         [SerializeField] private int StartStorageCapacity;
 
-
         public static event Action OnBaseIsUnderConstruction;
  
         public bool BaseIsUnderConstruction;
@@ -37,7 +36,18 @@ namespace Player
         private int SteelAmount;
         private int FoodAmount;
         private int StorageCapacity;
+        private int Population;
+        private int MaxPopulation;
 
+
+        public int PopulationH
+        {
+            get => Population;
+            set
+            {
+                Population = value;
+            }
+        }
 
         public int StorageCapacityH
         {

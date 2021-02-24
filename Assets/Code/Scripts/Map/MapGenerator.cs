@@ -3,7 +3,6 @@
 // Project  : Projekt-Klopapier
 
 using System;
-using Build;
 using Buildings;
 using Code.Scripts.Grid.DanielB;
 using UnityEngine;
@@ -15,12 +14,13 @@ namespace Code.Scripts.Map
     {
 
         public static event Action MapIsBuild; 
-        private MyGrid<GameObject> GroundMap;
+        private MyGrid<GameObject> GroundObjectsMap;
+        private MyGrid<Ground> GroundsMap;
         private int MapMultiplicator = 2;
 
         
-        public int GetGroundWidth => GroundMap.GetWidth;
-        public int GetGroundHeight => GroundMap.GetHeight;
+        public int GetGroundWidth => GroundObjectsMap.GetWidth;
+        public int GetGroundHeight => GroundObjectsMap.GetHeight;
         
         [SerializeField] private MapManager MapManager;
         [SerializeField] private StreetManager StreetManager;
@@ -77,24 +77,25 @@ namespace Code.Scripts.Map
             int gridWidth = MapManager.GetWidth * MapMultiplicator;
             int gridHeight = MapManager.GetHeight * MapMultiplicator;
             
-            GroundMap = new MyGrid<GameObject>(gridWidth,gridHeight);
+            GroundObjectsMap = new MyGrid<GameObject>(gridWidth,gridHeight);
+            GroundsMap = new MyGrid<Ground>(gridWidth,gridHeight);
             Ground.SetGroundSize(gridWidth,gridHeight);
             
             for (int h = 0; h < gridHeight; h++)
             {
                 for (int w = 0; w < gridWidth; w++)
                 {
-                    GroundMap.Grid[w, h] = Instantiate(GroundObj);
-                    GroundMap.Grid[w, h].transform.position = new Vector3((float)w/MapMultiplicator + GroundObj.transform.position.x,0,(float)h/MapMultiplicator + GroundObj.transform.position.z);
+                    GroundObjectsMap.Grid[w, h] = Instantiate(GroundObj);
+                    GroundObjectsMap.Grid[w, h].transform.position = new Vector3((float)w/MapMultiplicator + GroundObj.transform.position.x,0,(float)h/MapMultiplicator + GroundObj.transform.position.z);
+                    GroundObjectsMap.Grid[w, h].GetComponent<Ground>().Init(w,h);
+                    GroundObjectsMap.Grid[w, h].transform.SetParent(MapThings.transform);
+
+                    GroundsMap.Grid[w, h] = GroundObjectsMap.Grid[w, h].GetComponent<Ground>();
+                    
                     SetGroundBlocked(w,h ,false);
-                    GroundMap.Grid[w, h].GetComponent<Ground>().Init(w,h);
-                    GroundMap.Grid[w, h].transform.SetParent(MapThings.transform);
+
                 }
             }
-
-            
-            
-            
         }
 
         private void GenerateWaveEntrances()
@@ -303,17 +304,17 @@ namespace Code.Scripts.Map
         {
             
             GameObject street = Instantiate(_street);
-            street.transform.position = GroundMap.Grid[_posX, _posY].transform.position;
+            street.transform.position = GroundObjectsMap.Grid[_posX, _posY].transform.position;
             
             SetGroundBlocked(_posX,_posY,true);
             SetGroundBlocked(_posX+1,_posY+1,true);
             SetGroundBlocked(_posX+1,_posY,true);
             SetGroundBlocked(_posX,_posY+1,true);
             
-            GroundMap.Grid[_posX,_posY].GetComponent<Ground>().SetGroundSignature(EGround.Street);
-            GroundMap.Grid[_posX + 1,_posY + 1].GetComponent<Ground>().SetGroundSignature(EGround.Street);
-            GroundMap.Grid[_posX + 1,_posY].GetComponent<Ground>().SetGroundSignature(EGround.Street);
-            GroundMap.Grid[_posX,_posY + 1].GetComponent<Ground>().SetGroundSignature(EGround.Street);
+            GroundObjectsMap.Grid[_posX,_posY].GetComponent<Ground>().SetGroundSignature(EGround.Street);
+            GroundObjectsMap.Grid[_posX + 1,_posY + 1].GetComponent<Ground>().SetGroundSignature(EGround.Street);
+            GroundObjectsMap.Grid[_posX + 1,_posY].GetComponent<Ground>().SetGroundSignature(EGround.Street);
+            GroundObjectsMap.Grid[_posX,_posY + 1].GetComponent<Ground>().SetGroundSignature(EGround.Street);
 
             
             street.GetComponent<Street>().Init(_posX,_posY);
@@ -324,7 +325,7 @@ namespace Code.Scripts.Map
         private void GenerateBuildings()
         {
 
-            foreach (GameObject groundObj in GroundMap.Grid)
+            foreach (GameObject groundObj in GroundObjectsMap.Grid)
             {
                 if (!groundObj.GetComponent<Ground>().IsBlockedH)
                 {
@@ -336,7 +337,7 @@ namespace Code.Scripts.Map
                 }
             }
             
-            foreach (GameObject groundObj in GroundMap.Grid)
+            foreach (GameObject groundObj in GroundObjectsMap.Grid)
             {
                 if (!groundObj.GetComponent<Ground>().IsBlockedH)
                 {
@@ -348,7 +349,7 @@ namespace Code.Scripts.Map
                 }
             }
             
-            foreach (GameObject groundObj in GroundMap.Grid)
+            foreach (GameObject groundObj in GroundObjectsMap.Grid)
             {
                 if (!groundObj.GetComponent<Ground>().IsBlockedH)
                 {
@@ -363,45 +364,42 @@ namespace Code.Scripts.Map
 
         public void SetGroundBlocked(int _x, int _y, bool _isActive)
         {
-            GroundMap.Grid[_x, _y].GetComponent<Ground>().IsBlocked = _isActive;
+            GroundsMap.Grid[_x, _y].IsBlocked = _isActive;
         }
 
         public bool IsGroundBlocked(int _x, int _y)
         {
-            if (_x < 0 || _y < 0) return true;
+            if (_x < 0 || _y < 0 || _x >=  GroundObjectsMap.GetWidth || _y >= GroundObjectsMap.GetHeight) return true;
             if (GetGroundHeight < _y +1 || GetGroundWidth < _x + 1)
             {
                 return true;
             }
             
-            return GroundMap.Grid[_x, _y].GetComponent<Ground>().IsBlocked;
+            return  GroundsMap.Grid[_x, _y].IsBlocked;
         }
 
         public EGround GetGroundSignature(int _x, int _y)
         {
-            return GroundMap.Grid[_x, _y].GetComponent<Ground>().GetGroundSignature;
+            return GroundObjectsMap.Grid[_x, _y].GetComponent<Ground>().GetGroundSignature;
         }
 
         public Ground GetGroundFromPosition(int _x, int _y)
         {
-            if (_x < 0 || _y < 0  || _x >=  GroundMap.GetWidth || _y >= GroundMap.GetHeight) return null;
-            return GroundMap.Grid[_x, _y].GetComponent<Ground>();
+            if (_x < 0 || _y < 0  || _x >=  GroundObjectsMap.GetWidth || _y >= GroundObjectsMap.GetHeight) return null;
+            return GroundObjectsMap.Grid[_x, _y].GetComponent<Ground>();
         }
 
         public Ground GetGroundFromGlobalPosition(Vector2 _pos)
         {
-            foreach (GameObject groundObj in GroundMap.Grid)
+            foreach (Ground ground in GroundsMap.Grid)
             {
-                double x = groundObj.GetComponent<Ground>().transform.position.x - _pos.x;
-                double y = groundObj.GetComponent<Ground>().transform.position.z - _pos.y;
+                double x = ground.transform.position.x - _pos.x;
+                double y = ground.transform.position.z - _pos.y;
 
                 x = Math.Round(x,1);
                 y = Math.Round(y,1);
-                if (x == 0 && y == 0)
-                {
-                    return groundObj.GetComponent<Ground>();
-                }
                 
+                if (x == 0 && y == 0) return ground;
             }
 
             return null;

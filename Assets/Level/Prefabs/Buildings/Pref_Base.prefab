@@ -159,7 +159,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: b73ffd35f926310489d5aaa2710f9d47, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -299,9 +299,8 @@ MonoBehaviour:
   BuildMaterial: {fileID: 2100000, guid: 34c975a1f63353341969102570d7fe1e, type: 2}
   CantBuildMaterial: {fileID: 2100000, guid: dd3d11cc0c398084cb852945e3065c12, type: 2}
   BuildingObj: {fileID: 3758455886590431850}
-  EntrancePosition:
-  - {x: 0, y: 0}
-  EntrancePos: {fileID: 9220532314442189177}
+  EntranceObjPos: {fileID: 9220532314442189177}
+  EntranceObj: {fileID: 2632639587506575902}
 --- !u!1 &9220532314442189177
 GameObject:
   m_ObjectHideFlags: 0

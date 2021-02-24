@@ -2,116 +2,333 @@
 // Author   : Daniel Bäcker
 // Project  : Projekt-Klopapier
 
+/* 
+ * TODO: Beschreibung der Klasse
+ */
 
-using System;
+
 using Buildings;
-using Code.Scripts;
-using Code.Scripts.Grid.DanielB;
 using Code.Scripts.Map;
 using Player;
 using UI_Scripts;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Build
+namespace Code.Scripts
 {
     public class BuildManager : UIVisibilityEvent
     {
-        [SerializeField] private GameObject PrefScrapBuilding;
-        [SerializeField] private GameObject BuildUI;
-        [SerializeField] private PlayerData PlayerData;
-        [SerializeField] private MapGenerator MapGenerator;
-        [SerializeField] private Camera MainCamera;
+        // -------------------------------------------------------------------------------------------------------------
 
-        [SerializeField] private GameObject[] BuildSlots;
+        #region Init
+        
+        // Serialize Fields --------------------------------------------------------------------------------------------
+        
+        [SerializeField] private Camera MainCamera;
+        [SerializeField] private PlayerData PlayerData;
+        [Space]
+        [Header("Manager")]
+        [SerializeField] private UnitManager UnitManager;
+        [SerializeField] private MapGenerator MapGenerator;
+        [Space]
+        [Header("Prefabs")]
+        [SerializeField] private GameObject PrefScrapBuilding;
         [SerializeField] private GameObject PrefDestroyedHouse;
         [SerializeField] private GameObject PrefHouse;
-        [SerializeField] private UnitManager UnitManager;
-        
-        
+        [Space]
+        [Header("UI")]
+        [SerializeField] private GameObject BuildUI;
+        [SerializeField] private GameObject[] BuildSlots;
+
+        // private -----------------------------------------------------------------------------------------------------
+
+        private GameObject CurrentBuildingObject;
+        private Building CurrentBuilding;
         private Ground CurrentGround;
         private bool IsBuilding = false;
         private bool CanBuild;
-        private GameObject CurrentBuildingObject;
-        private Building CurrentBuilding;
-        
+
+        // public ------------------------------------------------------------------------------------------------------
+        // Get properties ----------------------------------------------------------------------------------------------
         public bool GetIsBuilding => IsBuilding;
+
+        #endregion
+        
+        // -------------------------------------------------------------------------------------------------------------
 
         private void Awake()
         {
-            BuildSlot.OnMouseClick += OnMouseClickedBuildSlot;
-            Base.OnBaseCreated += EnableSlots;
-            Building.OnBaseIsUnderConstruction += DisableBaseSlot;
+            AddEvents();
         }
 
-        private void DisableBaseSlot()
+        private void Start()
         {
-            BuildSlots[0].SetActive(false);
+            SetMainCamera();
+
+            /*
+             * The player can only build the base until the base is built.
+             * So only the base build slot is active.
+             */
+            DeactivateAllBuildSlots();
+            ActivateBaseBuildSlot();
+            
+            CloseHud();
+        }
+        
+        // -------------------------------------------------------------------------------------------------------------
+
+        #region Functions
+        
+        // Awake -------------------------------------------------------------------------------------------------------
+        
+        /// <summary>
+        /// Adding events.
+        /// </summary>
+        private void AddEvents()
+        {
+            Base.OnBaseCreated += OnBaseCreated;
+            Base.OnBaseCreated += DeactivateBaseSlot;
+            BuildSlot.OnMouseClick += OnMouseClickedBuildSlot;
+            Building.OnBaseIsUnderConstruction += DeactivateBaseSlot;
+        }
+        
+        // Start -------------------------------------------------------------------------------------------------------
+
+        /// <summary>
+        /// Sets the main camera.
+        /// </summary>
+        private void SetMainCamera()
+        {
+            if(MainCamera == null) MainCamera = Camera.main;
         }
 
-        private void EnableSlots()
+        // Events ------------------------------------------------------------------------------------------------------
+
+        /// <summary>
+        /// It triggers when the base ist built.  
+        /// </summary>
+        private void OnBaseCreated()
+        {
+            ActivateAllBuildSlots();
+            DeactivateBaseSlot();
+        }
+        
+        /// <summary>
+        /// Event when player clicked od a build slot.
+        /// </summary>
+        /// <param name="_buildingPrefab">GameObject to Instantiate in the scene.</param>
+        private void OnMouseClickedBuildSlot(GameObject _buildingPrefab)
+        {
+            AudioManager.GetInstance.Play("BuildSlotClicked");
+
+            DestroySelectedBuildingObject();
+            SetMeshActiveOfAllGrounds(true);
+            
+            CreateBuilding(_buildingPrefab);
+            
+            
+
+            
+            IsBuilding = true;
+        }
+        
+        // Slots -------------------------------------------------------------------------------------------------------
+        
+        /// <summary>
+        /// Activates all build slots.
+        /// </summary>
+        private void ActivateAllBuildSlots()
         {
             foreach (var slot in BuildSlots)
             {
                 slot.SetActive(true);
             }
-            BuildSlots[0].SetActive(false);
         }
-
-        private void Start()
+        
+        /// <summary>
+        /// Deactivates all build slots.
+        /// </summary>
+        private void DeactivateAllBuildSlots()
         {
-            if(MainCamera == null) MainCamera = Camera.main;
             foreach (GameObject slot in BuildSlots)
             {
                 slot.SetActive(false);
             }
+        }
+
+        /// <summary>
+        /// Activates the base build slot.
+        /// </summary>
+        private void ActivateBaseBuildSlot()
+        {
             BuildSlots[0].SetActive(true);
-            
-            CloseHud();
         }
 
-        private void OnMouseClickedBuildSlot(GameObject _building)
+        /// <summary>
+        /// Deactivates base slot.
+        /// </summary>
+        private void DeactivateBaseSlot()
         {
-            
-            if (IsBuilding)
-            {
-                DestroySelectedBuildingObject();
-            }
-            AudioManager.GetInstance.Play("BuildSlotClicked");
-            
-            SetMeshActiveOfAllGrounds(true);
-            CreateBuilding(_building);
-            
-            IsBuilding = true;
+            BuildSlots[0].SetActive(false);
         }
 
-        private void DestroySelectedBuildingObject()
+        // Build Phase -------------------------------------------------------------------------------------------------
+        
+        /// <summary>
+        /// Starts the building phase with the selected
+        /// </summary>
+        public void UpdateBuildBuilding()
         {
-            Destroy(CurrentBuildingObject);
-            CurrentBuildingObject = null;
-        }
-
-        private void CreateBuilding(GameObject _building)
-        {
-            CurrentBuildingObject = Instantiate(_building);
-            CurrentBuilding = CurrentBuildingObject.GetComponent<Building>();
-        }
-
-        public void BuildBuilding()
-        {
-            
-            if (!IsBuilding) return;
-            
+            //TODO: gehört hier nichtm, da es eine update funktion ist.
+            CurrentBuilding.SetEntranceActive(true);
             SetColliderActiveOfAllBuildings(false);
             
-            
+            // The mouse must be inside the map.
             Vector3 mousePos = Input.mousePosition;
             if (mousePos.x > 0 && mousePos.x < Screen.width && mousePos.y > 0 && mousePos.y < Screen.height)
             {
-                SetBuildingToMousePos();
+                SetBuildingToMousePosGround();
                 
                 HandleMouseInput();
             }
+        }
+        
+        /// <summary>
+        /// Sets the building on the ground where the mouse is pointing
+        /// </summary>
+        private void SetBuildingToMousePosGround()
+        {
+            Vector3 mousePos = Input.mousePosition;;
+            Ray ray = MainCamera.ScreenPointToRay(mousePos);
+            RaycastHit hit;
+            
+            // Raycast from screen to a ground
+            bool isHit = Physics.Raycast(ray, out hit);
+            if (!isHit) return;
+            
+            Ground ground;
+            if (IsMouseHitPointingGround(hit, out ground))
+            {
+                CurrentGround = ground;
+                CurrentBuildingObject.transform.position = ground.transform.position;
+
+                CanBuild = CanBuildingBuildOnGround(CurrentBuilding,ground);
+                
+                // Changes the material of the building depend of the player can build the building on the ground.
+                if (CanBuild) CurrentBuilding.SetBuildMaterial();
+                else CurrentBuilding.SetCantBuildMaterial();
+            }
+        }
+        
+        /// <summary>
+        /// Checks that the mouse raycast hit has the ground component
+        /// </summary>
+        /// <param name="_hit">Mouse hit.</param>
+        /// <param name="_ground">Setting null, if the mouse hit is not a ground.</param>
+        /// <returns>Returns true if the mouse hit is a ground.</returns>
+        private bool IsMouseHitPointingGround(RaycastHit _hit, out Ground _ground)
+        {
+            Ground ground = _hit.transform.GetComponent<Ground>();
+
+            if (ground != null)
+            {
+                _ground = ground;
+                return true;
+            }
+            _ground = null;
+            return false;
+        }
+        
+        // Building ----------------------------------------------------------------------------------------------------
+        
+        /// <summary>
+        /// Instantiate a building object. 
+        /// </summary>
+        /// <param name="_buildingPrefab">Building object to instantiate.</param>
+        private void CreateBuilding(GameObject _buildingPrefab)
+        {
+            CurrentBuildingObject = Instantiate(_buildingPrefab);
+            CurrentBuilding = CurrentBuildingObject.GetComponent<Building>();
+        }
+
+        /// <summary>
+        /// Destroys the current building that the player want to build.
+        /// </summary>
+        private void DestroySelectedBuildingObject()
+        {
+            // The building cant be destroyed, if no building object is in the scene.
+            if (!IsBuilding) return;
+            
+            Destroy(CurrentBuildingObject);
+            ClearCurrentBuilding();
+        }
+
+        /// <summary>
+        /// Clears the building data.
+        /// </summary>
+        private void ClearCurrentBuilding()
+        {
+            CurrentBuildingObject = null;
+            CurrentBuilding = null;
+        }
+
+        /// <summary>
+        /// Checks that the building can build on the ground.
+        /// </summary>
+        /// <param name="_building">Building to check that it can build on ground.</param>
+        /// <param name="_ground">Ground where the building want to build on.</param>
+        /// <returns>Returns true, if the building can build on the ground.</returns>
+        private bool CanBuildingBuildOnGround(Building _building,Ground _ground)
+        {
+            bool isGroundBlocked = IsBuildingGroundsBlocked(_building, _ground);
+            bool isEntranceOnStreet = IsEntranceOnStreet(_building);
+
+            if (!isGroundBlocked && isEntranceOnStreet) return true;
+            
+            return false;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_building"></param>
+        /// <param name="_ground"></param>
+        /// <returns></returns>
+        private bool IsBuildingGroundsBlocked(Building _building, Ground _ground)
+        {
+            for (int y = 0; y < _building.CurrentHeightH; y++)
+            {
+                for (int x = 0; x < _building.CurrentWidthH; x++)
+                {
+                    // current x and y position
+                    int xPosition = x + _ground.GetWidth;
+                    int yPosition = y + _ground.GetHeight;
+
+                    if (MapGenerator.IsGroundBlocked(xPosition ,yPosition)) return true;
+                }
+            }
+
+            return false;
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_building"></param>
+        /// <returns></returns>
+        private bool IsEntranceOnStreet(Building _building)
+        {
+            Ground g = MapGenerator.GetGroundFromGlobalPosition(_building.GetEntrancePoss());
+            
+            if(g != null)
+            {
+                if (g.GetGroundSignature == EGround.Street)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private void SetColliderActiveOfAllBuildings(bool _value)
@@ -130,116 +347,9 @@ namespace Build
             }
         }
         
-        private void SetBuildingToMousePos()
-        {
-            Vector3 mousePos;
-            Vector3 cameraDirection;
-            RaycastHit hit;
-            Ground ground;
-            Ray ray;
-            bool isHit;
-           
-
-            cameraDirection = MainCamera.transform.forward;
-            mousePos = Input.mousePosition;
-            ray = MainCamera.ScreenPointToRay(mousePos);
-            isHit = Physics.Raycast(ray, out hit);
-            
-            
-            if (isHit && IsMouseOnGround(hit, out ground))
-            {
-                CurrentGround = ground;
-                SetBuildingPositionToGroundPosition(ground);
-
-                CanBuild = CanBuildingBuildOnGround(CurrentBuilding,ground);
-                
-                if (CanBuild) CurrentBuilding.SetBuildMaterial();
-                else CurrentBuilding.SetCantBuildMaterial();
-            }
-        }
-
-        private void SetBuildingPositionToGroundPosition(Ground _ground)
-        {
-            CurrentBuildingObject.transform.position = _ground.transform.position;
-        }
-
-        private bool IsMouseOnGround(RaycastHit _hit, out Ground _ground)
-        {
-            Ground ground = _hit.transform.GetComponent<Ground>();
-
-            if (ground != null)
-            {
-                _ground = ground;
-                return true;
-            }
-            else
-            {
-                _ground = null;
-                return false;
-            }
-        }
         
-        public bool CanBuildingBuildOnGround(Building _building,Ground _ground)
-        {
-            BuildingData data = _building.GetData;
-                    
-            for (int i = 0; i < _building.CurrentHeightH; i++)
-            {
-                for (int j = 0; j < _building.CurrentWidthH; j++)
-                {
-                    int x = j + _ground.GetWidth;
-                    int y = i + _ground.GetHeight;
 
-                    
-                    
-                    bool isBlocked = MapGenerator.IsGroundBlocked(x ,y);
-                    if (isBlocked == true) return false;
-                    
-                    
-                    
-                    // TO_DO: Besser machen
-                    switch (MapGenerator.GetGroundSignature(x,y))
-                    {
-                        case EGround.None:
-                            return false;
-                        case EGround.Street:
-                            return false;
-                        case EGround.Gras:
-                            break;
-                        default:
-                            return false;
-                    }
-                    
-                }
-            }
-
-
-
-            if (IsEntranceOnStreet(_building))
-            {
-                return true;
-            }
-             
-            
-            return false;
-        }
-
-        private bool IsEntranceOnStreet(Building _building)
-        {
-            Ground g = MapGenerator.GetGroundFromGlobalPosition(_building.GetEntrancePoss());
-            
-            if(g != null)
-            {
-                Debug.Log(g.GetGroundSignature);
-                if (g.GetGroundSignature == EGround.Street)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
+        
         private void HandleMouseInput()
         {
             // Left Mouse Button
@@ -273,7 +383,7 @@ namespace Build
                 AudioManager.GetInstance.Play("Build");
                 PlayerData.ReduceResources(0, woodCosts, stoneCosts, steelCosts);
                 CurrentBuilding.SetBaseMaterial();
-                
+                CurrentBuilding.SetEntranceActive(false);
                 
                 CurrentBuilding.SetPosition(CurrentGround.GetWidth,CurrentGround.GetHeight);
 
@@ -342,7 +452,7 @@ namespace Build
             scrap.transform.position = MapGenerator.GetGroundFromPosition(_x, _y).transform.position;
             scrap.GetComponent<Scrap>().SetPosition(_x,_y);
             
-            MapGenerator.SetGroundBlocked(_x,_y,false);
+            MapGenerator.SetGroundBlocked(_x,_y,true);
             UnitManager.GetNodes[_x, _y].IsWalkable = true;
         }
 
@@ -433,5 +543,7 @@ namespace Build
             }
             Destroy(house.gameObject);
         }
+        
+        #endregion
     }
 }

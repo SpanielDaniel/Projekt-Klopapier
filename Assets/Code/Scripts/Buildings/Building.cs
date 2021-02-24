@@ -21,54 +21,47 @@ namespace Buildings
         #region Init
         
         // Events ------------------------------------------------------------------------------------------------------
+        
         public static event Action ValueChanged;
         public static event Action OnBaseIsUnderConstruction;
         public static event Action<Building> OnClick;
         public static event Action<Building> IsFinished;
         
         // Static Variables --------------------------------------------------------------------------------------------
+       
         public static List<Building> Buildings = new List<Building>();
         
-        // Serialize Field ---------------------------------------------------------------------------------------------
+        // Serialize Fields --------------------------------------------------------------------------------------------
         
         [SerializeField] private BuildingData Data;
-        
         [Space]
-        
         [Header("Level")]
         [SerializeField] protected int Level;
-        
         [Space]
-        
         [Header("Health")]
         [SerializeField] private int Health;
         [Space]
         [SerializeField] private GameObject HealthBar;
         [SerializeField] private Slider HealthBarSlider;
-        
         [Space]
-        
         [Header("Units in Building")]
         [SerializeField] protected int UnitAmount = 0;
-        
         [Space]
-        
         [Header("Collider")]
         [SerializeField] private BoxCollider Collider;
-        
         [Space]
-        
         [Header("Model")]
         [SerializeField] private MeshRenderer MeshRenderer;
         [Space]
         [SerializeField] private Material BaseMaterial;
         [SerializeField] private Material BuildMaterial;
         [SerializeField] private Material CantBuildMaterial;
-        
         [Space]
-        
         [Header("Building Objects")]
         [SerializeField] private GameObject BuildingObj;
+        [SerializeField] private GameObject EntranceObjPos;
+        [SerializeField] private GameObject EntranceObj;
+        
         // private -----------------------------------------------------------------------------------------------------
 
         private bool IsBuilt;
@@ -156,7 +149,7 @@ namespace Buildings
         
         private void Init()
         {
-            
+            SetEntranceActive(false);
             HealthBar.SetActive(false);
             AddBuilding();
         }
@@ -174,7 +167,7 @@ namespace Buildings
 
         public Vector2 GetEntrancePoss()
         {
-            return new Vector2((EntrancePos.transform.position.x - 0.25f),(EntrancePos.transform.position.z - 0.25f) );
+            return new Vector2((EntranceObjPos.transform.position.x - 0.25f),(EntranceObjPos.transform.position.z - 0.25f) );
         }
 
         private void Start()
@@ -342,6 +335,8 @@ namespace Buildings
             {
                 OnBaseIsUnderConstruction?.Invoke();
             }
+            
+            
         }
         public void SetBuildMaterial()
         {
@@ -351,6 +346,12 @@ namespace Buildings
         public void SetCantBuildMaterial()
         {
             MeshRenderer.material = CantBuildMaterial;
+        }
+
+        public void SetEntranceActive(bool _active)
+        {
+            if (EntranceObj == null) return;
+            EntranceObj.SetActive(_active);
         }
         
         // Collider Setter ---------------------------------------------------------------------------------------------
@@ -403,7 +404,6 @@ namespace Buildings
         }
         
         // On Built ----------------------------------------------------------------------------------------------------
-        [SerializeField] private GameObject EntrancePos;
         protected virtual void OnBuildEffect()
         {
             

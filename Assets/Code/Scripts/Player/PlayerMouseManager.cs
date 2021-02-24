@@ -2,8 +2,8 @@
 // Author   : Daniel Bäcker
 // Project  : Projekt-Klopapier
 
+using Code.Scripts;
 using UnityEngine;
-using Build;
 using Interfaces;
 
 namespace Player
@@ -29,7 +29,7 @@ namespace Player
             {
                 if (BuildManager.GetIsBuilding)
                 {
-                    BuildManager.BuildBuilding();
+                    BuildManager.UpdateBuildBuilding();
                     return;
                 }
                 

@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace Build
+namespace Code.Scripts
 {
     public class BuildSlot : MonoBehaviour
         , IPointerClickHandler

@@ -2,11 +2,10 @@
 // Author   : Daniel Bäcker
 // Project  : Projekt-Klopapier
 
-using System;
 using Code.Scripts.Grid.DanielB;
 using UnityEngine;
 
-namespace Build
+namespace Code.Scripts
 {
     public class StreetManager : MonoBehaviour
     {

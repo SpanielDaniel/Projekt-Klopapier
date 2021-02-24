@@ -20,7 +20,7 @@
         </e>
         <e p="Code" t="Include">
           <e p="Scripts" t="Include">
-            <e p="Build" t="Include">
+            <e p="Build-System" t="Include">
               <e p="BuildManager.cs" t="Include" />
               <e p="BuildSlot.cs" t="Include" />
               <e p="Street.cs" t="Include" />

@@ -44,7 +44,7 @@ namespace Buildings
         {
             GameObject unitObj = Instantiate(_unitPref);
             Unit unit = unitObj.GetComponent<Unit>();
-            unit.SetPos((int)_pos.transform.position.x, (int)_pos.transform.position.y);
+            unit.SetPos(_pos.GetWidth, _pos.GetHeight);
             unit.UpdatePos();
         }
     }
