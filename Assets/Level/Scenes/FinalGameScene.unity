@@ -5183,20 +5183,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4b0e2d981c640688e80dddb89d0217d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PrefScrapBuilding: {fileID: 6327789502137770140, guid: c473ab0fa7bb60e4189f489e2e9dd7d7, type: 3}
-  BuildUI: {fileID: 130869297}
-  PlayerData: {fileID: 1076116400}
-  MapGenerator: {fileID: 19634436}
   MainCamera: {fileID: 542076126}
+  PlayerData: {fileID: 1076116400}
+  UnitManager: {fileID: 1510486170}
+  MapGenerator: {fileID: 19634436}
+  UnitSelector: {fileID: 0}
+  PrefScrapBuilding: {fileID: 6327789502137770140, guid: c473ab0fa7bb60e4189f489e2e9dd7d7, type: 3}
+  PrefDestroyedHouse: {fileID: 6327789502137770140, guid: 20516046dcaf7534f9764c5df9f0dc84, type: 3}
+  PrefHouse: {fileID: 6327789502137770140, guid: db0b77832d4387741898be72ff0de1e3, type: 3}
+  BuildUI: {fileID: 130869297}
   BuildSlots:
   - {fileID: 329053147}
   - {fileID: 2001225415}
   - {fileID: 1032565780}
   - {fileID: 531339038}
   - {fileID: 152341109}
-  PrefDestroyedHouse: {fileID: 6327789502137770140, guid: 20516046dcaf7534f9764c5df9f0dc84, type: 3}
-  PrefHouse: {fileID: 6327789502137770140, guid: db0b77832d4387741898be72ff0de1e3, type: 3}
-  UnitManager: {fileID: 1510486170}
 --- !u!4 &510762075
 Transform:
   m_ObjectHideFlags: 0
@@ -7584,6 +7585,7 @@ MonoBehaviour:
   SpeedUI: {fileID: 1921620691}
   HealthPointsUI: {fileID: 988102962}
   UnitGroupUI: {fileID: 1322056595}
+  BuildManager: {fileID: 0}
 --- !u!1 &900975605
 GameObject:
   m_ObjectHideFlags: 0
@@ -7849,6 +7851,53 @@ RectTransform:
   m_AnchoredPosition: {x: -135, y: -12.5}
   m_SizeDelta: {x: -300, y: -55}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &943911205
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 943911206}
+  - component: {fileID: 943911207}
+  m_Layer: 0
+  m_Name: Wave
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &943911206
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 943911205}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 951071803}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &943911207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 943911205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24bf3308c1890c44d8c8763147518d56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Waves:
+  - EnemyPrefab:
+    - {fileID: 4189911507717445213, guid: 15ed7ad7f4dc24f448136a104b6a1ac1, type: 3}
+    WaitTimeForSpawn: 2
 --- !u!1 &951071802
 GameObject:
   m_ObjectHideFlags: 0
@@ -7881,6 +7930,7 @@ Transform:
   - {fileID: 19634438}
   - {fileID: 716871221}
   - {fileID: 1510486168}
+  - {fileID: 943911206}
   m_Father: {fileID: 1206762976}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8857,11 +8907,7 @@ MonoBehaviour:
   TimeText: {fileID: 2026219472}
   DayText: {fileID: 1235173206}
   BoolTimer: 1
-  StartTimer: 0
-  CurrentTimer: 0
-  Tage: 0
-  Stunden: 0
-  Minuten: 0
+  test: 0
 --- !u!1 &1016740177
 GameObject:
   m_ObjectHideFlags: 0

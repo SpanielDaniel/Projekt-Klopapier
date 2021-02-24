@@ -10,11 +10,15 @@ public class Timer : MonoBehaviour
     [SerializeField] private Text TimeText;
     [SerializeField] private Text DayText;
     [SerializeField] private bool BoolTimer = false;
-    public float StartTimer = 0;
-    public float CurrentTimer;
-    public float Tage = 0;
-    public float Stunden = 0;
-    public float Minuten = 0;
+    private float StartTimer = 0;
+    private float CurrentTimer;
+    private float Tage = 0;
+    private static float Stunden = 0;
+    private static float Minuten = 0;
+    public float test;
+
+    public static float GetStunden => Stunden;
+    public static float GetMinuten => Minuten;
 
     private void Start()
     {
@@ -26,6 +30,7 @@ public class Timer : MonoBehaviour
         DisplayTime(StartTimer);
         TimeText.text = string.Format("{0:00}:{1:00}", Stunden, Minuten);
         DayText.text = "Day: " + Tage;
+        Stunden = test;
     }
 
     void DisplayTime(float timeToDisplay)

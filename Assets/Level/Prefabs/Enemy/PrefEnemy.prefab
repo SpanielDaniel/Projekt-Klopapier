@@ -75,7 +75,7 @@ Animator:
   m_GameObject: {fileID: 4189911507717445213}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: c6acf3f29c109e4439950c8f6a85cb2b, type: 3}
-  m_Controller: {fileID: 9100000, guid: e3530fca7b9b0de4789a5354040d86e3, type: 2}
+  m_Controller: {fileID: 9100000, guid: d591e57db1b79e245a154cde035eba08, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -110,6 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5b0dc2321383b44d96d67e651696eca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RotateObject: {fileID: 184167101934432007}
   BulletPrefab: {fileID: 1751729499408640468, guid: b44b2bb692eb6ab4c81365a4bee3068c, type: 3}
   FirePoint: {fileID: 4662554353977691336}
   Data: {fileID: 11400000, guid: f72bf0422b0064747b6b585044adc958, type: 2}
@@ -183,6 +184,11 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 9500000, guid: c6acf3f29c109e4439950c8f6a85cb2b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c6acf3f29c109e4439950c8f6a85cb2b, type: 3}
+--- !u!1 &184167101934432007 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100052, guid: c6acf3f29c109e4439950c8f6a85cb2b, type: 3}
+  m_PrefabInstance: {fileID: 184167101934397907}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &184167101934269287 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400052, guid: c6acf3f29c109e4439950c8f6a85cb2b, type: 3}

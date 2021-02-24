@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 6234093201901879714}
   m_Layer: 0
   m_Name: EnemyTank
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,6 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5b0dc2321383b44d96d67e651696eca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RotateObject: {fileID: 3075520920139504222}
   BulletPrefab: {fileID: 1751729499408640468, guid: b44b2bb692eb6ab4c81365a4bee3068c, type: 3}
   FirePoint: {fileID: 3187279290289364717}
   Data: {fileID: 11400000, guid: 69f98c5ddaf223544940d82c6f449c69, type: 2}
@@ -183,6 +184,11 @@ PrefabInstance:
 --- !u!4 &2502539924453534816 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2896867665593862139, guid: 03bd5e3ea2209eb49a5742f90b548d10, type: 3}
+  m_PrefabInstance: {fileID: 759264483007835035}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3075520920139504222 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2316823819499745733, guid: 03bd5e3ea2209eb49a5742f90b548d10, type: 3}
   m_PrefabInstance: {fileID: 759264483007835035}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1730370188005137626 stripped

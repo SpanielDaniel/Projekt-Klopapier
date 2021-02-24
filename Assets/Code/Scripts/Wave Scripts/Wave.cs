@@ -8,6 +8,5 @@ using UnityEngine;
 public class Wave
 {
     public GameObject[] EnemyPrefab;
-    public int Count;
-    public float Rate;
+    public float WaitTimeForSpawn;
 }

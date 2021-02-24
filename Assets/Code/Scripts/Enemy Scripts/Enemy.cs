@@ -15,6 +15,8 @@ public class Enemy : MonoBehaviour
     private float Defence;
     private float MovementSpeed;
     private float Range ;
+    private float distance;
+    private Vector3 ViewDirection;
 
     private GameObject Target;
 
@@ -25,6 +27,7 @@ public class Enemy : MonoBehaviour
     private Waypoints wPoints;
 
     private Animator Animator;
+    [SerializeField] private GameObject RotateObject;
     [SerializeField] private GameObject BulletPrefab;
     [SerializeField] private Transform FirePoint;
     [SerializeField] private EnemyData Data;
@@ -38,7 +41,7 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        //wPoints = GameObject.FindGameObjectWithTag("Waypoints").GetComponent<Waypoints>();
+        wPoints = GameObject.FindGameObjectWithTag("Waypoints").GetComponent<Waypoints>();
         Animator = GetComponent<Animator>();
     }
 
@@ -55,15 +58,21 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        //transform.position = Vector3.MoveTowards(transform.position, wPoints.waypoints[WayPointIndex].position, BewegungsGeschwindigkeit * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, wPoints.waypoints[WayPointIndex].position, MovementSpeed * Time.deltaTime);
+        Vector3 direction = (wPoints.waypoints[WayPointIndex].position - transform.position);
 
-        //if (Vector3.Distance(transform.position, wPoints.waypoints[WayPointIndex].position) < 0.1f)
-        //{
-        //    if (WayPointIndex < wPoints.waypoints.Length - 1)
-        //        WayPointIndex++;
-        //}
+        distance = direction.magnitude;
+        ViewDirection = direction.normalized;
 
+        float angle = Vector2.SignedAngle(Vector2.up, new Vector2(ViewDirection.x, ViewDirection.z));
+        RotateObject.transform.eulerAngles = new Vector3(0, -angle, 0);
         Animator.SetBool("IsShooting", false);
+        if (Vector3.Distance(transform.position, wPoints.waypoints[WayPointIndex].position) < 0.1f)
+        {
+            if (WayPointIndex < wPoints.waypoints.Length - 1)
+                WayPointIndex++;
+        }
+
 
         if (CurrentHealthPoints <= 0)
         {
@@ -72,16 +81,29 @@ public class Enemy : MonoBehaviour
         }
         UpdateTarget();
 
-        if (Target == null)
-            return;
-
-        if (CountdownShoot <= 0f)
+        if (Target != null)
         {
-            Shoot(Target);
-            CountdownShoot = FireRate;
-        }
+            LockOnTarget();
+            if (CountdownShoot <= 0f)
+            {
+                Shoot(Target);
+                CountdownShoot = FireRate;
+            }
 
-        CountdownShoot -= Time.deltaTime;
+            CountdownShoot -= Time.deltaTime;
+        }
+    }
+
+    private void LockOnTarget()
+    {
+        Vector3 direction = (Target.transform.position - RotateObject.transform.position);
+
+        distance = direction.magnitude;
+        ViewDirection = direction.normalized;
+
+
+        float angle = Vector2.SignedAngle(Vector2.up, new Vector2(ViewDirection.x, ViewDirection.z));
+        RotateObject.transform.eulerAngles = new Vector3(0, -angle, 0);
     }
 
     void Shoot(GameObject Target)

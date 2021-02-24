@@ -9,15 +9,12 @@ public class Wave_Spawner : MonoBehaviour
 {
     [SerializeField] private Wave[] Waves;
     private Waypoints wPoints;
-    private float CountDown;
-    private float StartCountDown; //ToDo: combine with Timer
     public static int EnemiesAlive;
     private int WaveIndex = 0;
 
     private void Start()
     {
         wPoints = GameObject.FindGameObjectWithTag("Waypoints").GetComponent<Waypoints>();
-        CountDown = StartCountDown;
     }
 
     private void Update()
@@ -27,33 +24,30 @@ public class Wave_Spawner : MonoBehaviour
             return;
         }
 
-        if (CountDown <= 0f)
+        if (Timer.GetStunden == 6 && Timer.GetMinuten == 0)
         {
             StartCoroutine(WaveSpawn());
-            CountDown = StartCountDown;
         }
 
-        CountDown -= Time.deltaTime;
     }
 
     IEnumerator WaveSpawn()
     {
         Wave wave = Waves[WaveIndex];
 
-        for (int i = 0; i < wave.Count; i++)
+        for (int i = 0; i < wave.EnemyPrefab.Length; i++)
         {
             SpawnEnemy(wave.EnemyPrefab[i]);
-            yield return new WaitForSeconds(1f / wave.Rate);
         }
+        yield return new WaitForSeconds(1f / wave.WaitTimeForSpawn);
 
         WaveIndex++;
 
         if (WaveIndex == Waves.Length)
         {
-            //ToDo Waves besiegt / gewonnen
-            this.enabled = false;
-            Debug.Log("Ez Win");
+            gameObject.SetActive(false);
         }
+
     }
 
     public void SpawnEnemy(GameObject _enemy)

@@ -16,7 +16,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 557290a4e7372b941a0ccae8ac7f9b42, type: 3}
   MaxHealthPoints: 200
   Defence: 50
-  AttackPoints: 50
-  AttackSpeed: 0.5
-  MoveSpeed: 2
-  Range: 20
+  AttackPoints: 75
+  AttackSpeed: 5
+  MoveSpeed: 1
+  Range: 5

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c73c6bfb52d098d47a73a3ac3d8728bf, type: 3}
   m_Name: EnemyTank
   m_EditorClassIdentifier: 
-  MaxHealthPoints: 0
-  Defence: 0
-  AttackPoints: 0
-  AttackSpeed: 0
-  MoveSpeed: 0
-  Range: 0
+  MaxHealthPoints: 100
+  Defence: 20
+  AttackPoints: 50
+  AttackSpeed: 5
+  MoveSpeed: 3
+  Range: 5
