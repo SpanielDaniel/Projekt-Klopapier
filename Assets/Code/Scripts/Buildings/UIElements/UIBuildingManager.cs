@@ -125,7 +125,11 @@ namespace UI_Scripts
             if (!CurrentSelectedBuilding.IsBuiltHandler) return;
             
             if(CurrentSelectedBuilding is Storage) UIBuildingElements[(int)EBuilding.Storage].SetActive(true);
-            if(CurrentSelectedBuilding is Farm) UIBuildingElements[(int)EBuilding.Farm].SetActive(true);
+            if (CurrentSelectedBuilding is Farm)
+            {
+                UIBuildingElements[(int)EBuilding.Farm].SetActive(true);
+                UIBuildingElements[(int)EBuilding.Farm].GetComponent<UIFarm>().UpdateUI(CurrentSelectedBuilding as Farm);
+            }
             if(CurrentSelectedBuilding is Base)
             {
                 UIBuildingElements[(int)EBuilding.Base].SetActive(true);

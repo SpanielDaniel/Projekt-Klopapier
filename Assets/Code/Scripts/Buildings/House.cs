@@ -52,6 +52,7 @@ namespace Buildings
                 RightSideUnitIDs[i] = -1;
             }
 
+            Debug.Log("Add");
             PlayerData.GetInstance.PopulationCapacityH += PopulationCapacity;
             base.OnBuildEffect();
         }

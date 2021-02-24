@@ -2,18 +2,36 @@
 // Author   : Daniel Pobijanski
 // Project  : Projekt-Klopapier
 
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
+
+    public static event Action<int> OnDayChanged; 
     [SerializeField] private Text TimeText;
     [SerializeField] private Text DayText;
     [SerializeField] private bool BoolTimer = false;
-    private float StartTimer = 0;
+    private float StartTimer = 0.01f;
     private float CurrentTimer;
-    private float Tage = 0;
-    private static float Stunden = 0;
+    [SerializeField] private float TimeSpeed = 1.5f;
+
+    private int Day = 0;
+
+    private int DayH
+    {
+        get => Day;
+        set
+        {
+            if (value != Day)
+            {
+                Day = value;
+                OnDayChanged?.Invoke(Day);
+            }
+        }
+    }
+    private static int Stunden = 0;
     private static float Minuten = 0;
     public float test;
 
@@ -29,19 +47,20 @@ public class Timer : MonoBehaviour
     {
         DisplayTime(StartTimer);
         TimeText.text = string.Format("{0:00}:{1:00}", Stunden, Minuten);
-        DayText.text = "Day: " + Tage;
-        Stunden = test;
+        DayText.text = "Day: " + DayH;
+        //Stunden = test;
     }
 
     void DisplayTime(float timeToDisplay)
     {
         if (BoolTimer)
         {
-            CurrentTimer += 1.5f * Time.deltaTime;
+            CurrentTimer += TimeSpeed * Time.deltaTime;
             Minuten = (int)CurrentTimer;
 
             if (CurrentTimer >= 60)
             {
+                Debug.Log("stunden" + Stunden);
                 Stunden++;
 
                 Minuten = 0;
@@ -50,7 +69,7 @@ public class Timer : MonoBehaviour
 
             if (Stunden == 24)
             {
-                Tage++;
+                DayH++;
                 Stunden = 0;
             }
         }

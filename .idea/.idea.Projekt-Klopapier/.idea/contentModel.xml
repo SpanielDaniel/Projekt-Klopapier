@@ -38,6 +38,7 @@
               <e p="UIElements" t="Include">
                 <e p="UIBase.cs" t="Include" />
                 <e p="UIBuildingManager.cs" t="Include" />
+                <e p="UIFarm.cs" t="Include" />
                 <e p="UIHouse.cs" t="Include" />
                 <e p="UIScrap.cs" t="Include" />
               </e>

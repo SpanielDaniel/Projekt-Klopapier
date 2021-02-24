@@ -298,6 +298,7 @@ MonoBehaviour:
   BuildingObj: {fileID: 8513977423799904175}
   EntranceObjPos: {fileID: 2373609056709711574}
   EntranceObj: {fileID: 2726995409753219426}
+  PopulationCapacity: 2
 --- !u!1 &8513977423799904175
 GameObject:
   m_ObjectHideFlags: 0

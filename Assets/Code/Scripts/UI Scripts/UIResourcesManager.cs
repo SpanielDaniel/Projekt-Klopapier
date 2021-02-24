@@ -16,6 +16,7 @@ namespace UI_Scripts
         [SerializeField] private TextMeshProUGUI Stone;
         [SerializeField] private TextMeshProUGUI Steel;
         [SerializeField] private TextMeshProUGUI Food;
+        [SerializeField] private TextMeshProUGUI Population;
 
         private int StorageCapacity;
 
@@ -27,6 +28,8 @@ namespace UI_Scripts
             PlayerData.SteelAmountChanged += SetTextToSteelAmount;
             PlayerData.FoodAmountChanged += SetTextToFoodAmount;
             PlayerData.StorageCapacityChanged += SetStorageCapacity;
+
+            PlayerData.PopulationChanged += SetTextPopulation;
         }
 
         private void SetStorageCapacity(int _storageCapacity)
@@ -57,9 +60,14 @@ namespace UI_Scripts
         {
             Steel.text = _steelAmount.ToString()+ AddStorageCapacity();
         }
-        private void SetTextToFoodAmount(int _foodAmount)
+        private void SetTextToFoodAmount(float _foodAmount)
         {
-            Food.text = _foodAmount.ToString() + AddStorageCapacity();
+            Food.text = Math.Round(_foodAmount).ToString() + AddStorageCapacity();
+        }
+
+        private void SetTextPopulation(int _amount, int _max)
+        {
+            Population.text = "(" + _amount + "/" + _max + ")";
         }
 
         private string AddStorageCapacity()
