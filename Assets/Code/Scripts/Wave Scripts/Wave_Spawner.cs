@@ -10,7 +10,7 @@ public class Wave_Spawner : MonoBehaviour
     [SerializeField] private Wave[] Waves;
     private Waypoints wPoints;
     private float CountDown;
-    private float StartCountDown = 10f;
+    private float StartCountDown; //ToDo: combine with Timer
     public static int EnemiesAlive;
     private int WaveIndex = 0;
 
@@ -42,7 +42,7 @@ public class Wave_Spawner : MonoBehaviour
 
         for (int i = 0; i < wave.Count; i++)
         {
-            SpawnEnemy(wave.EnemyPrefab);
+            SpawnEnemy(wave.EnemyPrefab[i]);
             yield return new WaitForSeconds(1f / wave.Rate);
         }
 

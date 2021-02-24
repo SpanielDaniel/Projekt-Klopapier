@@ -161,10 +161,10 @@ public class Unit : MonoBehaviour
         if (Target != null)
         {
             LockOnTarget();
+            IsMoving = false;
 
             if (CountDownShoot <= 0f)
             {
-                IsMoving = false;
                 isIlde = false;
                 Animator.SetBool("IsMoving", false);
                 Animator.SetBool("IsCombat", true);
