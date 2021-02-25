@@ -105,6 +105,7 @@ namespace UI_Scripts
                 foreach (UISlot slot in BuildingSlots2)
                 {
                     slot.SetDefaultSprite();
+                    slot.RemoveUnit();
                 }
                 
                 for (int i = 0; i < CurrentSelectedBuilding.GetUnitIDs.Count; i++)

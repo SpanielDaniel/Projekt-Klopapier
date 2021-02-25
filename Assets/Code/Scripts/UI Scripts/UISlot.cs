@@ -4,9 +4,12 @@
 
 using System;
 using Code.Scripts;
+using Interfaces;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
+using Image = UnityEngine.UI.Image;
 
 namespace UI_Scripts
 {
@@ -28,11 +31,11 @@ namespace UI_Scripts
         private void Awake()
         {
             if(Button != null) Button.SetActive(false);
+            UnitID = -1;
         }
 
         private void Start()
         {
-            //Cross.SetActive(false);
             StartEffect();
         }
 
@@ -50,7 +53,12 @@ namespace UI_Scripts
             Cross.SetActive(!_isActive);
         }
 
-
+        public void RemoveUnit()
+        {
+            SetUnitId(-1);
+            //Button.SetActive(false);
+        }
+        
         public void Init(Sprite _sprite, int _unitID)
         {
             SetImage(_sprite);
@@ -64,6 +72,7 @@ namespace UI_Scripts
         private void SetUnitId(int _id)
         {
             UnitID = _id;
+            if(UnitID >= 0 && IsMouseEntered) Button.SetActive(true); 
         }
 
         public void SetDefaultSprite()
@@ -75,23 +84,32 @@ namespace UI_Scripts
         
         #region Events
 
+        private bool IsMouseEntered;
+
         public void OnPointerEnter(PointerEventData eventData)
         {
-            if(Button != null) Button.SetActive(true);
+            IsMouseEntered = true;
+            if (Button != null && UnitID >= 0) Button.SetActive(true);
+            else Button.SetActive(false);
         }
+        
+        
 
         public void OnPointerExit(PointerEventData eventData)
         {
+            IsMouseEntered = false;
             if(Button != null) Button.SetActive(false);
         }
 
         public virtual void ButtonAction()
         {
-            if (UnitID == null) return;
+            if (UnitID < 0) return;
+            Button.SetActive(false);
             Unit unit = Unit.Units[UnitID];
             OnUnitRelease?.Invoke(unit);
         }
 
         #endregion
+
     }
 }
