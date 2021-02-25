@@ -11073,6 +11073,7 @@ MonoBehaviour:
   CurrentImage: {fileID: 1123274442}
   DefaultSprite: {fileID: 0}
   Button: {fileID: 0}
+  Cross: {fileID: 0}
 --- !u!114 &1030124463 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: -8907449649113563415, guid: d9686bc7b89a39e47a8de8d7a11aef29, type: 3}
@@ -15573,6 +15574,7 @@ MonoBehaviour:
   SelectionBox: {fileID: 0}
   UIUnitManager: {fileID: 0}
   UnitManager: {fileID: 0}
+  BuildManager: {fileID: 0}
   MapGenerator: {fileID: 0}
 --- !u!4 &1439436101
 Transform:
@@ -16529,6 +16531,7 @@ MonoBehaviour:
   SelectionBox: {fileID: 1874212694}
   UIUnitManager: {fileID: 897445853}
   UnitManager: {fileID: 1510486170}
+  BuildManager: {fileID: 510762074}
   MapGenerator: {fileID: 19634436}
 --- !u!114 &1510486170
 MonoBehaviour:
@@ -20861,6 +20864,7 @@ MonoBehaviour:
   CurrentImage: {fileID: 241933425}
   DefaultSprite: {fileID: 0}
   Button: {fileID: 0}
+  Cross: {fileID: 0}
 --- !u!1 &1916530390
 GameObject:
   m_ObjectHideFlags: 0
@@ -21192,6 +21196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BuildManager: {fileID: 510762074}
+  UnitSelector: {fileID: 1510486169}
   UIVisibilityManager: {fileID: 463957672}
 --- !u!4 &1961194937
 Transform:
