@@ -63,6 +63,7 @@
               <e p="Grid.cs" t="Include" />
               <e p="Node.cs" t="Include" />
               <e p="Pathfinding.cs" t="Include" />
+              <e p="PathfindingDijkstra.cs" t="Include" />
             </e>
             <e p="Ground.cs" t="Include" />
             <e p="Interfaces" t="Include">

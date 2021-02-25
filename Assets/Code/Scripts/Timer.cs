@@ -60,7 +60,7 @@ public class Timer : MonoBehaviour
 
             if (CurrentTimer >= 60)
             {
-                Debug.Log("stunden" + Stunden);
+                
                 Stunden++;
 
                 Minuten = 0;

@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using Buildings;
 using Code.Scripts;
+using Code.Scripts.Grid.DanielB;
 using Code.Scripts.Map;
 using Player;
 using UnityEngine;
@@ -71,7 +72,13 @@ public class Unit : MonoBehaviour
         Initialize(UnitData);
         AddUnit(this);
         MapGenerator.MapIsBuild += AddPopulation;
+        UnitManager.OnNodeReady += UpdateNodes;
 
+    }
+
+    private void UpdateNodes()
+    {
+        UnitManager.GetInstance.GetNodes[GetXPosition, GetZPosition].IsUnit = true;
     }
 
     private void AddPopulation()
@@ -150,13 +157,32 @@ public class Unit : MonoBehaviour
 
             if (NextNode >= Path.Count)
             {
-                transform.position = Path[NextNode - 1].Pos;
-                Path = null;
-                IsMoving = false;
-                isIlde = true;
-
+                
+                bool isUnitOnGround = UnitManager.GetInstance.GetNodes[   Path[NextNode - 1].GridX   ,    Path[NextNode - 1].GridZ   ].IsUnit   ;
+                
+                
+                
+                if (isUnitOnGround)
+                {
+                    Path = null;
+                    UnitManager.GetInstance.FindPathToFreePosition(this);
+                }
+                else
+                {
+                    transform.position = Path[NextNode - 1].Pos;
+                    Path = null;
+                    IsMoving = false;
+                    isIlde = true;
+                    
+                    UnitManager.GetInstance.GetNodes[GetXPosition, GetZPosition].IsUnit = true;
+                
+                    
+                }
+                
                 if (IsMovingIntoBuilding)
                 {
+                    UnitManager.GetInstance.GetNodes[GetXPosition, GetZPosition].IsUnit = false;
+
                     if (BuildingToEnter.AddUnit(ID))
                     {
                         gameObject.SetActive(false);
@@ -271,7 +297,8 @@ public class Unit : MonoBehaviour
         
         if(IsMovingIntoBuilding) FindObjectOfType<AudioManager>().Play("GetInside");
         else if(!IsMoving)FindObjectOfType<AudioManager>().Play("MoveUnit");
-        else FindObjectOfType<AudioManager>().Play("KeepMovingUnit");
+        if(Path != null) FindObjectOfType<AudioManager>().Play("KeepMovingUnit");
+        
         
         
         Path = _path;

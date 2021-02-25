@@ -74,7 +74,10 @@ public class UnitSelector : MonoBehaviour
                 Ray ray;
                 ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
-                if (Physics.Raycast(ray, out hit))
+
+                LayerMask mask = LayerMask.GetMask("Ground") + LayerMask.GetMask("Building");
+                
+                if (Physics.Raycast(ray, out hit,100,mask))
                 {
                     Ground ground = hit.transform.GetComponent<Ground>();
                     if (ground != null)
@@ -82,14 +85,13 @@ public class UnitSelector : MonoBehaviour
                         SelectedUnits[0].CancelMovingIntoBuilding();
                         MoveUnits(ground.GetWidth, ground.GetHeight);
                     }
-
-                   Building building = hit.transform.GetComponent<Building>();
+                    Building building = hit.transform.GetComponent<Building>();
                    
-                   if (building != null)
-                   {
-                       if(building.GetUnitCanEnter) MoveUnitsIntoBuilding(SelectedUnits[0],building);
-                       else FindObjectOfType<AudioManager>().Play("CantBuild");                   
-                   }
+                    if (building != null)
+                    {
+                        if(building.GetUnitCanEnter) MoveUnitsIntoBuilding(SelectedUnits[0],building);
+                        else FindObjectOfType<AudioManager>().Play("CantBuild");                   
+                    }
                 }
             }
         }
@@ -166,7 +168,6 @@ public class UnitSelector : MonoBehaviour
         CheckUnitsCount();
     }
 
-
     private void CheckUnitsCount()
     {
         if (SelectedUnitsH.Count == 1)
@@ -203,21 +204,6 @@ public class UnitSelector : MonoBehaviour
         SelectedUnitsH.Clear();
     }
 
-    //private List<Vector3> GroupUnitPositionList(Vector3 startPosition, float distance, int positionCount)
-    //{
-    //    List<Vector3> positionList = new List<Vector3>();
-    //    for (int i = 0; i < positionCount; i++)
-    //    {
-    //        float angle = i * (360f / positionCount);
-    //        Vector3 dir = Rotation(new Vector3(1, 0, 1), angle);
-    //        Vector3 position = startPosition + dir * distance;
-    //        positionList.Add(position);
-    //    }
-    //    return positionList;
-    //}
 
-    //private Vector3 Rotation(Vector3 vec, float angle)
-    //{
-    //    return Quaternion.Euler(0, angle, 0) * vec;
-    //}
+    
 }

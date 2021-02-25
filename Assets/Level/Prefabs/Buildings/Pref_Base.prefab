@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7564879672837344244}
   - component: {fileID: 8760880929096110565}
   - component: {fileID: 344158509223267728}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 7106217976449161470}
   - component: {fileID: 6340660652734937114}
   - component: {fileID: 7448170802471103324}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Plane_Entry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -204,7 +204,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5284623411613379772}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: BuildingObj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -240,9 +240,9 @@ GameObject:
   - component: {fileID: 6215205738702565578}
   - component: {fileID: 4576719750695096249}
   - component: {fileID: 1412540020663212208}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pref_Base
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -310,7 +310,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2488799633570747426}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Entry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -339,9 +339,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6762184937199410157}
     m_Modifications:
+    - target: {fileID: 7083797251397736194, guid: cdfe00ae97007fd48813efa718ed103e, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 7083797251429737248, guid: cdfe00ae97007fd48813efa718ed103e, type: 3}
       propertyPath: m_Name
       value: S_LifeBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 7083797251429737248, guid: cdfe00ae97007fd48813efa718ed103e, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 7083797251429737249, guid: cdfe00ae97007fd48813efa718ed103e, type: 3}
       propertyPath: m_Pivot.x
@@ -431,6 +439,14 @@ PrefabInstance:
       propertyPath: m_Value
       value: 37
       objectReference: {fileID: 0}
+    - target: {fileID: 7083797251881264784, guid: cdfe00ae97007fd48813efa718ed103e, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7083797253032006618, guid: cdfe00ae97007fd48813efa718ed103e, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 7083797253032006619, guid: cdfe00ae97007fd48813efa718ed103e, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -442,6 +458,14 @@ PrefabInstance:
     - target: {fileID: 7083797253032006619, guid: cdfe00ae97007fd48813efa718ed103e, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7083797253050803754, guid: cdfe00ae97007fd48813efa718ed103e, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7083797253114526993, guid: cdfe00ae97007fd48813efa718ed103e, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cdfe00ae97007fd48813efa718ed103e, type: 3}
@@ -528,6 +552,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main_Building
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9cd607b23d5f326479e1a5f85d76cb68, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9cd607b23d5f326479e1a5f85d76cb68, type: 3}
 --- !u!4 &4071238530240265966 stripped
@@ -606,6 +634,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 83ea7cdfdde21084fba5f92d531df73d, type: 3}
       propertyPath: m_Name
       value: Flag
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 83ea7cdfdde21084fba5f92d531df73d, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 83ea7cdfdde21084fba5f92d531df73d, type: 3}
       propertyPath: m_IsActive
