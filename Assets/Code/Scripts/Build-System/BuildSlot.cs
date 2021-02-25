@@ -21,8 +21,14 @@ namespace Code.Scripts
         [SerializeField] private Text BuildingName;
         [SerializeField] private Color NormalColor;
         [SerializeField] private Color MouseEnterColor;
+        [SerializeField] private GameObject Cross;
 
         public static event Action<GameObject> OnMouseClick;
+
+        private void Awake()
+        {
+            Cross.SetActive(false);
+        }
 
         private void Start()
         {
@@ -34,6 +40,7 @@ namespace Code.Scripts
             BuildingData data = Building.GetComponent<Building>().GetData;
             IconImage.sprite = data.BuldingTexture;
             BuildingName.text = data.Name;
+            Cross.SetActive(false);
         }
 
         public void OnPointerClick(PointerEventData eventData)

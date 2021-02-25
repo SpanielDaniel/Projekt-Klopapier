@@ -15,7 +15,7 @@ namespace Buildings
     , IMouseEnter
     , IMouseStay
     , IMouseExit
-    , IMouseLeftClick
+    , IMouseLeftUp
     {
         // -------------------------------------------------------------------------------------------------------------
 
@@ -60,6 +60,7 @@ namespace Buildings
         [Space]
         [Header("Building Objects")]
         [SerializeField] private GameObject BuildingObj;
+        [SerializeField] private GameObject BuidingConstruction;
         [SerializeField] private GameObject EntranceObjPos;
         [SerializeField] private GameObject EntranceObj;
         
@@ -158,6 +159,7 @@ namespace Buildings
         private void Init()
         {
             SetEntranceActive(false);
+            SetConstructionActive(false);
             HealthBar.SetActive(false);
             AddBuilding();
         }
@@ -378,7 +380,7 @@ namespace Buildings
         public void SetBaseMaterial()
         {
             MeshRenderer.material = BaseMaterial;
-            if (Buildings.Count == 1)
+            if (this is Base)
             {
                 OnBaseIsUnderConstruction?.Invoke();
             }
@@ -399,6 +401,12 @@ namespace Buildings
         {
             if (EntranceObj == null) return;
             EntranceObj.SetActive(_active);
+        }
+
+        public void SetConstructionActive(bool _isActive)
+        {
+            BuidingConstruction.SetActive(_isActive);
+            MeshRenderer.gameObject.SetActive(!_isActive);
         }
         
         // Collider Setter ---------------------------------------------------------------------------------------------
@@ -445,7 +453,7 @@ namespace Buildings
             HealthBar.SetActive(false);
         }
 
-        public void OnMouseLeftClickAction()
+        public void OnMouseLeftUpAction()
         {
             OnClick?.Invoke(this);
         }
@@ -453,6 +461,7 @@ namespace Buildings
         // On Built ----------------------------------------------------------------------------------------------------
         protected virtual void OnBuildEffect()
         {
+            SetConstructionActive(false);
             RemoveAllUnits();
         }
         

@@ -14,6 +14,7 @@ namespace Buildings
         private int MaxBackUnitAmount = 4;
         private int MaxLeftUnitAmount = 1;
         private int MaxRightUnitAmount = 1;
+        
         private int[] FrontSideUnitIDs = new int[8];
         private int[] BackSideUnitIDs = new int[8];
         private int[] LeftSideUnitIDs = new int[3];
@@ -64,6 +65,7 @@ namespace Buildings
             MaxLeftUnitAmount++;
             MaxRightUnitAmount++;
             
+            StartOnValueChanged();
         }
 
         protected override void AddUnitEffect()

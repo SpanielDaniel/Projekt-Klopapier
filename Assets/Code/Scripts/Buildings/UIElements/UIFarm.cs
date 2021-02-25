@@ -17,6 +17,7 @@ namespace Code.Scripts.Buildings.UIElements
             foreach (UISlot slot in Slots)
             {
                 slot.SetDefaultSprite();
+                
             }
             for (int i = 0; i < _farm.GetUnitIDs.Count; i++)
             {

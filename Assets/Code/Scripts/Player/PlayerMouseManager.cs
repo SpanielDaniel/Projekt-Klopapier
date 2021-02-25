@@ -12,6 +12,7 @@ namespace Player
     {
         
         [SerializeField] private BuildManager BuildManager;
+        [SerializeField] private UnitSelector UnitSelector;
         [SerializeField] private UIVisibilityManager UIVisibilityManager;
 
         private Vector3 MousePos;
@@ -70,10 +71,20 @@ namespace Player
 
                 if (Input.GetMouseButtonDown(0))
                 {
-                    IMouseLeftClick mLeftclick = CurrentHit.GetComponent<IMouseLeftClick>();
+                    IMouseLeftDown mLeftclick = CurrentHit.GetComponent<IMouseLeftDown>();
                     
-                    if(mLeftclick != null) mLeftclick.OnMouseLeftClickAction();
+                    if(mLeftclick != null) mLeftclick.OnMouseLeftDownAction();
                 }
+                
+                Vector2 vec = new Vector2(3,3);
+                
+                if (Input.GetMouseButtonUp(0) &&  UnitSelector.GetSelectionBox.sizeDelta.x < vec.x &&  UnitSelector.GetSelectionBox.sizeDelta.y < vec.y)
+                {
+                    IMouseLeftUp mLeftclick = CurrentHit.GetComponent<IMouseLeftUp>();
+                    
+                    if(mLeftclick != null) mLeftclick.OnMouseLeftUpAction();
+                }
+
                 
                 LastHit = CurrentHit;
             }

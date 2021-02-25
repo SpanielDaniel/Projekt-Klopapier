@@ -35,6 +35,7 @@ namespace Code.Scripts
         
         [SerializeField] private EGround GroundSignature;
         [SerializeField] private MeshRenderer Renderer;
+        [SerializeField] private MeshRenderer UnitMesh;
         
         private int Width;
         private int Height;
@@ -53,6 +54,7 @@ namespace Code.Scripts
         private void Start()
         {
             SetMeshActive(false);
+            SetUnitMeshActive(false);
         }
 
         public EGround GetGroundSignature => GroundSignature;
@@ -74,6 +76,11 @@ namespace Code.Scripts
         public void SetGroundSignature(EGround _groundSignature)
         {
             GroundSignature = _groundSignature;
+        }
+
+        public void SetUnitMeshActive(bool _isActive)
+        {
+            UnitMesh.enabled = _isActive;
         }
         
         

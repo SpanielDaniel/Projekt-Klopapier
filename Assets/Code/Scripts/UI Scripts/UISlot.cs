@@ -21,6 +21,7 @@ namespace UI_Scripts
         [SerializeField] private Image CurrentImage;
         [SerializeField] private Sprite DefaultSprite;
         [SerializeField] private GameObject Button;
+        [SerializeField] private GameObject Cross;
 
         private int UnitID;
 
@@ -31,6 +32,7 @@ namespace UI_Scripts
 
         private void Start()
         {
+            //Cross.SetActive(false);
             StartEffect();
         }
 
@@ -42,6 +44,11 @@ namespace UI_Scripts
         #endregion
         
         #region Function
+
+        public void SetSlotActive(bool _isActive )
+        {
+            Cross.SetActive(!_isActive);
+        }
 
 
         public void Init(Sprite _sprite, int _unitID)

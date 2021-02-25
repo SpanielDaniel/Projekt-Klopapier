@@ -13,11 +13,13 @@ using UnityEngine;
 
 public class UnitSelector : MonoBehaviour
 {
+    
     public static event Action<Unit> SelectUnit;
     public static event Action<List<Unit>> SelectedUnitGroup;
     public static event Action NoUnitSelected;
+    public static event Action SelectionChanged;
     
-    public static List<Unit> SelectedUnits = new List<Unit>();
+    private static List<Unit> SelectedUnits = new List<Unit>();
     
     
     [SerializeField] private Vector2 testEndNode;
@@ -26,6 +28,11 @@ public class UnitSelector : MonoBehaviour
         get => SelectedUnits;
         set 
         {
+            
+            // if (SelectedUnits != value)
+            // {
+            //     SelectionChanged?.Invoke();
+            // } 
             SelectedUnits = value;
             
         }
@@ -34,7 +41,13 @@ public class UnitSelector : MonoBehaviour
     [SerializeField] private RectTransform SelectionBox;
     [SerializeField] private UIUnitManager UIUnitManager;
     [SerializeField] private UnitManager UnitManager;
+    [SerializeField] private BuildManager BuildManager;
+    
     private Vector2 startPos;
+
+    private Ground CurrentGround;
+
+    public RectTransform GetSelectionBox => SelectionBox;
 
     private void Start()
     {
@@ -52,16 +65,51 @@ public class UnitSelector : MonoBehaviour
 
     private void Update()
     {
+
+        if (SelectedUnitsH.Count > 0)
+        {
+            Ray ray;
+            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            LayerMask mask = LayerMask.GetMask("Ground");
+
+            if (Physics.Raycast(ray, out hit, 100, mask)) ;
+            {
+                if (hit.transform)
+                {
+                    Ground ground = hit.transform.GetComponent<Ground>();
+                    if (ground != null)
+                    {
+                        if (ground != CurrentGround && CurrentGround != null) CurrentGround.SetUnitMeshActive(false);
+                        CurrentGround = ground;
+                        CurrentGround.SetUnitMeshActive(true);
+                    }
+                }
+            }
+        }
+
         
         if (Input.GetMouseButtonDown(0))
         {
-            ClearSelectedUnit();
+            if (!UIPointerInHudManager.GetIsInHut && !BuildManager.GetIsBuilding)
+            {
+                ClearSelectedUnit();
+                if (CurrentGround != null)
+                {
+                    CurrentGround.SetUnitMeshActive(false);
+                    CurrentGround = null;
+                }
+            }
+            
             startPos = Input.mousePosition;
         }
+        
         if (Input.GetMouseButtonUp(0))
         {
-            ReleaseSelectionBox();
+             ReleaseSelectionBox();
         }
+        
         if (Input.GetMouseButton(0))
         {
             UpdateSelectionBox(Input.mousePosition);
@@ -82,7 +130,11 @@ public class UnitSelector : MonoBehaviour
                     Ground ground = hit.transform.GetComponent<Ground>();
                     if (ground != null)
                     {
-                        SelectedUnits[0].CancelMovingIntoBuilding();
+                        foreach (Unit unit in SelectedUnitsH)
+                        {
+                            unit.CancelMovingIntoBuilding();
+
+                        }
                         MoveUnits(ground.GetWidth, ground.GetHeight);
                     }
                     Building building = hit.transform.GetComponent<Building>();
@@ -111,7 +163,7 @@ public class UnitSelector : MonoBehaviour
 
     private void MoveAllUnitsIntoBuilding(Building _building)
     {
-        foreach (Unit unit in SelectedUnits)
+        foreach (Unit unit in SelectedUnitsH)
         {
             MoveUnitsIntoBuilding(unit,_building);
         }
@@ -161,16 +213,17 @@ public class UnitSelector : MonoBehaviour
 
         foreach (Unit units in Unit.Units)
         {
-            Vector3 screenPos = CameraMain.WorldToScreenPoint(units.transform.position);
+            units.IsSelected = false;
+            
+            if (units.isActiveAndEnabled)
+            {
+                Vector3 screenPos = CameraMain.WorldToScreenPoint(units.transform.position);
 
-            if (screenPos.x > min.x && screenPos.x < max.x && screenPos.y > min.y && screenPos.y < max.y)
-            {
-                SelectedUnitsH.Add(units);
-                units.IsSelected = true;
-            }
-            else
-            {
-                units.IsSelected = false;
+                if (screenPos.x > min.x && screenPos.x < max.x && screenPos.y > min.y && screenPos.y < max.y)
+                {
+                    SelectedUnitsH.Add(units);
+                    units.IsSelected = true;
+                }
             }
         }
         
@@ -206,11 +259,13 @@ public class UnitSelector : MonoBehaviour
 
     private void ClearSelectedUnit()
     {
+        
         foreach (Unit _unit in SelectedUnitsH)
         {
             _unit.SetSelectedGround(false);
         }
         SelectedUnitsH.Clear();
+        SelectionChanged?.Invoke();
     }
 
 

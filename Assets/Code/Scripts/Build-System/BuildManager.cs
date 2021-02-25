@@ -93,8 +93,10 @@ namespace Code.Scripts
             Base.OnBaseCreated += DeactivateBaseSlot;
             BuildSlot.OnMouseClick += OnMouseClickedBuildSlot;
             Building.OnBaseIsUnderConstruction += DeactivateBaseSlot;
+            UnitSelector.SelectionChanged += RightMouseButtonClicked;
         }
-        
+
+
         // Start -------------------------------------------------------------------------------------------------------
 
         /// <summary>
@@ -128,9 +130,6 @@ namespace Code.Scripts
             SetMeshActiveOfAllGrounds(true);
             
             CreateBuilding(_buildingPrefab);
-            
-            
-
             
             IsBuilding = true;
         }
@@ -350,9 +349,6 @@ namespace Code.Scripts
             }
         }
         
-        
-
-        
         private void HandleMouseInput()
         {
             // Left Mouse Button
@@ -390,6 +386,7 @@ namespace Code.Scripts
                 
                 CurrentBuilding.SetPosition(CurrentGround.GetWidth,CurrentGround.GetHeight);
                 CurrentBuilding.SetEntranceGround(MapGenerator.GetGroundFromGlobalPosition(CurrentBuilding.GetEntrancePoss()));
+                CurrentBuilding.SetConstructionActive(true);
 
                 for (int i = 0; i < CurrentBuilding.CurrentHeightH; i++)
                 {
@@ -401,15 +398,16 @@ namespace Code.Scripts
                     }
                 }
                 
-                 UnitSelector.MoveUnitsIntoBuilding(Unit,CurrentBuilding);
+                UnitSelector.MoveUnitsIntoBuilding(Unit,CurrentBuilding);
 
                 Unit.MoveIntoBuilding(CurrentBuilding);
 
                 BuildUI.SetActive(false);
-                IsBuilding = false;
                     
                 SetColliderActiveOfAllBuildings(true);
                 SetMeshActiveOfAllGrounds(false);
+                CurrentBuilding = null;
+                IsBuilding = false;
             }
             else
             {
@@ -419,12 +417,13 @@ namespace Code.Scripts
 
         private void RightMouseButtonClicked()
         {
-            IsBuilding = false;
+            
             BuildUI.SetActive(false);
 
-            Destroy(CurrentBuildingObject);
+            if(IsBuilding)Destroy(CurrentBuildingObject);
+            
             CurrentBuildingObject = null;
-                
+            IsBuilding = false;
             SetColliderActiveOfAllBuildings(true);
             SetMeshActiveOfAllGrounds(false);
         }

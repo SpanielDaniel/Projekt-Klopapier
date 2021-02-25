@@ -15,7 +15,7 @@ using Player;
 using UnityEngine;
 
 public class Unit : MonoBehaviour
-    ,IMouseLeftClick
+    ,IMouseLeftDown
 {
     public static event Action<Unit> OnSelection;
     public static event Action<Unit> IsSpawned; 
@@ -318,9 +318,8 @@ public class Unit : MonoBehaviour
         BuildingToEnter = null;
     }
 
-    public void OnMouseLeftClickAction()
+    public void OnMouseLeftDownAction()
     {
-        
         OnSelection?.Invoke(this);
     }
 
