@@ -89,7 +89,7 @@ public class UnitSelector : MonoBehaviour
                    
                     if (building != null)
                     {
-                        if(building.GetUnitCanEnter) MoveUnitsIntoBuilding(SelectedUnits[0],building);
+                        if(building.GetUnitCanEnter) MoveAllUnitsIntoBuilding(building);
                         else FindObjectOfType<AudioManager>().Play("CantBuild");                   
                     }
                 }
@@ -100,11 +100,20 @@ public class UnitSelector : MonoBehaviour
     [SerializeField] private MapGenerator MapGenerator;
     public void MoveUnitsIntoBuilding(Unit _unit,Building _building)
     {
+        
         _unit.MoveIntoBuilding(_building);
         Ground ground = MapGenerator.GetGroundFromGlobalPosition(_building.GetEntrancePoss());
         if (ground != null)
         {
             MoveUnitToGround(_unit, ground);
+        }
+    }
+
+    private void MoveAllUnitsIntoBuilding(Building _building)
+    {
+        foreach (Unit unit in SelectedUnits)
+        {
+            MoveUnitsIntoBuilding(unit,_building);
         }
     }
 

@@ -91,10 +91,10 @@
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/Farm.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/UIElements/UIBuildingManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/UIElements/UIFarm.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/Unit.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Timer.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/House.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/UnitManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/Unit.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/UnitSelector.cs" />
       </list>
     </option>
@@ -194,7 +194,7 @@
       <workItem from="1614099530469" duration="30806000" />
       <workItem from="1614176484912" duration="23820000" />
       <workItem from="1614208128514" duration="3034000" />
-      <workItem from="1614211214886" duration="621000" />
+      <workItem from="1614211214886" duration="1617000" />
     </task>
     <servers />
   </component>
