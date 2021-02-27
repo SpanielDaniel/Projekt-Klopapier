@@ -115,7 +115,10 @@ namespace Buildings
                 if (Data == null) return;
                 Health = Mathf.Clamp(value, 0, Data.Levels[Level].MaxLife);
                 ValueChanged?.Invoke();
-                if(Health <= 0) DestroyEffect();
+                if (Health <= 0)
+                {
+                    DestroyEffect();
+                }
             }
         }
 
@@ -514,6 +517,10 @@ namespace Buildings
         public void TakeDamage(int _damage)
         {
             CurrentHealthH -= _damage;
+            if (CurrentHealthH == 0)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 

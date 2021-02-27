@@ -16,6 +16,9 @@ namespace Code.Scripts.Map
         public static event Action MapIsBuild; 
         private MyGrid<GameObject> GroundObjectsMap;
         private MyGrid<Ground> GroundsMap;
+
+        private MyGrid<GameObject> Waypoints;
+        
         private int MapMultiplicator = 2;
 
         
@@ -28,8 +31,12 @@ namespace Code.Scripts.Map
         [SerializeField] private GameObject PrefStreetStraight;
         [SerializeField] private GameObject PrefMapThings;
         [SerializeField] private GameObject GrasGround;
-
+        
         [SerializeField] private BuildManager BuildManager;
+        [SerializeField] private GameObject PrefWaypoint;
+        
+        
+        
 
         private GameObject MapThings;
 
@@ -58,6 +65,9 @@ namespace Code.Scripts.Map
             GrasGround.transform.position = new Vector3(0,0,0);
             MapThings.transform.position = new Vector3(-width/2,0.001f,-height/2);
 
+            
+            
+            
             
             
             MapIsReady = true;
