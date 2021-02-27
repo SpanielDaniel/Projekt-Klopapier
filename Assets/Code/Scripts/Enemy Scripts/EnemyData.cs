@@ -11,5 +11,6 @@ namespace Assets.Code.Scripts.Enemy_Scripts
         public float AttackSpeed;
         public float MoveSpeed;
         public float Range;
+        public int PaperDrop;
     }
 }

@@ -5,6 +5,7 @@
 using UnityEngine;
 using Assets.Code.Scripts.Enemy_Scripts;
 using Buildings;
+using Player;
 
 //ToDo: Umschreiben
 
@@ -17,6 +18,7 @@ public class Enemy : MonoBehaviour
     private float MovementSpeed;
     private float Range ;
     private float distance;
+    private int OnDeathPaperDrop;
     private Vector3 ViewDirection;
 
     private GameObject Target;
@@ -60,6 +62,7 @@ public class Enemy : MonoBehaviour
         MovementSpeed = _data.MoveSpeed;
         Range = _data.Range;
         FireRate = _data.AttackSpeed;
+        OnDeathPaperDrop = _data.PaperDrop;
         CurrentHealthPoints = MaxHealthPoints;
     }
 
@@ -167,6 +170,7 @@ public class Enemy : MonoBehaviour
     public void Die()
     {
         Wave_Spawner.EnemiesAlive--;
+        PlayerData.GetInstance.IncreaseToiletPaper(OnDeathPaperDrop);
         Destroy(gameObject);
     }
 
