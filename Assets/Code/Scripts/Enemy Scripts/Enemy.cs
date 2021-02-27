@@ -87,15 +87,7 @@ public class Enemy : MonoBehaviour
             Die();
         }
 
-        if (ReachedEnd)
-        {
-            Target = Base;
-            Debug.Log(Target.name);
-        }
-        else
-        {
-            UpdateTarget();
-        }
+        UpdateTarget();
 
         if (Target != null)
         {
