@@ -50,7 +50,7 @@ namespace Assets.Code.Scripts.UI_Scripts
             AttackSpeedUI.text = _unit.GetUnitData.AttackSpeed.ToString();
             VerteidigungUI.text = _unit.GetUnitData.Defence.ToString();
             SpeedUI.text = _unit.GetUnitData.MoveSpeed.ToString();
-            HealthPointsUI.text = _unit.GetUnitData.MaxHealthPoints.ToString();
+            HealthPointsUI.text = _unit.GetCurrentHealth.ToString();
         }
 
         private void CloseHud()

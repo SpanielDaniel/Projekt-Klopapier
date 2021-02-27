@@ -17,6 +17,5 @@ namespace Assets.Code.Scripts.Unit_Scripts
         public float AttackSpeed;
         public float MoveSpeed;
         public float Range;
-
     }
 }

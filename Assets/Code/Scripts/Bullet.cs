@@ -37,7 +37,7 @@ public class Bullet : MonoBehaviour
             {
                 Target.GetComponent<Enemy>().TakeDamage(Damage);
             }
-            if (Target.CompareTag("PlayerUnit"))
+            if (Target.CompareTag("Unit"))
             {
                 Target.GetComponent<Unit>().TakeDamage(Damage);
             }

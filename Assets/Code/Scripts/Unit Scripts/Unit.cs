@@ -23,6 +23,7 @@ public class Unit : MonoBehaviour
     
     private float MaxHealthPoints;
     private float CurrentHealthPoints;
+    public float GetCurrentHealth => CurrentHealthPoints;
     private float Defence;
     private float AttackPoints;
     private float AttackSpeed;

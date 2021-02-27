@@ -41,7 +41,7 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        wPoints = GameObject.FindGameObjectWithTag("Waypoints").GetComponent<Waypoints>();
+        //wPoints = GameObject.FindGameObjectWithTag("Waypoints").GetComponent<Waypoints>();
         Animator = GetComponent<Animator>();
     }
 
@@ -58,20 +58,20 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, wPoints.waypoints[WayPointIndex].position, MovementSpeed * Time.deltaTime);
-        Vector3 direction = (wPoints.waypoints[WayPointIndex].position - transform.position);
+        //transform.position = Vector3.MoveTowards(transform.position, wPoints.waypoints[WayPointIndex].position, MovementSpeed * Time.deltaTime);
+        //Vector3 direction = (wPoints.waypoints[WayPointIndex].position - transform.position);
 
-        distance = direction.magnitude;
-        ViewDirection = direction.normalized;
+        //distance = direction.magnitude;
+        //ViewDirection = direction.normalized;
 
-        float angle = Vector2.SignedAngle(Vector2.up, new Vector2(ViewDirection.x, ViewDirection.z));
-        RotateObject.transform.eulerAngles = new Vector3(0, -angle, 0);
-        Animator.SetBool("IsShooting", false);
-        if (Vector3.Distance(transform.position, wPoints.waypoints[WayPointIndex].position) < 0.1f)
-        {
-            if (WayPointIndex < wPoints.waypoints.Length - 1)
-                WayPointIndex++;
-        }
+        //float angle = Vector2.SignedAngle(Vector2.up, new Vector2(ViewDirection.x, ViewDirection.z));
+        //RotateObject.transform.eulerAngles = new Vector3(0, -angle, 0);
+        //Animator.SetBool("IsShooting", false);
+        //if (Vector3.Distance(transform.position, wPoints.waypoints[WayPointIndex].position) < 0.1f)
+        //{
+        //    if (WayPointIndex < wPoints.waypoints.Length - 1)
+        //        WayPointIndex++;
+        //}
 
 
         if (CurrentHealthPoints <= 0)
@@ -121,7 +121,7 @@ public class Enemy : MonoBehaviour
 
     private void UpdateTarget()
     {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("PlayerUnit");
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Unit");
         GameObject[] buildings = GameObject.FindGameObjectsWithTag("Building");
         float shortestDistanceToEnemy = Mathf.Infinity;
         float shortestDistanceToBuilding = Mathf.Infinity;
