@@ -519,6 +519,7 @@ namespace Buildings
         public void TakeDamage(int _damage)
         {
             CurrentHealthH -= _damage;
+            StartOnValueChanged();
             if (CurrentHealthH <= 0)
             {
                 Destroy(gameObject);

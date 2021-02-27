@@ -227,7 +227,6 @@ public class UnitSelector : MonoBehaviour
                 }
             }
         }
-        
         CheckUnitsCount();
     }
 

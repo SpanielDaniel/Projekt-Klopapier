@@ -37,6 +37,8 @@ public class Unit : MonoBehaviour
 
     public bool IsSelected;
 
+    private bool IsDead = false;
+
     [SerializeField] private UnitData UnitData;
     [SerializeField] private int XPos;
     [SerializeField] private int ZPos;
@@ -71,6 +73,8 @@ public class Unit : MonoBehaviour
     
     public static List<Unit> Units = new List<Unit>();
     public int GetID => ID;
+
+    public bool GetIsDead => IsDead;
     
 
     private void Awake()
@@ -120,10 +124,7 @@ public class Unit : MonoBehaviour
 
     private void Update()
     {
-        if (CurrentHealthPoints <= 0)
-        {
-            Destroy(gameObject);
-        }
+        
 
         if (isIlde)
         {
@@ -293,6 +294,12 @@ public class Unit : MonoBehaviour
     {
         CurrentHealthPoints -= (_dmg - Defence);
         if(CurrentHealthPoints <= 0) PlayerData.GetInstance.PopulationH -= 1;
+        
+        if (CurrentHealthPoints <= 0)
+        {
+            gameObject.SetActive(false);
+            IsDead = true;
+        }
     }
 
     /// <summary>

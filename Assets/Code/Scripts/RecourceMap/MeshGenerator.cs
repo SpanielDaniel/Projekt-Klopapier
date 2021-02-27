@@ -12,7 +12,6 @@ namespace Code.Scripts
     public class MeshGenerator : MonoBehaviour
     {
         
-        
         private Mesh Mesh;
         private Vector3[] vertices;
         private int[] triangles;

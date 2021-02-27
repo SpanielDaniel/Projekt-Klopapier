@@ -42,9 +42,11 @@ public class Bullet : MonoBehaviour
             {
                 Target.GetComponent<Unit>().TakeDamage(Damage);
             }
-            if (Target.CompareTag("Building"))
+
+            Building building = Target.GetComponent<Building>();
+            if (building != null)
             {
-                Target.GetComponent<Building>().TakeDamage(Damage);
+                building.TakeDamage(Damage);
             }
             Destroy(gameObject);
             return;
