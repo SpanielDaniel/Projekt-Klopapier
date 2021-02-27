@@ -32,7 +32,6 @@ namespace Code.Scripts
         [SerializeField] private UnitManager UnitManager;
         [SerializeField] private MapGenerator MapGenerator;
         [SerializeField] private UnitSelector UnitSelector;
-
         [Space]
         [Header("Prefabs")]
         [SerializeField] private GameObject PrefScrapBuilding;
@@ -50,6 +49,8 @@ namespace Code.Scripts
         private Ground CurrentGround;
         private bool IsBuilding = false;
         private bool CanBuild;
+        private Unit Unit;
+
 
         // public ------------------------------------------------------------------------------------------------------
         // Get properties ----------------------------------------------------------------------------------------------
@@ -96,9 +97,6 @@ namespace Code.Scripts
             UnitSelector.SelectionChanged += RightMouseButtonClicked;
         }
 
-        
-
-
         // Start -------------------------------------------------------------------------------------------------------
 
         /// <summary>
@@ -124,6 +122,15 @@ namespace Code.Scripts
             DeactivateBaseSlot();
         }
         
+        // Buttons
+        public void OnButton_BuildMenu()
+        {
+            OpenHud();
+        }
+
+        
+        // Mouse Handling ----------------------------------------------------------------------------------------------
+        
         /// <summary>
         /// Event when player clicked od a build slot.
         /// </summary>
@@ -139,6 +146,135 @@ namespace Code.Scripts
             
             IsBuilding = true;
         }
+        
+        /// <summary>
+        /// Handles the Mouse Inputs
+        /// </summary>
+        private void UpdateHandleMouseInput()
+        {
+            // Left Mouse Button
+            if (Input.GetMouseButtonDown(0)) LeftMouseButtonClicked();
+            
+            // Right Mouse Button
+            if (Input.GetMouseButtonDown(1)) RightMouseButtonClicked();
+
+            // Extra Mouse Button Clicked
+            if (Input.GetMouseButtonDown(3)) MiddleMouseButtonClicked();
+
+        }
+        
+        // Left Mouse Button
+        // TODO: Code verbessern
+        
+        /// <summary>
+        /// If the play can build a building on the ground, then placed it on the ground position.
+        /// </summary>
+        private void LeftMouseButtonClicked()
+        {
+            if (CurrentBuilding.GetIsCollision || CanBuild == false)
+            {
+                AudioManager.GetInstance.Play("CantBuild");
+                return;
+            }
+            
+            
+            BuildingData data = CurrentBuilding.GetData;
+            int currentBuildingLevel = CurrentBuilding.CurrentLevelH;
+
+            int woodCosts = data.Levels[currentBuildingLevel].WoodCosts;
+            int stoneCosts = data.Levels[currentBuildingLevel].StoneCosts;
+            int steelCosts = data.Levels[currentBuildingLevel].SteelCosts;
+                
+            if (PlayerData.IsPlayerHavingEnoughResources(0, woodCosts,stoneCosts, steelCosts))
+            {
+                AudioManager.GetInstance.Play("Build");
+                PlayerData.ReduceResources(0, woodCosts, stoneCosts, steelCosts);
+                CurrentBuilding.SetEntranceActive(false);
+
+                CurrentBuilding.SetPosition(CurrentGround.GetWidth,CurrentGround.GetHeight);
+                CurrentBuilding.SetEntranceGround(MapGenerator.GetGroundFromGlobalPosition(CurrentBuilding.GetEntrancePoss()));
+                CurrentBuilding.SetConstructionActive(true);
+                CurrentBuilding.SetBaseMaterial();
+
+                for (int i = 0; i < CurrentBuilding.CurrentHeightH; i++)
+                {
+                    for (int j = 0; j < CurrentBuilding.CurrentWidthH; j++)
+                    {
+                        MapGenerator.SetGroundBlocked(CurrentGround.GetWidth + j,CurrentGround.GetHeight + i,true);
+                        
+                        UnitManager.GetNodes[CurrentGround.GetWidth + j, CurrentGround.GetHeight + i].IsWalkable = false;
+                    }
+                }
+                
+                UnitSelector.MoveUnitsIntoBuilding(Unit,CurrentBuilding);
+
+                Unit.MoveIntoBuilding(CurrentBuilding);
+
+                BuildUI.SetActive(false);
+                    
+                SetColliderActiveOfAllBuildings(true);
+                SetMeshActiveOfAllGrounds(false);
+                CurrentBuilding = null;
+                IsBuilding = false;
+            }
+            else
+            {
+                AudioManager.GetInstance.Play("CantBuild");
+            }
+        }
+
+        // Right Mouse button
+        
+        /// <summary>
+        /// Closes the building hud.
+        /// </summary>
+        private void RightMouseButtonClicked()
+        {
+            
+            BuildUI.SetActive(false);
+
+            if(IsBuilding)Destroy(CurrentBuildingObject);
+            
+            CurrentBuildingObject = null;
+            IsBuilding = false;
+            SetColliderActiveOfAllBuildings(true);
+            SetMeshActiveOfAllGrounds(false);
+        }
+        
+        /// <summary>
+        /// Sets the Collider of all grounds active. If the player is building, the mouse raycast do not hit the building.
+        /// </summary>
+        /// <param name="_value">Active value for all collider.</param>
+        private void SetColliderActiveOfAllBuildings(bool _value)
+        {
+            foreach (var building in Building.Buildings)
+            {
+                building.SetColliderActive(_value);
+            }
+        }
+
+        /// <summary>
+        /// Activates or deactivates the ground meshes.
+        /// </summary>
+        /// <param name="_value">Active value for all grounds.</param>
+        private void SetMeshActiveOfAllGrounds(bool _value)
+        {
+            foreach (var ground in Ground.Grounds)
+            {
+                ground.SetMeshActive(_value);
+            }
+        }
+        
+        // Extra Mouse Button
+        
+        /// <summary>
+        /// Turns the Current Building
+        /// </summary>
+        private void MiddleMouseButtonClicked()
+        {
+            CurrentBuilding.TurnRight();
+        }
+        
         
         // Slots -------------------------------------------------------------------------------------------------------
         
@@ -197,7 +333,7 @@ namespace Code.Scripts
             {
                 SetBuildingToMousePosGround();
                 
-                HandleMouseInput();
+                UpdateHandleMouseInput();
             }
         }
         
@@ -297,11 +433,11 @@ namespace Code.Scripts
         }
 
         /// <summary>
-        /// 
+        /// Checks that one of all ground position of a building are blocked.
         /// </summary>
-        /// <param name="_building"></param>
-        /// <param name="_ground"></param>
-        /// <returns></returns>
+        /// <param name="_building">Building to check.</param>
+        /// <param name="_ground">Ground, where the building is right now.</param>
+        /// <returns>Returns true if one ground of the building is blocked.</returns>
         private bool IsBuildingGroundsBlocked(Building _building, Ground _ground)
         {
             for (int y = 0; y < _building.CurrentHeightH; y++)
@@ -320,10 +456,10 @@ namespace Code.Scripts
         }
         
         /// <summary>
-        /// 
+        /// Checks that the entrance position is on a ground with the signature street.
         /// </summary>
-        /// <param name="_building"></param>
-        /// <returns></returns>
+        /// <param name="_building">Hands over a building to check the entrance.</param>
+        /// <returns>Returns true if the entrance of the building is on a ground with street signature.</returns>
         private bool IsEntranceOnStreet(Building _building)
         {
             Ground g = MapGenerator.GetGroundFromGlobalPosition(_building.GetEntrancePoss());
@@ -338,125 +474,11 @@ namespace Code.Scripts
 
             return false;
         }
-
-        private void SetColliderActiveOfAllBuildings(bool _value)
-        {
-            foreach (var building in Building.Buildings)
-            {
-                building.SetColliderActive(_value);
-            }
-        }
-
-        private void SetMeshActiveOfAllGrounds(bool _value)
-        {
-            foreach (var ground in Ground.Grounds)
-            {
-                ground.SetMeshActive(_value);
-            }
-        }
         
-        private void HandleMouseInput()
-        {
-            // Left Mouse Button
-            if (Input.GetMouseButtonDown(0)) LeftMouseButtonClicked();
-            
-            // Right Mouse Button
-            if (Input.GetMouseButtonDown(1)) RightMouseButtonClicked();
-
-            if (Input.GetMouseButtonDown(3)) MiddleMouseButtonClicked();
-
-        }
-
-        private void LeftMouseButtonClicked()
-        {
-            if (CurrentBuilding.GetIsCollision || CanBuild == false)
-            {
-                AudioManager.GetInstance.Play("CantBuild");
-                return;
-            }
-            
-            
-            BuildingData data = CurrentBuilding.GetData;
-            int currentBuildingLevel = CurrentBuilding.CurrentLevelH;
-
-            int woodCosts = data.Levels[currentBuildingLevel].WoodCosts;
-            int stoneCosts = data.Levels[currentBuildingLevel].StoneCosts;
-            int steelCosts = data.Levels[currentBuildingLevel].SteelCosts;
-                
-            if (PlayerData.IsPlayerHavingEnoughResources(0, woodCosts,stoneCosts, steelCosts))
-            {
-                AudioManager.GetInstance.Play("Build");
-                PlayerData.ReduceResources(0, woodCosts, stoneCosts, steelCosts);
-                CurrentBuilding.SetEntranceActive(false);
-
-                CurrentBuilding.SetPosition(CurrentGround.GetWidth,CurrentGround.GetHeight);
-                Debug.Log("Set");
-                CurrentBuilding.SetEntranceGround(MapGenerator.GetGroundFromGlobalPosition(CurrentBuilding.GetEntrancePoss()));
-                CurrentBuilding.SetConstructionActive(true);
-                CurrentBuilding.SetBaseMaterial();
-
-                for (int i = 0; i < CurrentBuilding.CurrentHeightH; i++)
-                {
-                    for (int j = 0; j < CurrentBuilding.CurrentWidthH; j++)
-                    {
-                        MapGenerator.SetGroundBlocked(CurrentGround.GetWidth + j,CurrentGround.GetHeight + i,true);
-                        
-                        UnitManager.GetNodes[CurrentGround.GetWidth + j, CurrentGround.GetHeight + i].IsWalkable = false;
-                    }
-                }
-                
-                UnitSelector.MoveUnitsIntoBuilding(Unit,CurrentBuilding);
-
-                Unit.MoveIntoBuilding(CurrentBuilding);
-
-                BuildUI.SetActive(false);
-                    
-                SetColliderActiveOfAllBuildings(true);
-                SetMeshActiveOfAllGrounds(false);
-                CurrentBuilding = null;
-                IsBuilding = false;
-            }
-            else
-            {
-                AudioManager.GetInstance.Play("CantBuild");
-            }
-        }
-
-        private void RightMouseButtonClicked()
-        {
-            
-            BuildUI.SetActive(false);
-
-            if(IsBuilding)Destroy(CurrentBuildingObject);
-            
-            CurrentBuildingObject = null;
-            IsBuilding = false;
-            SetColliderActiveOfAllBuildings(true);
-            SetMeshActiveOfAllGrounds(false);
-        }
-        
-        private void MiddleMouseButtonClicked()
-        {
-            CurrentBuilding.TurnRight();
-        }
-
-        public void OnButton_BuildMenu()
-        {
-            OpenHud();
-        }
-
-        private Unit Unit;
-        public void OpenHudFromUnit(Unit _unit)
-        {
-            Unit = _unit;
-            OpenHud();
-        }
-
-        public override void SetUIActive(bool _isActive)
-        {
-            BuildUI.SetActive(_isActive);
-        }
-
+        /// <summary>
+        /// Event. When a building is destroyed, create scrap on the building ground positins.
+        /// </summary>
+        /// <param name="_building"></param>
         public void OnBuildingDestroyed(Building _building)
         {
             for (int i = 0; i < _building.CurrentHeightH; i++)
@@ -467,7 +489,31 @@ namespace Code.Scripts
                 }
             }
         }
+        
+        // UI ----------------------------------------------------------------------------------------------------------
+        
+        /// <summary>
+        /// Opens the hud from a unit. 
+        /// </summary>
+        /// <param name="_unit">Hands over a unit, where the player opens the hud.</param>
+        public void OpenHudFromUnit(Unit _unit)
+        {
+            Unit = _unit;
+            OpenHud();
+        }
 
+        /// <summary>
+        /// Sets the UI active state.
+        /// </summary>
+        /// <param name="_isActive">State of the UI.</param>
+        public override void SetUIActive(bool _isActive)
+        {
+            BuildUI.SetActive(_isActive);
+        }
+
+        // -------------------------------------------------------------------------------------------------------------
+
+        // Generates TODO: Verbessern
         public void SetScrapOnPos(int _x, int _y)
         {
             GameObject scrap = Instantiate(PrefScrapBuilding);

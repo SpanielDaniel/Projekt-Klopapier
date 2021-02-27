@@ -82,7 +82,7 @@ namespace Code.Scripts.Map
                 }
             }
             
-            Pathfinding = new Pathfinding(Nodes);
+            Pathfinding = new Pathfinding(Nodes,true);
 
             int endX = FinalWayPoint.GetComponent<Waypoint>().GetXPos;
             int endY = FinalWayPoint.GetComponent<Waypoint>().GetZPos;
@@ -158,7 +158,6 @@ namespace Code.Scripts.Map
                         if (i == 0 || j == 0 || j == Waypoints.GetWidth - 1 || i == Waypoints.GetHeight - 1)
                         {
                             waypoint.GetComponent<Waypoint>().Init(EWaypointSignature.Entrance);
-                            Debug.Log("Add entrance");
                             EntrancePoints.Add(waypoint);
                         }
                         else

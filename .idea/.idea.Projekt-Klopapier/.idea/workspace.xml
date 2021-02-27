@@ -44,7 +44,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/MapMarker.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/ResourceMapmanager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/ResourceMapManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/MapResource.cs" />
@@ -87,14 +86,15 @@
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/UIElements/UIBuildingManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/Unit.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/Building.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Build-System/BuildManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Wave Scripts/Waypoint.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Enemy Scripts/EnemySpawnScript.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Enemy Scripts/Waypoints.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Enemy Scripts/Enemy.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Wave Scripts/Wave_Spawner.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Grid/Pathfinding.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Map/MapGenerator.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Build-System/BuildManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Grid/Node.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Grid/Pathfinding.cs" />
       </list>
     </option>
   </component>
@@ -197,7 +197,7 @@
       <workItem from="1614245647741" duration="3697000" />
       <workItem from="1614299807041" duration="4576000" />
       <workItem from="1614358596249" duration="12655000" />
-      <workItem from="1614420595203" duration="7791000" />
+      <workItem from="1614420595203" duration="10188000" />
     </task>
     <servers />
   </component>

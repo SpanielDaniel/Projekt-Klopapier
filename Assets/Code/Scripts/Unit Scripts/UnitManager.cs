@@ -39,7 +39,7 @@ public class UnitManager : Singleton<UnitManager>
     private void GenerateNodes()
     {
         CreateNodes();
-        Pathfinding = new Pathfinding(Nodes);
+        Pathfinding = new Pathfinding(Nodes,false);
         PathfindingDijkstra = new PathfindingDijkstra(Nodes);
         OnNodeReady?.Invoke();
     }

@@ -13,7 +13,7 @@ public class Node
 
     public bool IsWalkable = true;
     public bool IsUnit = false;
-
+    
     public Node ParentNode;
 
     public int GCost;
