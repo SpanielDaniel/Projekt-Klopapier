@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Buildings;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -43,7 +44,7 @@ public class Bullet : MonoBehaviour
             }
             if (Target.CompareTag("Building"))
             {
-                Target.GetComponent<Buildings.Building>().TakeDamage(Damage);
+                Target.GetComponent<Building>().TakeDamage(Damage);
             }
             Destroy(gameObject);
             return;

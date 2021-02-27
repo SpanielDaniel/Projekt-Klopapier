@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 3594835161396651159}
   - component: {fileID: 6234093201901879714}
   m_Layer: 0
-  m_Name: EnemyTank
+  m_Name: PrefBossTank
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -111,7 +111,7 @@ MonoBehaviour:
   RotateObject: {fileID: 3075520920139504222}
   BulletPrefab: {fileID: 1751729499408640468, guid: b44b2bb692eb6ab4c81365a4bee3068c, type: 3}
   FirePoint: {fileID: 3187279290289364717}
-  Data: {fileID: 11400000, guid: 69f98c5ddaf223544940d82c6f449c69, type: 2}
+  Data: {fileID: 11400000, guid: c69b467217027074da1625c6c21a5e00, type: 2}
   Base: {fileID: 6327789502137770140, guid: 5bb0774f8537f1e428c402526be7b6f4, type: 3}
 --- !u!1001 &759264483007835035
 PrefabInstance:
@@ -130,15 +130,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2896867665593862139, guid: 03bd5e3ea2209eb49a5742f90b548d10, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.1
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 2896867665593862139, guid: 03bd5e3ea2209eb49a5742f90b548d10, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.1
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 2896867665593862139, guid: 03bd5e3ea2209eb49a5742f90b548d10, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.1
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 2896867665593862139, guid: 03bd5e3ea2209eb49a5742f90b548d10, type: 3}
       propertyPath: m_LocalPosition.x
