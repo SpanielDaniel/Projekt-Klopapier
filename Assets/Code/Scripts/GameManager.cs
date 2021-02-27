@@ -19,8 +19,37 @@ using UnityEngine.SceneManagement;
 
         [SerializeField] private float GameSpeed = 1f;
         [SerializeField] private float ReduceFoodPerUnitEveryDay;
+        private bool Lost;
+        private bool Won;
         private Camera MapCamera;
         private Camera ResCamera;
+        
+        public bool Win
+        {
+            get => Won;
+
+            set
+            {
+                Won = value;
+                if (Won)
+                {
+                    PlayerWin();
+                }
+            }
+        }
+
+        public bool Lose
+        {
+            get => Lost;
+            set
+            {
+                Lost = value;
+                if (Lost)
+                {
+                    PlayerLose();
+                }
+            }
+        }
         
         
         public float GetGameSpeed => GameSpeed;
@@ -90,6 +119,17 @@ using UnityEngine.SceneManagement;
         public void QuitGame()
         {
             Application.Quit();
+        }
+
+        public void PlayerLose()
+        {
+            //ToDo: Lose Window Game Speed = 0; return to Menu after clicking button 
+        }
+
+        public void PlayerWin()
+        {
+        //ToDo: Win Window Game Speed = 0; return to menu after clicking Button
+        Debug.Log("Win");
         }
 
         #endregion

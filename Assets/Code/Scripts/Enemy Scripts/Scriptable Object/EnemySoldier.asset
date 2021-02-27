@@ -17,4 +17,5 @@ MonoBehaviour:
   AttackPoints: 10
   AttackSpeed: 2
   MoveSpeed: 1
-  Range: 3
+  Range: 1.5
+  PaperDrop: 0

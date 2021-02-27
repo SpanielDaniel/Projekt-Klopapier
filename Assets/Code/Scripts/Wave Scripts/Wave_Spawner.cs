@@ -26,6 +26,7 @@ public class Wave_Spawner : MonoBehaviour
 
     private Waypoints wPoints = new Waypoints();
     private int WaveIndex = 0;
+    private bool IsWon = false;
 
     #endregion
 
@@ -60,6 +61,11 @@ public class Wave_Spawner : MonoBehaviour
         if (EnemiesAlive <= 0)
         {
             WaveFinished();
+            if (IsWon)
+            {
+                GameManager.GetInstance.Win = true;
+                gameObject.SetActive(false);
+            }
         }
     }
 
@@ -80,7 +86,7 @@ public class Wave_Spawner : MonoBehaviour
         WaveIndex++;
         if (WaveIndex == Waves.Length)
         {
-            gameObject.SetActive(false);
+            IsWon = true;
         }
 
     }
