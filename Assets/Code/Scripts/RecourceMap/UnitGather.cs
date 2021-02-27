@@ -19,6 +19,36 @@ namespace Code.Scripts
         public float GetTimerToGoToRes => TimerToGoToRes;
         public float GetTimerToGoBack => TimerToGoBack;
         
+        
+        private int WoodAmount = 0;
+        private int StoneAmount =0 ;
+        private int SteelAmount = 0;
+        private int ToilettePaperAmount = 0;
+        private int FoodAmount = 0;
+
+        public void AddResource(EResource _res, int _amount)
+        {
+            switch (_res)
+            {
+                case EResource.Wood:
+                    WoodAmount += _amount;
+                    break;
+                case EResource.Stone:
+                    StoneAmount += _amount;
+                    break;
+                case EResource.Steel:
+                    SteelAmount += _amount;
+                    break;
+                case EResource.Toilette:
+                    ToilettePaperAmount += _amount;
+                    break;
+                case EResource.Food:
+                    FoodAmount += _amount;
+                    break;
+            }
+        }
+        
+        
         public UnitGather(GameObject _obj,Unit _unit ,bool _isGather)
         {
             UnitUi = _obj;

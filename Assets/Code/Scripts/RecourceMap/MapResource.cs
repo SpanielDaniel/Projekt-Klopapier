@@ -3,11 +3,10 @@
 // Project  : Projekt-Klopapier
 
 using System;
-using System.Runtime.CompilerServices;
-using Interfaces;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using Random = System.Random;
+using Random = UnityEngine.Random;
 
 namespace Code.Scripts
 {
@@ -31,15 +30,19 @@ namespace Code.Scripts
     public class MapResource : MonoBehaviour
     , IPointerEnterHandler
     , IPointerClickHandler
-    ,IPointerExitHandler
+    , IPointerExitHandler
     {
         public static event Action<GameObject,EMapResource> ResourceIsEmpty;
         public static event Action<MapResource> OnClickRes;
         [SerializeField] private float TimeToEarnResourcesInSeconds;
+        //[SerializeField] private float TimeMultiplicator;
+
         [SerializeField] private int MinAmount;
         [SerializeField] private int MaxAmount;
         [SerializeField] private bool IsRegeneration;
         [SerializeField] private float ResourceRegenerationAmountInSeconds;
+        [SerializeField] private GameObject ResInfo;
+        [SerializeField] private TextMeshProUGUI ResAmountText;
 
 
         [SerializeField] private EMapResource Res;
@@ -56,12 +59,30 @@ namespace Code.Scripts
         private int SteelAmount;
         private int ToilettePaperAmount;
         private int FoodAmount;
+        
+        public int  GetWoodAmount => WoodAmount;
+        public int  GetStoneAmount => StoneAmount;
+        public int  GetSteelAmount => SteelAmount;
+        public int  GetToilettePaperAmount => ToilettePaperAmount;
+        public int  GetFoodAmount => FoodAmount;
 
 
+        public float GetTimeToEarnResourcesInSeconds => TimeToEarnResourcesInSeconds;
         public float GetTimeToGoToResourcesInSeconds => TimeToGoToResourcesInSeconds;
+
+
+        public float GetTime()
+        {
+            float time = WoodAmount * TimeToEarnResourcesInSeconds +
+                         StoneAmount * TimeToEarnResourcesInSeconds +
+                         SteelAmount * TimeToEarnResourcesInSeconds +
+                         ToilettePaperAmount * TimeToEarnResourcesInSeconds +
+                         FoodAmount + TimeToEarnResourcesInSeconds;
+            return time;
+        }
         private void Awake()
         {
-            RandomizeResourceAmount();
+            
         }
 
         private void Update()
@@ -85,8 +106,37 @@ namespace Code.Scripts
                     
                     FoodAmount += 1;
                     if (WoodAmount > MaxAmount) FoodAmount = MaxAmount;
+
+                    UpdateResText();
                 }
             }
+        }
+
+        private void UpdateResText()
+        {
+            switch (Res)
+            {
+                case EMapResource.Wood:
+                    ResAmountText.text = WoodAmount.ToString();
+                    break;
+                case EMapResource.Stone:
+                    ResAmountText.text = StoneAmount.ToString();
+                    break;
+                case EMapResource.Steel:
+                    ResAmountText.text = SteelAmount.ToString();
+                    break;
+                case EMapResource.City:
+                    break;
+            }
+            
+        }
+
+        private void Start()
+        {
+            RandomizeResourceAmount();
+            ResInfo.SetActive(false);
+            UpdateResText();
+            
         }
 
         public void Init(float _time)
@@ -101,13 +151,30 @@ namespace Code.Scripts
         
         private void RandomizeResourceAmount()
         {
-            Random random = new Random();
-            WoodAmount = random.Next(MinAmount, MaxAmount + 1);
+
+            //int random = Random.Range(MinAmount, MaxAmount + 1);
+            switch (GetRes)
+            {
+                case EMapResource.Wood:
+                    WoodAmount =  Random.Range(MinAmount, MaxAmount + 1);
+                    break;
+                case EMapResource.Stone:
+                    StoneAmount =  Random.Range(MinAmount, MaxAmount + 1);
+                    break;
+                case EMapResource.Steel:
+                    SteelAmount =  Random.Range(MinAmount, MaxAmount + 1);
+                    break;
+                case EMapResource.City:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            
+            UpdateResText();
         }
         
         public int GetResource(EResource _resource,int _reduceAmount)
         {
-
             switch (_resource)
             {
                 case EResource.Wood:
@@ -124,8 +191,9 @@ namespace Code.Scripts
                 default:
                     Debug.Log("GetResError");
                     break;
+                
             }
-
+            UpdateResText();
             return 0;
         }
 
@@ -139,6 +207,7 @@ namespace Code.Scripts
             }
             
             WoodAmount -= _reduceAmount;
+            UpdateResText();
             return _reduceAmount;
         }
         
@@ -152,6 +221,7 @@ namespace Code.Scripts
             }
             
             StoneAmount -= _reduceAmount;
+            UpdateResText();
             return _reduceAmount;
         }
         
@@ -165,6 +235,7 @@ namespace Code.Scripts
             }
             
             SteelAmount -= _reduceAmount;
+            UpdateResText();
             return _reduceAmount;
         }
 
@@ -178,6 +249,7 @@ namespace Code.Scripts
             }
             
             ToilettePaperAmount -= _reduceAmount;
+            UpdateResText();
             return _reduceAmount;
         }
         
@@ -191,6 +263,7 @@ namespace Code.Scripts
             }
             
             FoodAmount -= _reduceAmount;
+            UpdateResText();
             return _reduceAmount;
         }
 
@@ -205,6 +278,8 @@ namespace Code.Scripts
             if (!UIPointerInHudManager.GetIsInHut)
             {
                 Line.SetActive(true);
+                ResInfo.SetActive(true);
+                this.transform.SetSiblingIndex(gameObject.transform.parent.childCount - 1);
                 return;
             }
         }
@@ -217,6 +292,7 @@ namespace Code.Scripts
         public void OnPointerExit(PointerEventData eventData)
         {
             Line.SetActive(false);
+            ResInfo.SetActive(false);
         }
     }
 
