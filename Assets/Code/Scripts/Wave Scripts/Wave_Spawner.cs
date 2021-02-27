@@ -9,12 +9,27 @@ using UnityEngine;
 
 public class Wave_Spawner : MonoBehaviour
 {
+    // -------------------------------------------------------------------------------------------------------------
+
+    #region Init
+
+    // Serialize Fields --------------------------------------------------------------------------------------------
+
     [SerializeField] private Wave[] Waves;
     [SerializeField] private MapGenerator MapGenerator;
-    private Waypoints wPoints = new Waypoints();
+
+    // Static Variables --------------------------------------------------------------------------------------------
+
     public static int EnemiesAlive;
+
+    // private -----------------------------------------------------------------------------------------------------
+
+    private Waypoints wPoints = new Waypoints();
     private int WaveIndex = 0;
-    
+
+    #endregion
+
+    // -------------------------------------------------------------------------------------------------------------
 
     private void Start()
     {
@@ -28,6 +43,7 @@ public class Wave_Spawner : MonoBehaviour
             return;
         }
 
+        //Set Waypoints and Spawn Wave
         if (Timer.GetStunden == 6 && Timer.GetMinuten == 0 && Timer.GetDay >= 1)
         {
             int randomValue = 0;
@@ -47,6 +63,10 @@ public class Wave_Spawner : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Set Wave with Enemys and check if finished all Waves for win or not
+    /// </summary>
+    /// <returns></returns>
     IEnumerator WaveSpawn()
     {
         Wave wave = Waves[WaveIndex];
@@ -55,7 +75,7 @@ public class Wave_Spawner : MonoBehaviour
         {
             SpawnEnemy(wave.EnemyPrefab[i]);
         }
-        yield return new WaitForSeconds(wave.WaitTimeForSpawn);
+        yield return new WaitForSeconds(wave.WaitTimeForSpawn * Time.deltaTime);
 
         WaveIndex++;
         if (WaveIndex == Waves.Length)
@@ -65,6 +85,9 @@ public class Wave_Spawner : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Hide Way from Enemies after finished Wave
+    /// </summary>
     private void WaveFinished()
     {
         for (int j = 0; j < MapGenerator.GetWaypoints.GetHeight; j++)
@@ -76,6 +99,10 @@ public class Wave_Spawner : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Instantiate Enemy as GameObject 
+    /// </summary>
+    /// <param name="_enemy">Enemy Prefab</param>
     public void SpawnEnemy(GameObject _enemy)
     {
         GameObject enemy = Instantiate(_enemy, wPoints.waypoints[0].transform.position, Quaternion.identity);

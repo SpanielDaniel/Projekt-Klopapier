@@ -8,17 +8,34 @@ using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
+    // -------------------------------------------------------------------------------------------------------------
+
+    #region Init
+
+    //Events -------------------------------------------------------------------------------------------------------
 
     public static event Action<int> OnDayChanged;
     
+    //Serialize Fields ---------------------------------------------------------------------------------------------
+
     [SerializeField] private Text TimeText;
     [SerializeField] private Text DayText;
     [SerializeField] private bool BoolTimer = false;
-    private float StartTimer = 0.01f;
-    private float CurrentTimer;
     [SerializeField] private float TimeSpeed = 1.5f;
 
+    // Static Variables ---------------------------------------------------------------------------------------------
+
     private static int Day = 0;
+    private static int Stunden = 0;
+    private static float Minuten = 0;
+
+    // Get properties ----------------------------------------------------------------------------------------------
+
+    public static int GetDay => Day;
+    public static float GetStunden => Stunden;
+    public static float GetMinuten => Minuten;
+
+    // Handle Properties --------------------------------------------------------------------------------------------
 
     private int DayH
     {
@@ -32,14 +49,15 @@ public class Timer : MonoBehaviour
             }
         }
     }
-    private static int Stunden = 0;
-    private static float Minuten = 0;
-    public float test;
 
-    public static int GetDay => Day;
-    public static float GetStunden => Stunden;
-    public static float GetMinuten => Minuten;
+    // Private -------------------------------------------------------------------------------------------------------
 
+    private float StartTimer = 0.01f;
+    private float CurrentTimer;
+
+    #endregion
+
+    // -------------------------------------------------------------------------------------------------------------
     private void Start()
     {
         StartTimer = CurrentTimer;
@@ -50,9 +68,12 @@ public class Timer : MonoBehaviour
         DisplayTime(StartTimer);
         TimeText.text = string.Format("{0:00}:{1:00}", Stunden, Minuten);
         DayText.text = "Day: " + DayH;
-        //Stunden = test;
     }
 
+    /// <summary>
+    /// Calculate Time to Display it
+    /// </summary>
+    /// <param name="timeToDisplay">Timer Variable</param>
     void DisplayTime(float timeToDisplay)
     {
         if (BoolTimer)

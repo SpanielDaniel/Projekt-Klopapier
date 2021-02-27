@@ -13,16 +13,41 @@ using UnityEngine;
 
 public class UnitSelector : MonoBehaviour
 {
-    
+    // -------------------------------------------------------------------------------------------------------------
+
+    #region Init
+
+    // Events ------------------------------------------------------------------------------------------------------
+
     public static event Action<Unit> SelectUnit;
     public static event Action<List<Unit>> SelectedUnitGroup;
     public static event Action NoUnitSelected;
     public static event Action SelectionChanged;
-    
+
+    // Static Variables --------------------------------------------------------------------------------------------
+
     private static List<Unit> SelectedUnits = new List<Unit>();
-    
-    
+
+    // Serialize Fields --------------------------------------------------------------------------------------------
+
     [SerializeField] private Vector2 testEndNode;
+    [SerializeField] private Camera CameraMain;
+    [SerializeField] private RectTransform SelectionBox;
+    [SerializeField] private UIUnitManager UIUnitManager;
+    [SerializeField] private UnitManager UnitManager;
+    [SerializeField] private BuildManager BuildManager;
+
+    // private -----------------------------------------------------------------------------------------------------
+
+    private Vector2 startPos;
+    private Ground CurrentGround;
+
+    // Get properties ----------------------------------------------------------------------------------------------
+
+    public RectTransform GetSelectionBox => SelectionBox;
+
+    // Handler properties ------------------------------------------------------------------------------------------
+
     public static List<Unit> SelectedUnitsH
     {
         get => SelectedUnits;
@@ -37,17 +62,10 @@ public class UnitSelector : MonoBehaviour
             
         }
     }
-    [SerializeField] private Camera CameraMain;
-    [SerializeField] private RectTransform SelectionBox;
-    [SerializeField] private UIUnitManager UIUnitManager;
-    [SerializeField] private UnitManager UnitManager;
-    [SerializeField] private BuildManager BuildManager;
-    
-    private Vector2 startPos;
 
-    private Ground CurrentGround;
+    #endregion
 
-    public RectTransform GetSelectionBox => SelectionBox;
+    // -------------------------------------------------------------------------------------------------------------
 
     private void Start()
     {
@@ -175,17 +193,14 @@ public class UnitSelector : MonoBehaviour
         UnitManager.FindPathForUnit(_unit, _ground.GetWidth,_ground.GetHeight);
     }
 
+    /// <summary>
+    /// Move Unit/Units to Position
+    /// </summary>
+    /// <param name="_endPosX">End Position X</param>
+    /// <param name="_endPosZ">End Position Y></param>
     public void MoveUnits(int _endPosX,int _endPosZ)
     {
         if (SelectedUnitsH[0].GetXPosition == _endPosX && SelectedUnitsH[0].GetZPosition == _endPosZ) return;
-        //UnitManager.FindPathForUnit(SelectedUnitsH[0],_endPosX,_endPosZ);
-
-        //ToDo: Einheiten am Ende verteilen
-        //Idee: die endPos am anfang für jede Unit nochmal addieren 
-        //Problem: Wenn man zu der neuen Pos nicht hin kann wird sich die Unit nicht bewegen
-
-        //List<Vector3> endPositionList = GroupUnitPositionList(new Vector3(_endPosX,0.1f, _endPosZ), 0.5f, SelectedUnitsH.Count);
-
 
         for (int i = 0; i < SelectedUnitsH.Count; i++)
         {
@@ -193,6 +208,10 @@ public class UnitSelector : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Update SelectionBox 
+    /// </summary>
+    /// <param name="curMousePos"></param>
     void UpdateSelectionBox(Vector2 curMousePos)
     {
         if (!SelectionBox.gameObject.activeInHierarchy)
@@ -205,6 +224,9 @@ public class UnitSelector : MonoBehaviour
         SelectionBox.anchoredPosition = startPos + new Vector2(width / 2, height / 2);
     }
 
+    /// <summary>
+    /// Checking Units in SelectionBox and Select them
+    /// </summary>
     void ReleaseSelectionBox()
     {
         SelectionBox.gameObject.SetActive(false);
