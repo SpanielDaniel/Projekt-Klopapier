@@ -4,6 +4,7 @@
 
 using UnityEngine;
 using Assets.Code.Scripts.Enemy_Scripts;
+using Buildings;
 
 //ToDo: Umschreiben
 
@@ -19,6 +20,7 @@ public class Enemy : MonoBehaviour
     private Vector3 ViewDirection;
 
     private GameObject Target;
+    private bool ReachedEnd;
 
     private float FireRate;
     private float CountdownShoot;
@@ -31,6 +33,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private GameObject BulletPrefab;
     [SerializeField] private Transform FirePoint;
     [SerializeField] private EnemyData Data;
+    [SerializeField] private GameObject Base;
 
     public EnemyData GetEnemyData => Data;
 
@@ -41,7 +44,6 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        //wPoints = GameObject.FindGameObjectWithTag("Waypoints").GetComponent<Waypoints>();
         Animator = GetComponent<Animator>();
     }
 
@@ -76,14 +78,24 @@ public class Enemy : MonoBehaviour
         {
             if (WayPointIndex < wPoints.waypoints.Count - 1)
                 WayPointIndex++;
+            else
+                ReachedEnd = true;
         }
-
 
         if (CurrentHealthPoints <= 0)
         {
             Die();
         }
-        UpdateTarget();
+
+        if (ReachedEnd)
+        {
+            Target = Base;
+            Debug.Log(Target.name);
+        }
+        else
+        {
+            UpdateTarget();
+        }
 
         if (Target != null)
         {
