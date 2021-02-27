@@ -17,7 +17,7 @@ MonoBehaviour:
     Y: 2
   Name: Haus
   Description: "Erh\xF6t das Einwohnerlimit"
-  BuldingTexture: {fileID: 21300000, guid: 4a09133be471fc943a4ad584e6b82ed5, type: 3}
+  BuldingTexture: {fileID: 21300000, guid: 41c0a44fd8683f64eb8642d4bbfe6e08, type: 3}
   IsUpgradable: 1
   Levels:
   - MaxLife: 100

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Soldier
   m_EditorClassIdentifier: 
   Name: Soldier
-  Icon: {fileID: 21300000, guid: 5e4ff7cf40c8c954f9d9dd34712ac1aa, type: 3}
+  Icon: {fileID: 21300000, guid: 6e74c54c19df74845b05bd6f27f5fadd, type: 3}
   MaxHealthPoints: 100
   Defence: 0
   AttackPoints: 25

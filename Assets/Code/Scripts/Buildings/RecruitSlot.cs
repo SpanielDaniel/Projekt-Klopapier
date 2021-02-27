@@ -4,12 +4,14 @@ using Player;
 using TMPro;
 using UI_Scripts;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Buildings
 {
-    public class RecruitSlot  : UISlot
+    public class RecruitSlot  : MonoBehaviour
     {
         [SerializeField] private GameObject PrefUnit;
+        [SerializeField] private Image CurrentImage;
         [SerializeField] private Ground SpawnPos;
         [SerializeField] private TextMeshProUGUI ToiletteAmount;
 
@@ -17,14 +19,14 @@ namespace Buildings
         {
             SpawnPos = _spawnPos;
         }
-        protected override void StartEffect()
+        protected void Start()
         {
-            SetImage(PrefUnit.GetComponent<Unit>().GetUnitData.Icon);
+            CurrentImage.sprite = PrefUnit.GetComponent<Unit>().GetUnitData.Icon;
             ToiletteAmount.text = PrefUnit.GetComponent<Recruit>().GetToilettePaperCosts.ToString();
-            base.StartEffect();
+            
         }
 
-        public override void ButtonAction()
+        public void ButtonAction()
         {
             Recruit recruit = PrefUnit.GetComponent<Recruit>();
             if (PlayerData.GetInstance.IsPlayerHavingEnoughResources(recruit.GetToilettePaperCosts, 0, 0, 0))

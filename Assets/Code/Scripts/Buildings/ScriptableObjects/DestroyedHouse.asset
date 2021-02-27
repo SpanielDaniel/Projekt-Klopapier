@@ -17,7 +17,7 @@ MonoBehaviour:
     Y: 2
   Name: "Zerst\xF6rtes Haus"
   Description: "Erh\xF6t das Einwohnerlimit"
-  BuldingTexture: {fileID: 21300000, guid: 4a09133be471fc943a4ad584e6b82ed5, type: 3}
+  BuldingTexture: {fileID: 21300000, guid: 34342b1e06a83774cbe23bb9f453d214, type: 3}
   IsUpgradable: 0
   Levels:
   - MaxLife: 1

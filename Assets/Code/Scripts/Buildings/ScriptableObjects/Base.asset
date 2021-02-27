@@ -17,7 +17,7 @@ MonoBehaviour:
     Y: 2
   Name: Base
   Description: Hauptquartie deiner Fraktion. Hier kannst du neue Einheiten ausbilden.
-  BuldingTexture: {fileID: 21300000, guid: 949245c1b1d950a4791cbc98f82b8e14, type: 3}
+  BuldingTexture: {fileID: 21300000, guid: 21c1563bd14c9b24e93bc385996b1be9, type: 3}
   IsUpgradable: 1
   Levels:
   - MaxLife: 100

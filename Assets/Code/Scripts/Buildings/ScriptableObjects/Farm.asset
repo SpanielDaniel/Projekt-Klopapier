@@ -17,7 +17,7 @@ MonoBehaviour:
     Y: 2
   Name: Farm
   Description: Pflanzt Nahrung an.
-  BuldingTexture: {fileID: 21300000, guid: 17fe7ac7b079a27439e27c2f095ec06c, type: 3}
+  BuldingTexture: {fileID: 21300000, guid: eb2b9306270130a4887a00b84aee1631, type: 3}
   IsUpgradable: 1
   Levels:
   - MaxLife: 100

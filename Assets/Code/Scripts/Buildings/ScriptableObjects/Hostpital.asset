@@ -17,7 +17,7 @@ MonoBehaviour:
     Y: 2
   Name: Lazarett
   Description: Heilt Soldaten
-  BuldingTexture: {fileID: 21300000, guid: 9abc23eb41a6faa4a94c6f849a9d55bc, type: 3}
+  BuldingTexture: {fileID: 21300000, guid: 907f670fc11e98241bd0974f923ff6d8, type: 3}
   IsUpgradable: 1
   Levels:
   - MaxLife: 100

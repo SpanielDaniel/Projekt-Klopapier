@@ -25,6 +25,7 @@ namespace Buildings
         
         public static event Action ValueChanged;
         public static event Action OnBaseIsUnderConstruction;
+        public static event Action DestroyDestroyed;
         public static event Action<Building> OnClick;
         public static event Action<Building> IsFinished;
         
@@ -72,7 +73,9 @@ namespace Buildings
         private int ZPosition;
         private int CurrentWidth;
         private int CurrentHeight;
-        private Ground EntranceGround;
+        public bool IsBuildingHudOpen = false;
+        
+        protected Ground EntranceGround;
         
         
         protected bool UnitCanEnter = true;
@@ -166,13 +169,15 @@ namespace Buildings
 
         private void Awake()
         {
-            
-
             SetHealthToOne();
             
             UnitCanEnter = !Data.IsFinished;
             IsBuiltHandler = Data.IsFinished;
             SetStartObjectSize();
+            for (int i = 0; i < UnitIDs.Count; i++)
+            {
+                UnitIDs[i] = -1;
+            }
         }
 
         public Vector2 GetEntrancePoss()
@@ -330,6 +335,8 @@ namespace Buildings
         {
             if (!UnitCanEnter){ return false; }
             UnitIDs.Add(_unitId);
+            
+            
             UnitAmount++;
             StartOnValueChanged();
             if (UnitAmount == MaxUnitAmount) UnitCanEnter = false;
@@ -346,10 +353,11 @@ namespace Buildings
 
             _unit.SetPos(_ground.GetWidth,_ground.GetHeight);
             _unit.UpdatePos();
+            RemoveUnitEffect( _unit.GetID);
             UnitIDs.Remove(_unit.GetID);
             UnitAmount--;
             StartOnValueChanged();
-            RemoveUnitEffect( _unit.GetID);
+            
             if (UnitAmount < MaxUnitAmount) UnitCanEnter = true;
         }
 
@@ -360,14 +368,16 @@ namespace Buildings
 
         private void RemoveAllUnits()
         {
+            
             for (int j = 0; j < UnitIDs.Count; j++)
             {
-                Unit unit =   Unit.Units[UnitIDs[j]];
-                unit.gameObject.SetActive(true);
+                    Unit unit = Unit.Units[UnitIDs[j]];
 
-                unit.SetPos(EntranceGround.GetWidth,EntranceGround.GetHeight);
-                unit.UpdatePos();
+                    unit.gameObject.SetActive(true);
+                    unit.SetPos(EntranceGround.GetWidth, EntranceGround.GetHeight);
+                    unit.UpdatePos();
             }
+            
             StartOnValueChanged();
             UnitAmount = 0;
             UnitIDs.Clear();
@@ -477,6 +487,7 @@ namespace Buildings
 
         public virtual void DestroyEffect()
         {
+            if(IsBuildingHudOpen) DestroyDestroyed?.Invoke();
             RemoveAllUnits();
         }
 

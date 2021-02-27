@@ -7,6 +7,7 @@ using Code.Scripts.UI_Scripts;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace UI_Scripts
@@ -35,16 +36,15 @@ namespace UI_Scripts
         [SerializeField] private GameObject RepairButton;
         
         
-        [SerializeField] private Text BuildingNameText;
-        [SerializeField] private Text BuildingLevelText;
+        [SerializeField] private TextMeshProUGUI BuildingNameText;
+        [SerializeField] private TextMeshProUGUI BuildingLevelText;
         [SerializeField] private Image BuildingImage;
-        [SerializeField] private UISlot[] BuildingSlots;
         [SerializeField] private Slider LifeBar;
         
         
-        [SerializeField] private Text BuildingNameText2;
+        [SerializeField] private TextMeshProUGUI BuildingNameText2;
         [SerializeField] private Image BuildingImage2;
-        [SerializeField] private UISlot[] BuildingSlots2;
+        [SerializeField] private UISlot[] BuildingSlots;
         [SerializeField] private Slider LifeBar2;
 
 
@@ -54,7 +54,7 @@ namespace UI_Scripts
         
         
         private Building CurrentSelectedBuilding;
-        
+        private int BuildingID;
         
         
 
@@ -63,15 +63,18 @@ namespace UI_Scripts
             Building.OnClick += OnBuildingClicked;
             Building.ValueChanged += UpdateUI;
             Building.IsFinished += OnFinished;
+            Building.DestroyDestroyed += OnBuildingDestroyDestroyed;
             UISlot.OnUnitRelease += ReleaseUnit;
+        }
+
+        private void OnBuildingDestroyDestroyed()
+        {
+            SetUIActive(false);
         }
 
         private void ReleaseUnit(Unit _unit)
         {
-            
             Ground pos = MapGenerator.GetGroundFromGlobalPosition(CurrentSelectedBuilding.GetEntrancePoss());
-            
-            
             CurrentSelectedBuilding.RemoveUnit(_unit,pos);
         }
 
@@ -102,7 +105,7 @@ namespace UI_Scripts
             
             if (!CurrentSelectedBuilding.IsBuiltHandler)
             {
-                foreach (UISlot slot in BuildingSlots2)
+                foreach (UISlot slot in BuildingSlots)
                 {
                     slot.SetDefaultSprite();
                     slot.RemoveUnit();
@@ -110,7 +113,7 @@ namespace UI_Scripts
                 
                 for (int i = 0; i < CurrentSelectedBuilding.GetUnitIDs.Count; i++)
                 {
-                    BuildingSlots2[i].Init(Unit.Units[CurrentSelectedBuilding.GetUnitIDs[i]].GetUnitData.Icon,CurrentSelectedBuilding.GetUnitIDs[i]);
+                    BuildingSlots[i].Init(Unit.Units[CurrentSelectedBuilding.GetUnitIDs[i]].GetUnitData.Icon,CurrentSelectedBuilding.GetUnitIDs[i]);
                 }
             }
 
@@ -173,9 +176,10 @@ namespace UI_Scripts
         /// </summary>
         private void CloseBuildingUI()
         {
-            
             IsHudOpenH = false;
+            if(CurrentSelectedBuilding != null)CurrentSelectedBuilding.IsBuildingHudOpen = false;
             CurrentSelectedBuilding = null;
+            BuildingID = 0;
         }
 
         #endregion
@@ -184,6 +188,7 @@ namespace UI_Scripts
         
         public void OnButton_Exit()
         {
+            //EventSystem.current.SetSelectedGameObject(null);
             AudioManager.GetInstance.Play("BuildSlotClicked");
             SetUIActive(false);
             UIPointerInHudManager.SetPointerInHud(false);
@@ -191,6 +196,7 @@ namespace UI_Scripts
 
         public void OnButton_Upgrade()
         {
+            EventSystem.current.SetSelectedGameObject(null);
             AudioManager.GetInstance.Play("BuildSlotClicked");
             CurrentSelectedBuilding.Upgrade();
         }
@@ -200,11 +206,14 @@ namespace UI_Scripts
         
         public void OnButton_Destroy()
         {
+            EventSystem.current.SetSelectedGameObject(null);
+
             PlayDestroySound();
+            SetUIActive(false);
             BuildManager.OnBuildingDestroyed(CurrentSelectedBuilding);
             CurrentSelectedBuilding.DestroyEffect();
+            
             Destroy(CurrentSelectedBuilding.gameObject);
-            SetUIActive(false);
             UIPointerInHudManager.SetPointerInHud(false);
 
         }
@@ -219,7 +228,7 @@ namespace UI_Scripts
         {
             if(CurrentSelectedBuilding != _building) FindObjectOfType<AudioManager>().Play("BuildingClicked");
             CurrentSelectedBuilding = _building;
-            
+            CurrentSelectedBuilding.IsBuildingHudOpen = true;
             
             IsHudOpenH = true;
             

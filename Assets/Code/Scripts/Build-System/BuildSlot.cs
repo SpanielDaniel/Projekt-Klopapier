@@ -4,6 +4,7 @@
 
 using System;
 using Buildings;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -16,11 +17,10 @@ namespace Code.Scripts
         , IPointerExitHandler
     {
         [SerializeField] private GameObject Building;
-        [SerializeField] private Image BorderImage;
         [SerializeField] private Image IconImage;
-        [SerializeField] private Text BuildingName;
-        [SerializeField] private Color NormalColor;
-        [SerializeField] private Color MouseEnterColor;
+        [SerializeField] private Image Background;
+        [SerializeField] private Image BackgroundRed;
+        [SerializeField] private TextMeshProUGUI BuildingName;
         [SerializeField] private GameObject Cross;
 
         public static event Action<GameObject> OnMouseClick;
@@ -32,6 +32,8 @@ namespace Code.Scripts
 
         private void Start()
         {
+            BackgroundRed.gameObject.SetActive(false);
+            Background.gameObject.SetActive(true);
             Init();
         }
 
@@ -50,12 +52,14 @@ namespace Code.Scripts
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            BorderImage.color = MouseEnterColor;
+            BackgroundRed.gameObject.SetActive(true);
+            Background.gameObject.SetActive(false);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            BorderImage.color = NormalColor;
+            BackgroundRed.gameObject.SetActive(false);
+            Background.gameObject.SetActive(true);
         }
     }
 }

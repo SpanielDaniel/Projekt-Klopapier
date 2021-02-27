@@ -17,7 +17,7 @@ MonoBehaviour:
     Y: 1
   Name: Lager
   Description: "Erh\xF6ht die Lagerkapazit\xE4t"
-  BuldingTexture: {fileID: 21300000, guid: 17383d991529e9142892a267aa550b38, type: 3}
+  BuldingTexture: {fileID: 21300000, guid: 33cbb4b437ab28847b7534ffa085c049, type: 3}
   IsUpgradable: 1
   Levels:
   - MaxLife: 100

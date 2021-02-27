@@ -90,7 +90,6 @@ namespace UI_Scripts
         {
             IsMouseEntered = true;
             if (Button != null && UnitID >= 0) Button.SetActive(true);
-            else Button.SetActive(false);
         }
         
         

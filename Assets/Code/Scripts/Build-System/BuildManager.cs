@@ -470,6 +470,8 @@ namespace Code.Scripts
             
             MapGenerator.SetGroundBlocked(_x,_y,true);
             UnitManager.GetNodes[_x, _y].IsWalkable = true;
+            scrap.GetComponent<Scrap>().SetEntranceGround(MapGenerator.GetGroundFromGlobalPosition( scrap.GetComponent<Scrap>().GetEntrancePoss()));
+
         }
 
         public void SetDestroyedHouseOnPos(int _x, int _y)
@@ -509,6 +511,8 @@ namespace Code.Scripts
                         UnitManager.GetNodes[_x + j, _y + i].IsWalkable = false;
                     }
                 }
+                
+                DestroyedHouse.GetComponent<Building>().SetEntranceGround(MapGenerator.GetGroundFromGlobalPosition( DestroyedHouse.GetComponent<Building>().GetEntrancePoss()));
                 return;
             }
             Destroy(DestroyedHouse.gameObject);
@@ -555,6 +559,7 @@ namespace Code.Scripts
                 }
                     
                 house.GetComponent<Building>().CurrentHealthH = house.GetComponent<Building>().GetData.Levels[house.GetComponent<Building>().CurrentLevelH].MaxLife;
+                house.GetComponent<Building>().SetEntranceGround(MapGenerator.GetGroundFromGlobalPosition( house.GetComponent<Building>().GetEntrancePoss()));
                 return;
             }
             Destroy(house.gameObject);

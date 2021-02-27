@@ -7,6 +7,7 @@ using Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Http.Headers;
 using Buildings;
 using Code.Scripts;
 using Code.Scripts.Grid.DanielB;
@@ -296,10 +297,11 @@ public class Unit : MonoBehaviour
         }
         
         if(IsMovingIntoBuilding) FindObjectOfType<AudioManager>().Play("GetInside");
-        else if(!IsMoving)FindObjectOfType<AudioManager>().Play("MoveUnit");
-        if(Path != null) FindObjectOfType<AudioManager>().Play("KeepMovingUnit");
-        
-        
+        else if(!IsMoving) FindObjectOfType<AudioManager>().Play("MoveUnit");
+        if (IsMoving)
+        {
+            FindObjectOfType<AudioManager>().Play("KeepMovingUnit");
+        }
         
         Path = _path;
         IsMoving = true;

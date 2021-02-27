@@ -287,7 +287,11 @@ MonoBehaviour:
   BuidingConstruction: {fileID: 7792961182088134914}
   EntranceObjPos: {fileID: 7423845827493054624}
   EntranceObj: {fileID: 4201320437852777564}
-  AmountOfScrap: 100
+  IsBuildingHudOpen: 0
+  Resource: 0
+  AmountOfResource: 10
+  ReduceAmountPerUnit: 0.2
+  GetResource: 0
 --- !u!1 &7423845827493054624
 GameObject:
   m_ObjectHideFlags: 0

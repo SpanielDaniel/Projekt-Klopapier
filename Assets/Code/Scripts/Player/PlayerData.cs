@@ -40,6 +40,10 @@ namespace Player
         private int Population;
         private int MaxPopulation = 0;
 
+        private bool IsWoodOnMax = false;
+
+        public bool GetIsWoodOnMax => IsWoodOnMax;
+        
 
         public int PopulationH
         {
@@ -90,6 +94,8 @@ namespace Player
             set
             {
                 WoodAmount = GetValue(value);
+                if (WoodAmount == StorageCapacityH) IsWoodOnMax = true;
+                else IsWoodOnMax = false;
                 WoodAmountChanged?.Invoke(WoodAmount);
             }
         }
