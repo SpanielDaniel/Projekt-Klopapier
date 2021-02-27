@@ -285,8 +285,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 31911872}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 50}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 150}
+  m_LocalScale: {x: 1, y: 1.0000002, z: 1.0000002}
   m_Children:
   - {fileID: 380138550}
   m_Father: {fileID: 0}
@@ -294,7 +294,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 100, y: 0}
   m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &380138549
@@ -407,6 +407,8 @@ MonoBehaviour:
   SteelStartAmount: 0
   FoodStartAmount: 0
   StartStorageCapacity: 0
+  BaseIsUnderConstruction: 0
+  BaseIsBuild: 0
 --- !u!4 &510897459
 Transform:
   m_ObjectHideFlags: 0
@@ -666,6 +668,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PathLinePrefab: {fileID: 0}
+  HudResMap: {fileID: 0}
+  Hud2: {fileID: 1484174878}
 --- !u!1 &614951944
 GameObject:
   m_ObjectHideFlags: 0
@@ -1068,23 +1072,14 @@ GameObject:
   m_Component:
   - component: {fileID: 1080258045}
   - component: {fileID: 1080258044}
-  - component: {fileID: 1080258043}
   - component: {fileID: 1080258046}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: ResMapCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1080258043
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1080258042}
-  m_Enabled: 1
 --- !u!20 &1080258044
 Camera:
   m_ObjectHideFlags: 0
@@ -1136,7 +1131,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1080258042}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 100, y: 16, z: 50}
+  m_LocalPosition: {x: 200, y: 16, z: 150}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1161,8 +1156,9 @@ MonoBehaviour:
   ScrollSpeed: 1
   SCROLL_VALUE: 10
   MovementSpeed: 100
-  XMaxPos: 200
-  ZMaxPos: 100
+  XMaxPos: 300
+  ZMaxPos: 200
+  Camera: {fileID: 1080258044}
 --- !u!1 &1344999557
 GameObject:
   m_ObjectHideFlags: 0
@@ -1358,7 +1354,7 @@ Canvas:
   m_GameObject: {fileID: 1484174878}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 1
@@ -1406,7 +1402,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1554467854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1420,6 +1416,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BuildManager: {fileID: 0}
+  UnitSelector: {fileID: 0}
   UIVisibilityManager: {fileID: 0}
 --- !u!4 &1554467855
 Transform:
@@ -1463,7 +1460,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1682556331}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 100, y: 0, z: 100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

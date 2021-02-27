@@ -1,9 +1,12 @@
 ﻿// Author: Daniel Bäcker
 
+using System;
 using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
+
+    public static event Action<Camera> OnCameraCreation;
     [SerializeField] private float PanBorderThickness;
     [SerializeField] private float MovementSpeed;
     [SerializeField] private float ScrollSpeed;
@@ -20,13 +23,23 @@ public class CameraManager : MonoBehaviour
 
     private const float SCROLL_VALUE = 0.1f;
 
+    private void Start()
+    {
+        OnCameraCreation?.Invoke(this.GetComponent<Camera>());
+    }
+
 
     private void Update()
     {
         // --- Input Handler ---
+        if (!this.GetComponent<Camera>().enabled)
+        {
+            return;
+        } 
         
         // Save the current position of the camera.
-        Vector3 currentCameraPosition = transform.position;
+        Vector3 currentCameraPosition = this.GetComponent<Camera>().transform.position;
+        Debug.Log("pos" + currentCameraPosition);
         
         // Movement forward, backward, right and left.
         if (Input.GetKey(KeyCode.W) ||  Input.mousePosition.y >= Screen.height - PanBorderThickness && Input.mousePosition.x <= Screen.height + PanBorderThickness) 
@@ -35,6 +48,7 @@ public class CameraManager : MonoBehaviour
         if (Input.GetKey(KeyCode.S) ||  Input.mousePosition.y <= PanBorderThickness && Input.mousePosition.y >= -PanBorderThickness) 
             currentCameraPosition += Vector3.back * (Time.deltaTime * MovementSpeed);
         
+        Debug.Log(Screen.width+ " " + Input.GetKey(KeyCode.D));
         if (Input.GetKey(KeyCode.D) ||  Input.mousePosition.x >= Screen.width - PanBorderThickness && Input.mousePosition.x <= Screen.width + PanBorderThickness) 
             currentCameraPosition += Vector3.right * (Time.deltaTime * MovementSpeed);
         
@@ -71,7 +85,7 @@ public class CameraManager : MonoBehaviour
                                          new Vector3(0, 1, -1) * MaxCameraHeight;
             }
 
-            transform.position = currentCameraPosition;
+            this.GetComponent<Camera>().transform.position = currentCameraPosition;
     }
     
 }

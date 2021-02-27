@@ -32,8 +32,7 @@ namespace Code.Scripts
 
 
         [SerializeField] private GameObject LinePrefab;
-        
-        
+
         
         
 
@@ -45,6 +44,7 @@ namespace Code.Scripts
         
         private void Update()
         {
+            
             if (WoodPointsToAdd > 0)
             {
                 WoodTimer += Time.deltaTime;
@@ -103,7 +103,7 @@ namespace Code.Scripts
                 int i = Random.Range(0, Vector3s.Count);
                 
                 GameObject obj = Instantiate(_resourceObj,Parent.transform);
-                obj.transform.position = new Vector3(Vector3s[i].x,4,Vector3s[i].z);
+                obj.transform.position = new Vector3(Vector3s[i].x + 100,4,Vector3s[i].z + 100);
                 Resources.Add(obj);
                 Vector3s.Remove(Vector3s[i]);
             }

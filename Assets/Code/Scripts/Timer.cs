@@ -9,7 +9,8 @@ using UnityEngine.UI;
 public class Timer : MonoBehaviour
 {
 
-    public static event Action<int> OnDayChanged; 
+    public static event Action<int> OnDayChanged;
+    
     [SerializeField] private Text TimeText;
     [SerializeField] private Text DayText;
     [SerializeField] private bool BoolTimer = false;

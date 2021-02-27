@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Level/Scenes/FinalGameScene.unity
     guid: 9677b973aad55b34ea324e2dd17f9cf9
+  - enabled: 1
+    path: Assets/Level/Scenes/Test_GenerateMesh.unity
+    guid: 518d1ad11a2e5994194799becb6b9e9e
   m_configObjects: {}

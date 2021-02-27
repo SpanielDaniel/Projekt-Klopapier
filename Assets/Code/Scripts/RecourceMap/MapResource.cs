@@ -185,10 +185,11 @@ namespace Code.Scripts
         {
             if (UIPointerInHudManager.GetIsInHut)
             {
-                Debug.Log("isInHud");
+                
+                
                 return;
             }
-            Debug.Log("PointerEnter");
+            
         }
 
     }

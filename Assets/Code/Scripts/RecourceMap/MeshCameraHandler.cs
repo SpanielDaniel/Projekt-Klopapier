@@ -9,6 +9,9 @@ namespace Code.Scripts
 {
     public class MeshCameraHandler : MonoBehaviour
     {
+        
+        public static event Action<Camera> OnCameraCreation;
+        
         [SerializeField] private float PanBorderThickness;
         [SerializeField] private float CameraSize;
         [SerializeField] private float MaxCameraSize = 60;
@@ -19,6 +22,7 @@ namespace Code.Scripts
 
         [SerializeField] private float XMaxPos;
         [SerializeField] private float ZMaxPos;
+        [SerializeField] private Camera Camera;
         private float CameraSizeHandler
         {
             get => CameraSize;
@@ -33,12 +37,14 @@ namespace Code.Scripts
         private void Start()
         {
             SetCameraSize();
+            OnCameraCreation?.Invoke(this.GetComponent<Camera>());
         }
 
 
         private void Update()
         {
-            Vector3 currentCameraPosition = Camera.main.transform.position;
+            if (!ResourceMapManager.HudIsActive) return; 
+            Vector3 currentCameraPosition = Camera.transform.position;
             if (Input.GetKey(KeyCode.W) ||  Input.mousePosition.y >= Screen.height - PanBorderThickness && Input.mousePosition.x <= Screen.height + PanBorderThickness) 
                 currentCameraPosition += Vector3.forward * (Time.deltaTime * MovementSpeed);
         
@@ -62,15 +68,15 @@ namespace Code.Scripts
             if(currentCameraPosition.x > XMaxPos) currentCameraPosition = new Vector3(XMaxPos, currentCameraPosition.y,currentCameraPosition.z);
             if(currentCameraPosition.z > ZMaxPos) currentCameraPosition = new Vector3(currentCameraPosition.x, currentCameraPosition.y,ZMaxPos);
             
-            if(currentCameraPosition.x < 0) currentCameraPosition = new Vector3(0, currentCameraPosition.y,currentCameraPosition.z);
-            if(currentCameraPosition.z < 0) currentCameraPosition = new Vector3(currentCameraPosition.x, currentCameraPosition.y,0);
+            if(currentCameraPosition.x < 100) currentCameraPosition = new Vector3(100, currentCameraPosition.y,currentCameraPosition.z);
+            if(currentCameraPosition.z < 100) currentCameraPosition = new Vector3(currentCameraPosition.x, currentCameraPosition.y,100);
 
-            Camera.main.transform.position = currentCameraPosition;
+            Camera.transform.position = currentCameraPosition;
         }
 
         private void SetCameraSize()
         {
-            Camera.main.orthographicSize = CameraSize;
+            Camera.orthographicSize = CameraSize;
             foreach (GameObject res in ResourceGenerator.Resources)
             {
                 res.transform.localScale = Vector3.one * CameraSize / 50;

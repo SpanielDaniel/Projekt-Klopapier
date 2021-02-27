@@ -58,5 +58,10 @@ namespace Code.Scripts.Wave_Scripts
             PosX = _x;
             PosZ = _z;
         }
+
+        public void ShowSphere(bool _isActive)
+        {
+            Sphere.SetActive(_isActive);
+        }
     }
 }
