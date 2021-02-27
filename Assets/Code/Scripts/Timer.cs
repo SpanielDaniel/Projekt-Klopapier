@@ -18,7 +18,7 @@ public class Timer : MonoBehaviour
     private float CurrentTimer;
     [SerializeField] private float TimeSpeed = 1.5f;
 
-    private int Day = 0;
+    private static int Day = 0;
 
     private int DayH
     {
@@ -36,6 +36,7 @@ public class Timer : MonoBehaviour
     private static float Minuten = 0;
     public float test;
 
+    public static int GetDay => Day;
     public static float GetStunden => Stunden;
     public static float GetMinuten => Minuten;
 
