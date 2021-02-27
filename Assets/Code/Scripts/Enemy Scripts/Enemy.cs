@@ -45,6 +45,11 @@ public class Enemy : MonoBehaviour
         Animator = GetComponent<Animator>();
     }
 
+    public void SetWaypoints(Waypoints _wpoint)
+    {
+        wPoints = _wpoint;
+    }
+
     private void Initialize(EnemyData _data)
     {
         MaxHealthPoints = _data.MaxHealthPoints;
@@ -58,20 +63,20 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        //transform.position = Vector3.MoveTowards(transform.position, wPoints.waypoints[WayPointIndex].position, MovementSpeed * Time.deltaTime);
-        //Vector3 direction = (wPoints.waypoints[WayPointIndex].position - transform.position);
+        transform.position = Vector3.MoveTowards(transform.position, wPoints.waypoints[WayPointIndex].transform.position, MovementSpeed * Time.deltaTime);
+        Vector3 direction = (wPoints.waypoints[WayPointIndex].transform.position - transform.position);
 
         //distance = direction.magnitude;
         //ViewDirection = direction.normalized;
 
-        //float angle = Vector2.SignedAngle(Vector2.up, new Vector2(ViewDirection.x, ViewDirection.z));
-        //RotateObject.transform.eulerAngles = new Vector3(0, -angle, 0);
-        //Animator.SetBool("IsShooting", false);
-        //if (Vector3.Distance(transform.position, wPoints.waypoints[WayPointIndex].position) < 0.1f)
-        //{
-        //    if (WayPointIndex < wPoints.waypoints.Length - 1)
-        //        WayPointIndex++;
-        //}
+        float angle = Vector2.SignedAngle(Vector2.up, new Vector2(ViewDirection.x, ViewDirection.z));
+        RotateObject.transform.eulerAngles = new Vector3(0, -angle, 0);
+        Animator.SetBool("IsShooting", false);
+        if (Vector3.Distance(transform.position, wPoints.waypoints[WayPointIndex].transform.position) < 0.1f)
+        {
+            if (WayPointIndex < wPoints.waypoints.Count - 1)
+                WayPointIndex++;
+        }
 
 
         if (CurrentHealthPoints <= 0)

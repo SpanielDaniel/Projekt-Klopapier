@@ -3,18 +3,20 @@
 // Project  : Projekt-Klopapier
 
 using System.Collections;
+using Code.Scripts.Map;
 using UnityEngine;
 
 public class Wave_Spawner : MonoBehaviour
 {
     [SerializeField] private Wave[] Waves;
+    [SerializeField] private MapGenerator MapGenerator;
     private Waypoints wPoints;
     public static int EnemiesAlive;
     private int WaveIndex = 0;
 
     private void Start()
     {
-        wPoints = GameObject.FindGameObjectWithTag("Waypoints").GetComponent<Waypoints>();
+        //wPoints = GameObject.FindGameObjectWithTag("Waypoints").GetComponent<Waypoints>();
     }
 
     private void Update()
@@ -26,6 +28,10 @@ public class Wave_Spawner : MonoBehaviour
 
         if (Timer.GetStunden == 6 && Timer.GetMinuten == 0)
         {
+            int randomValue = 0;
+            wPoints.SetWayPoints(MapGenerator.GetPathes[randomValue]);
+            
+            
             StartCoroutine(WaveSpawn());
         }
 
@@ -52,7 +58,8 @@ public class Wave_Spawner : MonoBehaviour
 
     public void SpawnEnemy(GameObject _enemy)
     {
-        Instantiate(_enemy, wPoints.waypoints[0].position, Quaternion.identity);
+        GameObject enemy = Instantiate(_enemy, wPoints.waypoints[0].transform.position, Quaternion.identity);
+        enemy.GetComponent<Enemy>().SetWaypoints(wPoints);
         EnemiesAlive++;
     }
 }

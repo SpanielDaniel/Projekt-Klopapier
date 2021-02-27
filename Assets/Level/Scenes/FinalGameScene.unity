@@ -547,6 +547,7 @@ MonoBehaviour:
   PrefMapThings: {fileID: 5962938901129572456, guid: 1da3ad41cc6d2bf4095b74bbbcbce5c8, type: 3}
   GrasGround: {fileID: 106865187}
   BuildManager: {fileID: 510762074}
+  PrefWaypoint: {fileID: 1199441975844715682, guid: b73416392e6e2c24ab99287a49b68f54, type: 3}
   MapIsReady: 0
 --- !u!114 &19634437
 MonoBehaviour:

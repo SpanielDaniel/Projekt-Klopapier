@@ -120,6 +120,7 @@
             <e p="Wave Scripts" t="Include">
               <e p="Wave.cs" t="Include" />
               <e p="Wave_Spawner.cs" t="Include" />
+              <e p="Waypoint.cs" t="Include" />
             </e>
           </e>
           <e p="Shader" t="Include">

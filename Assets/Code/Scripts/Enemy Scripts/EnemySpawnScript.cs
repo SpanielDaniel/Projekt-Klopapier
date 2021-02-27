@@ -25,7 +25,7 @@ public class EnemySpawnScript : MonoBehaviour
     {
         if (timer <= 0)
         {
-            Instantiate(enemy, wPoints.waypoints[0].position, Quaternion.identity);
+            Instantiate(enemy, wPoints.waypoints[0].transform.position, Quaternion.identity);
             timer = resetTimer;
         }
         else

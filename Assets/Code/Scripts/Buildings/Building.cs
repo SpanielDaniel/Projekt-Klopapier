@@ -24,7 +24,7 @@ namespace Buildings
         // Events ------------------------------------------------------------------------------------------------------
         
         public static event Action ValueChanged;
-        public static event Action OnBaseIsUnderConstruction;
+        public static event Action<Base> OnBaseIsUnderConstruction;
         public static event Action DestroyDestroyed;
         public static event Action<Building> OnClick;
         public static event Action<Building> IsFinished;
@@ -74,6 +74,8 @@ namespace Buildings
         private int CurrentWidth;
         private int CurrentHeight;
         public bool IsBuildingHudOpen = false;
+
+        public Ground GetEntranceGround => EntranceGround;
         
         protected Ground EntranceGround;
         
@@ -395,7 +397,7 @@ namespace Buildings
             MeshRenderer.material = BaseMaterial;
             if (this is Base)
             {
-                OnBaseIsUnderConstruction?.Invoke();
+                OnBaseIsUnderConstruction?.Invoke(this as Base);
             }
             
             

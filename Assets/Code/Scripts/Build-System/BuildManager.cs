@@ -92,9 +92,11 @@ namespace Code.Scripts
             Base.OnBaseCreated += OnBaseCreated;
             Base.OnBaseCreated += DeactivateBaseSlot;
             BuildSlot.OnMouseClick += OnMouseClickedBuildSlot;
-            Building.OnBaseIsUnderConstruction += DeactivateBaseSlot;
+            Building.OnBaseIsUnderConstruction += OnBaseCreated;
             UnitSelector.SelectionChanged += RightMouseButtonClicked;
         }
+
+        
 
 
         // Start -------------------------------------------------------------------------------------------------------
@@ -109,6 +111,10 @@ namespace Code.Scripts
 
         // Events ------------------------------------------------------------------------------------------------------
 
+        private void OnBaseCreated(Base obj)
+        {
+            DeactivateBaseSlot();
+        }
         /// <summary>
         /// It triggers when the base ist built.  
         /// </summary>
@@ -381,12 +387,13 @@ namespace Code.Scripts
             {
                 AudioManager.GetInstance.Play("Build");
                 PlayerData.ReduceResources(0, woodCosts, stoneCosts, steelCosts);
-                CurrentBuilding.SetBaseMaterial();
                 CurrentBuilding.SetEntranceActive(false);
-                
+
                 CurrentBuilding.SetPosition(CurrentGround.GetWidth,CurrentGround.GetHeight);
+                Debug.Log("Set");
                 CurrentBuilding.SetEntranceGround(MapGenerator.GetGroundFromGlobalPosition(CurrentBuilding.GetEntrancePoss()));
                 CurrentBuilding.SetConstructionActive(true);
+                CurrentBuilding.SetBaseMaterial();
 
                 for (int i = 0; i < CurrentBuilding.CurrentHeightH; i++)
                 {

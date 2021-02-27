@@ -8,5 +8,10 @@ using UnityEngine;
 
 public class Waypoints : MonoBehaviour
 {
-    public Transform[] waypoints;
+    public List<GameObject> waypoints;
+
+    public void SetWayPoints(List<GameObject> _path)
+    {
+        waypoints = _path;
+    }
 }

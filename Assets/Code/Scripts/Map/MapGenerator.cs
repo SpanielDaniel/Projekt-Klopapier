@@ -3,8 +3,10 @@
 // Project  : Projekt-Klopapier
 
 using System;
+using System.Collections.Generic;
 using Buildings;
 using Code.Scripts.Grid.DanielB;
+using Code.Scripts.Wave_Scripts;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -40,8 +42,68 @@ namespace Code.Scripts.Map
 
         private GameObject MapThings;
 
-        public bool MapIsReady = false; 
+        public bool MapIsReady = false;
+        public MyGrid<GameObject> GetWaypoints => Waypoints;
+
+        public void Awake()
+        {
+            Building.OnBaseIsUnderConstruction += SetFinalWaypoint;
+        }
+
+        private Node[,] Nodes;
+        private GameObject FinalWayPoint;
+        private List<GameObject> EntrancePoints = new List<GameObject>();
+        private Pathfinding Pathfinding;
         
+        private List<List<GameObject>> Pathes = new List<List<GameObject>>();
+        
+        public List<List<GameObject>> GetPathes => Pathes;
+
+        private void SetFinalWaypoint(Base obj)
+        {
+            Waypoints.Grid[(int) (obj.GetEntranceGround.GetWidth/2), (int) (obj.GetEntranceGround.GetHeight/2) ].GetComponent<Waypoint>().Init(EWaypointSignature.Final);
+            FinalWayPoint = Waypoints.Grid[(int) (obj.GetEntranceGround.GetWidth / 2),
+                (int) (obj.GetEntranceGround.GetHeight / 2)];
+            
+            Nodes = new Node[Waypoints.GetWidth,Waypoints.GetHeight];
+
+            for (int i = 0; i < Waypoints.GetHeight; i++)
+            {
+                for (int j = 0; j < Waypoints.GetWidth; j++)
+                {
+                    Nodes[j,i] = new Node(j,i,Waypoints.Grid[j,i].transform.position);
+                    if (Waypoints.Grid[j, i].GetComponent<Waypoint>().GetWaypointSignature == EWaypointSignature.None)
+                    {
+                        Nodes[j, i].IsWalkable = false;
+                    }
+                    else
+                    {
+                        Nodes[j, i].IsWalkable = true;
+                    }
+                }
+            }
+            
+            Pathfinding = new Pathfinding(Nodes);
+
+            int endX = FinalWayPoint.GetComponent<Waypoint>().GetXPos;
+            int endY = FinalWayPoint.GetComponent<Waypoint>().GetZPos;
+            
+            foreach (GameObject entrancePoint in EntrancePoints)
+            {
+                int startX = entrancePoint.GetComponent<Waypoint>().GetXPos;
+                int startY = entrancePoint.GetComponent<Waypoint>().GetZPos;
+                List<Node> nodes = Pathfinding.FindPath(startX, startY, endX, endY);
+                List<GameObject> pathObjects = new List<GameObject>(); 
+                
+                foreach (Node node in nodes)
+                {
+                    pathObjects.Add(Waypoints.Grid[node.GridX,node.GridZ]);
+                } 
+                Pathes.Add(pathObjects);
+            }
+            
+        }
+
         private void Start()
         {
             Init();
@@ -65,7 +127,7 @@ namespace Code.Scripts.Map
             GrasGround.transform.position = new Vector3(0,0,0);
             MapThings.transform.position = new Vector3(-width/2,0.001f,-height/2);
 
-            
+            GenerateWayPoints();
             
             
             
@@ -74,6 +136,43 @@ namespace Code.Scripts.Map
             MapIsBuild?.Invoke();
             
             GenerateBuildings();
+        }
+
+        private void GenerateWayPoints()
+        {
+            Waypoints = new MyGrid<GameObject>(MapManager.GetWidth,MapManager.GetHeight);
+            for (int i = 0; i < Waypoints.GetHeight; i++)
+            {
+                for (int j = 0; j < Waypoints.GetWidth; j++)
+                {
+                    GameObject waypoint = Instantiate(PrefWaypoint);
+                    waypoint.transform.position = new Vector3(j - MapManager.GetWidth / 2 + 0.5f,0, i - MapManager.GetHeight/ 2 + 0.5f);
+                    
+                    if (GroundsMap.Grid[j * 2, i * 2].GetGroundSignature == EGround.Street)
+                    {
+                        if (i == 0 || j == 0 || j == Waypoints.GetWidth - 1 || i == Waypoints.GetHeight - 1)
+                        {
+                            waypoint.GetComponent<Waypoint>().Init(EWaypointSignature.Entrance);
+                            EntrancePoints.Add(waypoint);
+
+                        }
+                        else
+                        {
+                            waypoint.GetComponent<Waypoint>().Init(EWaypointSignature.Waypoint);
+                        }
+                    }
+                    else
+                    {
+                        waypoint.GetComponent<Waypoint>().Init(EWaypointSignature.None);
+                    }
+                    
+                    waypoint.GetComponent<Waypoint>().SetPos(j,i);
+                    Waypoints.Grid[j, i] = waypoint;
+                    
+                }
+            }
+            
+            
         }
 
         public void DeleteMap()
