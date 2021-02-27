@@ -6,6 +6,7 @@ using UnityEngine;
 using Assets.Code.Scripts.Enemy_Scripts;
 using Buildings;
 using Player;
+using System.Collections.Generic;
 
 //ToDo: Umschreiben
 
@@ -16,7 +17,8 @@ public class Enemy : MonoBehaviour
     private float CurrentHealthPoints;
     private float Defence;
     private float MovementSpeed;
-    private float Range ;
+    private float Range;
+    private int DamageToBase;
     private float distance;
     private int OnDeathPaperDrop;
     private Vector3 ViewDirection;
@@ -30,12 +32,21 @@ public class Enemy : MonoBehaviour
     private int WayPointIndex;
     private Waypoints wPoints;
 
+    public bool OnEnterBase
+    {
+        get => ReachedEnd;
+        set
+        {
+            ReachedEnd = value;
+            GiveDamageToBase();
+        }
+    }
+
     private Animator Animator;
     [SerializeField] private GameObject RotateObject;
     [SerializeField] private GameObject BulletPrefab;
     [SerializeField] private Transform FirePoint;
     [SerializeField] private EnemyData Data;
-    [SerializeField] private GameObject Base;
 
     public EnemyData GetEnemyData => Data;
 
@@ -63,6 +74,7 @@ public class Enemy : MonoBehaviour
         Range = _data.Range;
         FireRate = _data.AttackSpeed;
         OnDeathPaperDrop = _data.PaperDrop;
+        DamageToBase = _data.DamageToBase;
         CurrentHealthPoints = MaxHealthPoints;
     }
 
@@ -82,7 +94,7 @@ public class Enemy : MonoBehaviour
             if (WayPointIndex < wPoints.waypoints.Count - 1)
                 WayPointIndex++;
             else
-                ReachedEnd = true;
+                OnEnterBase = true;
         }
 
         if (CurrentHealthPoints <= 0)
@@ -132,8 +144,23 @@ public class Enemy : MonoBehaviour
 
     private void UpdateTarget()
     {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Unit");
-        GameObject[] buildings = GameObject.FindGameObjectsWithTag("Building");
+        List<GameObject> enemies = new List<GameObject>();
+        foreach (var item in Unit.Units)
+        {
+            enemies.Add(item.gameObject);
+        }
+        List<GameObject> buildings = new List<GameObject>();
+        foreach (var item in Building.Buildings)
+        {
+            if (item is Base)
+            {
+                
+            }
+            else
+            {
+                buildings.Add(item.gameObject);
+            }
+        }
         float shortestDistanceToEnemy = Mathf.Infinity;
         float shortestDistanceToBuilding = Mathf.Infinity;
         GameObject nearestEnemy = null;
@@ -172,6 +199,18 @@ public class Enemy : MonoBehaviour
         Wave_Spawner.EnemiesAlive--;
         PlayerData.GetInstance.IncreaseToiletPaper(OnDeathPaperDrop);
         Destroy(gameObject);
+    }
+
+    private void GiveDamageToBase()
+    {
+        foreach (Building building in Building.Buildings)
+        {
+            if (building is Base)
+            {
+                building.CurrentHealthH -= DamageToBase;
+            }
+        }
+        Die();
     }
 
     public void TakeDamage(int _dmg)
