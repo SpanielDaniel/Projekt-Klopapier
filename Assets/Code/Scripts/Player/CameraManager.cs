@@ -39,7 +39,6 @@ public class CameraManager : MonoBehaviour
         
         // Save the current position of the camera.
         Vector3 currentCameraPosition = this.GetComponent<Camera>().transform.position;
-        Debug.Log("pos" + currentCameraPosition);
         
         // Movement forward, backward, right and left.
         if (Input.GetKey(KeyCode.W) ||  Input.mousePosition.y >= Screen.height - PanBorderThickness && Input.mousePosition.x <= Screen.height + PanBorderThickness) 
@@ -48,7 +47,6 @@ public class CameraManager : MonoBehaviour
         if (Input.GetKey(KeyCode.S) ||  Input.mousePosition.y <= PanBorderThickness && Input.mousePosition.y >= -PanBorderThickness) 
             currentCameraPosition += Vector3.back * (Time.deltaTime * MovementSpeed);
         
-        Debug.Log(Screen.width+ " " + Input.GetKey(KeyCode.D));
         if (Input.GetKey(KeyCode.D) ||  Input.mousePosition.x >= Screen.width - PanBorderThickness && Input.mousePosition.x <= Screen.width + PanBorderThickness) 
             currentCameraPosition += Vector3.right * (Time.deltaTime * MovementSpeed);
         
