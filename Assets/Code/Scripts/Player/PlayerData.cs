@@ -50,7 +50,6 @@ namespace Player
         public bool GetIsWoodOnMax => IsWoodOnMax;
         public bool GetIsStoneOnMax => IsStoneOnMax;
         public bool GetIsSteelOnMax => IsSteelOnMax;
-        public bool GetIsToilettePaperOnMax => IsToilettePaperOnMax;
         public bool GetIsFoodOnMax => IsFoodOnMax;
         
 
@@ -84,7 +83,6 @@ namespace Player
                 WoodAmountH = WoodAmountH;
                 StoneAmountH = StoneAmountH;
                 SteelAmountH = SteelAmountH;
-                ToiletPaperAmountH = ToiletPaperAmountH;
                 
                 StorageCapacityChanged?.Invoke(StorageCapacity);
             }
@@ -95,9 +93,7 @@ namespace Player
             get => ToiletPaperAmount;
             set
             {
-                ToiletPaperAmount = GetValue(value);
-                if (ToiletPaperAmount == StorageCapacityH) IsToilettePaperOnMax = true;
-                else IsToilettePaperOnMax = false;
+                ToiletPaperAmount = value;
                 ToiletPaperAmountChanged?.Invoke(ToiletPaperAmount);
             }
         }
