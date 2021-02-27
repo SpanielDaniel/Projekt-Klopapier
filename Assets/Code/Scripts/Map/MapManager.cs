@@ -20,7 +20,7 @@ namespace Code.Scripts.Grid.DanielB
         private void Awake()
         {
             GameManager.OnResCamActive += OnGather;
-            GameManager.OnMapCamActiv += OnMap;
+            GameManager.OnMapCamActive += OnMap;
         }
 
         private void OnMap()

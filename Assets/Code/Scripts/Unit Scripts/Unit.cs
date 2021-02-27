@@ -19,7 +19,9 @@ public class Unit : MonoBehaviour
     ,IMouseLeftDown
 {
     public static event Action<Unit> OnSelection;
-    public static event Action<Unit> IsSpawned; 
+    public static event Action<Unit> IsSpawned;
+    public static event Action<Unit,Ground> OnMapEntrance; 
+    public static event Action<Unit> CancledGather; 
     
     private float MaxHealthPoints;
     private float CurrentHealthPoints;
@@ -58,6 +60,8 @@ public class Unit : MonoBehaviour
     private Vector3 ViewDirection;
     private bool IsMoving = false;
     private bool IsMovingIntoBuilding;
+    private bool IsGoingGather;
+
     private GameObject Target;
 
     private bool isMoving = false;
@@ -191,6 +195,15 @@ public class Unit : MonoBehaviour
                     }
                     IsMovingIntoBuilding = false;
                 }
+
+                if (IsGoingGather)
+                {
+                    UnitManager.GetInstance.GetNodes[GetXPosition, GetZPosition].IsUnit = false;
+                    
+                    gameObject.SetActive(false);
+                    OnMapEntrance?.Invoke(this,UnitManager.GetInstance.GetUnitGround(this));
+                    
+                }
             }
         }
         UpdateTarget();
@@ -319,6 +332,8 @@ public class Unit : MonoBehaviour
     {
         IsMovingIntoBuilding = false;
         BuildingToEnter = null;
+        if(IsGoingGather) CancledGather?.Invoke(this);
+        IsGoingGather = false;
     }
 
     public void OnMouseLeftDownAction()
@@ -340,6 +355,11 @@ public class Unit : MonoBehaviour
     {   
         XPos = _x;
         ZPos = _z;
+    }
+    public void GoToMapEnd()
+    {
+        IsGoingGather = true;
+        UnitManager.GetInstance.FindPathToWaveEntrance(this);
     }
     
 }

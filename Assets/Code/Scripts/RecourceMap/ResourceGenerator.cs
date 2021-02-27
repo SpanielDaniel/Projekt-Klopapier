@@ -26,15 +26,13 @@ namespace Code.Scripts
         [SerializeField] private GameObject CityImage;
         [SerializeField] private GameObject Parent;
         [SerializeField] private float TimeToRegenerateResourceInSeconds;
+        [SerializeField] private float TimeMultiplicator = 1;
         
         private MeshGenerator MeshGenerator;
         private List<Vector3> Vector3s = new List<Vector3>();
 
 
         [SerializeField] private GameObject LinePrefab;
-
-        
-        
 
         private int WoodPointsToAdd;
         
@@ -107,6 +105,8 @@ namespace Code.Scripts
                 Resources.Add(obj);
                 Vector3s.Remove(Vector3s[i]);
             }
+            
+            
         }
 
 
@@ -126,18 +126,21 @@ namespace Code.Scripts
 
                         line.transform.localPosition = homePosition;
                         line.transform.localPosition += (markerPos - homePosition) / 2;
-
+                        
                         
                         
                          float distanceBetweenHomeAndMarker = Vector3.Distance(homePosition, markerPos);
+                         obj.GetComponent<MapResource>().Init(distanceBetweenHomeAndMarker);
+                         
                          float radius = Vector3.SignedAngle(Vector3.right, markerPos - homePosition,Vector3.forward);
                          
                         
                         
                          line.transform.localRotation = Quaternion.Euler(0,0,radius );
                          line.GetComponent<RectTransform>().sizeDelta = new Vector2( distanceBetweenHomeAndMarker,line.GetComponent<RectTransform>().rect.height);
-
-
+                            
+                         obj.GetComponent<MapResource>().SetLine(line);
+                         
                          Lines.Add(line);
                     }
                 }
@@ -161,5 +164,13 @@ namespace Code.Scripts
                 Debug.Log("Resource konnte in der Liste nicht gefunden werden");
             }
         }
+
+        //private void CalculatePathTimer(MapResource _mapResource)
+        //{
+        //    float distance = Vector3.Distance(Resources[0].transform.localPosition, _mapResource.transform.localPosition);
+        //    Debug.Log("Distance : " + distance);
+        //    distance *= TimeMultiplicator;
+        //    _mapResource.Init(distance);
+        //}
     }
 }

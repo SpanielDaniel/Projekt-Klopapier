@@ -30,8 +30,11 @@ namespace Code.Scripts
     
     public class MapResource : MonoBehaviour
     , IPointerEnterHandler
+    , IPointerClickHandler
+    ,IPointerExitHandler
     {
         public static event Action<GameObject,EMapResource> ResourceIsEmpty;
+        public static event Action<MapResource> OnClickRes;
         [SerializeField] private float TimeToEarnResourcesInSeconds;
         [SerializeField] private int MinAmount;
         [SerializeField] private int MaxAmount;
@@ -42,14 +45,20 @@ namespace Code.Scripts
         [SerializeField] private EMapResource Res;
 
         public EMapResource GetRes => Res;
+
+        private GameObject Line;
         
         private float RegenerationCounter;
-        
+        private float TimeToGoToResourcesInSeconds;
+
         private int WoodAmount;
         private int StoneAmount;
         private int SteelAmount;
         private int ToilettePaperAmount;
         private int FoodAmount;
+
+
+        public float GetTimeToGoToResourcesInSeconds => TimeToGoToResourcesInSeconds;
         private void Awake()
         {
             RandomizeResourceAmount();
@@ -78,6 +87,16 @@ namespace Code.Scripts
                     if (WoodAmount > MaxAmount) FoodAmount = MaxAmount;
                 }
             }
+        }
+
+        public void Init(float _time)
+        {
+            TimeToGoToResourcesInSeconds = _time;
+        }
+
+        public void SetLine(GameObject _line)
+        {
+            Line = _line;
         }
         
         private void RandomizeResourceAmount()
@@ -183,15 +202,22 @@ namespace Code.Scripts
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            if (UIPointerInHudManager.GetIsInHut)
+            if (!UIPointerInHudManager.GetIsInHut)
             {
-                
-                
+                Line.SetActive(true);
                 return;
             }
-            
         }
 
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            OnClickRes?.Invoke(this);
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            Line.SetActive(false);
+        }
     }
 
 

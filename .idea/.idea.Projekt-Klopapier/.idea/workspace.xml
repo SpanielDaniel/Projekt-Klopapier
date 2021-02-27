@@ -44,8 +44,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Singleton.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Sound/AudioManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Events/EventWindow.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Events/EventManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/Recrute.cs" />
@@ -56,45 +54,47 @@
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIVisibilityManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIPointerInHudManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/UIBuildingManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIResourcesManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Ground.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/UIElements/UIHouse.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/House.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Interfaces/IMouseLeftUp.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Interfaces/IMouseLeftDown.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Player/PlayerMouseManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/UnitSelector.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/Farm.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/UIElements/UIFarm.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UISlot.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/RecruitSlot.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Build-System/BuildSlot.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/UIElements/UIScrap.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Player/PlayerData.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/Scrap.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/UIElements/UIBuildingManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/Unit.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/Building.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Wave Scripts/Waypoint.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Enemy Scripts/EnemySpawnScript.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Enemy Scripts/Waypoints.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Enemy Scripts/Enemy.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Wave Scripts/Wave_Spawner.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Build-System/BuildManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Grid/Node.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Grid/Pathfinding.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Map/MapGenerator.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/UnitManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Timer.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/ResourceGenerator.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIUnitManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/MeshCameraHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/MainMenu/UIMenu.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/MapResource.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Player/CameraManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/GameManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/ResourceMapManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Map/MapManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Wave Scripts/Waypoint.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Player/CameraManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/MeshCameraHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Wave Scripts/Wave_Spawner.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Map/MapGenerator.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/UnitSelector.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UISlot.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIUnitManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/UnitManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/Unit.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/UIUnitGather.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/UnitGather.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/ResourceMapManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIResourcesManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/GameManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/ResourceGenerator.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/MapResource.cs" />
       </list>
     </option>
   </component>
@@ -197,7 +197,7 @@
       <workItem from="1614245647741" duration="3697000" />
       <workItem from="1614299807041" duration="4576000" />
       <workItem from="1614358596249" duration="12655000" />
-      <workItem from="1614420595203" duration="14252000" />
+      <workItem from="1614420595203" duration="24819000" />
     </task>
     <servers />
   </component>
@@ -329,11 +329,11 @@
     </state>
     <state x="953" y="0" width="974" height="1047" key="dock-window-3/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1611589455583" />
     <state x="2004" y="95" width="1285" height="1000" key="dock-window-3/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1611054341068" />
-    <state x="-1542" y="243" key="run.anything.popup" timestamp="1612647802514">
-      <screen x="-1920" y="0" width="1920" height="1040" />
+    <state x="378" y="243" key="run.anything.popup" timestamp="1614437666972">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="-1542" y="243" key="run.anything.popup/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1612647802514" />
-    <state x="378" y="243" key="run.anything.popup/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1610548142329" />
+    <state x="378" y="243" key="run.anything.popup/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1614437666972" />
     <state x="2298" y="243" key="run.anything.popup/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@1920.0.1920.1040" timestamp="1607955804944" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1614434794119">
       <screen x="0" y="0" width="1920" height="1040" />

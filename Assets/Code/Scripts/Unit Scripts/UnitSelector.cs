@@ -133,6 +133,7 @@ public class UnitSelector : MonoBehaviour
                         foreach (Unit unit in SelectedUnitsH)
                         {
                             unit.CancelMovingIntoBuilding();
+                            
 
                         }
                         MoveUnits(ground.GetWidth, ground.GetHeight);

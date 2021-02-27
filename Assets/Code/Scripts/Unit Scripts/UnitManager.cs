@@ -9,8 +9,10 @@ using System.Collections.Generic;
 using Assets.Code.Scripts.Grid;
 using Code.Scripts;
 using Code.Scripts.Map;
+using Code.Scripts.Wave_Scripts;
 using NUnit.Framework.Constraints;
 using UnityEngine;
+using Random = System.Random;
 
 public class UnitManager : Singleton<UnitManager>
 {
@@ -79,7 +81,7 @@ public class UnitManager : Singleton<UnitManager>
         _unit.MoveToPosition(PathDijkstra);
     }
 
-   private void SetUnitPos()
+    private void SetUnitPos()
    {
        foreach (Unit _unit in Unit.Units)
        {
@@ -92,4 +94,21 @@ public class UnitManager : Singleton<UnitManager>
         if(!MapGenerator.MapIsReady) return;
         _unit.transform.position = MapGenerator.GetGroundFromPosition(_unit.GetXPosition, _unit.GetZPosition).transform.position;
     }
+
+    public void FindPathToWaveEntrance(Unit _unit)
+    {
+        Random random = new Random();
+        int randomEntranceIndex = random.Next(0, MapGenerator.GetEntrancePoints.Count);
+        List<GameObject> entrances =  MapGenerator.GetEntrancePoints;
+        int endPosX = entrances[randomEntranceIndex].GetComponent<Waypoint>().GetXPos * 2;
+        int endPosZ = entrances[randomEntranceIndex].GetComponent<Waypoint>().GetZPos * 2;
+        
+         FindPathForUnit(_unit,endPosX,endPosZ);
+    }
+    
+    public Ground GetUnitGround(Unit _unit)
+    {
+        return MapGenerator.GetGroundFromPosition(_unit.GetXPosition, _unit.GetZPosition);
+    }
+    
 }

@@ -2,6 +2,7 @@
 using Assets.Code.Scripts.UI_Scripts;
 using Code.Scripts;
 using Player;
+using UI_Scripts;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,7 +14,7 @@ using UnityEngine.SceneManagement;
         #region Init
 
 
-        public static event Action OnMapCamActiv;
+        public static event Action OnMapCamActive;
         public static event Action OnResCamActive;
 
         [SerializeField] private float GameSpeed = 1f;
@@ -37,8 +38,9 @@ using UnityEngine.SceneManagement;
             UIUnitManager.OnButtonGather += OnGather;
             CameraManager.OnCameraCreation += SetMapCamera;
             MeshCameraHandler.OnCameraCreation += SetResCamera;
-            
-            
+            ResourceMapManager.OnButtonClose += OnMap;
+            UIResourcesManager.OnButton_MapRes += OnGather;
+
             LoadScene(1);
         }
 
@@ -64,7 +66,7 @@ using UnityEngine.SceneManagement;
         {
             ResCamera.enabled = false;
             MapCamera.enabled = true;
-            OnMapCamActiv?.Invoke();
+            OnMapCamActive?.Invoke();
         }
 
         private void ReduceFood(int obj)

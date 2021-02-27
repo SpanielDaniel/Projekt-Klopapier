@@ -92,6 +92,8 @@
               <e p="MeshGenerator.cs" t="Include" />
               <e p="ResourceGenerator.cs" t="Include" />
               <e p="ResourceMapmanager.cs" t="Include" />
+              <e p="UIUnitGather.cs" t="Include" />
+              <e p="UnitGather.cs" t="Include" />
             </e>
             <e p="Singleton.cs" t="Include" />
             <e p="Sound" t="Include">

@@ -11,6 +11,8 @@ namespace UI_Scripts
 {
     public class UIResourcesManager : MonoBehaviour
     {
+
+        public static Action OnButton_MapRes;
         [SerializeField] private TextMeshProUGUI ToiletPaper;
         [SerializeField] private TextMeshProUGUI Wood;
         [SerializeField] private TextMeshProUGUI Stone;
@@ -28,8 +30,9 @@ namespace UI_Scripts
             PlayerData.SteelAmountChanged += SetTextToSteelAmount;
             PlayerData.FoodAmountChanged += SetTextToFoodAmount;
             PlayerData.StorageCapacityChanged += SetStorageCapacity;
-
             PlayerData.PopulationChanged += SetTextPopulation;
+            
+            
         }
 
         private void SetStorageCapacity(int _storageCapacity)
@@ -73,6 +76,11 @@ namespace UI_Scripts
         private string AddStorageCapacity()
         {
             return "|" + StorageCapacity;
+        }
+
+        public void OnButtonClick_MapRes()
+        {
+            OnButton_MapRes?.Invoke();
         }
         
     }

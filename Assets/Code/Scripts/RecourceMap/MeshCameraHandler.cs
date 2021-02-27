@@ -40,10 +40,13 @@ namespace Code.Scripts
             OnCameraCreation?.Invoke(this.GetComponent<Camera>());
         }
 
-
         private void Update()
         {
-            if (!ResourceMapManager.HudIsActive) return; 
+            if (!this.GetComponent<Camera>().enabled)
+            {
+                return;
+            } 
+            
             Vector3 currentCameraPosition = Camera.transform.position;
             if (Input.GetKey(KeyCode.W) ||  Input.mousePosition.y >= Screen.height - PanBorderThickness && Input.mousePosition.x <= Screen.height + PanBorderThickness) 
                 currentCameraPosition += Vector3.forward * (Time.deltaTime * MovementSpeed);

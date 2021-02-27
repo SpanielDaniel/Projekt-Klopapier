@@ -6,6 +6,7 @@ using System;
 using Assets.Code.Scripts.Unit_Scripts;
 using System.Collections.Generic;
 using Code.Scripts;
+using Code.Scripts.Map;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -15,6 +16,7 @@ namespace Assets.Code.Scripts.UI_Scripts
     public class UIUnitManager : MonoBehaviour
     {
         public static event Action OnButtonGather;
+        public static event Action<Unit> OnUnitgather;
         private UnitData Data;
         [SerializeField] private GameObject UnitUI;
         [SerializeField] private TMP_Text NameUI;
@@ -82,7 +84,10 @@ namespace Assets.Code.Scripts.UI_Scripts
         public void OnButtonClick_Gater()
         {
             OnButtonGather?.Invoke();
+            OnUnitgather?.Invoke(Unit);
         }
+
+        
         
 
     }

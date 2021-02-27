@@ -57,6 +57,7 @@ namespace Code.Scripts.Map
         private List<List<GameObject>> Pathes = new List<List<GameObject>>();
         
         public List<List<GameObject>> GetPathes => Pathes;
+        public List<GameObject> GetEntrancePoints => EntrancePoints;
 
         private void SetFinalWaypoint(Base obj)
         {
