@@ -459,7 +459,7 @@ namespace Code.Scripts.Map
                     float randomNumber = Random.Range(0, 100);
                     if (randomNumber < 5)
                     {
-                        BuildManager.SetDestroyedHouseOnPos(groundObj.GetComponent<Ground>().GetWidth,groundObj.GetComponent<Ground>().GetHeight,Random.Range(1, 10),Random.Range(1, 10),Random.Range(1, 10) );
+                        BuildManager.SetDestroyedHouseOnPos(groundObj.GetComponent<Ground>().GetWidth,groundObj.GetComponent<Ground>().GetHeight,Random.Range(1, 20),Random.Range(1, 20),Random.Range(1, 20) );
                     }
                 }
             }

@@ -441,7 +441,7 @@ MonoBehaviour:
   AmountOfWood: 0
   AmountOfStone: 0
   AmountOfSteel: 0
-  ReduceAmountPerUnit: 1
+  ReduceAmountPerUnit: 0.2
   GetResource: 0
 --- !u!1 &8513977423799904175
 GameObject:
