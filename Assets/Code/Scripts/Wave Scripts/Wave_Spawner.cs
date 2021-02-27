@@ -18,13 +18,7 @@ public class Wave_Spawner : MonoBehaviour
 
     private void Start()
     {
-        for (int j = 0; j < MapGenerator.GetWaypoints.GetHeight; j++)
-        {
-            for (int k = 0; k < MapGenerator.GetWaypoints.GetWidth; k++)
-            {
-                MapGenerator.GetWaypoints.Grid[j, k].GetComponent<Waypoint>().ShowSphere(false);
-            }
-        }
+        WaveFinished();
     }
 
     private void Update()
@@ -34,21 +28,22 @@ public class Wave_Spawner : MonoBehaviour
             return;
         }
 
-        int randomValue = 0;
-        randomValue = Random.Range(0, MapGenerator.GetPathes.Count);
-
         if (Timer.GetStunden == 6 && Timer.GetMinuten == 0 && Timer.GetDay >= 1)
         {
+            int randomValue = 0;
+            randomValue = Random.Range(0, MapGenerator.GetPathes.Count);
             wPoints.SetWayPoints(MapGenerator.GetPathes[randomValue]);
             foreach (var waypoint in MapGenerator.GetPathes[randomValue])
             {
                 waypoint.GetComponent<Waypoint>().ShowSphere(true);
             }
 
-
-            
-            
             StartCoroutine(WaveSpawn());
+        }
+
+        if (EnemiesAlive <= 0)
+        {
+            WaveFinished();
         }
     }
 
@@ -63,12 +58,22 @@ public class Wave_Spawner : MonoBehaviour
         yield return new WaitForSeconds(1f / wave.WaitTimeForSpawn);
 
         WaveIndex++;
-
         if (WaveIndex == Waves.Length)
         {
             gameObject.SetActive(false);
         }
 
+    }
+
+    private void WaveFinished()
+    {
+        for (int j = 0; j < MapGenerator.GetWaypoints.GetHeight; j++)
+        {
+            for (int k = 0; k < MapGenerator.GetWaypoints.GetWidth; k++)
+            {
+                MapGenerator.GetWaypoints.Grid[j, k].GetComponent<Waypoint>().ShowSphere(false);
+            }
+        }
     }
 
     public void SpawnEnemy(GameObject _enemy)

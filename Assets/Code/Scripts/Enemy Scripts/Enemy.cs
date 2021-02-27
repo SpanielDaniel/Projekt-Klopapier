@@ -81,7 +81,6 @@ public class Enemy : MonoBehaviour
 
         if (CurrentHealthPoints <= 0)
         {
-            Destroy(gameObject);
             Die();
         }
         UpdateTarget();
@@ -164,6 +163,7 @@ public class Enemy : MonoBehaviour
     public void Die()
     {
         Wave_Spawner.EnemiesAlive--;
+        Destroy(gameObject);
     }
 
     public void TakeDamage(int _dmg)
