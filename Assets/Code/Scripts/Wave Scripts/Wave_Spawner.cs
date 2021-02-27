@@ -10,7 +10,7 @@ public class Wave_Spawner : MonoBehaviour
 {
     [SerializeField] private Wave[] Waves;
     [SerializeField] private MapGenerator MapGenerator;
-    private Waypoints wPoints;
+    private Waypoints wPoints = new Waypoints();
     public static int EnemiesAlive;
     private int WaveIndex = 0;
 
@@ -29,6 +29,7 @@ public class Wave_Spawner : MonoBehaviour
         if (Timer.GetStunden == 6 && Timer.GetMinuten == 0)
         {
             int randomValue = 0;
+            Debug.Log(MapGenerator.GetPathes[0][0].name);
             wPoints.SetWayPoints(MapGenerator.GetPathes[randomValue]);
             
             

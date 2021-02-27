@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealthPoints: 100
   Defence: 10
-  AttackPoints: 5
+  AttackPoints: 10
   AttackSpeed: 2
-  MoveSpeed: 5
+  MoveSpeed: 1
   Range: 3
