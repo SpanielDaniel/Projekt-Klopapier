@@ -30,6 +30,7 @@
               <e p="Base.cs" t="Include" />
               <e p="Building.cs" t="Include" />
               <e p="BuildingData.cs" t="Include" />
+              <e p="DestroyedHouse.cs" t="Include" />
               <e p="Farm.cs" t="Include" />
               <e p="House.cs" t="Include" />
               <e p="RecruitSlot.cs" t="Include" />

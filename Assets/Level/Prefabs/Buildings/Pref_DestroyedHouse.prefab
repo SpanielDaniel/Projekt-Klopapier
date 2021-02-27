@@ -372,8 +372,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6215205738702565578}
-  - component: {fileID: 3876050214536409491}
   - component: {fileID: 2337831307003480594}
+  - component: {fileID: 7856485300514633539}
   m_Layer: 11
   m_Name: Pref_DestroyedHouse
   m_TagString: Building
@@ -396,7 +396,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3876050214536409491
+--- !u!65 &2337831307003480594
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6327789502137770140}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 0.1, z: 1}
+  m_Center: {x: 0.25, y: 0.05, z: 0.5}
+--- !u!114 &7856485300514633539
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -405,7 +418,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6327789502137770140}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4058220414ec472e88d6d513b80f6e3c, type: 3}
+  m_Script: {fileID: 11500000, guid: fe36cbc4987d4c069b32bb85da98f709, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 737ee236489c94b4b88a9ad0443439ce, type: 2}
@@ -423,19 +436,13 @@ MonoBehaviour:
   BuidingConstruction: {fileID: 996117149039349884}
   EntranceObjPos: {fileID: 8770810509419856662}
   EntranceObj: {fileID: 3515417526283386629}
---- !u!65 &2337831307003480594
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6327789502137770140}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.1, z: 1}
-  m_Center: {x: 0.25, y: 0.05, z: 0.5}
+  IsBuildingHudOpen: 0
+  CurrentResource: 0
+  AmountOfWood: 0
+  AmountOfStone: 0
+  AmountOfSteel: 0
+  ReduceAmountPerUnit: 1
+  GetResource: 0
 --- !u!1 &8513977423799904175
 GameObject:
   m_ObjectHideFlags: 0

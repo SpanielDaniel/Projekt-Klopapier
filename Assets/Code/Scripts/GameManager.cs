@@ -84,9 +84,7 @@ using UnityEngine.SceneManagement;
             if (_sceneIndex == 2)
             {
                 SceneManager.LoadScene (3,LoadSceneMode.Additive);
-                
             }
-            
         }
 
         public void QuitGame()

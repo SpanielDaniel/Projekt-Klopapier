@@ -3,6 +3,7 @@
 // Project  : Projekt-Klopapier
 
 using System;
+using Code.Scripts.Map;
 using UnityEngine;
 
 namespace Player
@@ -41,8 +42,16 @@ namespace Player
         private int MaxPopulation = 0;
 
         private bool IsWoodOnMax = false;
+        private bool IsStoneOnMax = false;
+        private bool IsSteelOnMax = false;
+        private bool IsToilettePaperOnMax = false;
+        private bool IsFoodOnMax = false;
 
         public bool GetIsWoodOnMax => IsWoodOnMax;
+        public bool GetIsStoneOnMax => IsWoodOnMax;
+        public bool GetIsSteelOnMax => IsWoodOnMax;
+        public bool GetIsToilettePaperOnMax => IsWoodOnMax;
+        public bool GetIsFoodOnMax => IsWoodOnMax;
         
 
         public int PopulationH
@@ -69,12 +78,15 @@ namespace Player
             get => StorageCapacity;
             set
             {
+                
                 StorageCapacity = value;
-                StorageCapacityChanged?.Invoke(StorageCapacity);
+                
                 WoodAmountH = WoodAmountH;
                 StoneAmountH = StoneAmountH;
                 SteelAmountH = SteelAmountH;
                 ToiletPaperAmountH = ToiletPaperAmountH;
+                
+                StorageCapacityChanged?.Invoke(StorageCapacity);
             }
         }
 
@@ -84,6 +96,8 @@ namespace Player
             set
             {
                 ToiletPaperAmount = GetValue(value);
+                if (ToiletPaperAmount == StorageCapacityH) IsToilettePaperOnMax = true;
+                else IsToilettePaperOnMax = false;
                 ToiletPaperAmountChanged?.Invoke(ToiletPaperAmount);
             }
         }
@@ -106,6 +120,8 @@ namespace Player
             set
             {
                 StoneAmount = GetValue(value);
+                if (StoneAmount == StorageCapacityH) IsStoneOnMax = true;
+                else IsStoneOnMax = false;
                 StoneAmountChanged?.Invoke(StoneAmount);
             }
         }
@@ -116,7 +132,10 @@ namespace Player
             set
             {
                 SteelAmount = GetValue(value);
+                if (SteelAmount == StorageCapacityH) IsSteelOnMax = true;
+                else IsSteelOnMax = false;
                 SteelAmountChanged?.Invoke(SteelAmount);
+                
             }
         }
 
@@ -126,9 +145,17 @@ namespace Player
             set
             {
                 FoodAmount = GetValue(value);
+                if (FoodAmount == StorageCapacityH) IsFoodOnMax = true;
+                else IsFoodOnMax = false;
+                
                 if (FoodAmount < 0) FoodAmount = 0;
                 FoodAmountChanged?.Invoke(FoodAmount);
             }
+        }
+
+        private void Awake()
+        {
+            MapGenerator.MapIsBuild += UpdateRes;
         }
 
         private void Start()
@@ -139,6 +166,7 @@ namespace Player
             StoneAmountH = StoneStartAmount;
             SteelAmountH = SteelStartAmount;
             FoodAmountH = FoodStartAmount;
+            UpdateRes();
         }
 
         private int GetValue(int _value)
@@ -197,6 +225,19 @@ namespace Player
         public void IncreaseFood (int _amount)
         {
             FoodAmountH += _amount;
+        }
+
+        private void UpdateRes()
+        {
+            Debug.Log("ss" + StorageCapacity);
+            StorageCapacityChanged?.Invoke(StorageCapacity);
+            PopulationChanged?.Invoke(Population,MaxPopulation);
+            PopulationChanged?.Invoke(Population,MaxPopulation);
+            ToiletPaperAmountChanged?.Invoke(ToiletPaperAmount);
+            WoodAmountChanged?.Invoke(WoodAmount);
+            StoneAmountChanged?.Invoke(StoneAmount);
+            SteelAmountChanged?.Invoke(SteelAmount);
+            FoodAmountChanged?.Invoke(FoodAmount);
         }
 
         #endregion

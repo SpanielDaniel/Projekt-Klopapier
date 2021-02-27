@@ -1,17 +1,10 @@
-﻿// File     : Scrap.cs
-// Author   : Daniel Bäcker
-// Project  : Projekt-Klopapier
-
-using System;
-using Code.Scripts;
-using NUnit.Framework.Constraints;
+﻿using Code.Scripts;
 using Player;
-using TMPro;
 using UnityEngine;
 
 namespace Buildings
 {
-    public class Scrap : Building
+    public class DestroyedHouse : Building
     {
 
         [SerializeField] private EResource CurrentResource;
@@ -54,7 +47,7 @@ namespace Buildings
         public void Update()
         {
             if (UnitAmount == 0) return;
-            
+
             if (IsEmpty())
             {
                 DestroyEffect();
@@ -62,9 +55,8 @@ namespace Buildings
                 Destroy(gameObject);
             }
 
-            IsResourceMax();
+            if (IsResourceMax()) return;
             
-            Debug.Log("resam " + resourceAmount);
             resourceAmount += ReduceAmountPerUnit * UnitAmount * Time.deltaTime;
             if (resourceAmount >= 1)
             {
@@ -128,7 +120,6 @@ namespace Buildings
             {
                 case EResource.Wood: 
                     bool isMax1 = PlayerData.GetInstance.GetIsWoodOnMax;
-                    Debug.Log("max" + isMax1);
                     if (isMax1) CurrentResource = EResource.Stone;
                     return isMax1;
                 case EResource.Stone:

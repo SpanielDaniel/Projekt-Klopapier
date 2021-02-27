@@ -481,11 +481,31 @@ namespace Code.Scripts
         /// <param name="_building"></param>
         public void OnBuildingDestroyed(Building _building)
         {
+
+            int amountOfScrap = _building.CurrentHeightH * _building.CurrentHeightH;
+            int buildingLevel = _building.CurrentLevelH;
+
+
+            int woodAmount = 0;
+            int stoneAmount = 0;
+            int steelAmount = 0;
+            for (int i = buildingLevel; i >= 0; i--)
+            {
+                woodAmount  +=  _building.GetData.Levels[i].WoodCosts;
+                stoneAmount += _building.GetData.Levels[i].StoneCosts;
+                steelAmount += _building.GetData.Levels[i].SteelCosts;
+            }
+
+            woodAmount /= amountOfScrap;
+            stoneAmount /= amountOfScrap;
+            steelAmount /= amountOfScrap;
             for (int i = 0; i < _building.CurrentHeightH; i++)
             {
                 for (int j = 0; j < _building.CurrentWidthH; j++)
                 {
-                    SetScrapOnPos(_building.GetXPos + j,_building.GetYPOs + i);
+                    
+                    
+                    SetScrapOnPos(_building.GetXPos + j,_building.GetYPOs + i ,woodAmount,stoneAmount,steelAmount);
                 }
             }
         }
@@ -514,12 +534,15 @@ namespace Code.Scripts
         // -------------------------------------------------------------------------------------------------------------
 
         // Generates TODO: Verbessern
-        public void SetScrapOnPos(int _x, int _y)
+        public void SetScrapOnPos(int _x, int _y, int _wood, int _stone, int _steel)
         {
             GameObject scrap = Instantiate(PrefScrapBuilding);
             
             scrap.transform.position = MapGenerator.GetGroundFromPosition(_x, _y).transform.position;
             scrap.GetComponent<Scrap>().SetPosition(_x,_y);
+            scrap.GetComponent<Scrap>().AddRes(EResource.Wood,_wood);
+            scrap.GetComponent<Scrap>().AddRes(EResource.Stone,_stone);
+            scrap.GetComponent<Scrap>().AddRes(EResource.Steel,_steel);
             
             MapGenerator.SetGroundBlocked(_x,_y,true);
             UnitManager.GetNodes[_x, _y].IsWalkable = true;
@@ -527,48 +550,55 @@ namespace Code.Scripts
 
         }
 
-        public void SetDestroyedHouseOnPos(int _x, int _y)
+        public void SetDestroyedHouseOnPos(int _x, int _y, int _wood, int _stone, int _steel)
         {
-            GameObject DestroyedHouse = Instantiate(PrefDestroyedHouse);
+            GameObject destroyedHouse = Instantiate(PrefDestroyedHouse);
 
              int rand = Random.Range(0, 4);
              
              for (int i = 0; i < rand; i++)
              {
-                 DestroyedHouse.GetComponent<Building>().TurnRight();
+                 destroyedHouse.GetComponent<Building>().TurnRight();
+                 
+                 
              }
 
-            DestroyedHouse.transform.position = MapGenerator.GetGroundFromPosition(_x, _y).transform.position;
-            bool canBuild = CanBuildingBuildOnGround(DestroyedHouse.GetComponent<Building>(), MapGenerator.GetGroundFromPosition(_x, _y));
+            destroyedHouse.transform.position = MapGenerator.GetGroundFromPosition(_x, _y).transform.position;
+            bool canBuild = CanBuildingBuildOnGround(destroyedHouse.GetComponent<Building>(), MapGenerator.GetGroundFromPosition(_x, _y));
 
             
             for (int i = 0; i < 3; i++)
             {
                 if(canBuild) break;
                 
-                DestroyedHouse.GetComponent<Building>().TurnRight();
-                canBuild = CanBuildingBuildOnGround(DestroyedHouse.GetComponent<Building>(), MapGenerator.GetGroundFromPosition(_x, _y));
+                destroyedHouse.GetComponent<Building>().TurnRight();
+                canBuild = CanBuildingBuildOnGround(destroyedHouse.GetComponent<Building>(), MapGenerator.GetGroundFromPosition(_x, _y));
             }
             
 
             if(canBuild)
             {
                 
-                DestroyedHouse.GetComponent<Building>().SetPosition(_x,_y);
+                destroyedHouse.GetComponent<Building>().SetPosition(_x,_y);
                 
-                for (int i = 0; i < DestroyedHouse.GetComponent<Building>().CurrentHeightH; i++)
+                for (int i = 0; i < destroyedHouse.GetComponent<Building>().CurrentHeightH; i++)
                 {
-                    for (int j = 0; j < DestroyedHouse.GetComponent<Building>().CurrentWidthH; j++)
+                    for (int j = 0; j < destroyedHouse.GetComponent<Building>().CurrentWidthH; j++)
                     {
                         MapGenerator.SetGroundBlocked(_x + j,_y + i,true);
                         UnitManager.GetNodes[_x + j, _y + i].IsWalkable = false;
                     }
                 }
                 
-                DestroyedHouse.GetComponent<Building>().SetEntranceGround(MapGenerator.GetGroundFromGlobalPosition( DestroyedHouse.GetComponent<Building>().GetEntrancePoss()));
+                destroyedHouse.GetComponent<Building>().SetEntranceGround(MapGenerator.GetGroundFromGlobalPosition( destroyedHouse.GetComponent<Building>().GetEntrancePoss()));
+                
+                destroyedHouse.GetComponent<Scrap>().AddRes(EResource.Wood,_wood);
+                destroyedHouse.GetComponent<Scrap>().AddRes(EResource.Stone,_stone);
+                destroyedHouse.GetComponent<Scrap>().AddRes(EResource.Steel,_steel);
+                
                 return;
             }
-            Destroy(DestroyedHouse.gameObject);
+            Destroy(destroyedHouse.gameObject);
         }
         
         public void SetHouseOnPos(int _x, int _y)

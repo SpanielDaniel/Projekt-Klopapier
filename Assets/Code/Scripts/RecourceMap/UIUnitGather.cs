@@ -2,17 +2,23 @@
 using NUnit.Framework;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Code.Scripts
 {
     public class UIUnitGather : MonoBehaviour
     {
+
+        public static event Action<Unit> IsBack; 
         [SerializeField] private TextMeshProUGUI Text;
+        [SerializeField] private GameObject ReturnButton;
         private UnitGather UnitGather;
 
         private float Timer = 0;
+        private float TimeTheUnitWent = 0;
 
         private bool IsOnResource = false;
+        private bool IsReturning = false;
 
         private float Counter = 0;
 
@@ -20,7 +26,6 @@ namespace Code.Scripts
         {
             UnitGather = _gather;
             Timer = UnitGather.GetTimerToGoToRes;
-            Debug.Log("Timer sert " + Timer);
 
             UpdateText();
         }
@@ -30,7 +35,10 @@ namespace Code.Scripts
         {
             if (IsStarted)
             {
-                Timer -= Time.deltaTime;
+                float time = Time.deltaTime;
+                TimeTheUnitWent += time;
+                Timer -= time;
+                
                 if (Timer <= 0)
                 {
                     Timer = 0;
@@ -48,6 +56,7 @@ namespace Code.Scripts
                 Timer -= reduceTime;
                 Counter += reduceTime;
                 bool isEmpty = false;
+                
                 if (Counter >= UnitGather.Resource.GetTimeToEarnResourcesInSeconds)
                 {
                     Counter -= UnitGather.Resource.GetTimeToEarnResourcesInSeconds;
@@ -85,11 +94,23 @@ namespace Code.Scripts
                 
                 if (isEmpty)
                 {
-                    Debug.Log("Empty");
+                    OnButton_Return();
                 }
                 
                 
+                UpdateText();
+            }
+
+            if (IsReturning)
+            {
                 
+                
+                float reduceTime = Time.deltaTime;
+                Timer -= reduceTime;
+                if (Timer <= 0)
+                {
+                    IsBack?.Invoke(UnitGather.Unit);
+                }
                 UpdateText();
             }
             
@@ -103,7 +124,25 @@ namespace Code.Scripts
         }
         public void SetText(string _text)
         {
-            Text.text = _text;
+            string text = "";
+            
+            if (IsStarted)
+            {
+                text = "Geht hin:";
+            }
+            
+            if (IsReturning)
+            {
+                text = "Geht zurück: ";
+            }
+
+            if (IsOnResource)
+            {
+                text = "Am sammeln:";
+            }
+
+            
+            Text.text = text + _text;
         }
 
         private bool IsStarted = false;
@@ -114,6 +153,15 @@ namespace Code.Scripts
         }
 
         private float counter = 0;
+
+        public void OnButton_Return()
+        {
+            IsStarted = false;
+            IsOnResource = false;
+            IsReturning = true;
+            Timer = TimeTheUnitWent;
+            ReturnButton.SetActive(false);
+        }
         
     }
 }
