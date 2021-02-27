@@ -54,7 +54,7 @@ namespace Code.Scripts.Map
         private GameObject FinalWayPoint;
         private List<GameObject> EntrancePoints = new List<GameObject>();
         private Pathfinding Pathfinding;
-        
+        List<Node> nodes = new List<Node>();
         private List<List<GameObject>> Pathes = new List<List<GameObject>>();
         
         public List<List<GameObject>> GetPathes => Pathes;
@@ -90,9 +90,16 @@ namespace Code.Scripts.Map
             
             foreach (GameObject entrancePoint in EntrancePoints)
             {
+                foreach (var node in Nodes)
+                {
+                    node.Init();
+                }
+                
                 int startX = entrancePoint.GetComponent<Waypoint>().GetXPos;
                 int startY = entrancePoint.GetComponent<Waypoint>().GetZPos;
-                List<Node> nodes = Pathfinding.FindPath(startX, startY, endX, endY);
+                
+                Debug.Log(startX + "|"+startY+ "|" + endX + "|"+ endY);
+                nodes = Pathfinding.FindPath(startX, startY, endX, endY);
                 List<GameObject> pathObjects = new List<GameObject>(); 
                 
                 foreach (Node node in nodes)
@@ -153,8 +160,8 @@ namespace Code.Scripts.Map
                         if (i == 0 || j == 0 || j == Waypoints.GetWidth - 1 || i == Waypoints.GetHeight - 1)
                         {
                             waypoint.GetComponent<Waypoint>().Init(EWaypointSignature.Entrance);
+                            Debug.Log("Add entrance");
                             EntrancePoints.Add(waypoint);
-
                         }
                         else
                         {
