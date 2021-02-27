@@ -62,9 +62,9 @@ namespace Buildings
                 Destroy(gameObject);
             }
 
-            IsResourceMax();
+            if (IsResourceMax()) return;
+            if(IsCurrentResEmpty()) return;
             
-            Debug.Log("resam " + resourceAmount);
             resourceAmount += ReduceAmountPerUnit * UnitAmount * Time.deltaTime;
             if (resourceAmount >= 1)
             {
@@ -99,27 +99,43 @@ namespace Buildings
         }
         private bool IsEmpty()
         {
-            if (AmountOfWood <= 0)
+            return AmountOfWood <= 0 && AmountOfStone <= 0 && AmountOfSteel <= 0;
+        }
+
+        private bool IsCurrentResEmpty()
+        {
+            switch (CurrentResource)
             {
-                AmountOfWood = 0;
-                CurrentResource = EResource.Stone;
-                if (AmountOfStone <= 0)
-                {
-                    AmountOfStone = 0;
-                    CurrentResource = EResource.Steel;
-                    
-                    if (AmountOfSteel <= 0)
+                case EResource.Wood:
+                    bool isWoodEmpty = AmountOfWood <= 0;
+                    if (isWoodEmpty)
+                    {
+                        AmountOfWood = 0;
+                        CurrentResource = EResource.Stone;
+                    }
+                    return isWoodEmpty;
+                case EResource.Stone:
+                    bool isStoneEmpty = AmountOfStone <= 0;
+                    if (isStoneEmpty)
+                    {
+                        AmountOfWood = 0;
+                        CurrentResource = EResource.Steel;
+                    }
+                    return isStoneEmpty;
+                
+                case EResource.Steel:
+                    bool isSteelEmpty = AmountOfSteel <= 0;
+                    if (isSteelEmpty)
                     {
                         AmountOfSteel = 0;
                         CurrentResource = EResource.Wood;
                     }
-                }
+                    return isSteelEmpty;
+                default:
+                    break;
             }
-            
-            
-            
-            
-            return AmountOfWood <= 0 && AmountOfStone <= 0 && AmountOfSteel <= 0;
+
+            return true;
         }
 
         private bool IsResourceMax()
@@ -128,7 +144,6 @@ namespace Buildings
             {
                 case EResource.Wood: 
                     bool isMax1 = PlayerData.GetInstance.GetIsWoodOnMax;
-                    Debug.Log("max" + isMax1);
                     if (isMax1) CurrentResource = EResource.Stone;
                     return isMax1;
                 case EResource.Stone:

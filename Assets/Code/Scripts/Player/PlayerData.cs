@@ -48,10 +48,10 @@ namespace Player
         private bool IsFoodOnMax = false;
 
         public bool GetIsWoodOnMax => IsWoodOnMax;
-        public bool GetIsStoneOnMax => IsWoodOnMax;
-        public bool GetIsSteelOnMax => IsWoodOnMax;
-        public bool GetIsToilettePaperOnMax => IsWoodOnMax;
-        public bool GetIsFoodOnMax => IsWoodOnMax;
+        public bool GetIsStoneOnMax => IsStoneOnMax;
+        public bool GetIsSteelOnMax => IsSteelOnMax;
+        public bool GetIsToilettePaperOnMax => IsToilettePaperOnMax;
+        public bool GetIsFoodOnMax => IsFoodOnMax;
         
 
         public int PopulationH
@@ -229,7 +229,6 @@ namespace Player
 
         private void UpdateRes()
         {
-            Debug.Log("ss" + StorageCapacity);
             StorageCapacityChanged?.Invoke(StorageCapacity);
             PopulationChanged?.Invoke(Population,MaxPopulation);
             PopulationChanged?.Invoke(Population,MaxPopulation);
