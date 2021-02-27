@@ -13,12 +13,18 @@ namespace Code.Scripts.UI_Scripts
     public class UIScrap : MonoBehaviour
     {
         [SerializeField] private UISlot[] Slots;
-        [SerializeField] private TextMeshProUGUI ResourceText;
-        [SerializeField] private TextMeshProUGUI Amount;
+        [SerializeField] private TextMeshProUGUI WoodText;
+        [SerializeField] private TextMeshProUGUI AmountWood;
+        
+        [SerializeField] private TextMeshProUGUI StoneText;
+        [SerializeField] private TextMeshProUGUI AmountStone;
+        
+        [SerializeField] private TextMeshProUGUI SteelText;
+        [SerializeField] private TextMeshProUGUI AmountSteel;
 
         public void UpdateUI(Scrap _scrap)
         {
-            ResourceText.text = _scrap.GetResource.ToString();
+            
             foreach (UISlot slot in Slots)
             {
                 slot.SetDefaultSprite();
@@ -28,7 +34,9 @@ namespace Code.Scripts.UI_Scripts
                 Slots[i].Init(Unit.Units[_scrap.GetUnitIDs[i]].GetUnitData.Icon  ,  _scrap.GetUnitIDs[i]);
             }
 
-            Amount.text = _scrap.GetAmountOfResource.ToString();
+            AmountWood.text = _scrap.GetAmountOfWood.ToString();
+            AmountStone.text = _scrap.GetAmountOfStone.ToString();
+            AmountSteel.text = _scrap.GetAmountOfSteel.ToString();
         }
     }
 }

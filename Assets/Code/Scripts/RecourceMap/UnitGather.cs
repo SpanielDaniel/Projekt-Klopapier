@@ -25,6 +25,12 @@ namespace Code.Scripts
         private int SteelAmount = 0;
         private int ToilettePaperAmount = 0;
         private int FoodAmount = 0;
+        
+        public int  GetWoodAmount => WoodAmount;
+        public int  GetStoneAmount => StoneAmount;
+        public int  GetSteelAmount => SteelAmount;
+        public int  GetToilettePaperAmount => ToilettePaperAmount;
+        public int  GetFoodAmount => FoodAmount;
 
         public void AddResource(EResource _res, int _amount)
         {

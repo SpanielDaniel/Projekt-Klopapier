@@ -497,10 +497,10 @@ namespace Buildings
         }
 
         // Inspector ---------------------------------------------------------------------------------------------------
-        private void OnValidate()
-        {
-            if(Data != null) UpdateHealth();
-        }
+        //private void OnValidate()
+        //{
+        //    if(Data != null) UpdateHealth();
+        //}
         private void UpdateHealth()
         {
             CurrentLevelH = CurrentLevelH;

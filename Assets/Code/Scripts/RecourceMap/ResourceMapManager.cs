@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using Assets.Code.Scripts.UI_Scripts;
+using Player;
 using UnityEngine;
 
 namespace Code.Scripts
@@ -27,6 +28,7 @@ namespace Code.Scripts
             GameManager.OnMapCamActive += OnMap;
             UIUnitManager.OnUnitgather += AddUnit;
             MapResource.OnClickRes += UnitGoGather;
+            UIUnitGather.IsBack += StopGather;
             Unit.CancledGather += RemoveUnit;
             Unit.OnMapEntrance += StartGather;
         }
@@ -50,12 +52,20 @@ namespace Code.Scripts
             {
                 if (unitGather.Unit == _unit)
                 {
+                    PlayerData.GetInstance.IncreaseWood(unitGather.GetWoodAmount);
+                    PlayerData.GetInstance.IncreaseStone(unitGather.GetStoneAmount);
+                    PlayerData.GetInstance.IncreaseSteel(unitGather.GetSteelAmount);
+                    PlayerData.GetInstance.IncreaseToiletPaper(unitGather.GetToilettePaperAmount);
+                    PlayerData.GetInstance.IncreaseFood(unitGather.GetFoodAmount);
+                    
                     unitGather.UnitUi.GetComponent<UIUnitGather>().SetText("Einheit stoppt sucht Rohstoffe");
                     _unit.gameObject.SetActive(true);
-
+                    
                     _unit.SetPos(unitGather._comeFromGround.GetWidth,unitGather._comeFromGround.GetHeight);
                     _unit.UpdatePos();
                     
+                    Destroy(unitGather.UnitUi);
+                    break;
                 }
             }
         }
@@ -68,6 +78,7 @@ namespace Code.Scripts
                 
                 if (unitGather.IsGather == false)
                 {
+                    
                     unitGather.Unit.GoToMapEnd();
                     unitGather.IsGather = true;
                     unitGather.UnitUi.GetComponent<UIUnitGather>().SetText("Einheit auf dem weg!");
@@ -100,12 +111,12 @@ namespace Code.Scripts
 
         private void OnMap()
         {
-            Hud2.SetActive(false);
+            Hud2.transform.position += Vector3.right * 350;
         }
 
         private void OnGather()
         {
-            Hud2.SetActive(true);
+            Hud2.transform.position += Vector3.left * 350;
         }
 
         public void OnButtonClick_Close()
