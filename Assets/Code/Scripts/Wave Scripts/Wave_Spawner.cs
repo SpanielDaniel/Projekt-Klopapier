@@ -4,6 +4,7 @@
 
 using System.Collections;
 using Code.Scripts.Map;
+using Code.Scripts.Wave_Scripts;
 using UnityEngine;
 
 public class Wave_Spawner : MonoBehaviour
@@ -13,10 +14,17 @@ public class Wave_Spawner : MonoBehaviour
     private Waypoints wPoints = new Waypoints();
     public static int EnemiesAlive;
     private int WaveIndex = 0;
+    
 
     private void Start()
     {
-        //wPoints = GameObject.FindGameObjectWithTag("Waypoints").GetComponent<Waypoints>();
+        for (int j = 0; j < MapGenerator.GetWaypoints.GetHeight; j++)
+        {
+            for (int k = 0; k < MapGenerator.GetWaypoints.GetWidth; k++)
+            {
+                MapGenerator.GetWaypoints.Grid[j, k].GetComponent<Waypoint>().ShowSphere(false);
+            }
+        }
     }
 
     private void Update()
@@ -26,16 +34,22 @@ public class Wave_Spawner : MonoBehaviour
             return;
         }
 
-        if (Timer.GetStunden == 6 && Timer.GetMinuten == 0)
+        int randomValue = 0;
+        randomValue = Random.Range(0, MapGenerator.GetPathes.Count);
+
+        if (Timer.GetStunden == 6 && Timer.GetMinuten == 0 && Timer.GetDay >= 1)
         {
-            int randomValue = 0;
-            Debug.Log(MapGenerator.GetPathes[0][0].name);
             wPoints.SetWayPoints(MapGenerator.GetPathes[randomValue]);
+            foreach (var waypoint in MapGenerator.GetPathes[randomValue])
+            {
+                waypoint.GetComponent<Waypoint>().ShowSphere(true);
+            }
+
+
             
             
             StartCoroutine(WaveSpawn());
         }
-
     }
 
     IEnumerator WaveSpawn()
