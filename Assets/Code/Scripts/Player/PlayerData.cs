@@ -48,10 +48,9 @@ namespace Player
         private bool IsFoodOnMax = false;
 
         public bool GetIsWoodOnMax => IsWoodOnMax;
-        public bool GetIsStoneOnMax => IsWoodOnMax;
-        public bool GetIsSteelOnMax => IsWoodOnMax;
-        public bool GetIsToilettePaperOnMax => IsWoodOnMax;
-        public bool GetIsFoodOnMax => IsWoodOnMax;
+        public bool GetIsStoneOnMax => IsStoneOnMax;
+        public bool GetIsSteelOnMax => IsSteelOnMax;
+        public bool GetIsFoodOnMax => IsFoodOnMax;
         
 
         public int PopulationH
@@ -84,7 +83,6 @@ namespace Player
                 WoodAmountH = WoodAmountH;
                 StoneAmountH = StoneAmountH;
                 SteelAmountH = SteelAmountH;
-                ToiletPaperAmountH = ToiletPaperAmountH;
                 
                 StorageCapacityChanged?.Invoke(StorageCapacity);
             }
@@ -95,9 +93,7 @@ namespace Player
             get => ToiletPaperAmount;
             set
             {
-                ToiletPaperAmount = GetValue(value);
-                if (ToiletPaperAmount == StorageCapacityH) IsToilettePaperOnMax = true;
-                else IsToilettePaperOnMax = false;
+                ToiletPaperAmount = value;
                 ToiletPaperAmountChanged?.Invoke(ToiletPaperAmount);
             }
         }
@@ -229,7 +225,6 @@ namespace Player
 
         private void UpdateRes()
         {
-            Debug.Log("ss" + StorageCapacity);
             StorageCapacityChanged?.Invoke(StorageCapacity);
             PopulationChanged?.Invoke(Population,MaxPopulation);
             PopulationChanged?.Invoke(Population,MaxPopulation);
