@@ -37,6 +37,7 @@
               <e p="BuildingData.cs" t="Include" />
               <e p="DestroyedHouse.cs" t="Include" />
               <e p="Farm.cs" t="Include" />
+              <e p="Hospital.cs" t="Include" />
               <e p="House.cs" t="Include" />
               <e p="RecruitSlot.cs" t="Include" />
               <e p="Scrap.cs" t="Include" />
@@ -45,6 +46,7 @@
                 <e p="UIBase.cs" t="Include" />
                 <e p="UIBuildingManager.cs" t="Include" />
                 <e p="UIFarm.cs" t="Include" />
+                <e p="UIHospital.cs" t="Include" />
                 <e p="UIHouse.cs" t="Include" />
                 <e p="UIScrap.cs" t="Include" />
               </e>
@@ -110,6 +112,7 @@
             <e p="TextureGenerator.cs" t="Include" />
             <e p="Timer.cs" t="Include" />
             <e p="UI Scripts" t="Include">
+              <e p="Pointer.cs" t="Include" />
               <e p="UIInGameMenu.cs" t="Include" />
               <e p="UIPointerInHudManager.cs" t="Include" />
               <e p="UIResourcesManager.cs" t="Include" />

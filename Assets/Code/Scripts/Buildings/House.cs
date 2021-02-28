@@ -10,6 +10,11 @@ namespace Buildings
 
         [SerializeField] private int PopulationCapacity;
         
+        [SerializeField] private GameObject[] FrontGuns;
+        [SerializeField] private GameObject[] BackGuns;
+        [SerializeField] private GameObject[] RightGuns;
+        [SerializeField] private GameObject[] LeftGuns;
+        
         private int MaxFrontUnitAmount = 4;
         private int MaxBackUnitAmount = 4;
         private int MaxLeftUnitAmount = 1;
@@ -56,6 +61,7 @@ namespace Buildings
             PlayerData.GetInstance.PopulationCapacityH += PopulationCapacity;
             base.OnBuildEffect();
         }
+        
 
         public override void Upgrade()
         {
@@ -78,7 +84,6 @@ namespace Buildings
                             
                         }
             StartOnValueChanged();
-            
         }
 
         private bool FrontSideCheck()
@@ -99,6 +104,7 @@ namespace Buildings
                     if (FrontSideUnitIDs[i] < 0)
                     {
                         FrontSideUnitIDs[i] = GetUnitIDs[a];
+                        FrontGuns[i].SetActive(true);
                         return true;
                     }
                 }
@@ -125,6 +131,7 @@ namespace Buildings
                     if (BackSideUnitIDs[i] < 0 )
                     {
                         BackSideUnitIDs[i] = GetUnitIDs[a];
+                        BackGuns[i].SetActive(true);
                         return true;
                     }
                 }
@@ -150,6 +157,7 @@ namespace Buildings
                     if (LeftSideUnitIDs[i] < 0)
                     {
                         LeftSideUnitIDs[i] = GetUnitIDs[a];
+                        LeftGuns[i].SetActive(true);
                         return true;
                     }
                 }
@@ -175,6 +183,7 @@ namespace Buildings
                     if (RightSideUnitIDs[i] < 0)
                     {
                         RightSideUnitIDs[i] = GetUnitIDs[a];
+                        RightGuns[i].SetActive(true);
                         return true;
                     }
 
@@ -192,6 +201,7 @@ namespace Buildings
                 if (FrontSideUnitIDs[i] == _unitID)
                 {
                     FrontSideUnitIDs[i] = -1;
+                    FrontGuns[i].SetActive(false);
                 }
             }
             
@@ -200,6 +210,7 @@ namespace Buildings
                 if (BackSideUnitIDs[i] == _unitID)
                 {
                     BackSideUnitIDs[i] = -1;
+                    BackGuns[i].SetActive(false);
                 }
             }
             
@@ -208,6 +219,7 @@ namespace Buildings
                 if (LeftSideUnitIDs[i] == _unitID)
                 {
                     LeftSideUnitIDs[i] = -1;
+                    LeftGuns[i].SetActive(false);
                 }
             }
             
@@ -216,6 +228,7 @@ namespace Buildings
                 if (RightSideUnitIDs[i] == _unitID)
                 {
                     RightSideUnitIDs[i] = -1;
+                    RightGuns[i].SetActive(false);
                 }
             }
             

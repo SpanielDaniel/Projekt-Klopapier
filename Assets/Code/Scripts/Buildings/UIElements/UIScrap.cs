@@ -31,7 +31,8 @@ namespace Code.Scripts.UI_Scripts
             }
             for (int i = 0; i < _scrap.GetUnitIDs.Count; i++)
             {
-                Slots[i].Init(Unit.Units[_scrap.GetUnitIDs[i]].GetUnitData.Icon  ,  _scrap.GetUnitIDs[i]);
+                int id = _scrap.GetUnitIDs[i];
+                if(id >= 0) Slots[i].Init(Unit.Units[id].GetUnitData.Icon ,_scrap.GetUnitIDs[i]);
             }
 
             AmountWood.text = _scrap.GetAmountOfWood.ToString();

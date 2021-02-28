@@ -270,8 +270,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6215205738702565578}
-  - component: {fileID: 3876050214536409491}
   - component: {fileID: 1954512328282715291}
+  - component: {fileID: 5540498702125326796}
   m_Layer: 11
   m_Name: Pref_Hospital
   m_TagString: Building
@@ -294,7 +294,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3876050214536409491
+--- !u!65 &1954512328282715291
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6327789502137770140}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.1, z: 1}
+  m_Center: {x: 0.5, y: 0.05, z: 0.5}
+--- !u!114 &5540498702125326796
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -303,7 +316,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6327789502137770140}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4058220414ec472e88d6d513b80f6e3c, type: 3}
+  m_Script: {fileID: 11500000, guid: 29a6487865d0417cb3813a23fe60cf30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 67322fef1e40c9f49ba5ac75386766f0, type: 2}
@@ -329,19 +342,7 @@ MonoBehaviour:
   EntranceObjPos: {fileID: 2643521299216700407}
   EntranceObj: {fileID: 5096199122752666749}
   IsBuildingHudOpen: 0
---- !u!65 &1954512328282715291
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6327789502137770140}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 0.1, z: 1}
-  m_Center: {x: 0.5, y: 0.05, z: 0.5}
+  RecoverHealthPerSecond: 0.33
 --- !u!1 &6811327644902013728
 GameObject:
   m_ObjectHideFlags: 0

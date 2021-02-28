@@ -4,6 +4,7 @@
 
 using System;
 using Code.Scripts;
+using Code.Scripts.UI_Scripts;
 using Interfaces;
 using UnityEditorInternal;
 using UnityEngine;
@@ -16,17 +17,24 @@ namespace UI_Scripts
     public class UISlot : MonoBehaviour 
         , IPointerEnterHandler
         , IPointerExitHandler
+        , IDragHandler
+        , IDropHandler
     {
         #region Init
 
         public static Action<Unit> OnUnitRelease;
+        public static Action<Sprite> OnDragStarted; 
 
         [SerializeField] private Image CurrentImage;
         [SerializeField] private Sprite DefaultSprite;
         [SerializeField] private GameObject Button;
         [SerializeField] private GameObject Cross;
-
+        
         private int UnitID;
+
+        public int GetID => UnitID;
+
+        public Sprite GetSprite => CurrentImage.sprite;
 
         private void Awake()
         {
@@ -91,11 +99,10 @@ namespace UI_Scripts
 
         public void OnPointerEnter(PointerEventData eventData)
         {
+            Debug.Log("True");
             IsMouseEntered = true;
             if (Button != null && UnitID >= 0) Button.SetActive(true);
         }
-        
-        
 
         public void OnPointerExit(PointerEventData eventData)
         {
@@ -113,5 +120,16 @@ namespace UI_Scripts
 
         #endregion
 
+        public void OnDrag(PointerEventData eventData)
+        {
+            
+            OnDragStarted?.Invoke(CurrentImage.sprite);
+        }
+        
+        
+        public void OnDrop(PointerEventData eventData)
+        {
+            Debug.Log("Drop:" + UnitID);
+        }
     }
 }

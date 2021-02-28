@@ -85,7 +85,12 @@ namespace Buildings
         
         
         protected bool UnitCanEnter = true;
-        private int MaxUnitAmount => Data.Levels[Level].MaxUnits;
+
+        private int GetMaxUnitAmount()
+        {
+            if (!IsBuilt) return 5;
+            return Data.Levels[Level].MaxUnits;
+        }
         private List<int> UnitIDs = new List<int>();
         
         // Get properties ----------------------------------------------------------------------------------------------
@@ -203,6 +208,12 @@ namespace Buildings
         private void Update()
         {
             if (!IsBuiltHandler) UpdateBuildProgress();
+            UpdateAction();
+        }
+
+        protected virtual void UpdateAction()
+        {
+            
         }
 
         private void LateUpdate()
@@ -343,16 +354,15 @@ namespace Buildings
         // Units -------------------------------------------------------------------------------------------------------
         public bool AddUnit(int _unitId)
         {
+            if (UnitAmount == GetMaxUnitAmount()) UnitCanEnter = false;
             if (!UnitCanEnter){ return false; }
+
             UnitIDs.Add(_unitId);
-            
             UnitAmount++;
-            
-            
-            StartOnValueChanged();
-            if (UnitAmount == MaxUnitAmount) UnitCanEnter = false;
-            AddUnitEffect();
             UpdateHumanAmount();
+            
+            if(IsBuilt)AddUnitEffect();
+            StartOnValueChanged();
             return true;
         }
 
@@ -383,13 +393,17 @@ namespace Buildings
             _unit.gameObject.SetActive(true);
 
             _unit.SetPos(_ground.GetWidth,_ground.GetHeight);
-            _unit.UpdatePos();
-            RemoveUnitEffect( _unit.GetID);
+            
+            
             UnitIDs.Remove(_unit.GetID);
             UnitAmount--;
+            if(IsBuilt)RemoveUnitEffect( _unit.GetID);
+
             StartOnValueChanged();
             UpdateHumanAmount();
-            if (UnitAmount < MaxUnitAmount) UnitCanEnter = true;
+            Debug.Log("UNit in building" + UnitAmount);
+
+            if (UnitAmount < GetMaxUnitAmount()) UnitCanEnter = true;
         }
 
         protected virtual void RemoveUnitEffect(int _unitID)
@@ -413,7 +427,7 @@ namespace Buildings
             UnitAmount = 0;
             UnitIDs.Clear();
             UpdateHumanAmount();
-            if (UnitAmount < MaxUnitAmount) UnitCanEnter = true;
+            if (UnitAmount < GetMaxUnitAmount()) UnitCanEnter = true;
 
         }
 
@@ -465,14 +479,16 @@ namespace Buildings
         // Collision ---------------------------------------------------------------------------------------------------
         private void OnCollisionStay(Collision other)
         {
-            Debug.Log("Stay");
-            if (other.transform.GetComponent<Building>() == null) return;
+            Debug.Log("Killision::" + other.transform.name);
+            if (other.transform.GetComponent<Building>() == null)
+            {
+                if (other.transform.GetComponent<Unit>() == null) return;
+            }
             IsCollison = true;
         }
 
         private void OnCollisionExit(Collision other)
         {
-            Debug.Log("kollisionExit");
             if (other.transform.GetComponent<Building>() == null) return;
             IsCollison = false;
         }

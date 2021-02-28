@@ -97,6 +97,7 @@ namespace Buildings
                 }
             }
         }
+        
         private bool IsEmpty()
         {
             return AmountOfWood <= 0 && AmountOfStone <= 0 && AmountOfSteel <= 0;

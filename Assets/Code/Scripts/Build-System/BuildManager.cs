@@ -448,11 +448,29 @@ namespace Code.Scripts
                     int xPosition = x + _ground.GetWidth;
                     int yPosition = y + _ground.GetHeight;
 
-                    if (MapGenerator.IsGroundBlocked(xPosition ,yPosition)) return true;
+
+
+
+                    bool isUnitOnGround = IsUnitOnGround(xPosition, yPosition);
+
+                    if (MapGenerator.IsGroundBlocked(xPosition ,yPosition) || isUnitOnGround) return true;
                 }
             }
 
             return false;
+        }
+
+        private bool IsUnitOnGround(int _x, int _y)
+        {
+            
+            
+            if (_x < 0 || _y < 0 || _x >=  UnitManager.GetNodes.GetLength(0) || _y >= UnitManager.GetNodes.GetLength(1)) return true;
+            if (UnitManager.GetNodes.GetLength(1) < _y +1 || UnitManager.GetNodes.GetLength(0) < _x + 1)
+            {
+                return true;
+            }
+
+            return UnitManager.GetNodes[_x, _y].IsUnit;
         }
         
         /// <summary>

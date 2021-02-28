@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using Code.Scripts;
 using Code.Scripts.Grid.DanielB;
 using Code.Scripts.Map;
+using Player;
 using UnityEngine;
 
 public class UnitSelector : MonoBehaviour
@@ -133,7 +134,7 @@ public class UnitSelector : MonoBehaviour
             UpdateSelectionBox(Input.mousePosition);
         }
         
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) && !UIPointerInHudManager.GetIsInHut)
         {
             if (SelectedUnitsH.Count > 0)
             {
@@ -182,6 +183,7 @@ public class UnitSelector : MonoBehaviour
 
     private void MoveAllUnitsIntoBuilding(Building _building)
     {
+        FindObjectOfType<AudioManager>().Play("GetInside");
         foreach (Unit unit in SelectedUnitsH)
         {
             MoveUnitsIntoBuilding(unit,_building);
@@ -201,7 +203,9 @@ public class UnitSelector : MonoBehaviour
     public void MoveUnits(int _endPosX,int _endPosZ)
     {
         if (SelectedUnitsH[0].GetXPosition == _endPosX && SelectedUnitsH[0].GetZPosition == _endPosZ) return;
+        FindObjectOfType<AudioManager>().Play("MoveUnit");
 
+        
         for (int i = 0; i < SelectedUnitsH.Count; i++)
         {
             UnitManager.FindPathForUnit(SelectedUnitsH[i], _endPosX, _endPosZ);
@@ -270,7 +274,7 @@ public class UnitSelector : MonoBehaviour
 
         if (SelectedUnitsH.Count > 0)
         {
-            AudioManager.GetInstance.Play("YesSir");
+            if(!UIPointerInHudManager.GetIsInHut) AudioManager.GetInstance.Play("YesSir");
 
             foreach (Unit unit in SelectedUnitsH)
             {

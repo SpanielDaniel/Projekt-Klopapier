@@ -24,7 +24,7 @@ public class Unit : MonoBehaviour
     public static event Action<Unit> CancledGather; 
     
     private float MaxHealthPoints;
-    private float CurrentHealthPoints;
+    [SerializeField] private float CurrentHealthPoints;
     public float GetCurrentHealth => CurrentHealthPoints;
     private float Defence;
     private float AttackPoints;
@@ -75,6 +75,8 @@ public class Unit : MonoBehaviour
     public int GetID => ID;
 
     public bool GetIsDead => IsDead;
+
+    public float GetMaxHealth => MaxHealthPoints;
     
 
     private void Awake()
@@ -124,8 +126,6 @@ public class Unit : MonoBehaviour
 
     private void Update()
     {
-        
-
         if (isIlde)
         {
             Animator.SetBool("IsMoving", false);
@@ -166,35 +166,50 @@ public class Unit : MonoBehaviour
             {
                 
                 bool isUnitOnGround = UnitManager.GetInstance.GetNodes[   Path[NextNode - 1].GridX   ,    Path[NextNode - 1].GridZ   ].IsUnit   ;
-                
-                
+
                 
                 if (isUnitOnGround)
                 {
-                    Path = null;
-                    UnitManager.GetInstance.FindPathToFreePosition(this);
+                    if (!IsMovingIntoBuilding)
+                    {
+                        Path = null;
+
+                        UnitManager.GetInstance.FindPathToFreePosition(this);
+                    }
                 }
                 else
                 {
                     transform.position = Path[NextNode - 1].Pos;
-                    Path = null;
+                    
                     IsMoving = false;
                     isIlde = true;
-                    
-                    UnitManager.GetInstance.GetNodes[GetXPosition, GetZPosition].IsUnit = true;
-                
-                    
+                    if (!IsMovingIntoBuilding)
+                    {
+                        UnitManager.GetInstance.GetNodes[GetXPosition, GetZPosition].IsUnit = true;
+                        Path = null;
+                    }
                 }
+                
                 
                 if (IsMovingIntoBuilding)
                 {
-                    UnitManager.GetInstance.GetNodes[GetXPosition, GetZPosition].IsUnit = false;
+                    if (Path[0].GridX == GetXPosition && Path[0].GridZ == GetZPosition)
+                    {
+                        
+                        UnitManager.GetInstance.GetNodes[GetXPosition, GetZPosition].IsUnit = false;
+                    }
 
                     if (BuildingToEnter.AddUnit(ID))
                     {
                         gameObject.SetActive(false);
                     }
+                    else
+                    {
+                        SetPos(GetXPosition,GetZPosition);
+                    }
                     IsMovingIntoBuilding = false;
+                    
+                    
                 }
 
                 if (IsGoingGather)
@@ -203,8 +218,12 @@ public class Unit : MonoBehaviour
                     
                     gameObject.SetActive(false);
                     OnMapEntrance?.Invoke(this,UnitManager.GetInstance.GetUnitGround(this));
-                    
+                    Path = null;
+
                 }
+                
+                
+                
             }
         }
         UpdateTarget();
@@ -317,13 +336,6 @@ public class Unit : MonoBehaviour
             return;
         }
         
-        if(IsMovingIntoBuilding) FindObjectOfType<AudioManager>().Play("GetInside");
-        else if(!IsMoving) FindObjectOfType<AudioManager>().Play("MoveUnit");
-        if (IsMoving)
-        {
-            FindObjectOfType<AudioManager>().Play("KeepMovingUnit");
-        }
-        
         Path = _path;
         IsMoving = true;
     }
@@ -360,13 +372,37 @@ public class Unit : MonoBehaviour
 
     public void SetPos(int _x,int _z)
     {   
+        
         XPos = _x;
         ZPos = _z;
+        
+        bool isUnitOnGround = UnitManager.GetInstance.GetNodes[ _x,_z].IsUnit;
+        if (isUnitOnGround)
+        {
+            Path = null;
+            UnitManager.GetInstance.FindPathToFreePosition(this);
+        }
+        else
+        {
+            UnitManager.GetInstance.GetNodes[GetXPosition, GetZPosition].IsUnit = true;
+            IsMoving = false;
+            UpdatePos();
+
+        }
+        
+        
+        
     }
     public void GoToMapEnd()
     {
         IsGoingGather = true;
         UnitManager.GetInstance.FindPathToWaveEntrance(this);
+    }
+
+    public void Heal(float _amount)
+    {
+        CurrentHealthPoints += _amount;
+        if (CurrentHealthPoints > MaxHealthPoints) CurrentHealthPoints = MaxHealthPoints;
     }
     
 }

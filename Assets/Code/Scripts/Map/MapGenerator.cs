@@ -46,6 +46,7 @@ namespace Code.Scripts.Map
         public void Awake()
         {
             Building.OnBaseIsUnderConstruction += SetFinalWaypoint;
+            UnitManager.OnNodeReady += GenerateBuildings;
         }
 
         private Node[,] Nodes;
@@ -108,6 +109,7 @@ namespace Code.Scripts.Map
             
         }
 
+        
         private void Start()
         {
             Init();
@@ -133,13 +135,10 @@ namespace Code.Scripts.Map
 
             GenerateWayPoints();
             
-            
-            
-            
             MapIsReady = true;
             MapIsBuild?.Invoke();
             
-            GenerateBuildings();
+            //GenerateBuildings();
         }
 
         private void GenerateWayPoints()
@@ -490,6 +489,8 @@ namespace Code.Scripts.Map
             
             return  GroundsMap.Grid[_x, _y].IsBlocked;
         }
+        
+        
 
         public EGround GetGroundSignature(int _x, int _y)
         {

@@ -24,7 +24,7 @@ MonoBehaviour:
     WoodCosts: 0
     StoneCosts: 0
     SteelCosts: 0
-    MaxUnits: 0
+    MaxUnits: 5
   IsFinished: 1
   CanBeDemolished: 0
   CanBeRepaired: 0

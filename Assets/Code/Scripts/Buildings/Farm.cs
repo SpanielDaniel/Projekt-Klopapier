@@ -8,13 +8,28 @@ namespace Buildings
 
         [SerializeField] private float FoodPerDayPerUnit = 0;
         private float FoodPerDay = 0;
+        private float FoodPerMinute = 0;
+        private float FoodCount = 0;
 
         public float GetFoodPerDay => FoodPerDay;
+
+        
+        
+        protected override void UpdateAction()
+        {
+            FoodCount += FoodPerMinute * Timer.GetInstance.GetTimeSpeed * Time.deltaTime ;
+        }
+
         protected override void OnBuildEffect()
         {
-            Debug.Log("Effect");
-            UnitCanEnter = false;
+            Timer.OnDayChanged += AddFoodToPlayer;
             base.OnBuildEffect();
+        }
+
+        private void AddFoodToPlayer(int obj)
+        {
+            PlayerData.GetInstance.IncreaseFood((int)FoodCount);
+            FoodCount = 0;
         }
 
         public override void DestroyEffect()
@@ -24,7 +39,7 @@ namespace Buildings
 
         public override void Upgrade()
         {
-            base.Upgrade();
+            FoodPerDay *= 2;
         }
 
         protected override void AddUnitEffect()
@@ -39,7 +54,8 @@ namespace Buildings
 
         private void UpdateFoodPerDay()
         {
-            FoodPerDay = FoodPerDayPerUnit * GetUnitIDs.Count;
+            FoodPerDay = FoodPerDayPerUnit * UnitAmount;
+            FoodPerMinute = FoodPerDay / (24 * 60);
             StartOnValueChanged();
         }
     }

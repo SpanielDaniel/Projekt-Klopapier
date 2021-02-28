@@ -74,7 +74,7 @@ namespace UI_Scripts
 
         private void ReleaseUnit(Unit _unit)
         {
-            Ground pos = MapGenerator.GetGroundFromGlobalPosition(CurrentSelectedBuilding.GetEntrancePoss());
+            Ground pos = CurrentSelectedBuilding.GetEntranceGround;
             CurrentSelectedBuilding.RemoveUnit(_unit,pos);
         }
 
@@ -94,7 +94,6 @@ namespace UI_Scripts
         {
             // Don't update if the player didn't selected a building.
             if (CurrentSelectedBuilding == null) return;
-            
             
             BuildingNameText.text = CurrentSelectedBuilding.GetData.Name;
             BuildingImage.sprite = CurrentSelectedBuilding.GetData.BuldingTexture;
@@ -150,6 +149,12 @@ namespace UI_Scripts
             {
                 UIBuildingElements[(int)EBuilding.House].SetActive(true);
                 UIBuildingElements[(int)EBuilding.House].GetComponent<UIHouse>().UpdateUI(CurrentSelectedBuilding as House);
+            }
+
+            if (CurrentSelectedBuilding is Hospital)
+            {
+                UIBuildingElements[(int)EBuilding.Hospital].SetActive(true);
+                UIBuildingElements[(int)EBuilding.Hospital].GetComponent<UIHospital>().UpdateUI(CurrentSelectedBuilding as Hospital);
             }
         }
         private void UpdateLevel()

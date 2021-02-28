@@ -6,7 +6,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Timer : MonoBehaviour
+public class Timer : Singleton<Timer>
 {
     // -------------------------------------------------------------------------------------------------------------
 
@@ -34,6 +34,8 @@ public class Timer : MonoBehaviour
     public static int GetDay => Day;
     public static float GetStunden => Stunden;
     public static float GetMinuten => Minuten;
+
+    public float GetTimeSpeed => TimeSpeed;
 
     // Handle Properties --------------------------------------------------------------------------------------------
 
