@@ -49,14 +49,12 @@
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Grid/Pathfinding.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Map/MapManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Wave Scripts/Waypoint.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Player/CameraManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/MeshCameraHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/UnitManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/ResourceGenerator.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Bullet.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/MeshGenerator.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/UnitGather.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/GameManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/ResourceMapManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/UIDestroyedHouse.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/DestroyedHouse.cs" />
@@ -70,14 +68,12 @@
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/Hospital.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/UIElements/UIHospital.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Timer.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIResourcesManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Build-System/BuildManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Build-System/BuildSlot.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Build-System/StreetManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Build-System/Street.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/House.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/TextureGenerator.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UISlot.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/Pointer.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIPointerInHudManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIVisibilityEvent.cs" />
@@ -87,7 +83,6 @@
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/Base.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/Scrap.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Sound/AudioManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/MainMenu/UIMenu.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/Farm.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/Building.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIUpgradeButton.cs" />
@@ -95,6 +90,11 @@
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/UIElements/UIBuildingManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/MapResource.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/UIUnitGather.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UISlot.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/MainMenu/UIMenu.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Player/CameraManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIResourcesManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/GameManager.cs" />
       </list>
     </option>
   </component>
@@ -114,6 +114,14 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
+    <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
+      <option name="EXE_PATH" value="$PROJECT_DIR$/Build\Projekt-Klopapier.exe" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="C:\MyProgramming\SAE\CMN5201\Projects\Klopapier\Projekt-Klopapier\Build" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <method v="2" />
+    </configuration>
     <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
@@ -199,7 +207,7 @@
       <workItem from="1614299807041" duration="4576000" />
       <workItem from="1614358596249" duration="12655000" />
       <workItem from="1614420595203" duration="45138000" />
-      <workItem from="1614484432287" duration="57197000" />
+      <workItem from="1614484432287" duration="59206000" />
     </task>
     <servers />
   </component>

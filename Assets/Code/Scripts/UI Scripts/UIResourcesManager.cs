@@ -3,6 +3,7 @@
 // Project  : Projekt-Klopapier
 
 using System;
+using Code.Scripts.Map;
 using Player;
 using TMPro;
 using UnityEngine;
@@ -31,8 +32,8 @@ namespace UI_Scripts
             PlayerData.FoodAmountChanged += SetTextToFoodAmount;
             PlayerData.StorageCapacityChanged += SetStorageCapacity;
             PlayerData.PopulationChanged += SetTextPopulation;
-            
-            
+            MapGenerator.MapIsBuild += OnButton_MapRes;
+
         }
 
         private void SetStorageCapacity(int _storageCapacity)

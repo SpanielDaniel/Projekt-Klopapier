@@ -1,6 +1,8 @@
 ﻿// Author: Daniel Bäcker
 
 using System;
+using Code.Scripts.Map;
+using UnityEditor;
 using UnityEngine;
 
 public class CameraManager : MonoBehaviour
@@ -10,7 +12,6 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private float PanBorderThickness;
     [SerializeField] private float MovementSpeed;
     [SerializeField] private float ScrollSpeed;
-    [SerializeField] private float RotationSpeed;
     [SerializeField] private float MaxCameraHeight = 10f;
     [SerializeField] private float MinCameraHeight = 1.0f;
 
@@ -23,11 +24,15 @@ public class CameraManager : MonoBehaviour
 
     private const float SCROLL_VALUE = 0.1f;
 
-    private void Start()
+    private void Awake()
+    {
+        MapGenerator.MapIsBuild += SetCamera;
+    }
+
+    private void SetCamera()
     {
         OnCameraCreation?.Invoke(this.GetComponent<Camera>());
     }
-
 
     private void Update()
     {

@@ -13,7 +13,6 @@ public class UIMenu : MonoBehaviour
 
     [SerializeField] private GameObject MainMenu;
     [SerializeField] private GameObject OptionsMenu;
-    [SerializeField] 
 
     #endregion
     

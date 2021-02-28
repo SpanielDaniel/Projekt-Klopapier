@@ -76,12 +76,14 @@ using UnityEngine.SceneManagement;
         private void SetResCamera(Camera _obj)
         {
             ResCamera = _obj;
+            OnGather();
             OnMap();
         }
 
         private void SetMapCamera(Camera _obj)
         {
             MapCamera = _obj;
+
         }
 
         private void OnGather()

@@ -3,13 +3,8 @@
 // Project  : Projekt-Klopapier
 
 using System;
-using Code.Scripts;
-using Code.Scripts.UI_Scripts;
-using Interfaces;
-using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UIElements;
 using Image = UnityEngine.UI.Image;
 
 namespace UI_Scripts
