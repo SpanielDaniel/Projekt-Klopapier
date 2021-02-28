@@ -71,6 +71,7 @@ namespace UI_Scripts
         private void ChangeUnit(int _firstSlotId, int _secondSlotID)
         {
             if(CurrentSelectedBuilding is House) CurrentSelectedBuilding.GetComponent<House>().ChangeUnitSlot(_firstSlotId,_secondSlotID);
+            if(CurrentSelectedBuilding is Hospital) CurrentSelectedBuilding.GetComponent<Hospital>().ChangeUnitSlot(_firstSlotId,_secondSlotID);
         }
 
         private void OnBuildingDestroyDestroyed()

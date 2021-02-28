@@ -168,5 +168,35 @@ namespace Buildings
 
             return -1;
         }
+        
+        public void ChangeUnitSlot(int _slot1,int _slot2)
+        {
+            Debug.Log(_slot1 + " " + _slot2);
+            int unitID = -1;
+            if (_slot1 < 6)
+            {
+                unitID = DoctorsUnitIDs[_slot1];
+                DoctorsUnitIDs[_slot1] = -1;
+            }
+            else if (_slot1 >= 6 && _slot1 < 14)
+            {
+                unitID = PatientsUnitIDs[_slot1 - 6];
+                PatientsUnitIDs[_slot1 - 6] = -1;
+            }
+            
+            
+            
+            if (_slot2 < 6)
+            {
+                DoctorsUnitIDs[_slot2] = unitID;
+            }
+            else if (_slot2 >= 6 && _slot2 < 14)
+            {
+                PatientsUnitIDs[_slot2 - 6] = unitID;
+            }
+            
+            
+            StartOnValueChanged();
+        }
     }
 }
