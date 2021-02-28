@@ -16,20 +16,27 @@ namespace UI_Scripts
 {
     public class UISlot : MonoBehaviour 
         , IPointerEnterHandler
+        , IPointerClickHandler
         , IPointerExitHandler
         , IDragHandler
         , IDropHandler
+        , IEndDragHandler
     {
         #region Init
 
         public static Action<Unit> OnUnitRelease;
-        public static Action<Sprite> OnDragStarted; 
+        public static Action<UISlot> OnDragStarted; 
+        public static Action<UISlot> OnEndDragStarted; 
+        public static Action<UISlot> OnDropStarted; 
 
         [SerializeField] private Image CurrentImage;
         [SerializeField] private Sprite DefaultSprite;
         [SerializeField] private GameObject Button;
         [SerializeField] private GameObject Cross;
-        
+        [SerializeField] private bool CanDrag = false;
+        [SerializeField] private bool CanDrop = false;
+        [SerializeField] private int SlotId;
+        public int GetSlotId => SlotId;
         private int UnitID;
 
         public int GetID => UnitID;
@@ -59,6 +66,7 @@ namespace UI_Scripts
         public void SetSlotActive(bool _isActive )
         {
             Cross.SetActive(!_isActive);
+            CanDrop = _isActive;
         }
 
         public void RemoveUnit()
@@ -71,6 +79,7 @@ namespace UI_Scripts
         {
             SetImage(_sprite);
             SetUnitId(_unitID);
+            CanDrag = true;
         }
         protected void SetImage(Sprite _sprite)
         {
@@ -99,7 +108,6 @@ namespace UI_Scripts
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            Debug.Log("True");
             IsMouseEntered = true;
             if (Button != null && UnitID >= 0) Button.SetActive(true);
         }
@@ -122,14 +130,23 @@ namespace UI_Scripts
 
         public void OnDrag(PointerEventData eventData)
         {
-            
-            OnDragStarted?.Invoke(CurrentImage.sprite);
+            if(CanDrag) OnDragStarted?.Invoke(this);
         }
         
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            OnEndDragStarted?.Invoke(this);
+        }
         
         public void OnDrop(PointerEventData eventData)
         {
-            Debug.Log("Drop:" + UnitID);
+            
+            if(CanDrop) OnDropStarted?.Invoke(this);
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            ButtonAction();
         }
     }
 }

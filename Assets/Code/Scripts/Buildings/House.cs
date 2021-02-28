@@ -234,5 +234,61 @@ namespace Buildings
             
             StartOnValueChanged();
         }
+
+        public void ChangeUnitSlot(int _slot1, int _slot2)
+        {
+            int unitID = -1;
+            if (_slot1 < 8)
+            {
+                unitID = FrontSideUnitIDs[_slot1];
+                FrontGuns[_slot1].SetActive(false);
+                FrontSideUnitIDs[_slot1] = -1;
+            }
+            else if (_slot1 >= 8 && _slot1 < 16)
+            {
+                unitID = BackSideUnitIDs[_slot1 - 8];
+                BackGuns[_slot1 - 8].SetActive(false);
+                BackSideUnitIDs[_slot1 - 8] = -1;
+            }
+            else if (_slot1 >= 16 && _slot1 < 19)
+            {
+                unitID = LeftSideUnitIDs[_slot1 - 16];
+                LeftGuns[_slot1 - 16].SetActive(false);
+                LeftSideUnitIDs[_slot1 - 16] = -1;
+            }
+            else if (_slot1 >= 19 && _slot1 < 21)
+            {
+                unitID = RightSideUnitIDs[_slot1 - 19];
+                RightGuns[_slot1 - 19].SetActive(false);
+                RightSideUnitIDs[_slot1 - 19] = -1;
+            }
+            
+            
+            if (_slot2 < 8)
+            {
+                FrontSideUnitIDs[_slot2] = unitID;
+                FrontGuns[_slot2].SetActive(true);
+            }
+            else if (_slot2 >= 8 && _slot2 < 16)
+            {
+                BackSideUnitIDs[_slot2 - 8] = unitID;
+                BackGuns[_slot2 - 8].SetActive(true);
+            }
+            else if (_slot2 >= 16 && _slot2 < 19)
+            {
+                LeftSideUnitIDs[_slot2 - 16] = unitID;
+                LeftGuns[_slot2 - 16].SetActive(true);
+
+            }
+            else if (_slot2 >= 19 && _slot2 < 21)
+            {
+                RightSideUnitIDs[_slot2 - 19] = unitID;
+                RightGuns[_slot2 - 19].SetActive(true);
+            }
+            
+            StartOnValueChanged();
+            
+            
+        }
     }
 }

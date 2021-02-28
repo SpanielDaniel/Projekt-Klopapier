@@ -65,6 +65,12 @@ namespace UI_Scripts
             Building.IsFinished += OnFinished;
             Building.DestroyDestroyed += OnBuildingDestroyDestroyed;
             UISlot.OnUnitRelease += ReleaseUnit;
+            Pointer.OnUnitChanged += ChangeUnit;
+        }
+
+        private void ChangeUnit(int _firstSlotId, int _secondSlotID)
+        {
+            if(CurrentSelectedBuilding is House) CurrentSelectedBuilding.GetComponent<House>().ChangeUnitSlot(_firstSlotId,_secondSlotID);
         }
 
         private void OnBuildingDestroyDestroyed()
@@ -77,7 +83,7 @@ namespace UI_Scripts
             Ground pos = CurrentSelectedBuilding.GetEntranceGround;
             CurrentSelectedBuilding.RemoveUnit(_unit,pos);
         }
-
+        
         private void Start()
         {
             CloseBuildingUI();

@@ -1,11 +1,17 @@
-﻿using Buildings;
+﻿using System;
+using Buildings;
 using UI_Scripts;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Code.Scripts.Buildings.UIElements
 {
     public class UIHouse : MonoBehaviour
     {
+        public static Action<UISlot> OnDragStarted; 
+        public static Action<UISlot> OnEndDragStarted; 
+        public static Action<UISlot> OnDropStarted; 
+        
         [SerializeField] private UISlot[] FrontSlots;
         [SerializeField] private UISlot[] BackSlots;
         [SerializeField] private UISlot[] LeftSlots;
@@ -18,12 +24,18 @@ namespace Code.Scripts.Buildings.UIElements
             for (int i = 0; i < _house.GetFrontSideUnitIDs.Length; i++)
             {
                 if(i >= _house.GetMaxFrontAmount) FrontSlots[i].SetSlotActive(false);
-                else FrontSlots[i].SetSlotActive(true);
+                else
+                {
+                    FrontSlots[i].SetSlotActive(true);
+                }
                 
                 FrontSlots[i].SetDefaultSprite();
 
                 int unitID = _house.GetFrontSideUnitIDs[i];
-                if (unitID >= 0 ) FrontSlots[i].Init(Unit.Units[unitID].GetUnitData.Icon,unitID);
+                if (unitID >= 0)
+                {
+                    FrontSlots[i].Init(Unit.Units[unitID].GetUnitData.Icon,unitID);
+                }
             }
             
             for (int i = 0; i < _house.GetBackSideUnitIDs.Length; i++)
@@ -56,11 +68,12 @@ namespace Code.Scripts.Buildings.UIElements
                 
                 RightSlots[i].SetDefaultSprite();
                 
-                
                 int unitID = _house.GetRightSideUnitIDs[i];
                 if (unitID >= 0 ) RightSlots[i].Init(Unit.Units[unitID].GetUnitData.Icon,unitID);
             }
         }
 
+        
+        
     }
 }

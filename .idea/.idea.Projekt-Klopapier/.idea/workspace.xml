@@ -47,7 +47,6 @@
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIPointerInHudManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/UIBuildingManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Ground.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/UIElements/UIHouse.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Interfaces/IMouseLeftUp.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Interfaces/IMouseLeftDown.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Player/PlayerMouseManager.cs" />
@@ -64,7 +63,6 @@
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Wave Scripts/Waypoint.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Player/CameraManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/MeshCameraHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Wave Scripts/Wave_Spawner.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIUnitManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/UnitManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIResourcesManager.cs" />
@@ -85,15 +83,17 @@
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Build-System/BuildManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/UnitSelector.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/Hospital.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/UIElements/UIBuildingManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/Scrap.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/Building.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Timer.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/Farm.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/Unit.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/House.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/Pointer.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/UIElements/UIScrap.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Wave Scripts/Wave_Spawner.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/UIElements/UIHouse.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/Pointer.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/House.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/UIElements/UIBuildingManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UISlot.cs" />
       </list>
     </option>
@@ -199,7 +199,7 @@
       <workItem from="1614299807041" duration="4576000" />
       <workItem from="1614358596249" duration="12655000" />
       <workItem from="1614420595203" duration="45138000" />
-      <workItem from="1614484432287" duration="21658000" />
+      <workItem from="1614484432287" duration="27863000" />
     </task>
     <servers />
   </component>
@@ -327,22 +327,22 @@
     <state x="2001" y="49" width="1340" height="864" key="dock-window-2/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1614493505799" />
     <state x="1920" y="0" width="1340" height="864" key="dock-window-2/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1614492622916" />
     <state x="300" y="0" width="1167" height="796" key="dock-window-2/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@1920.0.1920.1040" timestamp="1614124945469" />
-    <state x="412" y="142" width="1340" height="841" key="dock-window-3" timestamp="1614499574022">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="-1590" y="124" width="1340" height="841" key="dock-window-3" timestamp="1614512433385">
+      <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="412" y="142" width="1340" height="841" key="dock-window-3/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1614499574022" />
-    <state x="2151" y="0" width="1340" height="841" key="dock-window-3/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1614498438856" />
-    <state x="378" y="243" key="run.anything.popup" timestamp="1614486379098">
+    <state x="-1590" y="124" width="1340" height="841" key="dock-window-3/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1614512433385" />
+    <state x="136" y="127" width="1340" height="841" key="dock-window-3/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1614511623906" />
+    <state x="378" y="243" key="run.anything.popup" timestamp="1614510800025">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="-1542" y="243" key="run.anything.popup/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1612647802514" />
-    <state x="378" y="243" key="run.anything.popup/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1614486379098" />
+    <state x="378" y="243" key="run.anything.popup/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1614510800025" />
     <state x="2298" y="243" key="run.anything.popup/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@1920.0.1920.1040" timestamp="1607955804944" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1614456626504">
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1614511787966">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="-1297" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1614187109277" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1614456626504" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1614511787966" />
     <state x="2543" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@1920.0.1920.1040" timestamp="1607957859243" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/1920.0.1920.1040/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608517057534" />
   </component>
