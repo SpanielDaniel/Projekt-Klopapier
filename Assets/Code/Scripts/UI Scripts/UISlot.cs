@@ -99,6 +99,7 @@ namespace UI_Scripts
         {
             CurrentImage.sprite = DefaultSprite;
             CurrentImage.gameObject.SetActive(false);
+            UnitID = -1;
             CanDrag = false;
         }
 

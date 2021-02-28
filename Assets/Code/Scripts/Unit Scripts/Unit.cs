@@ -18,6 +18,7 @@ using UnityEngine;
 public class Unit : MonoBehaviour
     ,IMouseLeftDown
 {
+    public static event Action<int, float> OnHeal; 
     public static event Action<Unit> OnSelection;
     public static event Action<Unit> IsSpawned;
     public static event Action<Unit,Ground> OnMapEntrance; 
@@ -403,6 +404,7 @@ public class Unit : MonoBehaviour
     {
         CurrentHealthPoints += _amount;
         if (CurrentHealthPoints > MaxHealthPoints) CurrentHealthPoints = MaxHealthPoints;
+        OnHeal?.Invoke(ID,CurrentHealthPoints);
     }
     
 }

@@ -1,6 +1,8 @@
-﻿using Buildings;
+﻿using System;
+using Buildings;
 using UI_Scripts;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Code.Scripts.Buildings.UIElements
 {
@@ -8,7 +10,27 @@ namespace Code.Scripts.Buildings.UIElements
     {
         [SerializeField] private UISlot[] DoctorSlots;
         [SerializeField] private UISlot[] PatientsSlots;
-        
+
+        [SerializeField] private Slider[] Slider;
+
+        private void Awake()
+        {
+            Unit.OnHeal += UpdateHealthBar;
+        }
+
+        private void UpdateHealthBar(int _idUnit, float _healthPoints)
+        {
+            for (int i = 0; i < PatientsSlots.Length; i++)
+            {
+                int id = PatientsSlots[i].GetID;
+                if (id == _idUnit)
+                {
+                    Slider[i].maxValue = Unit.Units[id].GetMaxHealth;
+                    Slider[i].value = _healthPoints;
+                }
+            }
+        }
+
         public void UpdateUI(Hospital _hospital)
         {
             for (int i = 0; i < _hospital.GetDoctorsUnitIDs.Length; i++)
@@ -17,6 +39,7 @@ namespace Code.Scripts.Buildings.UIElements
                 else DoctorSlots[i].SetSlotActive(true);
                 
                 DoctorSlots[i].SetDefaultSprite();
+                
 
                 int unitID = _hospital.GetDoctorsUnitIDs[i];
                 if (unitID >= 0 ) DoctorSlots[i].Init(Unit.Units[unitID].GetUnitData.Icon,unitID);
@@ -30,8 +53,20 @@ namespace Code.Scripts.Buildings.UIElements
                 PatientsSlots[i].SetDefaultSprite();
 
                 int unitID = _hospital.GetPatientsUnitIDs[i];
-                if (unitID >= 0 ) PatientsSlots[i].Init(Unit.Units[unitID].GetUnitData.Icon,unitID);
+                if (unitID >= 0)
+                {
+                    Slider[i].gameObject.SetActive(true);
+                    PatientsSlots[i].Init(Unit.Units[unitID].GetUnitData.Icon,unitID);
+                    UpdateHealthBar(unitID, Unit.Units[unitID].GetCurrentHealth);
+
+                }
+                else
+                {
+                    Slider[i].gameObject.SetActive(false);
+                }
             }
+
+            
         }
     }
 }

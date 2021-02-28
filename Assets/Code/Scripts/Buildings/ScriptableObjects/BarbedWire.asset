@@ -17,7 +17,7 @@ MonoBehaviour:
     Y: 2
   Name: Stacheldrahz Zaun
   Description: "Ein Zaun zum verlangsamen f\xFCr Einheiten"
-  BuldingTexture: {fileID: 21300000, guid: 33cbb4b437ab28847b7534ffa085c049, type: 3}
+  BuldingTexture: {fileID: 21300000, guid: 5310d924457d092459c737adf854394b, type: 3}
   IsUpgradable: 0
   Levels:
   - MaxLife: 50

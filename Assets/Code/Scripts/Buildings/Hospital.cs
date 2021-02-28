@@ -29,10 +29,9 @@ namespace Buildings
             {
                 
                Unit unit =  Unit.Units[GetFirstPatient()];
-               unit.Heal(RecoverHealthPerSecond * (int)Counter * DoctorsAmount + Time.deltaTime);
+               unit.Heal(RecoverHealthPerSecond * DoctorsAmount * Time.deltaTime);
                if (unit.GetCurrentHealth >= unit.GetMaxHealth)
                {
-                   
                    RemoveUnit(unit,EntranceGround);
                    StartOnValueChanged();
                }
@@ -146,6 +145,7 @@ namespace Buildings
                     DoctorsAmount--;
                 }
             }
+            
             for (int i = 0; i < PatientsUnitIDs.Length; i++)
             {
                 if (PatientsUnitIDs[i] == _unitID)
@@ -154,6 +154,7 @@ namespace Buildings
                     PatientsAmount--;
                 }
             }
+            StartOnValueChanged();
         }
 
         private int GetFirstPatient()
@@ -177,11 +178,13 @@ namespace Buildings
             {
                 unitID = DoctorsUnitIDs[_slot1];
                 DoctorsUnitIDs[_slot1] = -1;
+                DoctorsAmount--;
             }
             else if (_slot1 >= 6 && _slot1 < 14)
             {
                 unitID = PatientsUnitIDs[_slot1 - 6];
                 PatientsUnitIDs[_slot1 - 6] = -1;
+                PatientsAmount--;
             }
             
             
@@ -189,10 +192,12 @@ namespace Buildings
             if (_slot2 < 6)
             {
                 DoctorsUnitIDs[_slot2] = unitID;
+                DoctorsAmount++;
             }
             else if (_slot2 >= 6 && _slot2 < 14)
             {
                 PatientsUnitIDs[_slot2 - 6] = unitID;
+                PatientsAmount++;
             }
             
             

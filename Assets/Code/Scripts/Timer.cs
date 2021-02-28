@@ -3,6 +3,7 @@
 // Project  : Projekt-Klopapier
 
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,8 +19,8 @@ public class Timer : Singleton<Timer>
     
     //Serialize Fields ---------------------------------------------------------------------------------------------
 
-    [SerializeField] private Text TimeText;
-    [SerializeField] private Text DayText;
+    [SerializeField] private TextMeshProUGUI TimeText;
+    [SerializeField] private TextMeshProUGUI DayText;
     [SerializeField] private bool BoolTimer = false;
     [SerializeField] private float TimeSpeed = 1.5f;
 

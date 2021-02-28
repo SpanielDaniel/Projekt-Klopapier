@@ -49,23 +49,23 @@ namespace UI_Scripts
 
         private void SetTextToToiletPaperAmount(int _toiletAmount)
         {
-            ToiletPaper.text = _toiletAmount.ToString() + AddStorageCapacity();
+            ToiletPaper.text = _toiletAmount.ToString() ;
         }
         private void SetTextToWoodAmount(int _woodAmount)
         {
-            Wood.text = _woodAmount.ToString()+ AddStorageCapacity();
+            Wood.text = _woodAmount.ToString() + "/"+ AddStorageCapacity();
         }
         private void SetTextToStoneAmount(int _stoneAmount)
         {
-            Stone.text = _stoneAmount.ToString()+ AddStorageCapacity();
+            Stone.text = _stoneAmount.ToString()+ "/"+ AddStorageCapacity();
         }
         private void SetTextToSteelAmount(int _steelAmount)
         {
-            Steel.text = _steelAmount.ToString()+ AddStorageCapacity();
+            Steel.text = _steelAmount.ToString()+ "/"+ AddStorageCapacity();
         }
         private void SetTextToFoodAmount(float _foodAmount)
         {
-            Food.text = Math.Round(_foodAmount).ToString() + AddStorageCapacity();
+            Food.text = Math.Round(_foodAmount).ToString() + "/"+ AddStorageCapacity();
         }
 
         private void SetTextPopulation(int _amount, int _max)
