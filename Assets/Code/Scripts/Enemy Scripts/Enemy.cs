@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour
     private float CurrentHealthPoints;
     private float Defence;
     private float MovementSpeed;
+    private float NormalMovement;
     private float Range;
     private int DamageToBase;
     private float distance;
@@ -72,6 +73,7 @@ public class Enemy : MonoBehaviour
         AttackPoints = _data.AttackPoints;
         Defence = _data.Defence;
         MovementSpeed = _data.MoveSpeed;
+        NormalMovement = MovementSpeed;
         Range = _data.Range;
         FireRate = _data.AttackSpeed;
         OnDeathPaperDrop = _data.PaperDrop;
@@ -241,5 +243,15 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(int _dmg)
     {
         CurrentHealthPoints -= (_dmg - Defence);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        MovementSpeed = (MovementSpeed / 2);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        MovementSpeed = NormalMovement;
     }
 }
