@@ -80,8 +80,8 @@ public class Wave_Spawner : MonoBehaviour
         for (int i = 0; i < wave.EnemyPrefab.Length; i++)
         {
             SpawnEnemy(wave.EnemyPrefab[i]);
+            yield return new WaitForSeconds(wave.WaitTimeForSpawn * Time.deltaTime);
         }
-        yield return new WaitForSeconds(wave.WaitTimeForSpawn * Time.deltaTime);
 
         WaveIndex++;
         if (WaveIndex == Waves.Length)
