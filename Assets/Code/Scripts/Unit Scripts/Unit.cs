@@ -109,6 +109,7 @@ public class Unit : MonoBehaviour
         Name = _data.Name;
         Icon = _data.Icon;
         MaxHealthPoints = _data.MaxHealthPoints;
+        Range = _data.Range;
         Defence = _data.Defence;
         AttackPoints = _data.AttackPoints;
         AttackSpeed = _data.AttackSpeed;

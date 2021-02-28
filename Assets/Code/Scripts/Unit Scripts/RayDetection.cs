@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class RayDetection : MonoBehaviour
 {
-    private float Range;
+    private float Range ;
     public bool IsHit;
     private UnitWeapon HouseWeapon;
 
     private void Start()
     {
         HouseWeapon = GetComponentInParent<UnitWeapon>();
-        Range = HouseWeapon.DetectionRange;
     }
 
     private void Update()
     {
+        Range = HouseWeapon.DetectionRange;
         RaycastHit hit;
 
         if (Physics.Raycast(transform.position, transform.forward, out hit, Range))
@@ -30,5 +30,11 @@ public class RayDetection : MonoBehaviour
                 IsHit = false;
             }
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(transform.position, transform.forward * Range + transform.position);
     }
 }

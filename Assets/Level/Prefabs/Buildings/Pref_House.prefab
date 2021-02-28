@@ -7221,11 +7221,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RayDetectors:
-  - {fileID: 6730641414721354056}
-  - {fileID: 6741589128962143002}
+  - {fileID: 1434657458416708781}
   - {fileID: 1113879490446811927}
   - {fileID: 5316435612375743233}
   - {fileID: 4162182656924153102}
+  - {fileID: 6741589128962143002}
   - {fileID: 7519123298237607564}
   BulletPrefab: {fileID: 1751729499408640468, guid: b44b2bb692eb6ab4c81365a4bee3068c, type: 3}
   DetectionRange: 0

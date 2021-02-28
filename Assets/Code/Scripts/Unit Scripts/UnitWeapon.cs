@@ -19,12 +19,12 @@ public class UnitWeapon : MonoBehaviour
         AttackPoints = _unit.GetAttack();
         AttackSpeed = _unit.GetAttackSpeed();
         DetectionRange = _unit.GetRange();
+        Debug.Log(_unit.GetRange());
     }
 
     private void Start()
     {
         FirePoint = new Vector3(transform.position.x, transform.position.y, (transform.position.z + 0.5f));
-        
     }
 
     private void Update()
