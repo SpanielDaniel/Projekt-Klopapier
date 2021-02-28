@@ -44,6 +44,7 @@ public class Enemy : MonoBehaviour
 
     private Animator Animator;
     [SerializeField] private GameObject RotateObject;
+    [SerializeField] private GameObject MovingBody;
     [SerializeField] private GameObject BulletPrefab;
     [SerializeField] private Transform FirePoint;
     [SerializeField] private EnemyData Data;
@@ -88,6 +89,7 @@ public class Enemy : MonoBehaviour
 
         float angle = Vector2.SignedAngle(Vector2.up, new Vector2(ViewDirection.x, ViewDirection.z));
         RotateObject.transform.eulerAngles = new Vector3(0, -angle, 0);
+        MovingBody.transform.eulerAngles = new Vector3(0, -angle, 0);
         Animator.SetBool("IsShooting", false);
         if (Vector3.Distance(transform.position, wPoints.waypoints[WayPointIndex].transform.position) < 0.1f)
         {
@@ -117,6 +119,9 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Look at Target
+    /// </summary>
     private void LockOnTarget()
     {
         Vector3 direction = (Target.transform.position - RotateObject.transform.position);
@@ -129,6 +134,10 @@ public class Enemy : MonoBehaviour
         RotateObject.transform.eulerAngles = new Vector3(0, -angle, 0);
     }
 
+    /// <summary>
+    /// If Target found Shoot at Target
+    /// </summary>
+    /// <param name="Target"></param>
     void Shoot(GameObject Target)
     {
         Animator.SetBool("IsShooting", true);
@@ -142,6 +151,9 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Look for Target in Range
+    /// </summary>
     private void UpdateTarget()
     {
         List<GameObject> enemies = new List<GameObject>();
@@ -194,6 +206,9 @@ public class Enemy : MonoBehaviour
             Target = null;
     }
 
+    /// <summary>
+    /// Destroy Object, remove 1 point from Enemies alive and if hit last Point Damage Base
+    /// </summary>
     public void Die()
     {
         Wave_Spawner.EnemiesAlive--;
@@ -204,6 +219,9 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
 
+    /// <summary>
+    /// Damage Base
+    /// </summary>
     private void GiveDamageToBase()
     {
         foreach (Building building in Building.Buildings)
@@ -216,6 +234,10 @@ public class Enemy : MonoBehaviour
         Die();
     }
 
+    /// <summary>
+    /// if Bullet hit get Damage
+    /// </summary>
+    /// <param name="_dmg"></param>
     public void TakeDamage(int _dmg)
     {
         CurrentHealthPoints -= (_dmg - Defence);

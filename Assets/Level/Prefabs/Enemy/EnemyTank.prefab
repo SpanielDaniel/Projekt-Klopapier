@@ -109,10 +109,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RotateObject: {fileID: 3075520920139504222}
+  MovingBody: {fileID: 1504649869365599859}
   BulletPrefab: {fileID: 1751729499408640468, guid: b44b2bb692eb6ab4c81365a4bee3068c, type: 3}
   FirePoint: {fileID: 3187279290289364717}
   Data: {fileID: 11400000, guid: 69f98c5ddaf223544940d82c6f449c69, type: 2}
-  Base: {fileID: 6327789502137770140, guid: 5bb0774f8537f1e428c402526be7b6f4, type: 3}
 --- !u!1001 &759264483007835035
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -182,6 +182,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03bd5e3ea2209eb49a5742f90b548d10, type: 3}
+--- !u!1 &1504649869365599859 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2191251992303597032, guid: 03bd5e3ea2209eb49a5742f90b548d10, type: 3}
+  m_PrefabInstance: {fileID: 759264483007835035}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2502539924453534816 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2896867665593862139, guid: 03bd5e3ea2209eb49a5742f90b548d10, type: 3}

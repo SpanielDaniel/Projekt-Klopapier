@@ -110,10 +110,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RotateObject: {fileID: 184167101934432007}
+  MovingBody: {fileID: 184167101934432007}
   BulletPrefab: {fileID: 1751729499408640468, guid: b44b2bb692eb6ab4c81365a4bee3068c, type: 3}
   FirePoint: {fileID: 4662554353977691336}
   Data: {fileID: 11400000, guid: 55d021e42b7eb474aa81335e9be95b9e, type: 2}
-  Base: {fileID: 6327789502137770140, guid: 5bb0774f8537f1e428c402526be7b6f4, type: 3}
 --- !u!1001 &184167101934397907
 PrefabInstance:
   m_ObjectHideFlags: 0
