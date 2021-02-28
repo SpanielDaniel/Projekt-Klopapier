@@ -96,7 +96,7 @@ namespace Buildings
         // Get properties ----------------------------------------------------------------------------------------------
         public BuildingData GetData => Data;
         public int GetXPos => XPosition;
-        public int GetYPOs => ZPosition;
+        public int GetYPos => ZPosition;
         public int CurrentHeightH => CurrentHeight;
         public int CurrentWidthH => CurrentWidth;
         public bool GetUnitCanEnter => UnitCanEnter;
@@ -337,12 +337,12 @@ namespace Buildings
         // Upgrade -----------------------------------------------------------------------------------------------------
         public virtual void Upgrade()
         {
-            if (IsNextLevelGreaterThanMaxLevel()) return;
+            
             
             CurrentLevelH++;
             SetHealthToCurrentLevelHealth();
         }
-        private bool IsNextLevelGreaterThanMaxLevel()
+        public bool IsNextLevelGreaterThanMaxLevel()
         {
             return CurrentLevelH + 1 > Data.Levels.Length;
         }
@@ -536,17 +536,7 @@ namespace Buildings
             if(IsBuildingHudOpen) DestroyDestroyed?.Invoke();
             RemoveAllUnits();
         }
-
-        // Inspector ---------------------------------------------------------------------------------------------------
-        //private void OnValidate()
-        //{
-        //    if(Data != null) UpdateHealth();
-        //}
-        private void UpdateHealth()
-        {
-            CurrentLevelH = CurrentLevelH;
-            CurrentHealthH = CurrentHealthH;
-        }
+        
 
         #endregion
         

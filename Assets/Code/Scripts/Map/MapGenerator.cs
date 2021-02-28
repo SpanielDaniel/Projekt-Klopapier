@@ -47,6 +47,18 @@ namespace Code.Scripts.Map
         {
             Building.OnBaseIsUnderConstruction += SetFinalWaypoint;
             UnitManager.OnNodeReady += GenerateBuildings;
+            Scrap.OnScrapDestroyed += SetGroundsFree;
+        }
+
+        private void SetGroundsFree(int _width, int _height, int _posX, int _posY)
+        {
+            for (int i = 0; i < _height; i++)
+            {
+                for (int j = 0; j < _width; j++)
+                {
+                    GetGroundFromPosition(_posX + j, _posY + i).IsBlocked = false;
+                }
+            }
         }
 
         private Node[,] Nodes;

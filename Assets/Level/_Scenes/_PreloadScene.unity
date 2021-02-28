@@ -267,3 +267,9 @@ MonoBehaviour:
     Volume: 0.2
     Pitch: 1
     Source: {fileID: 0}
+  Music:
+  - Name: Music_Track01
+    Clip: {fileID: 8300000, guid: 11795bb2447398d4bb67051dc2fff400, type: 3}
+    Volume: 0.2
+    Pitch: 1
+    Source: {fileID: 0}

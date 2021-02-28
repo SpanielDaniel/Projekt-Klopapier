@@ -111,9 +111,11 @@
               <e p="Pointer.cs" t="Include" />
               <e p="UIInGameMenu.cs" t="Include" />
               <e p="UIPointerInHudManager.cs" t="Include" />
+              <e p="UIRepairButton.cs" t="Include" />
               <e p="UIResourcesManager.cs" t="Include" />
               <e p="UISlot.cs" t="Include" />
               <e p="UIUnitManager.cs" t="Include" />
+              <e p="UIUpgradeButton.cs" t="Include" />
               <e p="UIVisibilityEvent.cs" t="Include" />
               <e p="UIVisibilityManager.cs" t="Include" />
             </e>

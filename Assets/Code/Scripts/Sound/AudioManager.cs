@@ -76,10 +76,25 @@ namespace Code.Scripts
         public void PlayMusic(string _name)
         {
             if (Music == null) return; 
-            Sound m = Array.Find(Sounds, sound => sound.GetName == _name);
+            Sound m = Array.Find(Music, music => music.GetName == _name);
             m.Source.Play();
+            m.Source.loop = true;
         }
 
+
+        public void OnSoundValueChanged(float _value)
+        {
+            foreach (var sound in Sounds)
+            {
+                sound.Source.volume = _value;
+            }
+            
+            foreach (var music in Music)
+            {
+                music.Source.volume = _value;
+            }
+            
+        }
         #endregion
         
         // -------------------------------------------------------------------------------------------------------------

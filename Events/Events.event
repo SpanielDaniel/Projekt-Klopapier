@@ -6,6 +6,8 @@ Behalte dabei deine Nahrung und dein Geld (Klopapier) im ueberblick.";
 E: ""
 NID: "2"
 NFN: "Events"
+EF: ""
+A: ""
 
 ID: "2"
 N: "StartEvent"
@@ -14,6 +16,8 @@ D: "Bau mit deinen Einheiten eine Basis um mit der Produktion von neuen einheite
 E: ""
 NID: "3"
 NFN: "Events"
+EF: ""
+A: ""
 
 ID: "3"
 N: "Info"
@@ -22,7 +26,8 @@ D: "Wenn deine Basis zerstört wird, verlierst du das Spiel.";
 E: ""
 NID: "4"
 NFN: "Events"
-
+EF: ""
+A: ""
 
 ID: "4"
 N: "Steuerung"
@@ -31,4 +36,5 @@ D: "Mit einem Linksklick kannst du Einheiten auswählen und mit dem Rechtsklick 
 E: ""
 NID: ""
 NFN: ""
-
+EF: ""
+A: ""

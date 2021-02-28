@@ -4,6 +4,7 @@ using Code.Scripts;
 using Code.Scripts.Buildings.UIElements;
 using Code.Scripts.Map;
 using Code.Scripts.UI_Scripts;
+using Player;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -55,6 +56,12 @@ namespace UI_Scripts
         
         private Building CurrentSelectedBuilding;
         private int BuildingID;
+
+        [SerializeField] private GameObject[] ResReduce;
+        [SerializeField] private TextMeshProUGUI[] ResReduceText;
+
+
+        
         
         
 
@@ -88,6 +95,7 @@ namespace UI_Scripts
         private void Start()
         {
             CloseBuildingUI();
+            HideResReduce();
         }
 
         #endregion
@@ -210,7 +218,24 @@ namespace UI_Scripts
         {
             EventSystem.current.SetSelectedGameObject(null);
             AudioManager.GetInstance.PlaySound("BuildSlotClicked");
-            CurrentSelectedBuilding.Upgrade();
+            if (CurrentSelectedBuilding.IsNextLevelGreaterThanMaxLevel()) return;
+
+
+            int woodCost = CurrentSelectedBuilding.GetData.Levels[CurrentSelectedBuilding.CurrentLevelH + 1].WoodCosts;
+            int stoneCost = CurrentSelectedBuilding.GetData.Levels[CurrentSelectedBuilding.CurrentLevelH + 1].StoneCosts;
+            int steelCost = CurrentSelectedBuilding.GetData.Levels[CurrentSelectedBuilding.CurrentLevelH + 1].SteelCosts;
+            
+            
+            if (PlayerData.GetInstance.IsPlayerHavingEnoughResources(0, woodCost, stoneCost, steelCost))
+            {
+
+                PlayerData.GetInstance.WoodAmountH -= woodCost;
+                PlayerData.GetInstance.StoneAmountH -= stoneCost;
+                PlayerData.GetInstance.SteelAmountH -= steelCost;
+                CurrentSelectedBuilding.Upgrade();
+
+            }
+            
         }
 
 
@@ -310,6 +335,67 @@ namespace UI_Scripts
             BuildUI.SetActive(false);
             BuildingUI.SetActive(true);
             UpdateUI();
+        }
+        
+        public void ShowUpgradeReduce()
+        {
+            if(CurrentSelectedBuilding.IsNextLevelGreaterThanMaxLevel()) return;
+            int woodCost = CurrentSelectedBuilding.GetData.Levels[CurrentSelectedBuilding.CurrentLevelH + 1].WoodCosts;
+            int stoneCost = CurrentSelectedBuilding.GetData.Levels[CurrentSelectedBuilding.CurrentLevelH + 1].StoneCosts;
+            int steelCost = CurrentSelectedBuilding.GetData.Levels[CurrentSelectedBuilding.CurrentLevelH + 1].SteelCosts;
+
+            foreach (var obj in ResReduce)
+            {
+                obj.SetActive(true);
+            }
+            
+            
+
+            ResReduceText[0].text = "-" + woodCost;
+            ResReduceText[1].text = "-" + steelCost;
+            ResReduceText[2].text = "-" + stoneCost;
+        }
+
+        public void ShowRepairResource()
+        {
+            
+            int woodCost = CurrentSelectedBuilding.GetData.Levels[CurrentSelectedBuilding.CurrentLevelH ].WoodCosts / 2;
+            int stoneCost = CurrentSelectedBuilding.GetData.Levels[CurrentSelectedBuilding.CurrentLevelH ].StoneCosts / 2;
+            int steelCost = CurrentSelectedBuilding.GetData.Levels[CurrentSelectedBuilding.CurrentLevelH ].SteelCosts / 2;
+            
+            foreach (var obj in ResReduce)
+            {
+                obj.SetActive(true);
+            }
+            
+            ResReduceText[0].text = "-" + woodCost;
+            ResReduceText[1].text = "-" + steelCost;
+            ResReduceText[2].text = "-" + stoneCost;
+        }
+
+
+        public void OnButtonClick_Repair()
+        {
+            int woodCost = CurrentSelectedBuilding.GetData.Levels[CurrentSelectedBuilding.CurrentLevelH ].WoodCosts / 2;
+            int stoneCost = CurrentSelectedBuilding.GetData.Levels[CurrentSelectedBuilding.CurrentLevelH ].StoneCosts / 2;
+            int steelCost = CurrentSelectedBuilding.GetData.Levels[CurrentSelectedBuilding.CurrentLevelH ].SteelCosts / 2;
+
+            if (PlayerData.GetInstance.IsPlayerHavingEnoughResources(0, woodCost, stoneCost, steelCost))
+            {
+                PlayerData.GetInstance.WoodAmountH -= woodCost;
+                PlayerData.GetInstance.StoneAmountH -= stoneCost;
+                PlayerData.GetInstance.SteelAmountH -= steelCost;
+
+                CurrentSelectedBuilding.CurrentHealthH = CurrentSelectedBuilding.GetData.Levels[CurrentSelectedBuilding.CurrentLevelH].MaxLife;
+            }
+        }
+
+        public void HideResReduce()
+        {
+            foreach (var obj in ResReduce)
+            {
+                obj.SetActive(false);
+            }
         }
         
         

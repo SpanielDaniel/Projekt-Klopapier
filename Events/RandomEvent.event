@@ -1,0 +1,53 @@
+ID: "1"
+N: "Wood"
+H: "Holz gefunden"
+D: "Du Hast in einem Schutthaufen noch benutzbare Bretter gefunden!";
+E: "+5 Holz"
+NID: ""
+NFN: ""
+EF: "W"
+A: "5"
+
+
+ID: "2"
+N: "Stone"
+H: "Steine gefunden"
+D: "Du Hast in einem Schutthaufen noch heile Ziegelsteine gefunden!";
+E: "+5 Steine"
+NID: ""
+NFN: ""
+EF: "S"
+A: "5"
+
+ID: "3"
+N: "Steel"
+H: "Stahl"
+D: "Diese Stahlplatten haben noch kein Rost gesehen.";
+E: "+5 Stahl "
+NID: ""
+NFN: ""
+EF: "T"
+A: "5"
+
+ID: "4"
+N: "Paper"
+H: "Toilettenpapier gefunden!"
+D: "Ein Schutthaufen war mal ein Klo. Jemand hat hier sein Klopapier vergessen.";
+E: "+5 Klopapier"
+NID: ""
+NFN: ""
+EF: "P"
+A: "5"
+
+ID: "5"
+N: "Food"
+H: "Essen gefunden!"
+D: "Eine Dose Erbsen. Kann man den Inhalt noch essen?";
+E: "+5 Nahrung"
+NID: ""
+NFN: ""
+EF: "F"
+A: "5"
+
+
+

@@ -4,7 +4,9 @@
 
 using System;
 using System.IO;
+using Player;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Code.Scripts.Events
 {
@@ -19,7 +21,6 @@ namespace Code.Scripts.Events
         public void Awake()
         {
             EventWindow.OnEventWindowClosed += StartNextEvent;
-            
         }
         
         private void Start()
@@ -29,6 +30,11 @@ namespace Code.Scripts.Events
             StartEvent("Events",1);
         }
 
+        /// <summary>
+        /// Starts the next Event Window
+        /// </summary>
+        /// <param name="_nextFileName"></param>
+        /// <param name="_nextEventIndex"></param>
         private void StartNextEvent(string _nextFileName,int _nextEventIndex)
         {
             if (_nextEventIndex == 0 || _nextEventIndex == null)
@@ -40,7 +46,12 @@ namespace Code.Scripts.Events
             
             StartEvent(_nextFileName,_nextEventIndex);
         }
-
+        
+        /// <summary>
+        /// Starts an event.
+        /// </summary>
+        /// <param name="_fileName">filename of the event</param>
+        /// <param name="_startEventIndex">index of the event</param>
         public void StartEvent(string _fileName, int _startEventIndex)
         {
             Time.timeScale = 0.0f;
@@ -84,7 +95,22 @@ namespace Code.Scripts.Events
             indexEnd = text.IndexOf('"',indexStart + 1);
             string nextEventFileName = text.Substring(indexStart + 1, indexEnd - indexStart -1);
             
+            index = text.IndexOf("EF:",index);
+            indexStart = text.IndexOf('"',index);
+            indexEnd = text.IndexOf('"',indexStart + 1);
+            string effect = text.Substring(indexStart + 1, indexEnd - indexStart -1);
             
+            index = text.IndexOf("A:",index);
+            indexStart = text.IndexOf('"',index);
+            indexEnd = text.IndexOf('"',indexStart + 1);
+            string amount = text.Substring(indexStart + 1, indexEnd - indexStart -1);
+
+
+            if (effect != "")
+            {
+                
+                StartEffect(effect,int.Parse(amount));
+            }
             
             GameObject eventWindow = Instantiate(EventWindowPrefab,Parent.transform);
 
@@ -95,6 +121,39 @@ namespace Code.Scripts.Events
             ev.SetEffectText(effectText);
             
             if(nextEventIndex != "") ev.SetNextID(int.Parse(nextEventIndex));
+        }
+
+        public void StartRandomEvent()
+        {
+
+            int random =Random.Range(1, 5);
+            StartEvent("RandomEvent",random);
+        }
+
+        private void StartEffect(string _effect, int _amount)
+        {
+            switch (_effect[0])
+            {
+                case 'W':
+                    PlayerData.GetInstance.IncreaseWood(_amount);
+                    break;
+                case 'S':
+                    PlayerData.GetInstance.IncreaseStone(_amount);
+                    break;
+
+                case 'T':
+                    PlayerData.GetInstance.IncreaseSteel(_amount);
+                    break;
+
+                case 'P':
+                    PlayerData.GetInstance.IncreaseToiletPaper(_amount);
+                    break;
+
+                case 'F':
+                    PlayerData.GetInstance.IncreaseFood(_amount);
+                    break;
+
+            }
         }
     }
 }

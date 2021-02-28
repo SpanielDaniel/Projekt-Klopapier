@@ -4,16 +4,21 @@
 
 using System;
 using Code.Scripts;
+using Code.Scripts.Events;
+using Code.Scripts.Grid.DanielB;
+using Code.Scripts.Map;
 using NUnit.Framework.Constraints;
 using Player;
 using TMPro;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Buildings
 {
     public class Scrap : Building
     {
 
+        public static event Action<int,int,int,int> OnScrapDestroyed; 
         [SerializeField] private EResource CurrentResource;
         [SerializeField] private int AmountOfWood = 0;
         [SerializeField] private int AmountOfStone = 0;
@@ -58,7 +63,10 @@ namespace Buildings
             if (IsEmpty())
             {
                 DestroyEffect();
-                EntranceGround.IsBlockedH = false;
+
+                OnScrapDestroyed?.Invoke(CurrentWidthH,CurrentHeightH,GetXPos,GetYPos);
+                
+                
                 Destroy(gameObject);
             }
 
@@ -71,6 +79,9 @@ namespace Buildings
                 
                 if (!IsEmpty())
                 {
+                    float random = Random.Range(0, 100);
+                    if(random < 5) EventManager.GetInstance.StartRandomEvent();
+
                     switch (CurrentResource)
                     {
                         case EResource.Wood:

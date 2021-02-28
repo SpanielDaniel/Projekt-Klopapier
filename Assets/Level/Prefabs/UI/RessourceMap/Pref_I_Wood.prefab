@@ -474,10 +474,11 @@ MonoBehaviour:
   TimeToEarnResourcesInSeconds: 1
   MinAmount: 10
   MaxAmount: 50
-  IsRegeneration: 0
-  ResourceRegenerationAmountInSeconds: 0
+  IsRegeneration: 1
+  ResourceRegenerationAmountInSeconds: 0.05
   ResInfo: {fileID: 1180398443628780376}
-  ResAmountText: {fileID: 9007039183638115250}
+  ResAmountText:
+  - {fileID: 9007039183638115250}
   Res: 0
 --- !u!1 &9212353475154587747
 GameObject:

@@ -13,6 +13,7 @@ public class UIMenu : MonoBehaviour
 
     [SerializeField] private GameObject MainMenu;
     [SerializeField] private GameObject OptionsMenu;
+    [SerializeField] 
 
     #endregion
     
@@ -31,7 +32,7 @@ public class UIMenu : MonoBehaviour
     // Start -----------------------------------------------------------------------------------------------------------
     private void StartMenuMusic()
     {
-        FindObjectOfType<AudioManager>().PlaySound("MenuMusic");
+        FindObjectOfType<AudioManager>().PlayMusic("Music_Track01");
     }
 
     #endregion
@@ -64,6 +65,11 @@ public class UIMenu : MonoBehaviour
         AudioManager.GetInstance.PlaySound("BuildSlotClicked");
         OptionsMenu.SetActive(false);
         MainMenu.SetActive(true);
+    }
+
+    public void OnSoundValueChanged(float _value)
+    {
+        AudioManager.GetInstance.OnSoundValueChanged(_value);
     }
 
     #endregion

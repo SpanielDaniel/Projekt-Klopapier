@@ -39,6 +39,7 @@ namespace Buildings
 
         public override void Upgrade()
         {
+            base.Upgrade();
             FoodPerDay *= 2;
         }
 

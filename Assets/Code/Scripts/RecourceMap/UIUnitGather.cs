@@ -12,6 +12,7 @@ namespace Code.Scripts
         public static event Action<Unit> IsBack; 
         [SerializeField] private TextMeshProUGUI Text;
         [SerializeField] private GameObject ReturnButton;
+        [SerializeField] private Image Image;
         private UnitGather UnitGather;
 
         private float Timer = 0;
@@ -26,7 +27,7 @@ namespace Code.Scripts
         {
             UnitGather = _gather;
             Timer = UnitGather.GetTimerToGoToRes;
-
+            Image.sprite = _gather.Unit.GetUnitData.Icon;
             UpdateText();
         }
         

@@ -35,14 +35,13 @@ namespace Code.Scripts
         public static event Action<GameObject,EMapResource> ResourceIsEmpty;
         public static event Action<MapResource> OnClickRes;
         [SerializeField] private float TimeToEarnResourcesInSeconds;
-        //[SerializeField] private float TimeMultiplicator;
 
         [SerializeField] private int MinAmount;
         [SerializeField] private int MaxAmount;
         [SerializeField] private bool IsRegeneration;
         [SerializeField] private float ResourceRegenerationAmountInSeconds;
         [SerializeField] private GameObject ResInfo;
-        [SerializeField] private TextMeshProUGUI ResAmountText;
+        [SerializeField] private TextMeshProUGUI[] ResAmountText;
 
 
         [SerializeField] private EMapResource Res;
@@ -117,15 +116,20 @@ namespace Code.Scripts
             switch (Res)
             {
                 case EMapResource.Wood:
-                    ResAmountText.text = WoodAmount.ToString();
+                    ResAmountText[0].text = WoodAmount.ToString();
                     break;
                 case EMapResource.Stone:
-                    ResAmountText.text = StoneAmount.ToString();
+                    ResAmountText[0].text = StoneAmount.ToString();
                     break;
                 case EMapResource.Steel:
-                    ResAmountText.text = SteelAmount.ToString();
+                    ResAmountText[0].text = SteelAmount.ToString();
                     break;
                 case EMapResource.City:
+                    ResAmountText[0].text = WoodAmount.ToString();
+                    ResAmountText[1].text = SteelAmount.ToString();
+                    ResAmountText[2].text = StoneAmount.ToString();
+                    ResAmountText[3].text = ToilettePaperAmount.ToString();
+                    ResAmountText[4].text = FoodAmount.ToString();
                     break;
             }
             
@@ -165,6 +169,11 @@ namespace Code.Scripts
                     SteelAmount =  Random.Range(MinAmount, MaxAmount + 1);
                     break;
                 case EMapResource.City:
+                    WoodAmount =  Random.Range(MinAmount, MaxAmount + 1);
+                    StoneAmount =  Random.Range(MinAmount, MaxAmount + 1);
+                    SteelAmount =  Random.Range(MinAmount, MaxAmount + 1);
+                    ToilettePaperAmount = Random.Range(MinAmount, MaxAmount + 1);
+                    FoodAmount = Random.Range(MinAmount, MaxAmount + 1);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

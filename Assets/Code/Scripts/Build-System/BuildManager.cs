@@ -568,7 +568,7 @@ namespace Code.Scripts
                 {
                     
                     
-                    SetScrapOnPos(_building.GetXPos + j,_building.GetYPOs + i ,woodAmount,stoneAmount,steelAmount);
+                    SetScrapOnPos(_building.GetXPos + j,_building.GetYPos + i ,woodAmount,stoneAmount,steelAmount);
                 }
             }
         }
