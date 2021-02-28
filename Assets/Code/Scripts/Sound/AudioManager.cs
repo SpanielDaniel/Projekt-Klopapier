@@ -7,14 +7,29 @@ namespace Code.Scripts
     
     public class AudioManager : Singleton<AudioManager>
     {
+        // -------------------------------------------------------------------------------------------------------------
+        
+        #region Init
+        // Serialize Fields --------------------------------------------------------------------------------------------
         [SerializeField] private Sound[] Sounds;
+        [SerializeField] private Sound[] Music;
 
+        #endregion
+        
+        // -------------------------------------------------------------------------------------------------------------
+        
+        /// <summary>
+        /// Singleton awake function.
+        /// </summary>
+        /// 
         protected override void AwakeFunction()
         {
+            
             
             base.AwakeFunction();
             DontDestroyOnLoad(this);
 
+            // Initialize Sounds.
             if (Sounds != null)
             {
                 foreach (Sound sound in Sounds)
@@ -25,14 +40,48 @@ namespace Code.Scripts
                     sound.Source.pitch = sound.GetPitch;
                 }
             }
+            
+            // Initalize Music.
+            if (Music != null)
+            {
+                foreach (Sound sound in Music)
+                {
+                    sound.Source = gameObject.AddComponent<AudioSource>();
+                    sound.Source.clip = sound.GetClip;
+                    sound.Source.volume = sound.GetVolume;
+                    sound.Source.pitch = sound.GetPitch;
+                }
+            }
         }
+        
+        // -------------------------------------------------------------------------------------------------------------
+        
+        #region Functions
 
-        public void Play(string _name)
+        /// <summary>
+        /// Plays a sound.
+        /// </summary>
+        /// <param name="_name">Hands over a sound name, which starts to play.</param>
+        public void PlaySound(string _name)
         {
             if (Sounds == null) return; 
             Sound s = Array.Find(Sounds, sound => sound.GetName == _name);
             s.Source.Play();
         }
 
+        /// <summary>
+        /// Plays music.
+        /// </summary>
+        /// <param name="_name">Hands over the music name.</param>
+        public void PlayMusic(string _name)
+        {
+            if (Music == null) return; 
+            Sound m = Array.Find(Sounds, sound => sound.GetName == _name);
+            m.Source.Play();
+        }
+
+        #endregion
+        
+        // -------------------------------------------------------------------------------------------------------------
     }
 }

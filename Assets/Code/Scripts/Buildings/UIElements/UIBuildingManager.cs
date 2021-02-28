@@ -201,7 +201,7 @@ namespace UI_Scripts
         public void OnButton_Exit()
         {
             //EventSystem.current.SetSelectedGameObject(null);
-            AudioManager.GetInstance.Play("BuildSlotClicked");
+            AudioManager.GetInstance.PlaySound("BuildSlotClicked");
             SetUIActive(false);
             UIPointerInHudManager.SetPointerInHud(false);
         }
@@ -209,7 +209,7 @@ namespace UI_Scripts
         public void OnButton_Upgrade()
         {
             EventSystem.current.SetSelectedGameObject(null);
-            AudioManager.GetInstance.Play("BuildSlotClicked");
+            AudioManager.GetInstance.PlaySound("BuildSlotClicked");
             CurrentSelectedBuilding.Upgrade();
         }
 
@@ -232,13 +232,13 @@ namespace UI_Scripts
 
         private void PlayDestroySound()
         {
-            FindObjectOfType<AudioManager>().Play("BuildingDestroy");
+            FindObjectOfType<AudioManager>().PlaySound("BuildingDestroy");
 
         }
         
         private void OnBuildingClicked(Building _building)
         {
-            if(CurrentSelectedBuilding != _building) FindObjectOfType<AudioManager>().Play("BuildingClicked");
+            if(CurrentSelectedBuilding != _building) FindObjectOfType<AudioManager>().PlaySound("BuildingClicked");
             CurrentSelectedBuilding = _building;
             CurrentSelectedBuilding.IsBuildingHudOpen = true;
             

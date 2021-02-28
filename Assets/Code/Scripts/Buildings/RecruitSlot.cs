@@ -33,11 +33,11 @@ namespace Buildings
             {
                 PlayerData.GetInstance.ToiletPaperAmountH -= recruit.GetToilettePaperCosts; 
                 SpawnUnitOnPos(PrefUnit,SpawnPos);
-                AudioManager.GetInstance.Play("Recruit");
+                AudioManager.GetInstance.PlaySound("Recruit");
             }
             else
             {
-                AudioManager.GetInstance.Play("CantBuild");
+                AudioManager.GetInstance.PlaySound("CantBuild");
             }
         }
 

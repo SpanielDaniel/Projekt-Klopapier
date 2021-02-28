@@ -110,10 +110,15 @@ namespace Code.Scripts
 
         // Events ------------------------------------------------------------------------------------------------------
 
+        /// <summary>
+        /// Deactivates the base build slot, when the building is placed on ground.
+        /// </summary>
+        /// <param name="obj">Base class.</param>
         private void OnBaseCreated(Base obj)
         {
             DeactivateBaseSlot();
         }
+        
         /// <summary>
         /// It triggers when the base ist built.  
         /// </summary>
@@ -124,6 +129,10 @@ namespace Code.Scripts
         }
         
         // Buttons
+        
+        /// <summary>
+        /// Opens the build hud.
+        /// </summary>
         public void OnButton_BuildMenu()
         {
             OpenHud();
@@ -138,7 +147,7 @@ namespace Code.Scripts
         /// <param name="_buildingPrefab">GameObject to Instantiate in the scene.</param>
         private void OnMouseClickedBuildSlot(GameObject _buildingPrefab)
         {
-            AudioManager.GetInstance.Play("BuildSlotClicked");
+            AudioManager.GetInstance.PlaySound("BuildSlotClicked");
 
             DestroySelectedBuildingObject();
             SetMeshActiveOfAllGrounds(true);
@@ -174,7 +183,7 @@ namespace Code.Scripts
         {
             if (CurrentBuilding.GetIsCollision || CanBuild == false)
             {
-                AudioManager.GetInstance.Play("CantBuild");
+                AudioManager.GetInstance.PlaySound("CantBuild");
                 return;
             }
             
@@ -188,7 +197,7 @@ namespace Code.Scripts
                 
             if (PlayerData.IsPlayerHavingEnoughResources(0, woodCosts,stoneCosts, steelCosts))
             {
-                AudioManager.GetInstance.Play("Build");
+                AudioManager.GetInstance.PlaySound("Build");
                 PlayerData.ReduceResources(0, woodCosts, stoneCosts, steelCosts);
                 CurrentBuilding.SetEntranceActive(false);
 
@@ -211,7 +220,6 @@ namespace Code.Scripts
                             UnitManager.GetNodes[CurrentGround.GetWidth + j, CurrentGround.GetHeight + i].IsWalkable = false;
                         }
                         MapGenerator.SetGroundBlocked(CurrentGround.GetWidth + j,CurrentGround.GetHeight + i,true);
-
                     }
                 }
                 
@@ -228,7 +236,7 @@ namespace Code.Scripts
             }
             else
             {
-                AudioManager.GetInstance.Play("CantBuild");
+                AudioManager.GetInstance.PlaySound("CantBuild");
             }
         }
 

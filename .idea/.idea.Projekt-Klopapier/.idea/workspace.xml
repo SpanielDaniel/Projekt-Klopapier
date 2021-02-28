@@ -44,14 +44,10 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/UIBuildingManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Ground.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Interfaces/IMouseLeftUp.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Interfaces/IMouseLeftDown.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Player/PlayerMouseManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/UIElements/UIFarm.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/RecruitSlot.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Build-System/BuildSlot.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Enemy Scripts/EnemySpawnScript.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Enemy Scripts/Waypoints.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Enemy Scripts/Enemy.cs" />
@@ -64,7 +60,6 @@
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/MeshCameraHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIUnitManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/UnitManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIResourcesManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/ResourceGenerator.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/MapResource.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Bullet.cs" />
@@ -85,7 +80,6 @@
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/Pointer.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/Building.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/BarbedWire.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Build-System/BuildManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/UnitSelector.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/House.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/UIElements/UIHouse.cs" />
@@ -95,6 +89,12 @@
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/Hospital.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/UIElements/UIHospital.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Timer.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIResourcesManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Build-System/BuildManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Sound/AudioManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Build-System/BuildSlot.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Build-System/StreetManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Build-System/Street.cs" />
       </list>
     </option>
   </component>
@@ -199,7 +199,7 @@
       <workItem from="1614299807041" duration="4576000" />
       <workItem from="1614358596249" duration="12655000" />
       <workItem from="1614420595203" duration="45138000" />
-      <workItem from="1614484432287" duration="41381000" />
+      <workItem from="1614484432287" duration="44845000" />
     </task>
     <servers />
   </component>
@@ -338,11 +338,11 @@
     <state x="-1542" y="243" key="run.anything.popup/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1612647802514" />
     <state x="378" y="243" key="run.anything.popup/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1614510800025" />
     <state x="2298" y="243" key="run.anything.popup/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@1920.0.1920.1040" timestamp="1607955804944" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1614511787966">
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1614534102309">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="-1297" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1614187109277" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1614511787966" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1614534102309" />
     <state x="2543" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@1920.0.1920.1040" timestamp="1607957859243" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/1920.0.1920.1040/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608517057534" />
   </component>

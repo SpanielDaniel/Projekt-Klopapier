@@ -31,7 +31,7 @@ public class UIMenu : MonoBehaviour
     // Start -----------------------------------------------------------------------------------------------------------
     private void StartMenuMusic()
     {
-        FindObjectOfType<AudioManager>().Play("MenuMusic");
+        FindObjectOfType<AudioManager>().PlaySound("MenuMusic");
     }
 
     #endregion
@@ -42,26 +42,26 @@ public class UIMenu : MonoBehaviour
 
     public void ButtonClicked_Start()
     {
-        AudioManager.GetInstance.Play("BuildSlotClicked");
+        AudioManager.GetInstance.PlaySound("BuildSlotClicked");
         GameManager.GetInstance.LoadScene(2);
     }
 
     public void ButtonClicked_Settings()
     {
-        AudioManager.GetInstance.Play("BuildSlotClicked");
+        AudioManager.GetInstance.PlaySound("BuildSlotClicked");
         MainMenu.SetActive(false);
         OptionsMenu.SetActive(true);
     }
 
     public void ButtonClicked_Quit()
     {
-        AudioManager.GetInstance.Play("BuildSlotClicked");
+        AudioManager.GetInstance.PlaySound("BuildSlotClicked");
         GameManager.GetInstance.QuitGame();
     }
 
     public void ButtonClicked_BackToMainMenu()
     {
-        AudioManager.GetInstance.Play("BuildSlotClicked");
+        AudioManager.GetInstance.PlaySound("BuildSlotClicked");
         OptionsMenu.SetActive(false);
         MainMenu.SetActive(true);
     }

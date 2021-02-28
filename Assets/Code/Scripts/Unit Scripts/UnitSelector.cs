@@ -157,7 +157,7 @@ public class UnitSelector : MonoBehaviour
                     if (building != null && !isbarbe)
                     {
                         if(building.GetUnitCanEnter) MoveAllUnitsIntoBuilding(building);
-                        else FindObjectOfType<AudioManager>().Play("CantBuild");                   
+                        else FindObjectOfType<AudioManager>().PlaySound("CantBuild");                   
                     }
                     else
                     {
@@ -200,7 +200,7 @@ public class UnitSelector : MonoBehaviour
 
     private void MoveAllUnitsIntoBuilding(Building _building)
     {
-        FindObjectOfType<AudioManager>().Play("GetInside");
+        FindObjectOfType<AudioManager>().PlaySound("GetInside");
         foreach (Unit unit in SelectedUnitsH)
         {
             MoveUnitsIntoBuilding(unit,_building);
@@ -220,7 +220,7 @@ public class UnitSelector : MonoBehaviour
     public void MoveUnits(int _endPosX,int _endPosZ)
     {
         if (SelectedUnitsH[0].GetXPosition == _endPosX && SelectedUnitsH[0].GetZPosition == _endPosZ) return;
-        FindObjectOfType<AudioManager>().Play("MoveUnit");
+        FindObjectOfType<AudioManager>().PlaySound("MoveUnit");
 
         
         for (int i = 0; i < SelectedUnitsH.Count; i++)
@@ -291,7 +291,7 @@ public class UnitSelector : MonoBehaviour
 
         if (SelectedUnitsH.Count > 0)
         {
-            if(!UIPointerInHudManager.GetIsInHut) AudioManager.GetInstance.Play("YesSir");
+            if(!UIPointerInHudManager.GetIsInHut) AudioManager.GetInstance.PlaySound("YesSir");
 
             foreach (Unit unit in SelectedUnitsH)
             {

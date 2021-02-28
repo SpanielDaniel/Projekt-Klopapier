@@ -45,7 +45,7 @@ namespace Code.Scripts.Events
 
         public void OnButtonClick_Accept()
         {
-            AudioManager.GetInstance.Play("BuildSlotClicked");
+            AudioManager.GetInstance.PlaySound("BuildSlotClicked");
             OnEventWindowClosed?.Invoke(NextFileName,NextEventID);
             Destroy(gameObject);
         }

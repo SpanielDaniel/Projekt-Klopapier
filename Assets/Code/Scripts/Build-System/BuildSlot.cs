@@ -16,6 +16,13 @@ namespace Code.Scripts
         , IPointerEnterHandler
         , IPointerExitHandler
     {
+        // -------------------------------------------------------------------------------------------------------------
+        
+        #region Init
+        // Events ------------------------------------------------------------------------------------------------------
+        public static event Action<GameObject> OnMouseClick;
+
+        // Serialize Fields---------------------------------------------------------------------------------------------
         [SerializeField] private GameObject Building;
         [SerializeField] private Image IconImage;
         [SerializeField] private Image Background;
@@ -23,8 +30,9 @@ namespace Code.Scripts
         [SerializeField] private TextMeshProUGUI BuildingName;
         [SerializeField] private GameObject Cross;
 
-        public static event Action<GameObject> OnMouseClick;
-
+        #endregion
+        
+        // -------------------------------------------------------------------------------------------------------------
         private void Awake()
         {
             Cross.SetActive(false);
@@ -32,34 +40,54 @@ namespace Code.Scripts
 
         private void Start()
         {
-            BackgroundRed.gameObject.SetActive(false);
-            Background.gameObject.SetActive(true);
             Init();
         }
-
+        
+        // -------------------------------------------------------------------------------------------------------------
+        
+        #region Functions
+        
+        // Start -------------------------------------------------------------------------------------------------------
+        
+        /// <summary>
+        ///  Initialize the build slot.
+        /// </summary>
         private void Init()
         {
             BuildingData data = Building.GetComponent<Building>().GetData;
             IconImage.sprite = data.BuldingTexture;
             BuildingName.text = data.Name;
+            BackgroundRed.gameObject.SetActive(false);
+            Background.gameObject.SetActive(true);
             Cross.SetActive(false);
         }
-
+        
+        
+        // Unity Events ------------------------------------------------------------------------------------------------
+        // Pointer
+        
         public void OnPointerClick(PointerEventData eventData)
         {
+            // starts build phase
             OnMouseClick?.Invoke(Building);
         }
 
         public void OnPointerEnter(PointerEventData eventData)
         {
+            // shows red background
             BackgroundRed.gameObject.SetActive(true);
             Background.gameObject.SetActive(false);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
+            // hide background
             BackgroundRed.gameObject.SetActive(false);
             Background.gameObject.SetActive(true);
         }
+
+        #endregion 
+        
+        // -------------------------------------------------------------------------------------------------------------
     }
 }
