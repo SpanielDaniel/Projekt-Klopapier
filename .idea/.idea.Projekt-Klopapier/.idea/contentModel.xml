@@ -123,11 +123,13 @@
               <e p="UIVisibilityManager.cs" t="Include" />
             </e>
             <e p="Unit Scripts" t="Include">
+              <e p="RayDetection.cs" t="Include" />
               <e p="Recruit.cs" t="Include" />
               <e p="Unit.cs" t="Include" />
               <e p="UnitData.cs" t="Include" />
               <e p="UnitManager.cs" t="Include" />
               <e p="UnitSelector.cs" t="Include" />
+              <e p="UnitWeapon.cs" t="Include" />
             </e>
             <e p="Wave Scripts" t="Include">
               <e p="Wave.cs" t="Include" />

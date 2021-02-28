@@ -105,6 +105,7 @@ namespace Buildings
                     {
                         FrontSideUnitIDs[i] = GetUnitIDs[a];
                         FrontGuns[i].SetActive(true);
+                        FrontGuns[i].GetComponent<UnitWeapon>().Init(Unit.Units[FrontSideUnitIDs[i]]);
                         return true;
                     }
                 }
@@ -132,6 +133,7 @@ namespace Buildings
                     {
                         BackSideUnitIDs[i] = GetUnitIDs[a];
                         BackGuns[i].SetActive(true);
+                        BackGuns[i].GetComponent<UnitWeapon>().Init(Unit.Units[BackSideUnitIDs[i]]);
                         return true;
                     }
                 }
@@ -158,6 +160,8 @@ namespace Buildings
                     {
                         LeftSideUnitIDs[i] = GetUnitIDs[a];
                         LeftGuns[i].SetActive(true);
+                        
+                        LeftGuns[i].GetComponent<UnitWeapon>().Init(Unit.Units[LeftSideUnitIDs[i]]);
                         return true;
                     }
                 }
@@ -184,6 +188,7 @@ namespace Buildings
                     {
                         RightSideUnitIDs[i] = GetUnitIDs[a];
                         RightGuns[i].SetActive(true);
+                        RightGuns[i].GetComponent<UnitWeapon>().Init(Unit.Units[RightSideUnitIDs[i]]);
                         return true;
                     }
 
@@ -268,22 +273,26 @@ namespace Buildings
             {
                 FrontSideUnitIDs[_slot2] = unitID;
                 FrontGuns[_slot2].SetActive(true);
+                FrontGuns[_slot2].GetComponent<UnitWeapon>().Init(Unit.Units[FrontSideUnitIDs[_slot2]]);
             }
             else if (_slot2 >= 8 && _slot2 < 16)
             {
                 BackSideUnitIDs[_slot2 - 8] = unitID;
                 BackGuns[_slot2 - 8].SetActive(true);
+                BackGuns[_slot2 - 8].GetComponent<UnitWeapon>().Init(Unit.Units[BackSideUnitIDs[_slot2 - 8]]);
             }
             else if (_slot2 >= 16 && _slot2 < 19)
             {
                 LeftSideUnitIDs[_slot2 - 16] = unitID;
                 LeftGuns[_slot2 - 16].SetActive(true);
+                LeftGuns[_slot2 - 16].GetComponent<UnitWeapon>().Init(Unit.Units[LeftSideUnitIDs[_slot2 - 16]]);
 
             }
             else if (_slot2 >= 19 && _slot2 < 22)
             {
                 RightSideUnitIDs[_slot2 - 19] = unitID;
                 RightGuns[_slot2 - 19].SetActive(true);
+                RightGuns[_slot2 - 19].GetComponent<UnitWeapon>().Init(Unit.Units[RightSideUnitIDs[_slot2 - 19]]);
             }
             
             StartOnValueChanged();

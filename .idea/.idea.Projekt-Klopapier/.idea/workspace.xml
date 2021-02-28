@@ -81,7 +81,6 @@
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/Building.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/BarbedWire.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/UnitSelector.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/House.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/UIElements/UIHouse.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/UIElements/UIBuildingManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/Unit.cs" />
@@ -95,6 +94,7 @@
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Build-System/BuildSlot.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Build-System/StreetManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Build-System/Street.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/House.cs" />
       </list>
     </option>
   </component>
@@ -199,7 +199,7 @@
       <workItem from="1614299807041" duration="4576000" />
       <workItem from="1614358596249" duration="12655000" />
       <workItem from="1614420595203" duration="45138000" />
-      <workItem from="1614484432287" duration="44845000" />
+      <workItem from="1614484432287" duration="46097000" />
     </task>
     <servers />
   </component>
@@ -327,11 +327,11 @@
     <state x="2001" y="49" width="1340" height="864" key="dock-window-2/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1614493505799" />
     <state x="1920" y="0" width="1340" height="864" key="dock-window-2/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1614492622916" />
     <state x="300" y="0" width="1167" height="796" key="dock-window-2/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@1920.0.1920.1040" timestamp="1614124945469" />
-    <state x="290" y="115" width="1340" height="841" key="dock-window-3" timestamp="1614523870045">
+    <state x="290" y="115" width="1340" height="841" key="dock-window-3" timestamp="1614537136742">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="290" y="115" width="1340" height="841" key="dock-window-3/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1614523870045" />
-    <state x="412" y="201" width="1340" height="841" key="dock-window-3/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1614514073318" />
+    <state x="290" y="115" width="1340" height="841" key="dock-window-3/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1614537136742" />
     <state x="378" y="243" key="run.anything.popup" timestamp="1614510800025">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
