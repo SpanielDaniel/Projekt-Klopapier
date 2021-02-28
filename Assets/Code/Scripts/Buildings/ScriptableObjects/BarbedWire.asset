@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebd08c17ea8b4256b220648d24996397, type: 3}
+  m_Name: BarbedWire
+  m_EditorClassIdentifier: 
+  ObjectSize:
+    X: 2
+    Y: 2
+  Name: Stacheldrahz Zaun
+  Description: "Ein Zaun zum verlangsamen f\xFCr Einheiten"
+  BuldingTexture: {fileID: 21300000, guid: 33cbb4b437ab28847b7534ffa085c049, type: 3}
+  IsUpgradable: 0
+  Levels:
+  - MaxLife: 50
+    WoodCosts: 5
+    StoneCosts: 5
+    SteelCosts: 5
+    MaxUnits: 5
+  IsFinished: 0
+  CanBeDemolished: 0
+  CanBeRepaired: 0

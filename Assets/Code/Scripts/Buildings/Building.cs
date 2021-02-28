@@ -401,7 +401,6 @@ namespace Buildings
 
             StartOnValueChanged();
             UpdateHumanAmount();
-            Debug.Log("UNit in building" + UnitAmount);
 
             if (UnitAmount < GetMaxUnitAmount()) UnitCanEnter = true;
         }

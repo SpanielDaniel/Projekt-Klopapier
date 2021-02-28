@@ -31,7 +31,7 @@ namespace UI_Scripts
 
         [SerializeField] private Image CurrentImage;
         [SerializeField] private Sprite DefaultSprite;
-        [SerializeField] private GameObject Button;
+        [SerializeField] private GameObject RedWoodBackground;
         [SerializeField] private GameObject Cross;
         [SerializeField] private bool CanDrag = false;
         [SerializeField] private bool CanDrop = false;
@@ -45,7 +45,7 @@ namespace UI_Scripts
 
         private void Awake()
         {
-            if(Button != null) Button.SetActive(false);
+            //if(Button != null) Button.SetActive(false);
             UnitID = -1;
         }
 
@@ -80,6 +80,7 @@ namespace UI_Scripts
             SetImage(_sprite);
             SetUnitId(_unitID);
             CanDrag = true;
+            CanDrop = false;
         }
         protected void SetImage(Sprite _sprite)
         {
@@ -91,38 +92,38 @@ namespace UI_Scripts
         private void SetUnitId(int _id)
         {
             UnitID = _id;
-            if(UnitID >= 0 && IsMouseEntered) Button.SetActive(true); 
+            //if(UnitID >= 0 && IsMouseEntered) Button.SetActive(true); 
         }
 
         public void SetDefaultSprite()
         {
             CurrentImage.sprite = DefaultSprite;
             CurrentImage.gameObject.SetActive(false);
+            CanDrag = false;
         }
 
         #endregion
         
         #region Events
-
-        private bool IsMouseEntered;
-
+        
         public void OnPointerEnter(PointerEventData eventData)
         {
-            IsMouseEntered = true;
-            if (Button != null && UnitID >= 0) Button.SetActive(true);
+            if (RedWoodBackground == null) return;
+            RedWoodBackground.SetActive(true);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            IsMouseEntered = false;
-            if(Button != null) Button.SetActive(false);
+            if (RedWoodBackground == null) return;
+            RedWoodBackground.SetActive(false);
         }
 
         public virtual void ButtonAction()
         {
             if (UnitID < 0) return;
-            Button.SetActive(false);
+            //Button.SetActive(false);
             Unit unit = Unit.Units[UnitID];
+            UnitID = -1;
             OnUnitRelease?.Invoke(unit);
         }
 

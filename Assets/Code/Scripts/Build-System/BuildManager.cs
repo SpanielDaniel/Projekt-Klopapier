@@ -7,6 +7,7 @@
  */
 
 
+using System;
 using Assets.Code.Scripts.Unit_Scripts;
 using Buildings;
 using Code.Scripts.Map;
@@ -159,7 +160,7 @@ namespace Code.Scripts
             if (Input.GetMouseButtonDown(1)) RightMouseButtonClicked();
 
             // Extra Mouse Button Clicked
-            if (Input.GetMouseButtonDown(3)) MiddleMouseButtonClicked();
+            if (Input.GetMouseButtonDown(3) || Input.GetKeyDown(KeyCode.R)) MiddleMouseButtonClicked();
 
         }
         
@@ -200,9 +201,17 @@ namespace Code.Scripts
                 {
                     for (int j = 0; j < CurrentBuilding.CurrentWidthH; j++)
                     {
-                        MapGenerator.SetGroundBlocked(CurrentGround.GetWidth + j,CurrentGround.GetHeight + i,true);
+                        if (CurrentBuilding is BarbedWire)
+                        {
+                            UnitManager.GetNodes[CurrentGround.GetWidth + j, CurrentGround.GetHeight + i].IsWalkable = true;
+                        }
+                        else
+                        {
                         
-                        UnitManager.GetNodes[CurrentGround.GetWidth + j, CurrentGround.GetHeight + i].IsWalkable = false;
+                            UnitManager.GetNodes[CurrentGround.GetWidth + j, CurrentGround.GetHeight + i].IsWalkable = false;
+                        }
+                        MapGenerator.SetGroundBlocked(CurrentGround.GetWidth + j,CurrentGround.GetHeight + i,true);
+
                     }
                 }
                 
@@ -358,6 +367,7 @@ namespace Code.Scripts
 
                 CanBuild = CanBuildingBuildOnGround(CurrentBuilding,ground);
                 
+                
                 // Changes the material of the building depend of the player can build the building on the ground.
                 if (CanBuild) CurrentBuilding.SetBuildMaterial();
                 else CurrentBuilding.SetCantBuildMaterial();
@@ -425,11 +435,38 @@ namespace Code.Scripts
         private bool CanBuildingBuildOnGround(Building _building,Ground _ground)
         {
             bool isGroundBlocked = IsBuildingGroundsBlocked(_building, _ground);
+            if (CurrentBuilding is BarbedWire)
+            {
+                if (IsBuildingOnStreet(_ground))
+                {
+                    isGroundBlocked = false;
+                }
+                else
+                {
+                    isGroundBlocked = true;
+                }
+            }
             bool isEntranceOnStreet = IsEntranceOnStreet(_building);
 
+            
+            
             if (!isGroundBlocked && isEntranceOnStreet) return true;
             
             return false;
+        }
+
+        private bool IsBuildingOnStreet(Ground _ground)
+        {
+            for (int i = 0; i < CurrentBuilding.CurrentHeightH; i++)
+            {
+                for (int j = 0; j < CurrentBuilding.CurrentWidthH; j++)
+                {
+                    Ground ground = MapGenerator.GetGroundFromPosition(_ground.GetWidth + j, _ground.GetHeight + i);
+                    if (ground.GetGroundSignature != EGround.Street) return false;
+                }
+            }
+
+            return true;
         }
 
         /// <summary>

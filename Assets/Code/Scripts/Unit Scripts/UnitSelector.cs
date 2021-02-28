@@ -109,6 +109,7 @@ public class UnitSelector : MonoBehaviour
         }
 
         
+        
         if (Input.GetMouseButtonDown(0))
         {
             if (!UIPointerInHudManager.GetIsInHut && !BuildManager.GetIsBuilding)
@@ -146,24 +147,40 @@ public class UnitSelector : MonoBehaviour
                 
                 if (Physics.Raycast(ray, out hit,100,mask))
                 {
-                    Ground ground = hit.transform.GetComponent<Ground>();
-                    if (ground != null)
-                    {
-                        foreach (Unit unit in SelectedUnitsH)
-                        {
-                            unit.CancelMovingIntoBuilding();
-                            
-
-                        }
-                        MoveUnits(ground.GetWidth, ground.GetHeight);
-                    }
                     Building building = hit.transform.GetComponent<Building>();
-                   
-                    if (building != null)
+
+                    bool isbarbe = building is BarbedWire;
+                    if (isbarbe)
+                    {
+                        isbarbe = building.IsBuiltHandler;
+                    }
+                    if (building != null && !isbarbe)
                     {
                         if(building.GetUnitCanEnter) MoveAllUnitsIntoBuilding(building);
                         else FindObjectOfType<AudioManager>().Play("CantBuild");                   
                     }
+                    else
+                    {
+                        mask = LayerMask.GetMask("Ground");
+                    }
+
+                    if (Physics.Raycast(ray, out hit, 100, mask))
+                    {
+                        Ground ground = hit.transform.GetComponent<Ground>();
+                        if (ground != null)
+                        {
+                            foreach (Unit unit in SelectedUnitsH)
+                            {
+                                unit.CancelMovingIntoBuilding();
+
+
+                            }
+
+                            MoveUnits(ground.GetWidth, ground.GetHeight);
+                        }
+                    }
+
+
                 }
             }
         }

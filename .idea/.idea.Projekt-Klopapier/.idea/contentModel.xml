@@ -32,6 +32,7 @@
               <e p="StreetManager.cs" t="Include" />
             </e>
             <e p="Buildings" t="Include">
+              <e p="BarbedWire.cs" t="Include" />
               <e p="Base.cs" t="Include" />
               <e p="Building.cs" t="Include" />
               <e p="BuildingData.cs" t="Include" />
@@ -51,7 +52,6 @@
                 <e p="UIScrap.cs" t="Include" />
               </e>
             </e>
-            <e p="Bullet.cs" t="Include" />
             <e p="Enemy Scripts" t="Include">
               <e p="Enemy.cs" t="Include" />
               <e p="EnemyData.cs" t="Include" />
@@ -95,6 +95,7 @@
               <e p="PlayerMouseManager.cs" t="Include" />
             </e>
             <e p="RecourceMap" t="Include">
+              <e p="Bullet.cs" t="Include" />
               <e p="MapResource.cs" t="Include" />
               <e p="MeshCameraHandler.cs" t="Include" />
               <e p="MeshGenerator.cs" t="Include" />
