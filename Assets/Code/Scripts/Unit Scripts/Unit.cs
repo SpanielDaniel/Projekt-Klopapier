@@ -242,7 +242,7 @@ public class Unit : MonoBehaviour
                 Animator.SetBool("IsCombat", true);
                 Animator.SetBool("IsIdle", false);
                 Attack(Target);
-                CountDownShoot = GetUnitData.AttackSpeed;
+                CountDownShoot = AttackSpeed;
 
             }
 
@@ -308,6 +308,21 @@ public class Unit : MonoBehaviour
             bullet.Seek(Target);
             bullet.SetDMGValue(AttackPoints);
         }
+    }
+
+    public float GetAttack()
+    {
+        return AttackPoints;
+    }
+
+    public float GetRange()
+    {
+        return Range;
+    }
+
+    public float GetAttackSpeed()
+    {
+        return AttackSpeed;
     }
 
     public void TakeDamage(int _dmg)
