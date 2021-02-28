@@ -72,7 +72,6 @@
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Player/CameraManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/MeshCameraHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Wave Scripts/Wave_Spawner.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UISlot.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIUnitManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/UnitManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UIResourcesManager.cs" />
@@ -84,17 +83,18 @@
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Unit Scripts/Unit.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/UnitGather.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Events/EventManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/Building.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/GameManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/UIUnitGather.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/RecourceMap/ResourceMapManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/UIElements/UIScrap.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/UIDestroyedHouse.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/DestroyedHouse.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Map/MapGenerator.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Build-System/BuildManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/Scrap.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Scripts/Player/PlayerData.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Map/MapGenerator.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/Buildings/Building.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Scripts/UI Scripts/UISlot.cs" />
       </list>
     </option>
   </component>
@@ -197,7 +197,7 @@
       <workItem from="1614245647741" duration="3697000" />
       <workItem from="1614299807041" duration="4576000" />
       <workItem from="1614358596249" duration="12655000" />
-      <workItem from="1614420595203" duration="39917000" />
+      <workItem from="1614420595203" duration="45138000" />
     </task>
     <servers />
   </component>

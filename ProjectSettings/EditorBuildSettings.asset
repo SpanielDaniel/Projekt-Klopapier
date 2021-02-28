@@ -6,15 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Level/Scenes/PreloadScene.unity
+    path: Assets/Level/_Scenes/_PreloadScene.unity
     guid: d760f0e8229b542458249015e7462255
   - enabled: 1
-    path: Assets/Level/Scenes/MainMenu.unity
+    path: Assets/Level/_Scenes/MainMenu.unity
     guid: 73960c74f4b4d7a41a864379c0bd5d7e
   - enabled: 1
-    path: Assets/Level/Scenes/FinalGameScene.unity
+    path: Assets/Level/_Scenes/FinalGameScene.unity
     guid: 9677b973aad55b34ea324e2dd17f9cf9
   - enabled: 1
-    path: Assets/Level/Scenes/Test_GenerateMesh.unity
+    path: Assets/Level/_Scenes/ResourceMap.unity
     guid: 518d1ad11a2e5994194799becb6b9e9e
   m_configObjects: {}

@@ -66,7 +66,9 @@ namespace UI_Scripts
         }
         protected void SetImage(Sprite _sprite)
         {
+            CurrentImage.gameObject.SetActive(true);
             CurrentImage.sprite = _sprite;
+            
         }
 
         private void SetUnitId(int _id)
@@ -78,6 +80,7 @@ namespace UI_Scripts
         public void SetDefaultSprite()
         {
             CurrentImage.sprite = DefaultSprite;
+            CurrentImage.gameObject.SetActive(false);
         }
 
         #endregion

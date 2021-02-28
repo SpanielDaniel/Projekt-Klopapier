@@ -22,8 +22,6 @@ namespace Code.Scripts.Map
         private MyGrid<GameObject> Waypoints;
         
         private int MapMultiplicator = 2;
-
-        
         public int GetGroundWidth => GroundObjectsMap.GetWidth;
         public int GetGroundHeight => GroundObjectsMap.GetHeight;
         

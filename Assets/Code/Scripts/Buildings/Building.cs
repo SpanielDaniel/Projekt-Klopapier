@@ -6,6 +6,7 @@ using Code.Scripts;
 using Code.Scripts.Map;
 using Interfaces;
 using Player;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -48,6 +49,8 @@ namespace Buildings
         [Space]
         [Header("Units in Building")]
         [SerializeField] protected int UnitAmount = 0;
+        [SerializeField] private GameObject[] HumanPictures = new GameObject[5];
+        [SerializeField] private TextMeshProUGUI HumanAmountText;
         [Space]
         [Header("Collider")]
         [SerializeField] private BoxCollider Collider;
@@ -64,6 +67,7 @@ namespace Buildings
         [SerializeField] private GameObject BuidingConstruction;
         [SerializeField] private GameObject EntranceObjPos;
         [SerializeField] private GameObject EntranceObj;
+        
         
         
         // private -----------------------------------------------------------------------------------------------------
@@ -193,6 +197,7 @@ namespace Buildings
         private void Start()
         {
             Init();
+            UpdateHumanAmount();
         }
         
         private void Update()
@@ -341,13 +346,34 @@ namespace Buildings
             if (!UnitCanEnter){ return false; }
             UnitIDs.Add(_unitId);
             
-            
             UnitAmount++;
+            
+            
             StartOnValueChanged();
             if (UnitAmount == MaxUnitAmount) UnitCanEnter = false;
             AddUnitEffect();
-            
+            UpdateHumanAmount();
             return true;
+        }
+
+        private void UpdateHumanAmount()
+        {
+            if (UnitAmount > 5)
+            {
+                HumanAmountText.gameObject.SetActive(true);
+                HumanAmountText.text = UnitAmount.ToString();
+            }
+            else
+            {
+                HumanAmountText.gameObject.SetActive(false);
+            }
+
+            
+            for (int i = 0; i < HumanPictures.Length; i++)
+            {
+                if(i < UnitAmount) HumanPictures[i].SetActive(true);
+                else HumanPictures[i].SetActive(false);
+            }
         }
         
         protected virtual void AddUnitEffect(){}
@@ -362,7 +388,7 @@ namespace Buildings
             UnitIDs.Remove(_unit.GetID);
             UnitAmount--;
             StartOnValueChanged();
-            
+            UpdateHumanAmount();
             if (UnitAmount < MaxUnitAmount) UnitCanEnter = true;
         }
 
@@ -386,7 +412,7 @@ namespace Buildings
             StartOnValueChanged();
             UnitAmount = 0;
             UnitIDs.Clear();
-            
+            UpdateHumanAmount();
             if (UnitAmount < MaxUnitAmount) UnitCanEnter = true;
 
         }
