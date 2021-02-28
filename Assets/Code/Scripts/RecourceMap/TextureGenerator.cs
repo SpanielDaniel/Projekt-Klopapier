@@ -2,15 +2,20 @@
 // Author   : Daniel Bäcker
 // Project  : Projekt-Klopapier
 
-
 using UnityEngine;
-using System.Collections;
 
 namespace Code.Scripts
 {
     public static class TextureGenerator
     {
-        public static Texture2D TextureFromColorMap(Color[] colorMap, int width, int height)
+        /// <summary>
+        /// Set pixel of a texture wit a color
+        /// </summary>
+        /// <param name="colorMap">Colors to add to the texture.</param>
+        /// <param name="width">width position</param>
+        /// <param name="height">height position</param>
+        /// <returns>Colored Texture.</returns>
+        private static Texture2D TextureFromColorMap(Color[] colorMap, int width, int height)
         {
             Texture2D texture = new Texture2D(width,height);
             texture.SetPixels(colorMap);
@@ -18,6 +23,11 @@ namespace Code.Scripts
             return texture;
         }
 
+        /// <summary>
+        /// Get a specific color map value of a high map.
+        /// </summary>
+        /// <param name="heightMap"></param>
+        /// <returns></returns>
         public static Texture2D TextureFromHeightMap(float[,] heightMap)
         {
             int w = heightMap.GetLength(0);

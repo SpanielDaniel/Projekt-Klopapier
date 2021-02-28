@@ -26,7 +26,7 @@ namespace UI_Scripts
 
         public static Action<Unit> OnUnitRelease;
         public static Action<UISlot> OnDragStarted; 
-        public static Action<UISlot> OnEndDragStarted; 
+        public static Action OnEndDragStarted; 
         public static Action<UISlot> OnDropStarted; 
 
         [SerializeField] private Image CurrentImage;
@@ -137,7 +137,7 @@ namespace UI_Scripts
         
         public void OnEndDrag(PointerEventData eventData)
         {
-            OnEndDragStarted?.Invoke(this);
+            OnEndDragStarted?.Invoke();
         }
         
         public void OnDrop(PointerEventData eventData)

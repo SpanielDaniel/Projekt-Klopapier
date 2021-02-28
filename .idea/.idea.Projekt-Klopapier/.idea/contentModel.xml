@@ -58,22 +58,17 @@
               <e p="EnemySpawnScript.cs" t="Include" />
               <e p="Waypoints.cs" t="Include" />
             </e>
-            <e p="Enums.cs" t="Include" />
             <e p="Events" t="Include">
               <e p="EventManager.cs" t="Include" />
               <e p="EventWindow.cs" t="Include" />
             </e>
             <e p="GameManager.cs" t="Include" />
             <e p="Grid" t="Include">
-              <e p="DanielB" t="Include">
-                <e p="MyGrid.cs" t="Include" />
-              </e>
-              <e p="Grid.cs" t="Include" />
+              <e p="MyGrid.cs" t="Include" />
               <e p="Node.cs" t="Include" />
               <e p="Pathfinding.cs" t="Include" />
               <e p="PathfindingDijkstra.cs" t="Include" />
             </e>
-            <e p="Ground.cs" t="Include" />
             <e p="Interfaces" t="Include">
               <e p="IMouseEnter.cs" t="Include" />
               <e p="IMouseExit.cs" t="Include" />
@@ -85,6 +80,7 @@
               <e p="UIMenu.cs" t="Include" />
             </e>
             <e p="Map" t="Include">
+              <e p="Ground.cs" t="Include" />
               <e p="MapGenerator.cs" t="Include" />
               <e p="MapGeneratorEditor.cs" t="Include" />
               <e p="MapManager.cs" t="Include" />
@@ -101,6 +97,7 @@
               <e p="MeshGenerator.cs" t="Include" />
               <e p="ResourceGenerator.cs" t="Include" />
               <e p="ResourceMapmanager.cs" t="Include" />
+              <e p="TextureGenerator.cs" t="Include" />
               <e p="UIUnitGather.cs" t="Include" />
               <e p="UnitGather.cs" t="Include" />
             </e>
@@ -109,8 +106,6 @@
               <e p="AudioManager.cs" t="Include" />
               <e p="Sound.cs" t="Include" />
             </e>
-            <e p="StreetOld.cs" t="Include" />
-            <e p="TextureGenerator.cs" t="Include" />
             <e p="Timer.cs" t="Include" />
             <e p="UI Scripts" t="Include">
               <e p="Pointer.cs" t="Include" />

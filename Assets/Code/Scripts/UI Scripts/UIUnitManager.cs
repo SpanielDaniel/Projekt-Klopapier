@@ -18,6 +18,7 @@ namespace Assets.Code.Scripts.UI_Scripts
         public static event Action OnButtonGather;
         public static event Action<Unit> OnUnitgather;
         private UnitData Data;
+        
         [SerializeField] private GameObject UnitUI;
         [SerializeField] private TMP_Text NameUI;
         [SerializeField] private TMP_Text NumberOfUnitsUI;
@@ -29,7 +30,6 @@ namespace Assets.Code.Scripts.UI_Scripts
         [SerializeField] private TMP_Text SpeedUI;
         [SerializeField] private TMP_Text HealthPointsUI;
         [SerializeField] private GameObject UnitGroupUI;
-
         [SerializeField] private BuildManager BuildManager;
 
         private void Awake()
@@ -81,14 +81,11 @@ namespace Assets.Code.Scripts.UI_Scripts
             BuildManager.OpenHudFromUnit(Unit);
         }
 
-        public void OnButtonClick_Gater()
+        public void OnButtonClick_Gather()
         {
             OnButtonGather?.Invoke();
             OnUnitgather?.Invoke(Unit);
         }
-
-        
-        
 
     }
 }
