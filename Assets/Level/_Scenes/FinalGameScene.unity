@@ -11261,7 +11261,6 @@ MonoBehaviour:
   DefaultSprite: {fileID: 0}
   Button: {fileID: 0}
   Cross: {fileID: 0}
-  Pointer: {fileID: 0}
 --- !u!114 &1030124463 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: -8907449649113563415, guid: d9686bc7b89a39e47a8de8d7a11aef29, type: 3}
@@ -21746,7 +21745,6 @@ MonoBehaviour:
   DefaultSprite: {fileID: 0}
   Button: {fileID: 0}
   Cross: {fileID: 0}
-  Pointer: {fileID: 0}
 --- !u!1 &1916530390
 GameObject:
   m_ObjectHideFlags: 0
