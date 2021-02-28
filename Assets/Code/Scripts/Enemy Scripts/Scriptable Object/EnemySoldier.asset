@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c73c6bfb52d098d47a73a3ac3d8728bf, type: 3}
   m_Name: EnemySoldier
   m_EditorClassIdentifier: 
-  MaxHealthPoints: 100
-  Defence: 10
-  AttackPoints: 10
+  MaxHealthPoints: 50
+  Defence: 5
+  AttackPoints: 5
   AttackSpeed: 2
   MoveSpeed: 1
   Range: 1.5

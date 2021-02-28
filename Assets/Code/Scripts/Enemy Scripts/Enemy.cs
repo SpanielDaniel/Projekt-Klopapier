@@ -197,7 +197,10 @@ public class Enemy : MonoBehaviour
     public void Die()
     {
         Wave_Spawner.EnemiesAlive--;
-        PlayerData.GetInstance.IncreaseToiletPaper(OnDeathPaperDrop);
+        if (!OnEnterBase)
+        {
+            PlayerData.GetInstance.IncreaseToiletPaper(OnDeathPaperDrop);
+        }
         Destroy(gameObject);
     }
 
