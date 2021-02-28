@@ -256,7 +256,7 @@ namespace Buildings
                 LeftGuns[_slot1 - 16].SetActive(false);
                 LeftSideUnitIDs[_slot1 - 16] = -1;
             }
-            else if (_slot1 >= 19 && _slot1 < 21)
+            else if (_slot1 >= 19 && _slot1 < 22)
             {
                 unitID = RightSideUnitIDs[_slot1 - 19];
                 RightGuns[_slot1 - 19].SetActive(false);
@@ -280,7 +280,7 @@ namespace Buildings
                 LeftGuns[_slot2 - 16].SetActive(true);
 
             }
-            else if (_slot2 >= 19 && _slot2 < 21)
+            else if (_slot2 >= 19 && _slot2 < 22)
             {
                 RightSideUnitIDs[_slot2 - 19] = unitID;
                 RightGuns[_slot2 - 19].SetActive(true);

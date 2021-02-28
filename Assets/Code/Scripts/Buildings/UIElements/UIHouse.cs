@@ -8,9 +8,6 @@ namespace Code.Scripts.Buildings.UIElements
 {
     public class UIHouse : MonoBehaviour
     {
-        public static Action<UISlot> OnDragStarted; 
-        public static Action<UISlot> OnEndDragStarted; 
-        public static Action<UISlot> OnDropStarted; 
         
         [SerializeField] private UISlot[] FrontSlots;
         [SerializeField] private UISlot[] BackSlots;
@@ -72,8 +69,5 @@ namespace Code.Scripts.Buildings.UIElements
                 if (unitID >= 0 ) RightSlots[i].Init(Unit.Units[unitID].GetUnitData.Icon,unitID);
             }
         }
-
-        
-        
     }
 }
