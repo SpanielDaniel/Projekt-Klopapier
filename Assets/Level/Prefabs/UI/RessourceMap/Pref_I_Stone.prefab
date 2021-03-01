@@ -475,7 +475,7 @@ MonoBehaviour:
   MinAmount: 20
   MaxAmount: 30
   IsRegeneration: 1
-  ResourceRegenerationAmountInSeconds: 0.05
+  ResourceRegenerationAmountInSeconds: 1
   ResInfo: {fileID: 1118019352712553695}
   ResAmountText:
   - {fileID: 6238743055865778032}

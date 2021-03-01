@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Tank
   m_EditorClassIdentifier: 
   Name: Tank
-  Icon: {fileID: 21300000, guid: 557290a4e7372b941a0ccae8ac7f9b42, type: 3}
+  Icon: {fileID: 21300000, guid: c9eaf2e1fe7ab034f91384fb303d9005, type: 3}
   MaxHealthPoints: 200
   Defence: 50
   AttackPoints: 75

@@ -21,18 +21,18 @@ MonoBehaviour:
   IsUpgradable: 1
   Levels:
   - MaxLife: 100
-    WoodCosts: 5
-    StoneCosts: 5
-    SteelCosts: 5
+    WoodCosts: 10
+    StoneCosts: 50
+    SteelCosts: 20
     MaxUnits: 10
   - MaxLife: 200
     WoodCosts: 10
     StoneCosts: 10
     SteelCosts: 10
     MaxUnits: 16
-  - MaxLife: 300
-    WoodCosts: 20
-    StoneCosts: 20
+  - MaxLife: 350
+    WoodCosts: 50
+    StoneCosts: 50
     SteelCosts: 20
     MaxUnits: 22
   IsFinished: 0

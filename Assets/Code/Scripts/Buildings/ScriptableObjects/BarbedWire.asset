@@ -21,10 +21,10 @@ MonoBehaviour:
   IsUpgradable: 0
   Levels:
   - MaxLife: 50
-    WoodCosts: 5
-    StoneCosts: 5
-    SteelCosts: 5
-    MaxUnits: 5
+    WoodCosts: 10
+    StoneCosts: 2
+    SteelCosts: 20
+    MaxUnits: 0
   IsFinished: 0
   CanBeDemolished: 0
   CanBeRepaired: 0

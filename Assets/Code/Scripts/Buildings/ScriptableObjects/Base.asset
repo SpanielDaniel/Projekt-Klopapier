@@ -25,15 +25,15 @@ MonoBehaviour:
     StoneCosts: 0
     SteelCosts: 0
     MaxUnits: 0
-  - MaxLife: 200
-    WoodCosts: 20
-    StoneCosts: 20
+  - MaxLife: 250
+    WoodCosts: 30
+    StoneCosts: 50
     SteelCosts: 20
     MaxUnits: 0
-  - MaxLife: 300
+  - MaxLife: 500
     WoodCosts: 50
     StoneCosts: 50
-    SteelCosts: 50
+    SteelCosts: 60
     MaxUnits: 0
   IsFinished: 0
   CanBeDemolished: 0

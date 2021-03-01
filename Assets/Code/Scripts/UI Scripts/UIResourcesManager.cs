@@ -32,7 +32,7 @@ namespace UI_Scripts
             PlayerData.FoodAmountChanged += SetTextToFoodAmount;
             PlayerData.StorageCapacityChanged += SetStorageCapacity;
             PlayerData.PopulationChanged += SetTextPopulation;
-            MapGenerator.MapIsBuild += OnButton_MapRes;
+            
 
         }
 

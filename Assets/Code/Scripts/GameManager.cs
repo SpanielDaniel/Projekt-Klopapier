@@ -1,6 +1,5 @@
 ﻿using System;
 using Assets.Code.Scripts.UI_Scripts;
-using Buildings;
 using Code.Scripts;
 using Player;
 using UI_Scripts;
@@ -17,17 +16,13 @@ using UnityEngine.SceneManagement;
 
         public static event Action OnMapCamActive;
         public static event Action OnResCamActive;
-        public static event Action LostWindow;
-        public static event Action WonWindow;
 
         [SerializeField] private float GameSpeed = 1f;
         [SerializeField] private float ReduceFoodPerUnitEveryDay;
-        private bool CanLoseBool;
         private bool Lost;
         private bool Won;
         private Camera MapCamera;
         private Camera ResCamera;
-        private Base Base;
         
         public bool Win
         {
@@ -74,8 +69,6 @@ using UnityEngine.SceneManagement;
             MeshCameraHandler.OnCameraCreation += SetResCamera;
             ResourceMapManager.OnButtonClose += OnMap;
             UIResourcesManager.OnButton_MapRes += OnGather;
-            Base.OnBaseCreated += CanLose;
-            Base.OnDestroy += PlayerLose;
 
             LoadScene(1);
         }
@@ -83,8 +76,8 @@ using UnityEngine.SceneManagement;
         private void SetResCamera(Camera _obj)
         {
             ResCamera = _obj;
-            OnGather();
-            OnMap();
+            ResCamera.enabled = false;
+            //OnMap();
         }
 
         private void SetMapCamera(Camera _obj)
@@ -92,14 +85,14 @@ using UnityEngine.SceneManagement;
             MapCamera = _obj;
 
         }
-
-        private void OnGather()
-        {
-            ResCamera.enabled = true;
-            MapCamera.enabled = false;
-            OnResCamActive?.Invoke();
-        }
-
+        //
+         private void OnGather()
+         {
+             ResCamera.enabled = true;
+             MapCamera.enabled = false;
+             OnResCamActive?.Invoke();
+         }
+        //
         private void OnMap()
         {
             ResCamera.enabled = false;
@@ -110,11 +103,6 @@ using UnityEngine.SceneManagement;
         private void ReduceFood(int obj)
         {
             PlayerData.GetInstance.FoodAmountH -= (int) ((float) Unit.Units.Count * ReduceFoodPerUnitEveryDay);
-        }
-
-        private void CanLose()
-        {
-            CanLoseBool = true;
         }
 
         // -------------------------------------------------------------------------------------------------------------
@@ -137,14 +125,13 @@ using UnityEngine.SceneManagement;
 
         public void PlayerLose()
         {
-            Time.timeScale = 0;
-            LostWindow?.Invoke();
+            //ToDo: Lose Window Game Speed = 0; return to Menu after clicking button 
         }
 
         public void PlayerWin()
         {
-            Time.timeScale = 0;
-            WonWindow?.Invoke();
+        //ToDo: Win Window Game Speed = 0; return to menu after clicking Button
+        Debug.Log("Win");
         }
 
         #endregion

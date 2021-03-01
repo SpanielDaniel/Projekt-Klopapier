@@ -263,6 +263,7 @@ namespace Buildings
         // Late Update -------------------------------------------------------------------------------------------------
         private void RotateHealthBarToCamera()
         {
+            if (Camera.main == null) return;
             Quaternion cameraRotation = Camera.main.transform.rotation; 
             HealthBar.transform.rotation = new Quaternion(cameraRotation.x,cameraRotation.y,cameraRotation.z,cameraRotation.w);
         }

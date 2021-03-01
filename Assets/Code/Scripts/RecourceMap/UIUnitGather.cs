@@ -27,10 +27,8 @@ namespace Code.Scripts
         {
             UnitGather = _gather;
             Timer = UnitGather.GetTimerToGoToRes;
-            Image.sprite = _gather.Unit.GetUnitData.Icon;
             UpdateText();
         }
-        
 
         private void Update()
         {

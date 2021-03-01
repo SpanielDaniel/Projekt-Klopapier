@@ -12,8 +12,8 @@ public class UIInGameMenu : MonoBehaviour
 
     private void Awake()
     {
-        GameManager.WonWindow += ShowWin;
-        GameManager.LostWindow += ShowLose;
+        //GameManager.WonWindow += ShowWin;
+        //GameManager.LostWindow += ShowLose;
     }
 
     public void InGameMenu()
