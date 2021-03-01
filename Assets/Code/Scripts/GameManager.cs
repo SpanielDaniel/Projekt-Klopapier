@@ -1,5 +1,6 @@
 ﻿using System;
 using Assets.Code.Scripts.UI_Scripts;
+using Buildings;
 using Code.Scripts;
 using Player;
 using UI_Scripts;
@@ -16,13 +17,17 @@ using UnityEngine.SceneManagement;
 
         public static event Action OnMapCamActive;
         public static event Action OnResCamActive;
+        public static event Action LostWindow;
+        public static event Action WonWindow;
 
         [SerializeField] private float GameSpeed = 1f;
         [SerializeField] private float ReduceFoodPerUnitEveryDay;
+        private bool CanLoseBool;
         private bool Lost;
         private bool Won;
         private Camera MapCamera;
         private Camera ResCamera;
+        private Base Base;
         
         public bool Win
         {
@@ -69,6 +74,8 @@ using UnityEngine.SceneManagement;
             MeshCameraHandler.OnCameraCreation += SetResCamera;
             ResourceMapManager.OnButtonClose += OnMap;
             UIResourcesManager.OnButton_MapRes += OnGather;
+            Base.OnBaseCreated += CanLose;
+            Base.OnDestroy += PlayerLose;
 
             LoadScene(1);
         }
@@ -105,6 +112,11 @@ using UnityEngine.SceneManagement;
             PlayerData.GetInstance.FoodAmountH -= (int) ((float) Unit.Units.Count * ReduceFoodPerUnitEveryDay);
         }
 
+        private void CanLose()
+        {
+            CanLoseBool = true;
+        }
+
         // -------------------------------------------------------------------------------------------------------------
 
         #region Functions
@@ -125,13 +137,14 @@ using UnityEngine.SceneManagement;
 
         public void PlayerLose()
         {
-            //ToDo: Lose Window Game Speed = 0; return to Menu after clicking button 
+            Time.timeScale = 0;
+            LostWindow?.Invoke();
         }
 
         public void PlayerWin()
         {
-        //ToDo: Win Window Game Speed = 0; return to menu after clicking Button
-        Debug.Log("Win");
+            Time.timeScale = 0;
+            WonWindow?.Invoke();
         }
 
         #endregion

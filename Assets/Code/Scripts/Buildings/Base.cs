@@ -8,7 +8,7 @@ namespace Buildings
 {
     public class Base : Building
     {
-
+        public static event Action OnDestroy;
         public static event Action OnBaseCreated;
         protected override void OnBuildEffect()
         {
@@ -21,6 +21,8 @@ namespace Buildings
         public override void DestroyEffect()
         {
             base.DestroyEffect();
+            GameManager.GetInstance.Lose = true;
+            OnDestroy?.Invoke();
         }
 
         public override void Upgrade()
